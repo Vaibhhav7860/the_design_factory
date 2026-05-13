@@ -1,0 +1,127 @@
+.page { padding: 40px 0 80px; }
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+  font-family: var(--font-montserrat); font-weight: 300; font-size: 0.82rem; color: var(--text-tertiary);
+  flex-wrap: wrap;
+}
+.breadcrumb a { color: var(--text-secondary); transition: color var(--transition-fast); }
+.breadcrumb a:hover { color: var(--text-accent); }
+
+.detail {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+
+/* Gallery */
+.gallery {}
+.mainImage {
+  background: var(--bg-neu); border-radius: var(--radius-xl);
+  box-shadow: var(--neu-raised); padding: 32px;
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 1; overflow: hidden;
+}
+.img {
+  width: 100%; height: 100%; object-fit: contain;
+  transition: transform var(--transition-slow);
+}
+.mainImage:hover .img { transform: scale(1.08); }
+
+/* Info */
+.info { padding-top: 16px; }
+.title {
+  font-family: var(--font-cinzel); font-weight: 600;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem); letter-spacing: 0.04em;
+  color: var(--text-primary); margin: 12px 0 16px; line-height: 1.3;
+}
+.pricing { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.price {
+  font-family: var(--font-montserrat); font-weight: 700;
+  font-size: 1.6rem; color: var(--text-accent);
+}
+.original {
+  font-family: var(--font-montserrat); font-weight: 300;
+  font-size: 1rem; color: var(--text-tertiary); text-decoration: line-through;
+}
+.discountBadge {
+  padding: 4px 12px; border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  font-family: var(--font-montserrat); font-weight: 600;
+  font-size: 0.75rem; color: #2e7d32;
+}
+.desc {
+  font-family: var(--font-montserrat); font-weight: 300;
+  font-size: 0.92rem; line-height: 1.8; color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.features {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px;
+}
+.feature {
+  padding: 8px 16px; border-radius: var(--radius-full);
+  background: var(--bg-neu); box-shadow: var(--neu-raised-sm);
+  font-family: var(--font-montserrat); font-weight: 400;
+  font-size: 0.78rem; color: var(--text-secondary);
+}
+.qtyRow {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+}
+.qtyLabel {
+  font-family: var(--font-montserrat); font-weight: 500;
+  font-size: 0.85rem; color: var(--text-primary);
+}
+.qtyControl {
+  display: inline-flex; align-items: center;
+  background: var(--bg-neu); border-radius: var(--radius-md);
+  box-shadow: var(--neu-inset); overflow: hidden;
+}
+.qtyControl button {
+  width: 44px; height: 44px;
+  font-family: var(--font-montserrat); font-weight: 600; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition-fast);
+}
+.qtyControl button:hover { background: var(--gold-light); }
+.qtyControl span {
+  width: 48px; text-align: center;
+  font-family: var(--font-montserrat); font-weight: 500; font-size: 1rem;
+}
+
+.addBtn {
+  width: 100%; padding: 18px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #3a2800; border-radius: var(--radius-md);
+  font-family: var(--font-montserrat); font-weight: 700;
+  font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase;
+  box-shadow: 6px 6px 14px rgba(174,174,192,0.35), -6px -6px 14px var(--shadow-light);
+  transition: all var(--transition-base);
+  margin-bottom: 12px;
+}
+.addBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 20px rgba(174,174,192,0.4), -8px -8px 20px var(--shadow-light);
+}
+.addBtn:active {
+  transform: translateY(0);
+  box-shadow: inset 4px 4px 8px rgba(174,174,192,0.35), inset -4px -4px 8px rgba(255,255,255,0.8);
+}
+
+.whatsapp {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 16px;
+  background: var(--bg-neu); border: 1.5px solid #25D366;
+  border-radius: var(--radius-md); box-shadow: var(--neu-raised-sm);
+  font-family: var(--font-montserrat); font-weight: 500;
+  font-size: 0.85rem; color: #25D366; letter-spacing: 0.04em;
+  transition: all var(--transition-base);
+}
+.whatsapp:hover { background: #25D366; color: white; transform: translateY(-2px); box-shadow: var(--neu-raised); }
+
+/* Related */
+.related { margin-top: 80px; }
+.relatedGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .detail { grid-template-columns: 1fr; gap: 32px; }
+  .relatedGrid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}

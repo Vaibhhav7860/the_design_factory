@@ -1,0 +1,6 @@
+.wrapper { margin-bottom: 48px; }
+.centered { text-align: center; }
+.decorative { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: -4px; }
+.title { font-size: clamp(1.4rem, 3vw, 2.2rem); margin-bottom: 8px; }
+.subtitle { font-size: 1rem; max-width: 600px; }
+.centered .subtitle { margin: 0 auto; }

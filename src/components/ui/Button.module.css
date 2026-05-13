@@ -1,0 +1,79 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-montserrat);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+}
+
+.btn:hover::after { opacity: 1; }
+
+/* Sizes */
+.sm { padding: 10px 20px; font-size: 0.75rem; }
+.md { padding: 14px 32px; font-size: 0.82rem; }
+.lg { padding: 18px 44px; font-size: 0.9rem; }
+
+/* Primary — Gold neumorphic */
+.primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #3a2800;
+  box-shadow: 4px 4px 10px rgba(174,174,192,0.35), -4px -4px 10px var(--shadow-light);
+}
+
+.primary:hover {
+  box-shadow: 6px 6px 14px rgba(174,174,192,0.45), -6px -6px 14px var(--shadow-light);
+  transform: translateY(-2px);
+}
+
+.primary:active {
+  box-shadow: inset 3px 3px 6px rgba(174,174,192,0.4), inset -3px -3px 6px var(--shadow-light);
+  transform: translateY(0);
+}
+
+/* Secondary — outlined */
+.secondary {
+  background: var(--bg-neu);
+  color: var(--text-primary);
+  border: 1.5px solid var(--gold);
+  box-shadow: var(--neu-raised-sm);
+}
+
+.secondary:hover {
+  background: var(--gold-light);
+  box-shadow: var(--neu-raised);
+  transform: translateY(-2px);
+}
+
+.secondary:active {
+  box-shadow: var(--neu-inset);
+  transform: translateY(0);
+}
+
+/* Ghost */
+.ghost {
+  background: transparent;
+  color: var(--text-accent);
+  border: 1.5px solid transparent;
+}
+
+.ghost:hover {
+  border-color: var(--gold);
+  background: rgba(252, 213, 137, 0.08);
+}

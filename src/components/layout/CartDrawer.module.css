@@ -1,0 +1,118 @@
+.overlay {
+  position: fixed; inset: 0; z-index: 1100;
+  background: rgba(0,0,0,0.3);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+.overlayOpen { opacity: 1; pointer-events: auto; }
+
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  width: min(420px, 90vw); z-index: 1200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid var(--glass-border);
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+  display: flex; flex-direction: column;
+}
+.open { transform: translateX(0); }
+
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.heading {
+  font-family: var(--font-cinzel);
+  font-weight: 600; font-size: 1.1rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.closeBtn {
+  width: 36px; height: 36px; border-radius: var(--radius-full);
+  background: var(--bg-neu); box-shadow: var(--neu-raised-sm);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast);
+}
+.closeBtn:hover { box-shadow: var(--neu-inset); }
+
+.empty {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  padding: 40px;
+}
+.continueBtnEmpty {
+  padding: 12px 28px; border-radius: var(--radius-md);
+  background: var(--bg-neu); box-shadow: var(--neu-raised-sm);
+  font-family: var(--font-montserrat); font-weight: 500; font-size: 0.82rem;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  transition: all var(--transition-base);
+}
+.continueBtnEmpty:hover { box-shadow: var(--neu-raised); transform: translateY(-2px); }
+
+.items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+.item {
+  display: flex; gap: 14px; padding: 16px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: relative;
+}
+.itemImage {
+  width: 72px; height: 72px; border-radius: var(--radius-sm);
+  background: var(--bg-neu); box-shadow: var(--neu-raised-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; overflow: hidden;
+}
+.itemInfo { flex: 1; min-width: 0; }
+.itemTitle {
+  font-family: var(--font-montserrat); font-weight: 500;
+  font-size: 0.85rem; line-height: 1.3;
+  margin-bottom: 4px; color: var(--text-primary);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.itemPrice {
+  font-family: var(--font-montserrat); font-weight: 600;
+  font-size: 0.9rem; color: var(--text-accent); margin-bottom: 8px;
+}
+.qty {
+  display: inline-flex; align-items: center; gap: 0;
+  background: var(--bg-neu); border-radius: var(--radius-sm);
+  box-shadow: var(--neu-inset); overflow: hidden;
+}
+.qty button {
+  width: 32px; height: 32px;
+  font-family: var(--font-montserrat); font-weight: 600; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition-fast);
+}
+.qty button:hover { background: var(--gold-light); }
+.qty span {
+  width: 32px; text-align: center;
+  font-family: var(--font-montserrat); font-weight: 500; font-size: 0.85rem;
+}
+.removeBtn {
+  position: absolute; top: 16px; right: 0;
+  color: var(--text-tertiary); transition: color var(--transition-fast);
+}
+.removeBtn:hover { color: #e53935; }
+
+.footer {
+  padding: 20px 24px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.total {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+  font-family: var(--font-montserrat); font-weight: 500; font-size: 0.95rem;
+}
+.checkoutBtn {
+  display: block; text-align: center; width: 100%;
+  padding: 16px; border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: #3a2800; font-family: var(--font-montserrat);
+  font-weight: 600; font-size: 0.85rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 4px 4px 10px rgba(174,174,192,0.35), -4px -4px 10px var(--shadow-light);
+  transition: all var(--transition-base);
+}
+.checkoutBtn:hover { transform: translateY(-2px); box-shadow: 6px 6px 14px rgba(174,174,192,0.45), -6px -6px 14px var(--shadow-light); }
