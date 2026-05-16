@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gajraj Pavilion - Notecard | The Design Factory</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #8B735B;
+            --color-gold-light: #FCD589;
+            --color-blue: #d7e4e4;
+            --color-peach: #FBC9BC;
+            --color-bg-soft: #FAF9F6;
+            --color-text: #2D2D2D;
+            --color-text-light: #707070;
+            --color-white: #ffffff;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-secondary); color: var(--color-text); background-color: var(--color-white); overflow-x: hidden; }
+
+        /* --- Announcement Bar --- */
+        .announcement-bar {
+            background-color: var(--color-gold);
+            color: white;
+            padding: 8px 0;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .announcement-track {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .announcement-text {
+            padding-right: 50px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Header --- */
+        header { 
+            padding: 15px 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .menu-icon { cursor: pointer; }
+        .logo img { height: 45px; }
+        .nav-right { display: flex; gap: 20px; align-items: center; }
+
+        /* --- Product Layout --- */
+        .product-page {
+            display: flex;
+            min-height: calc(100vh - 100px);
+        }
+
+        /* --- Left: Image Gallery --- */
+        .gallery-section {
+            flex: 1.1;
+            position: relative;
+            background-color: #f8f8f8;
+            overflow: hidden;
+        }
+        .main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .nav-btn {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            cursor: pointer;
+            pointer-events: auto;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { background: var(--color-gold); color: white; }
+
+        .badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: white;
+            padding: 5px 15px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* --- Right: Content --- */
+        .details-section {
+            flex: 0.9;
+            padding: 60px 5% 60px 4%;
+            overflow-y: auto;
+        }
+
+        .product-title {
+            font-family: var(--font-primary);
+            font-size: 32px;
+            letter-spacing: 1px;
+            color: var(--color-text);
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-transform: none;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+        .tax-info {
+            font-size: 11px;
+            color: var(--color-text-light);
+            margin-bottom: 40px;
+        }
+
+        /* --- Value Grid --- */
+        .value-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px 40px;
+            margin-bottom: 40px;
+        }
+        .value-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .value-item svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-peach);
+            stroke-width: 1.2;
+        }
+        .value-item span {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #444;
+            font-weight: 500;
+        }
+
+        /* --- Social Proof Bar --- */
+        .social-proof {
+            background-color: var(--color-beige);
+            padding: 15px;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        /* --- Pricing Table --- */
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+            border: 1px solid #eee;
+        }
+        .pricing-table th, .pricing-table td {
+            border: 1px solid #eee;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 11px;
+            color: #444;
+        }
+        .pricing-table th {
+            background-color: #fafafa;
+            font-weight: 500;
+            color: var(--color-text-light);
+        }
+        .price-large {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        /* --- Quantity Sets --- */
+        .quantity-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 500;
+            color: var(--color-text-light);
+        }
+        .set-selectors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .set-btn {
+            border: 1px solid #ddd;
+            padding: 12px 20px;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+        .set-btn.active {
+            border-color: var(--color-gold);
+            background: #fff;
+            box-shadow: inset 0 0 0 1px var(--color-gold);
+        }
+
+        /* --- Buy Section --- */
+        .buy-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .add-btn {
+            flex: 1;
+            padding: 18px;
+            background: var(--color-text);
+            color: white;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .buy-btn {
+            flex: 1;
+            padding: 18px;
+            border: 1px solid var(--color-text);
+            background: white;
+            color: var(--color-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 900px) {
+            .product-page { flex-direction: column; }
+            .gallery-section { height: 500px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        <div class="announcement-track">
+            <span class="announcement-text">FREE SHIPPING ON ORDERS OVER ₹5000 &bull; WORLDWIDE DELIVERY AVAILABLE &bull; </span>
+            <span class="announcement-text">FREE SHIPPING ON ORDERS OVER ₹5000 &bull; WORLDWIDE DELIVERY AVAILABLE &bull; </span>
+            <span class="announcement-text">FREE SHIPPING ON ORDERS OVER ₹5000 &bull; WORLDWIDE DELIVERY AVAILABLE &bull; </span>
+            <span class="announcement-text">FREE SHIPPING ON ORDERS OVER ₹5000 &bull; WORLDWIDE DELIVERY AVAILABLE &bull; </span>
+        </div>
+    </div>
+
+    <header>
+        <div class="menu-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </div>
+        <a href="mockup.html" class="logo"><img src="logo.jpeg" alt="The Design Factory"></a>
+        <div class="nav-right">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </div>
+    </header>
+
+    <main class="product-page">
+        <!-- Left: Image -->
+        <section class="gallery-section">
+            <div class="badge">JUST LAUNCHED</div>
+            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/88E28002-BDF3-426D-9B9A-6D04BC555BAE.png?v=1778577574" class="main-img" alt="Gajraj Pavilion">
+            <div class="gallery-nav">
+                <div class="nav-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </div>
+                <div class="nav-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right: Content -->
+        <section class="details-section">
+            <h1 class="product-title">GAJRAJ PAVILION - NOTECARD (BLUE)</h1>
+            <div class="product-price">₹ 1,800</div>
+            <p class="tax-info">Inclusive Of All Taxes</p>
+
+            <div class="value-grid">
+                <div class="value-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                    <span>IMPECCABLE QUALITY</span>
+                </div>
+                <div class="value-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                    <span>BESPOKE DESIGNS</span>
+                </div>
+                <div class="value-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path></svg>
+                    <span>HANDCRAFTED</span>
+                </div>
+                <div class="value-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="7" x2="22" y2="7"></line></svg>
+                    <span>PACKED IN A BOX</span>
+                </div>
+            </div>
+
+            <div class="social-proof">
+                LOVED BY 30,000+ CUSTOMERS
+            </div>
+
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Set of 10</th>
+                        <th>Set of 20</th>
+                        <th>Set of 50</th>
+                        <th>Set of 100</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Price (INR)</th>
+                        <td class="price-large">1800</td>
+                        <td class="price-large">3000</td>
+                        <td class="price-large">6000</td>
+                        <td class="price-large">10000</td>
+                    </tr>
+                    <tr>
+                        <th>Price Per Piece</th>
+                        <td>₹ 180</td>
+                        <td>₹ 150</td>
+                        <td>₹ 120</td>
+                        <td>₹ 100</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <span class="quantity-label">QUANTITY</span>
+            <div class="set-selectors">
+                <button class="set-btn active">SET OF 10</button>
+                <button class="set-btn">SET OF 20</button>
+                <button class="set-btn">SET OF 50</button>
+                <button class="set-btn">SET OF 100</button>
+            </div>
+
+            <div class="buy-actions">
+                <button class="add-btn" onclick="window.location.href='cart.html'">ADD TO CART</button>
+                <button class="buy-btn" onclick="window.location.href='cart.html'">BUY IT NOW</button>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bags Collection | The Design Factory</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #8B735B;
+            --color-gold-light: #FCD589;
+            --color-blue: #d7e4e4;
+            --color-bg-soft: #FAF9F6;
+            --color-text: #2D2D2D;
+            --color-text-light: #707070;
+            --color-white: #ffffff;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-secondary); color: var(--color-text); background-color: var(--color-white); overflow-x: hidden; }
+
+        /* --- Announcement Bar --- */
+        .announcement-bar {
+            background-color: var(--color-gold);
+            color: white;
+            padding: 10px 0;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .announcement-track { display: inline-flex; animation: marquee 30s linear infinite; }
+        .announcement-text { padding-right: 50px; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- Header --- */
+        header { padding: 20px 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; }
+        .logo img { height: 50px; }
+        .nav-right { display: flex; gap: 20px; align-items: center; }
+
+        /* --- Collection Header --- */
+        .collection-hero {
+            padding: 60px 4%;
+            text-align: center;
+            background-color: var(--color-bg-soft);
+        }
+        .collection-hero h1 {
+            font-family: var(--font-primary);
+            font-size: 48px; /* Larger, more elegant like Rosada */
+            letter-spacing: 2px;
+            text-transform: capitalize; /* More editorial than uppercase */
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .collection-hero p {
+            font-size: 14px;
+            color: var(--color-text-light);
+            letter-spacing: 1px;
+        }
+
+        /* --- Circular Category Slider --- */
+        .category-slider-container {
+            padding: 40px 4%;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        .category-slider {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .category-slider::-webkit-scrollbar { display: none; } /* Hide scrollbar for Chrome/Safari */
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            min-width: 120px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        .category-item:hover { transform: translateY(-5px); }
+
+        .circle-icon {
+            width: 110px;
+            height: 110px;
+            border: 1px solid var(--color-gold-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: 0.3s;
+            background: #fff;
+        }
+        .category-item:hover .circle-icon {
+            border-color: var(--color-gold);
+            background-color: var(--color-bg-soft);
+        }
+        .circle-icon img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+        .category-name {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--color-text);
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px 20px;
+            padding: 60px 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            text-align: center;
+        }
+
+        .img-wrapper {
+            position: relative;
+            aspect-ratio: 1;
+            background: #fff;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 0; /* Rosada often uses sharp or very slightly rounded edges */
+            transition: var(--transition-smooth);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-family: var(--font-primary); /* Cormorant Garamond */
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: var(--color-gold);
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        <div class="announcement-track">
+            <span class="announcement-text">SHOP THE NEW ARRIVALS &bull; PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING AVAILABLE &bull; </span>
+            <span class="announcement-text">SHOP THE NEW ARRIVALS &bull; PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING AVAILABLE &bull; </span>
+        </div>
+    </div>
+
+    <header>
+        <div class="menu-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <a href="mockup.html" class="logo"><img src="logo.jpeg" alt="The Design Factory"></a>
+        <div class="nav-right">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </div>
+    </header>
+
+    <div class="collection-hero">
+        <h1>Bags Collection</h1>
+        <p>Explore our handcrafted range of personalized bags for every occasion.</p>
+    </div>
+
+    <!-- CIRCULAR CATEGORY SLIDER (Lachi Style) -->
+    <div class="category-slider-container">
+        <div class="category-slider">
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_bags.png" alt="Art Bags">
+                </div>
+                <span class="category-name">ART BAGS</span>
+            </a>
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_school.png" alt="Swim Bags">
+                </div>
+                <span class="category-name">SWIM BAGS</span>
+            </a>
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_bags.png" alt="Jelly Totes">
+                </div>
+                <span class="category-name">JELLY TOTES</span>
+            </a>
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_labels.png" alt="Activity Kits">
+                </div>
+                <span class="category-name">ACTIVITY KITS</span>
+            </a>
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_stationery.png" alt="Lunch Bags">
+                </div>
+                <span class="category-name">LUNCH BAGS</span>
+            </a>
+            <a href="#" class="category-item">
+                <div class="circle-icon">
+                    <img src="category_school.png" alt="Backpacks">
+                </div>
+                <span class="category-name">BACKPACKS</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <main class="product-grid">
+        <a href="product.html" class="product-card">
+            <div class="img-wrapper"><img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/88E28002-BDF3-426D-9B9A-6D04BC555BAE.png?v=1778577574"></div>
+            <h3>Art Bag - Mermaid</h3>
+            <div class="product-price">₹ 1,200.00</div>
+        </a>
+        <a href="product.html" class="product-card">
+            <div class="img-wrapper"><img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/3F874BDF-C3FA-47F8-94C3-2C2EA2E8A56D_3b96681b-9de8-400e-b226-40fa33b297cd.png?v=1778577476"></div>
+            <h3>Art Bag - Frozen</h3>
+            <div class="product-price">₹ 1,200.00</div>
+        </a>
+        <a href="product.html" class="product-card">
+            <div class="img-wrapper"><img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655"></div>
+            <h3>Jelly Tote - Pink</h3>
+            <div class="product-price">₹ 1,150.00</div>
+        </a>
+        <a href="product.html" class="product-card">
+            <div class="img-wrapper"><img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_3978.jpg?v=1778573386"></div>
+            <h3>Swim Bag - Frozen</h3>
+            <div class="product-price">₹ 1,150.00</div>
+        </a>
+    </main>
+
+</body>
+</html>

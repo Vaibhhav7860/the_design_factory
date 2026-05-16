@@ -1,56 +1,102 @@
 .page {
   padding: 40px 0 80px;
 }
+
 .breadcrumb {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 40px;
-  font-family: var(--font-montserrat);
-  font-weight: 300;
-  font-size: 0.82rem;
-  color: var(--text-tertiary);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-text-light);
+  flex-wrap: wrap;
 }
+
 .breadcrumb a {
-  color: var(--text-secondary);
-  transition: color var(--transition-fast);
+  color: var(--color-text);
+  transition: color 0.3s ease;
 }
-.breadcrumb a:hover { color: var(--text-accent); }
+
+.breadcrumb a:hover {
+  color: var(--color-peach);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionHeader h2 {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.sectionHeader p {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-top: 10px;
+}
 
 .pills {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 48px;
 }
+
 .pill {
-  padding: 8px 20px;
-  border-radius: var(--radius-full);
-  background: var(--bg-neu);
-  box-shadow: var(--neu-raised-sm);
-  font-family: var(--font-montserrat);
-  font-weight: 400;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
+  padding: 10px 24px;
+  border-radius: 30px;
+  background: #f0f0f0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--color-text);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: var(--transition-smooth);
+  border: none;
+  text-transform: uppercase;
 }
+
 .pill:hover {
-  box-shadow: var(--neu-raised);
-  color: var(--text-accent);
+  background: var(--color-blue);
 }
+
 .pillActive {
-  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: #3a2800;
-  font-weight: 600;
+  background: var(--color-text);
+  color: white;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 30px;
 }
-@media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; } }
-@media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .sectionHeader h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

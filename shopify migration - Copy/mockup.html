@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Design Factory | Premium Personalized Gifts & Stationery</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&family=Satisfy&display=swap" rel="stylesheet">
+    <!-- Brittany Signature - Placeholder for Script Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone+Bounce&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #FCD589;
+            --color-peach: #FBC9BC;
+            --color-blue: #d7e4e4;
+            --color-bg-soft: #FAF9F6;
+            --color-text: #2D2D2D;
+            --color-text-light: #707070;
+            --color-white: #ffffff;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --font-accent: 'Birthstone Bounce', cursive;
+            --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            --section-padding: 80px 4%; /* Reduced from 8% */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            color: var(--color-text);
+            background-color: var(--color-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+            width: 100%;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            transition: var(--transition-smooth);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .announcement-bar {
+            background-color: var(--color-blue);
+            color: var(--color-text);
+            padding: 10px 0;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .announcement-track {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .announcement-text {
+            padding-right: 50px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 4%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            height: 60px; /* Adjust based on logo proportions */
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 100%;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-icons svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--color-text);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-icons svg:hover {
+            stroke: var(--color-peach);
+            transform: scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 1.5px;
+            background-color: var(--color-peach);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Mega Menu --- */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background: var(--color-white);
+            width: 85vw;
+            max-width: 1400px;
+            padding: 50px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 50px;
+            border-top: 1px solid #f0f0f0;
+            z-index: 1000;
+        }
+
+        .nav-links li:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .mega-col h4 {
+            font-family: var(--font-primary);
+            font-size: 12px;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            color: var(--color-text);
+            text-transform: uppercase;
+        }
+
+        .mega-col ul {
+            list-style: none;
+        }
+
+        .mega-col li {
+            margin-bottom: 10px;
+        }
+
+        .mega-col a {
+            text-transform: none;
+            font-size: 13px;
+            color: var(--color-text-light);
+            letter-spacing: 0.5px;
+            font-weight: 400;
+        }
+
+        .mega-col a:hover { color: var(--color-peach); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: #FAF9F6;
+            margin-top: 110px;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(250,249,246,0.1) 0%, rgba(251,201,188,0.05) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%; /* 3 slides = 300% */
+            height: 100%;
+            display: flex;
+            z-index: 1;
+            animation: horizontalSlide 18s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+        }
+
+        .hero-slide {
+            width: 33.333%; /* 1/3 of the 300% container */
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-image: url('hero_banner.png'); /* Fallback Image */
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+            animation: kenBurns 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes horizontalSlide {
+            0%, 28% { transform: translateX(0); }
+            33%, 61% { transform: translateX(-33.333%); }
+            66%, 95% { transform: translateX(-66.666%); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes kenBurns {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 1000px;
+            color: var(--color-text);
+        }
+
+        .hero-cta {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            background: #ffffff;
+            color: #2D2D2D;
+            padding: 20px 60px;
+            font-family: var(--font-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            background: #f8f8f8;
+        }
+
+        .hero h1 {
+            font-family: var(--font-primary);
+            font-size: 82px; /* Elegant Large Serif */
+            margin-bottom: 20px;
+            color: var(--color-text);
+            letter-spacing: 2px;
+            line-height: 1.1;
+            text-transform: none; /* More sophisticated lowercase/uppercase mix */
+            font-weight: 400;
+        }
+
+        .hero .tagline {
+            font-family: var(--font-secondary);
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--color-text-light);
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .hero p {
+            font-family: var(--font-accent);
+            font-size: 46px;
+            color: var(--color-peach);
+            margin-bottom: 45px;
+            font-weight: 400;
+            text-shadow: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background-color: var(--color-text);
+            color: var(--color-white);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 45, 45, 0.2); }
+            70% { box-shadow: 0 0 0 15px rgba(45, 45, 45, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 45, 45, 0); }
+        }
+
+        .btn:hover {
+            background-color: var(--color-peach);
+            transform: translateY(-3px);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: var(--section-padding);
+            max-width: 1800px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px; /* Reduced from 100px */
+        }
+
+        .section-header h2 {
+            font-family: var(--font-primary);
+            font-size: 28px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* --- Trust Icons --- */
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 60px 0;
+            background: #fff;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .trust-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .icon-circle {
+            width: 90px;
+            height: 90px;
+            background-color: #FCD589;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            border: 2px dashed rgba(255,255,255,0.4);
+        }
+
+        .icon-circle svg {
+            width: 40px;
+            height: 40px;
+            stroke: #fff;
+        }
+
+        .trust-item span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* --- Category Grid (Rosada Image-in-Image Style) --- */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            padding: 0 4%;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.05);
+            transition: var(--transition-smooth);
+            z-index: 1;
+        }
+
+        .category-card:hover::before {
+            background: rgba(0,0,0,0); /* Clearer on hover */
+        }
+
+        .inset-image-container {
+            position: relative;
+            margin-left: 30px;
+            width: 45%;
+            height: 85%;
+            background: #fff;
+            border: 8px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            z-index: 2;
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .category-card:hover .inset-image-container {
+            transform: scale(1.03);
+        }
+
+        .inset-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 2s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        .category-card:hover .inset-image-container img {
+            transform: scale(1.1);
+        }
+
+        .shop-now-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: #333;
+            padding: 10px 25px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 3;
+            white-space: nowrap;
+            transition: var(--transition-smooth);
+        }
+
+        .category-card:hover .shop-now-badge {
+            background: var(--color-peach);
+            color: #fff;
+        }
+
+        .category-title-box {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: #fff;
+            padding: 18px 45px;
+            min-width: 250px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            z-index: 5;
+            border: 1px solid rgba(215, 228, 228, 0.5);
+            transition: var(--transition-smooth);
+        }
+
+        .category-card:hover .category-title-box {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .popular-picks {
+            padding: 100px 4% 60px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .popular-picks h2 {
+            font-family: 'Satisfy', cursive;
+            font-size: 54px;
+            margin-bottom: 60px;
+            color: #555;
+            font-weight: 400;
+        }
+
+        .popular-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 100px 60px;
+            max-width: 1700px;
+            margin: 0 auto;
+        }
+
+        .popular-card {
+            position: relative;
+            border-radius: 20px;
+            padding: 15px;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .popular-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Pastel backgrounds per Lachi style */
+        .popular-card:nth-child(1) { background-color: #E6F4F1; } /* Blue */
+        .popular-card:nth-child(2) { background-color: #FDF1F5; } /* Pink */
+        .popular-card:nth-child(3) { background-color: #F1F1FD; } /* Purple */
+        .popular-card:nth-child(4) { background-color: #FDF7F1; } /* Peach */
+        .popular-card:nth-child(5) { background-color: #F9FDF1; } /* Lime */
+        .popular-card:nth-child(6) { background-color: #F1FDFD; } /* Cyan */
+
+        .popular-image-wrapper {
+            width: 100%;
+            aspect-ratio: 1.4;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .popular-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s ease;
+        }
+
+        .popular-card:hover .popular-image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 15px 60px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            z-index: 10;
+            white-space: nowrap;
+            transition: var(--transition-smooth);
+        }
+
+        /* --- Why Choose Us Section --- */
+        .why-us {
+            text-align: center;
+            background-color: var(--color-bg-soft);
+            padding: 40px 8%; /* Reduced padding to match Lachi's compact view */
+            max-width: 100% !important;
+        }
+
+        .why-us-header {
+            max-width: 800px;
+            margin: 0 auto 40px; /* Reduced margin to keep icons close to text */
+        }
+
+        .why-us-header img {
+            height: 40px; /* Reduced to match Lachi's compact elegance */
+            width: auto;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+
+        .why-us-header h2 {
+            font-family: var(--font-primary);
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            color: #BFA37E; /* Lachi Gold */
+            font-weight: 500;
+        }
+
+        @keyframes softReveal {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .why-us-header p {
+            font-size: 15px;
+            color: var(--color-text-light);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 80px 40px; /* Increased vertical gap for Lachi-style airy feel */
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .value-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .value-icon {
+            width: 52px !important;
+            height: 52px !important;
+            stroke: #BFA37E; /* Explicit Lachi Gold */
+            stroke-width: 0.8;
+            margin-bottom: 12px;
+            transition: var(--transition-smooth);
+        }
+        .value-item:hover .value-icon {
+            transform: translateY(-5px);
+            stroke: var(--color-text);
+        }
+
+        .value-item span {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .value-item span {
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #444;
+        }
+
+        /* --- Product Grid --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            text-align: left;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .product-image-container {
+            background-color: #fcfcfc;
+            height: 380px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 30px;
+            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .product-card:hover .product-image-container img {
+            transform: scale(1.1);
+        }
+
+        .wishlist-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 5;
+            background: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .product-card:hover .wishlist-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .wishlist-icon:hover {
+            background: var(--color-peach);
+            color: white;
+        }
+
+        .wishlist-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .quick-add {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: var(--color-text);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            transition: var(--transition-smooth);
+            z-index: 10;
+        }
+
+        .product-card:hover .quick-add {
+            bottom: 0;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--color-blue);
+            padding: 6px 12px;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+            z-index: 5;
+        }
+
+        .product-card h4 {
+            font-family: var(--font-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            color: var(--color-text);
+            transition: var(--transition-smooth);
+        }
+
+        .product-card:hover h4 {
+            color: var(--color-peach);
+        }
+
+        /* --- Sliding Gallery --- */
+        .community-section {
+            padding: 20px 0; /* Minimal padding for Lachi-style integration */
+            background-color: #FAF9F6;
+            overflow: hidden; 
+            max-width: 100% !important;
+        }
+
+        .marquee-container {
+            display: flex;
+            width: 200%;
+            animation: marquee 60s linear infinite;
+        }
+
+        .marquee-item {
+            flex: 0 0 12.5%; /* 8 items visible, smaller size */
+            padding: 0 5px; /* Tighter gap */
+        }
+
+        .marquee-item img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Refined Footer --- */
+        footer {
+            background-color: #FAF9F6;
+            padding: 20px 8% 0; /* Minimal top padding */
+            border-top: none;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr 1fr 1.5fr;
+            gap: 80px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+            color: var(--color-text);
+        }
+
+        .footer-col p {
+            font-size: 13px;
+            line-height: 2;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .footer-col a {
+            font-size: 13px;
+            color: #444;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--color-peach);
+        }
+
+        .newsletter-desc {
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .newsletter-input {
+            display: flex;
+            border: 1px solid #ddd;
+            background: transparent;
+            padding: 5px 0;
+            align-items: center;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .newsletter-input input {
+            background: transparent;
+            border: none;
+            padding: 10px 0;
+            width: 100%;
+            outline: none;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .newsletter-input svg {
+            width: 18px;
+            height: 18px;
+            stroke: #444;
+            cursor: pointer;
+        }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-blue);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-peach);
+        }
+
+        /* --- Footer Illustration Area --- */
+        .footer-decorative-area {
+            position: relative;
+            background-color: #FAF9F6;
+            padding-bottom: 0; /* Removed extra space */
+            overflow: visible;
+        }
+
+        .footer-character-procession {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 4%;
+            margin-top: -40px; /* Subtle Lachi-style overlap */
+            position: relative;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .footer-char {
+            width: 300px; /* Large scale as requested */
+            height: auto;
+            transition: transform 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+        }
+        .footer-char:nth-child(2) {
+            width: 350px;
+            margin-bottom: -10px;
+        }
+
+        .footer-bottom-pattern {
+            height: 60px;
+            width: 100%;
+            background-image: 
+                linear-gradient(45deg, #f5f2ed 25%, transparent 25%), 
+                linear-gradient(-45deg, #f5f2ed 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #f5f2ed 75%), 
+                linear-gradient(-45deg, transparent 75%, #f5f2ed 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            opacity: 0.5;
+            margin-top: -30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-char { width: 200px; }
+            .footer-char:nth-child(2) { width: 240px; }
+            .footer-character-procession { margin-top: -80px; }
+        }
+
+        .footer-tribute {
+            text-align: center;
+            font-family: var(--font-primary);
+            font-size: 24px;
+            font-style: italic;
+            color: #5D4037; /* Deep Espresso Brown for better visibility */
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-dog-illustration {
+                max-width: 280px;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="announcement-bar">
+            <div class="announcement-track">
+                <span class="announcement-text">PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING &bull; UNIQUE GIFTING SOLUTIONS &bull; </span>
+                <span class="announcement-text">PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING &bull; UNIQUE GIFTING SOLUTIONS &bull; </span>
+                <span class="announcement-text">PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING &bull; UNIQUE GIFTING SOLUTIONS &bull; </span>
+                <span class="announcement-text">PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING &bull; UNIQUE GIFTING SOLUTIONS &bull; </span>
+            </div>
+        </div>
+        <nav>
+            <a href="#" class="logo">
+                <img src="logo.jpeg" alt="The Design Factory">
+            </a>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="#">Labels</a>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4>Popular Shapes</h4>
+                            <ul>
+                                <li><a href="#">Rectangular Labels</a></li>
+                                <li><a href="#">Round Labels</a></li>
+                                <li><a href="#">Mixed Shape Labels</a></li>
+                                <li><a href="#">Transparent Labels</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Specialty</h4>
+                            <ul>
+                                <li><a href="#">3D Embossed Stickers</a></li>
+                                <li><a href="#">Iron On Labels</a></li>
+                                <li><a href="#">School Book Labels</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Shop by Theme</h4>
+                            <ul>
+                                <li><a href="#">Cute Lil Boy</a></li>
+                                <li><a href="#">Cute Lil Girl</a></li>
+                                <li><a href="#">Animals & Dino</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <img src="category_labels.png" alt="Labels" style="width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">School Essentials</a>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4>Essentials</h4>
+                            <ul>
+                                <li><a href="#">Back to School Set</a></li>
+                                <li><a href="product-name-labels.html">Name Labels</a></li>
+                                <li><a href="product-name-labels.html">Bag Tags</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Gear</h4>
+                            <ul>
+                                <li><a href="product-sipper-bottle.html">Sipper Bottles</a></li>
+                                <li><a href="#">Pencil Cases</a></li>
+                                <li><a href="#">Sketch Books</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Combos</h4>
+                            <ul>
+                                <li><a href="#">Mega Gift Combo</a></li>
+                                <li><a href="#">School Backpacks</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <img src="category_school.png" alt="School" style="width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Stationery</a>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4>Gift Tags</h4>
+                            <ul>
+                                <li><a href="product-gift-tags.html">3D Gift Tags</a></li>
+                                <li><a href="product-gift-tags.html">Flat Gift Tags</a></li>
+                                <li><a href="product-gift-tags.html">Hanging Tags</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Envelopes</h4>
+                            <ul>
+                                <li><a href="#">Money Envelopes</a></li>
+                                <li><a href="#">Gift Stickers</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Sets</h4>
+                            <ul>
+                                <li><a href="#">Gift Stationery Sets</a></li>
+                                <li><a href="collection-stationery-all.html" style="font-weight: 700; color: var(--color-gold); margin-top: 15px; display: block;">VIEW ALL STATIONERY</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <img src="category_stationery.png" alt="Stationery" style="width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
+                </li>
+                <!-- Bags -->
+                <li>
+                    <a href="collection-bags.html">Bags</a>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4>Kid's Bags</h4>
+                            <ul>
+                                <li><a href="collection-bags.html">Backpacks</a></li>
+                                <li><a href="collection-bags.html">Waist Bags</a></li>
+                                <li><a href="collection-bags.html">Crossbody Bags</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Women's Totes</h4>
+                            <ul>
+                                <li><a href="collection-bags.html">Canvas Totes</a></li>
+                                <li><a href="collection-bags.html">Jute Bags</a></li>
+                                <li><a href="collection-bags.html">Vanity Pouches</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Style Guide</h4>
+                            <ul>
+                                <li><a href="collection-bags.html">Floral Prints</a></li>
+                                <li><a href="collection-bags-all.html" style="font-weight: 700; color: var(--color-gold); margin-top: 15px; display: block;">VIEW ALL BAGS</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <img src="category_bags.png" alt="Bags" style="width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Combos -->
+                <li>
+                    <a href="collection-combos.html">Combos</a>
+                    <div class="mega-menu">
+                        <div class="mega-col">
+                            <h4>Gift Sets</h4>
+                            <ul>
+                                <li><a href="collection-combos.html">Birthday Combos</a></li>
+                                <li><a href="collection-combos.html">Baby Shower Sets</a></li>
+                                <li><a href="collection-combos.html">Sibling Sets</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>School Kits</h4>
+                            <ul>
+                                <li><a href="collection-combos.html">New Session Combo</a></li>
+                                <li><a href="collection-combos.html">Lunch & Sipper Duo</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <h4>Corporate</h4>
+                            <ul>
+                                <li><a href="collection-combos.html">Executive Bundles</a></li>
+                                <li><a href="collection-combos.html">Welcome Kits</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-col">
+                            <img src="category_labels.png" alt="Combos" style="width: 100%; border-radius: 4px;">
+                        </div>
+                    </div>
+                </li>
+
+                <!-- New Collections -->
+                <li><a href="collection-theme.html">Collection by Theme</a></li>
+                <li><a href="collection-accessories.html">Accessories & Gifts</a></li>
+                <li><a href="collection-adults.html">Adults Corner</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" style="margin-top: 100px; height: 75vh;">
+        <div class="hero-slider">
+            <div class="hero-slide" style="background-image: url('hero_banner.png');">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="https://cdn.shopify.com/videos/c/vp/73f08c90384749f993d5885e78393e9a/73f08c90384749f993d5885e78393e9a.HD-1080p-7.2Mbps-24368153.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-slide" style="background-image: url('category_bags.png');">
+                <video autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover;">
+                    <source src="https://cdn.shopify.com/videos/c/vp/28f6e80b2a5c43d8b0c8e3e4a9e3e4e4/28f6e80b2a5c43d8b0c8e3e4a9e3e4e4.HD-1080p-7.2Mbps-24368153.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-slide" style="background-image: url('category_school.png');">
+                <img src="hero_banner.png" alt="Fallback" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        <div class="hero-cta">
+            <a href="collection-bags-all.html" class="explore-btn">Explore Collection</a>
+        </div>
+    </section>
+
+    <section class="trust-icons" style="padding: 20px 0;">
+        <div class="trust-item">
+            <div class="icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <span>FAST DELIVERY</span>
+        </div>
+        <div class="trust-item">
+            <div class="icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            </div>
+            <span>CASH ON DELIVERY</span>
+        </div>
+        <div class="trust-item">
+            <div class="icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <span>SECURE PAYMENT</span>
+        </div>
+        <div class="trust-item">
+            <div class="icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+            <span>PERSONALIZED WITH LOVE</span>
+        </div>
+    </section>
+
+    <section class="reveal" style="background-color: #FAF9F6; max-width: 100%; border-top: 1px solid #f0f0f0;">
+        <div style="max-width: 1800px; margin: 0 auto; padding: 0 4%;">
+            <div class="section-header">
+                <p style="font-size: 14px; color: var(--color-text-light); margin-bottom: 20px;">Carefully curated favorites for your loved ones</p>
+                <h2 style="font-size: 32px; letter-spacing: 6px;">EXPLORE MORE</h2>
+            </div>
+            <div class="product-grid">
+                <a href="product.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <div class="wishlist-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <span class="product-badge">Top Seller</span>
+                            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/88E28002-BDF3-426D-9B9A-6D04BC555BAE.png?v=1778577574" alt="Art Bag - Mermaid">
+                            <div class="quick-add">QUICK ADD</div>
+                        </div>
+                        <h4>Art Bag - Mermaid</h4>
+                        <div class="product-price">₹ 1,200.00</div>
+                    </div>
+                </a>
+                <a href="product.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <div class="wishlist-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/3F874BDF-C3FA-47F8-94C3-2C2EA2E8A56D_3b96681b-9de8-400e-b226-40fa33b297cd.png?v=1778577476" alt="Art Bag - Frozen">
+                            <div class="quick-add">QUICK ADD</div>
+                        </div>
+                        <h4>Art Bag - Frozen</h4>
+                        <div class="product-price">₹ 1,200.00</div>
+                    </div>
+                </a>
+                <a href="product.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <div class="wishlist-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <span class="product-badge" style="background-color: var(--color-peach); color: white;">New</span>
+                            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655" alt="Jelly Tote Bag - Pink">
+                            <div class="quick-add">QUICK ADD</div>
+                        </div>
+                        <h4>Jelly Tote Bag - Pink</h4>
+                        <div class="product-price">₹ 1,150.00</div>
+                    </div>
+                </a>
+                <a href="product.html" style="text-decoration: none; color: inherit; display: block;">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <div class="wishlist-icon">
+                                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_3978.jpg?v=1778573386" alt="Swim Bag with Pouch - Frozen">
+                            <div class="quick-add">QUICK ADD</div>
+                        </div>
+                        <h4>Swim Bag with Pouch - Frozen</h4>
+                        <div class="product-price">₹ 1,150.00</div>
+                    </div>
+                </a>
+            </div>
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#" class="btn" style="background: transparent; color: var(--color-text);">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal popular-picks">
+        <h2>Our Categories</h2>
+        <div class="popular-grid">
+            <!-- Stationery -->
+            <a href="collection-stationery.html" class="popular-card">
+                <div class="popular-badge">STATIONERY</div>
+                <div class="popular-image-wrapper">
+                    <img src="category_stationery.png" alt="Stationery">
+                </div>
+            </a>
+
+            <!-- School Essentials -->
+            <a href="collection-school.html" class="popular-card">
+                <div class="popular-badge">SCHOOL ESSENTIALS</div>
+                <div class="popular-image-wrapper">
+                    <img src="category_school.png" alt="School Essentials">
+                </div>
+            </a>
+
+            <!-- Bags Collection -->
+            <a href="collection-bags.html" class="popular-card">
+                <div class="popular-badge">BAGS COLLECTION</div>
+                <div class="popular-image-wrapper">
+                    <img src="category_bags.png" alt="Bags Collection">
+                </div>
+            </a>
+
+            <!-- Combo Sets -->
+            <a href="collection-combos.html" class="popular-card">
+                <div class="popular-badge">COMBO SETS</div>
+                <div class="popular-image-wrapper">
+                    <img src="category_labels.png" alt="Combo Sets">
+                </div>
+            </a>
+
+            <!-- Adults Corner -->
+            <a href="collection-adults.html" class="popular-card">
+                <div class="popular-badge">ADULTS CORNER</div>
+                <div class="popular-image-wrapper">
+                    <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655" alt="Adults Corner">
+                </div>
+            </a>
+
+            <!-- Accessories -->
+            <a href="collection-accessories.html" class="popular-card">
+                <div class="popular-badge">ACCESSORIES</div>
+                <div class="popular-image-wrapper">
+                    <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/3F874BDF-C3FA-47F8-94C3-2C2EA2E8A56D_3b96681b-9de8-400e-b226-40fa33b297cd.png?v=1778577476" alt="Accessories">
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="reveal" style="padding: 30px 0;">
+        <div style="display: flex; align-items: center; gap: 80px; flex-wrap: wrap;">
+            <div style="flex: 1.2; min-width: 350px; position: relative;">
+                <img src="hero_banner.png" alt="About The Design Factory" style="width: 100%; height: 500px; object-fit: cover; border-radius: 4px; box-shadow: 30px 30px 0 var(--color-blue);">
+            </div>
+            <div style="flex: 1; min-width: 350px;">
+                <h2 style="font-family: var(--font-primary); font-size: 42px; line-height: 1.2; margin-bottom: 25px; letter-spacing: 2px;">One-of-a-Kind Gifts <br><span>Handcrafted</span> for You</h2>
+                <p style="color: var(--color-text-light); margin-bottom: 40px; font-size: 16px; line-height: 2;">
+                    The Design Factory provides complete solutions to adorn your lives in a unique way. We endeavor to enrich your gifting experience with international-quality standards. Every piece is curated with extreme attention to detail, ensuring that your personalized gifts leave a lasting impression.
+                </p>
+                <a href="#" class="btn">Discover Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal why-us">
+        <div class="why-us-header">
+            <img src="logo.jpeg" alt="The Design Factory Logo">
+            <h2>WHY THE DESIGN FACTORY?</h2>
+            <p>We are a design-led brand offering personalized stationery, invitations & creative direction for heartfelt expressions.</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <!-- Detailed Seal with Ribbons -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="9" r="7"></circle>
+                    <path d="M12 5l1 2.5 2.5.5-2 1.5.5 2.5-2-1.5-2 1.5.5-2.5-2-.5 2.5-.5z"></path>
+                    <path d="M9 15.5l-2 4.5 5-2 5 2-2-4.5"></path>
+                </svg>
+                <span>IMPECCABLE QUALITY</span>
+            </div>
+            <div class="value-item">
+                <!-- Detailed Lotus Flower -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21s-6-3-6-8c0-3.3 2.7-6 6-6s6 2.7 6 6c0 5-6 8-6 8z"></path>
+                    <path d="M12 21c-2-2-4-5-4-8a4 4 0 1 1 8 0c0 3-2 6-4 8z"></path>
+                    <path d="M12 13c-1.5 0-3-1-3-2s1-2 3-2 3 1 3 2-1.5 2-3 2z"></path>
+                    <path d="M5 14c0-2 1-4 3-5M19 14c0-2-1-4-3-5"></path>
+                </svg>
+                <span>UNIQUE DESIGNS</span>
+            </div>
+            <div class="value-item">
+                <!-- Three Profiles with Heart -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="7" r="3"></circle>
+                    <path d="M12 10c-3 0-5 2-5 4v1"></path>
+                    <circle cx="6" cy="9" r="2.5"></circle>
+                    <path d="M6 11.5c-2 0-3 1.5-3 3v.5"></path>
+                    <circle cx="18" cy="9" r="2.5"></circle>
+                    <path d="M18 11.5c2 0 3 1.5 3 3v.5"></path>
+                    <path d="M12 18l-1.5-1.5a2 2 0 1 1 3 0L12 18z" fill="#BFA37E" stroke="none"></path>
+                </svg>
+                <span>CUSTOMER SATISFACTION</span>
+            </div>
+            <div class="value-item">
+                <!-- Woman in Lotus Pose with Female Symbol -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="6" r="2"></circle>
+                    <path d="M12 8c-2 0-4 2-4 4s2 4 4 4 4-2 4-4-2-4-4-4z"></path>
+                    <path d="M8 12c-1 0-2 1-2 2s1 2 2 2M16 12c1 0 2 1 2 2s-1 2-2 2"></path>
+                    <path d="M12 16v5M10 19h4"></path>
+                    <path d="M5 12a7 7 0 0 1 14 0"></path>
+                </svg>
+                <span>WOMEN EMPOWERED</span>
+            </div>
+            <div class="value-item">
+                <!-- Hands Holding Heart -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 11c0 3-3 6-6 9-3-3-6-6-6-9a3 3 0 1 1 6 0 3 3 0 1 1 6 0z"></path>
+                    <path d="M5 16s1 2 3 2 4-2 4-2M19 16s-1 2-3 2-4-2-4-2"></path>
+                    <path d="M10 10l2 2 2-2"></path>
+                </svg>
+                <span>HAND CRAFTED</span>
+            </div>
+            <div class="value-item">
+                <!-- Recycle Arrows with Leaf -->
+                <svg class="value-icon" style="stroke: #BFA37E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 6l-4 4 4 4M17 18l4-4-4-4"></path>
+                    <path d="M3 10h12a4 4 0 0 1 4 4M21 14H9a4 4 0 0 1-4-4"></path>
+                    <path d="M12 8c0 3 2 4 2 4s2-1 2-4-2-4-2-4-2 1-2 4z"></path>
+                </svg>
+                <span>SUSTAINABLE PRACTICES</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="reveal community-section">
+        <div class="section-header" style="text-align: left; padding: 0 8%; margin-bottom: 40px;">
+            <h2 style="font-size: 18px; letter-spacing: 4px; font-weight: 400;">JOIN OUR COMMUNITY OF 45K+</h2>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+            <div class="marquee-item"><img src="category_bags.png"></div>
+            <div class="marquee-item"><img src="category_school.png"></div>
+            <div class="marquee-item"><img src="hero_banner.png"></div>
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+            <!-- Repeat -->
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+            <div class="marquee-item"><img src="category_bags.png"></div>
+            <div class="marquee-item"><img src="category_school.png"></div>
+            <div class="marquee-item"><img src="hero_banner.png"></div>
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ABOUT US</h4>
+                <p>Everything begins with a feeling. At The Design Factory, we create heartfelt, personalized designs finished with deep attention to detail. Every piece carries a sense of purpose and craftsmanship.</p>
+                <div class="social-icons" style="margin-top: 20px; display: flex; gap: 20px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Track Order</a>
+                <a href="#">Blogs</a>
+            </div>
+            <div class="footer-col">
+                <h4>POLICIES</h4>
+                <a href="#">Return & Exchange</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Shipping Policy</a>
+            </div>
+            <div class="footer-col" style="position: relative;">
+                <h4>NEWSLETTER</h4>
+                <p class="newsletter-desc" style="margin-bottom: 20px;">Stay updated with our new collections and exclusive offers.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Your email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            </div>
+        </div> <!-- End of footer-grid -->
+        
+        <!-- Multi-Character Procession Area -->
+        <div style="margin-top: 60px;">
+            <div class="footer-tribute">CAPPUCCINO - Our Heart. Our Joy. Our Inspiration.</div>
+            <div class="footer-character-procession">
+                <img src="1.png" class="footer-char" alt="Character 1">
+                <img src="2.png" class="footer-char" alt="Character 2">
+                <img src="3.PNG" class="footer-char" alt="Character 3">
+            </div>
+        </div>
+        
+        <div class="footer-bottom-pattern"></div>
+        
+        <div class="footer-bottom" style="text-align: right; padding: 20px 4%; font-size: 11px; letter-spacing: 1px; color: var(--color-text-light); background-color: #FAF9F6; position: relative; z-index: 20;">
+            &copy; 2026, The Design Factory.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        // Header shrink effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 10px 30px rgba(0,0,0,0.05)';
+                header.querySelector('nav').style.padding = '15px 5%';
+            } else {
+                header.style.boxShadow = 'none';
+                header.querySelector('nav').style.padding = '25px 5%';
+            }
+        });
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

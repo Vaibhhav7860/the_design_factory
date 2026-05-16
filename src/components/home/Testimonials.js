@@ -1,44 +1,63 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { testimonials } from "@/data/testimonials";
-import SectionTitle from "@/components/ui/SectionTitle";
 import styles from "./Testimonials.module.css";
 
 export default function Testimonials() {
-  const [active, setActive] = useState(0);
+  const scrollRef = useRef(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => setActive((p) => (p + 1) % testimonials.length), 5000);
-    return () => clearInterval(timer);
-  }, []);
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = 350; // Card width + gap
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
-        <SectionTitle decorative="Voices of Joy" title="What Our Customers Say" />
-        <div className={styles.slider}>
-          {testimonials.map((t, i) => (
-            <div key={t.id} className={`${styles.slide} ${i === active ? styles.slideActive : ""}`}>
-              <div className={styles.card}>
-                <svg className={styles.quote} width="40" height="40" viewBox="0 0 24 24" fill="var(--gold)"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
-                <p className={styles.text}>{t.text}</p>
-                <h4 className={styles.heading}>{t.heading}</h4>
+        
+        <h2 className={styles.mainHeading}>What our Clients Says</h2>
+
+        <div className={styles.carouselWrapper}>
+          {/* Navigation Arrows */}
+          <button className={`${styles.navButton} ${styles.navLeft}`} onClick={() => scroll("left")} aria-label="Previous">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          
+          <div className={styles.slider} ref={scrollRef}>
+            {testimonials.map((t) => (
+              <div key={t.id} className={styles.card}>
+                <p className={styles.text}>"{t.text}"</p>
                 <div className={styles.author}>
-                  <div className={styles.avatar}>{t.name.charAt(0)}</div>
-                  <div>
-                    <p className={styles.name}>{t.name}</p>
-                    <p className={styles.city}>{t.city}</p>
+                  <div className={styles.avatar}>
+                    {/* Small icon inside avatar */}
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                  </div>
+                  <div className={styles.authorInfo}>
+                    <h4 className={styles.name}>{t.name}, {t.city}</h4>
+                    <p className={styles.heading}>{t.heading}</p>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <button className={`${styles.navButton} ${styles.navRight}`} onClick={() => scroll("right")} aria-label="Next">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
-        <div className={styles.dots}>
-          {testimonials.map((_, i) => (
-            <button key={i} className={`${styles.dot} ${i === active ? styles.dotActive : ""}`} onClick={() => setActive(i)} aria-label={`Testimonial ${i + 1}`} />
-          ))}
-        </div>
+
+        <div className={styles.bottomLine}></div>
       </div>
     </section>
   );

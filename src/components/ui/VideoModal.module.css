@@ -1,0 +1,187 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(40, 35, 30, 0.95); /* matching the warm dark tone in screenshot */
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10001;
+  transition: all 0.3s ease;
+}
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+.videoTopControls {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.videoControlBtn {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+}
+.videoControlBtn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.videoWrapper {
+  position: absolute;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  background: #000;
+  cursor: pointer;
+}
+
+.active {
+  width: 380px;
+  height: 680px;
+  transform: translateX(0) scale(1);
+  z-index: 10;
+  opacity: 1;
+  cursor: default;
+}
+
+.prev {
+  width: 380px;
+  height: 680px;
+  transform: translateX(-115%) scale(0.8);
+  z-index: 5;
+  opacity: 0.5;
+}
+
+.next {
+  width: 380px;
+  height: 680px;
+  transform: translateX(115%) scale(0.8);
+  z-index: 5;
+  opacity: 0.5;
+}
+
+.hidden {
+  width: 380px;
+  height: 680px;
+  transform: translateX(0) scale(0.5);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10001;
+  transition: all 0.3s ease;
+}
+.navBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevBtn {
+  left: 6%;
+}
+
+.nextBtn {
+  right: 6%;
+}
+
+@media (max-width: 1024px) {
+  .active { width: 340px; height: 600px; }
+  .prev, .next, .hidden { width: 340px; height: 600px; }
+  .prev { transform: translateX(-105%) scale(0.8); }
+  .next { transform: translateX(105%) scale(0.8); }
+}
+
+@media (max-width: 768px) {
+  .active { width: 280px; height: 500px; }
+  .prev, .next, .hidden { width: 280px; height: 500px; }
+  .prev { transform: translateX(-90%) scale(0.7); }
+  .next { transform: translateX(90%) scale(0.7); }
+  .prevBtn { left: 2%; }
+  .nextBtn { right: 2%; }
+}
+
+@media (max-width: 480px) {
+  .active {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .prev, .next { opacity: 0; pointer-events: none; }
+  .prevBtn, .nextBtn { width: 44px; height: 44px; }
+  .closeBtn { top: 15px; left: 15px; }
+}

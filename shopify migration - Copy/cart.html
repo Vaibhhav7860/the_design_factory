@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Bag | The Design Factory</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-cream: #FAF9F6;
+            --color-charcoal: #2D2D2D;
+            --color-text-light: #707070;
+            --color-accent-cyan: #456767;
+            --color-accent-pink: #FBC9BC;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --transition: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: var(--font-secondary); 
+            color: var(--color-charcoal); 
+            background-color: var(--color-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Minimal Header --- */
+        header {
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--color-cream);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo img { height: 40px; }
+        .back-link {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--color-charcoal);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 4px;
+            transition: var(--transition);
+        }
+        .back-link:hover { border-bottom: 1px solid var(--color-charcoal); }
+
+        /* --- Cart Container --- */
+        .cart-container {
+            max-width: 1200px;
+            margin: 60px auto 100px;
+            padding: 0 8%;
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .cart-header h1 {
+            font-family: var(--font-primary);
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        /* --- Cart Items --- */
+        .cart-items { border-top: 1px solid #e5e2dd; }
+        .cart-item {
+            display: grid;
+            grid-template-columns: 120px 1fr 100px;
+            gap: 40px;
+            padding: 40px 0;
+            border-bottom: 1px solid #e5e2dd;
+            align-items: center;
+        }
+        .item-img {
+            width: 120px;
+            height: 150px;
+            background: #f0ede8;
+            overflow: hidden;
+        }
+        .item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .cart-item:hover .item-img img { transform: scale(1.05); }
+
+        .item-info h3 {
+            font-family: var(--font-primary);
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .item-meta {
+            font-size: 12px;
+            color: var(--color-text-light);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+        .personalization-tag {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 11px;
+            color: var(--color-accent-cyan);
+            background: rgba(69, 103, 103, 0.05);
+            padding: 4px 10px;
+            border-radius: 2px;
+        }
+
+        .item-qty {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e5e2dd;
+            padding: 8px 15px;
+            gap: 20px;
+            width: fit-content;
+        }
+        .qty-btn { cursor: pointer; font-size: 18px; line-height: 1; user-select: none; }
+        .qty-val { font-size: 14px; font-weight: 500; }
+
+        .remove-btn {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .remove-btn:hover { color: var(--color-charcoal); }
+
+        /* --- Summary --- */
+        .cart-summary {
+            background: #F4F2EE;
+            padding: 50px 40px;
+            position: sticky;
+            top: 120px;
+        }
+        .summary-title {
+            font-family: var(--font-primary);
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e5e2dd;
+            padding-bottom: 15px;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+        .total-row {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e5e2dd;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--color-charcoal);
+            color: white;
+            border: none;
+            font-family: var(--font-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: var(--transition);
+        }
+        .checkout-btn:hover {
+            background: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .trust-badges {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+            opacity: 0.6;
+        }
+        .trust-badge { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- Sliding Gallery --- */
+        .community-section {
+            padding: 20px 0;
+            background-color: var(--color-cream);
+            overflow: hidden;
+            border-top: 1px solid #e5e2dd;
+        }
+        .marquee-container {
+            display: flex;
+            width: 200%;
+            animation: marquee 40s linear infinite;
+        }
+        .marquee-item { width: 300px; height: 300px; margin-right: 20px; flex-shrink: 0; }
+        .marquee-item img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- Footer --- */
+        footer { padding: 80px 8% 0; background: var(--color-cream); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-col h4 { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 25px; font-weight: 500; }
+        .footer-col p { font-size: 13px; color: var(--color-text-light); line-height: 1.8; }
+        .footer-col a { display: block; font-size: 13px; color: var(--color-text-light); text-decoration: none; margin-bottom: 12px; transition: 0.3s; }
+        .footer-col a:hover { color: var(--color-charcoal); transform: translateX(5px); }
+
+        .footer-character-procession {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 4%;
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+        }
+        .footer-char {
+            width: 250px;
+            height: auto;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.1));
+        }
+
+        .footer-bottom-pattern {
+            height: 100px;
+            width: 100%;
+            background-image: 
+                linear-gradient(45deg, #f5f2ed 25%, transparent 25%), 
+                linear-gradient(-45deg, #f5f2ed 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #f5f2ed 75%), 
+                linear-gradient(-45deg, transparent 75%, #f5f2ed 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            opacity: 0.5;
+            margin-top: -50px;
+            position: relative;
+        }
+
+        .footer-bottom {
+            padding: 10px 8%;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--color-text-light);
+            background: var(--color-cream);
+        }
+
+        @media (max-width: 1024px) {
+            .cart-layout { grid-template-columns: 1fr; gap: 60px; }
+            .cart-summary { position: static; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="mockup.html" class="logo"><img src="logo.jpeg" alt="The Design Factory"></a>
+        <a href="mockup.html" class="back-link">Continue Shopping</a>
+    </header>
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Shopping Bag</h1>
+        </div>
+
+        <div class="cart-layout">
+            <div class="cart-items">
+                <!-- Item 1 -->
+                <div class="cart-item">
+                    <div class="item-img"><img src="category_stationery.png"></div>
+                    <div class="item-info">
+                        <h3>Gajraj Pavilion Notecards</h3>
+                        <div class="item-meta">Set of 20 • Premium Textured Paper</div>
+                        <div class="personalization-tag">Personalization: "The Khanna Family"</div>
+                        <div><span class="remove-btn">Remove</span></div>
+                    </div>
+                    <div class="item-qty">
+                        <span class="qty-btn">-</span>
+                        <span class="qty-val">1</span>
+                        <span class="qty-btn">+</span>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="cart-item">
+                    <div class="item-img"><img src="category_bags.png"></div>
+                    <div class="item-info">
+                        <h3>Personalized Kids Backpack</h3>
+                        <div class="item-meta">Space Theme • Medium Size</div>
+                        <div class="personalization-tag">Name: "Aaryan"</div>
+                        <div><span class="remove-btn">Remove</span></div>
+                    </div>
+                    <div class="item-qty">
+                        <span class="qty-btn">-</span>
+                        <span class="qty-val">1</span>
+                        <span class="qty-btn">+</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-title">Order Summary</div>
+                <div class="summary-row">
+                    <span>Subtotal (2 items)</span>
+                    <span>₹ 4,800.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span style="font-size: 11px; font-style: italic;">Calculated at next step</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span>₹ 4,800.00</span>
+                </div>
+                <button class="checkout-btn">Proceed to Checkout</button>
+                
+                <div class="trust-badges">
+                    <span class="trust-badge">Secure Pay</span>
+                    <span class="trust-badge">Gift Wrapped</span>
+                    <span class="trust-badge">Handcrafted</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="marquee-container">
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+            <div class="marquee-item"><img src="category_bags.png"></div>
+            <div class="marquee-item"><img src="category_school.png"></div>
+            <div class="marquee-item"><img src="hero_banner.png"></div>
+            <!-- Repeat for loop -->
+            <div class="marquee-item"><img src="category_labels.png"></div>
+            <div class="marquee-item"><img src="category_stationery.png"></div>
+            <div class="marquee-item"><img src="category_bags.png"></div>
+            <div class="marquee-item"><img src="category_school.png"></div>
+            <div class="marquee-item"><img src="hero_banner.png"></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ABOUT US</h4>
+                <p>Everything begins with a feeling. At The Design Factory, we create heartfelt, personalized designs finished with deep attention to detail.</p>
+                <p style="font-size: 11px; margin-top: 30px; letter-spacing: 1px; opacity: 0.6;">&copy; 2026, The Design Factory.</p>
+            </div>
+            <div class="footer-col">
+                <h4>SUPPORT</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+                <a href="#">Track Order</a>
+                <a href="#">Blogs</a>
+            </div>
+            <div class="footer-col">
+                <h4>POLICIES</h4>
+                <a href="#">Return & Exchange</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Shipping Policy</a>
+            </div>
+            <div class="footer-col">
+                <h4>NEWSLETTER</h4>
+                <p style="font-size: 12px;">Stay updated with our new collections and exclusive offers.</p>
+            </div>
+        </div>
+        
+        <div class="footer-character-procession">
+            <img src="1.png" class="footer-char" alt="Character 1">
+            <img src="2.png" class="footer-char" alt="Character 2">
+            <img src="3.PNG" class="footer-char" alt="Character 3">
+        </div>
+        
+        <div class="footer-bottom-pattern"></div>
+        <div class="footer-bottom">&copy; 2026, The Design Factory.</div>
+    </footer>
+
+</body>
+</html>

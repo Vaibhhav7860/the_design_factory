@@ -1,0 +1,63 @@
+.section {
+  padding: 20px 4%;
+  background-color: #FAF9F6;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.galleryWrapper {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.header {
+  text-align: left;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  letter-spacing: 4px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+.marqueeContainer {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 35s linear infinite;
+}
+
+.marqueeItem {
+  flex: 0 0 auto;
+  width: 12.5vw;
+  min-width: 150px;
+  padding: 0 5px;
+}
+
+.marqueeImage {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin-bottom: 20px;
+  }
+  .header h2 {
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+  .marqueeItem {
+    min-width: 120px;
+  }
+}

@@ -1,7 +1,6 @@
 import { products, getProductBySlug, getRelatedProducts } from "@/data/products";
 import ProductDetail from "./ProductDetail";
 import ProductCard from "@/components/product/ProductCard";
-import SectionTitle from "@/components/ui/SectionTitle";
 import styles from "./product.module.css";
 
 export function generateStaticParams() {
@@ -23,7 +22,7 @@ export default async function ProductPage({ params }) {
   const related = getRelatedProducts(product.id, 4);
 
   return (
-    <section className={styles.page}>
+    <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
       <div className="container">
         <nav className={styles.breadcrumb}>
           <a href="/">Home</a>
@@ -37,7 +36,9 @@ export default async function ProductPage({ params }) {
 
         {related.length > 0 && (
           <div className={styles.related}>
-            <SectionTitle decorative="More to Love" title="You May Also Like" />
+            <div className={styles.relatedHeader}>
+              <h2>You May Also Like</h2>
+            </div>
             <div className={styles.relatedGrid}>
               {related.map((p) => (
                 <ProductCard key={p.id} product={p} />

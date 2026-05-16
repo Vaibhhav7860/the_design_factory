@@ -1,19 +1,25 @@
 import HeroSection from "@/components/home/HeroSection";
-import CategoryShowcase from "@/components/home/CategoryShowcase";
 import BestSellers from "@/components/home/BestSellers";
+import Banner from "@/components/home/Banner";
 import Testimonials from "@/components/home/Testimonials";
-import BlogPreview from "@/components/home/BlogPreview";
-import FAQ from "@/components/home/FAQ";
+import PopularPicks from "@/components/home/PopularPicks";
+import AboutSection from "@/components/home/AboutSection";
+import VideoReels from "@/components/home/VideoReels";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import CommunityGallery from "@/components/home/CommunityGallery";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CategoryShowcase />
       <BestSellers />
+      <Banner />
+      <PopularPicks />
+      <WhyChooseUs />
+      <AboutSection />
+      <VideoReels />
       <Testimonials />
-      <BlogPreview />
-      <FAQ />
+      <CommunityGallery />
     </>
   );
 }

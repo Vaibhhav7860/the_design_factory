@@ -1,58 +1,137 @@
 .overlay {
-  position: fixed; inset: 0; z-index: 1100;
-  background: rgba(0,0,0,0.35); opacity: 0; pointer-events: none;
-  transition: opacity var(--transition-base);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9998;
+  animation: fadeIn 0.3s ease;
 }
-.overlayOpen { opacity: 1; pointer-events: auto; }
 
-.menu {
-  position: fixed; top: 0; left: 0; bottom: 0;
-  width: min(360px, 85vw); z-index: 1200;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  transform: translateX(-100%);
-  transition: transform var(--transition-base);
-  display: flex; flex-direction: column;
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  max-width: 85vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 9999;
   overflow-y: auto;
+  animation: slideIn 0.35s cubic-bezier(0.2, 1, 0.2, 1);
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
 }
-.open { transform: translateX(0); }
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 .header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 24px; border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
 }
-.brand {
-  font-family: var(--font-cinzel); font-weight: 600;
-  font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase;
+
+.title {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
+
 .closeBtn {
-  width: 36px; height: 36px; border-radius: var(--radius-full);
-  background: var(--bg-neu); box-shadow: var(--neu-raised-sm);
-  display: flex; align-items: center; justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
-.nav { padding: 16px 0; }
-.group { border-bottom: 1px solid rgba(0,0,0,0.04); }
-.groupBtn {
-  display: flex; align-items: center; justify-content: space-between;
-  width: 100%; padding: 14px 24px;
+.closeBtn svg {
+  stroke: var(--color-text);
+  transition: stroke 0.3s ease;
 }
-.groupLink {
-  font-family: var(--font-montserrat); font-weight: 500;
-  font-size: 0.88rem; letter-spacing: 0.03em; text-transform: uppercase;
-  color: var(--text-primary);
-}
-.chevron { transition: transform var(--transition-fast); flex-shrink: 0; }
-.chevronOpen { transform: rotate(180deg); }
 
-.subs {
-  padding: 0 24px 12px 40px;
-  display: flex; flex-direction: column; gap: 2px;
+.closeBtn:hover svg {
+  stroke: var(--color-peach);
 }
+
+.nav {
+  padding: 16px 0;
+}
+
+.navGroup {
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.navItemRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navLink {
+  display: block;
+  padding: 16px 24px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  transition: color 0.3s ease;
+  flex: 1;
+}
+
+.navLink:hover {
+  color: var(--color-peach);
+}
+
+.expandBtn {
+  padding: 16px 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.expandBtn svg {
+  stroke: var(--color-text-light);
+}
+
+.subMenu {
+  padding: 0 24px 16px 32px;
+  animation: fadeIn 0.3s ease;
+}
+
+.subGroup {
+  margin-bottom: 16px;
+}
+
+.subHeading {
+  display: block;
+  font-family: var(--font-primary);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
 .subLink {
-  padding: 8px 12px; border-radius: var(--radius-sm);
-  font-family: var(--font-montserrat); font-weight: 300; font-size: 0.82rem;
-  color: var(--text-secondary); transition: all var(--transition-fast);
+  display: block;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--color-text-light);
+  font-weight: 400;
+  transition: color 0.3s ease;
 }
-.subLink:hover { background: var(--gold-light); color: var(--text-accent); }
+
+.subLink:hover {
+  color: var(--color-peach);
+}

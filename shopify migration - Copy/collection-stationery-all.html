@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Stationery | The Design Factory</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@200;300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-gold: #BFA37E;
+            --color-gold-light: #FCD589;
+            --color-bg-soft: #FAF9F6;
+            --color-text: #2D2D2D;
+            --color-text-light: #707070;
+            --color-white: #ffffff;
+            --font-primary: 'Cormorant Garamond', serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --font-accent: 'Cinzel', serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-secondary); color: var(--color-text); background-color: var(--color-white); overflow-x: hidden; }
+
+        header { padding: 20px 4%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; background: #fff; position: sticky; top: 0; z-index: 100; }
+        .logo img { height: 50px; }
+        .nav-right { display: flex; gap: 20px; align-items: center; }
+
+        .all-hero { padding: 80px 4% 40px; text-align: center; }
+        .all-hero h1 { font-family: var(--font-primary); font-size: 56px; color: #333; margin-bottom: 15px; font-weight: 400; letter-spacing: 2px; text-transform: capitalize; }
+        .all-hero p { font-family: var(--font-secondary); font-size: 14px; color: var(--color-text-light); max-width: 600px; margin: 0 auto 50px; line-height: 1.6; letter-spacing: 0.5px; }
+
+
+        .collection-all-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; padding: 0 4% 80px; max-width: 1400px; margin: 0 auto; }
+        
+        .sub-cat-card { position: relative; border-radius: 15px; overflow: hidden; background: #f8f8f8; aspect-ratio: 1.8 / 1; text-decoration: none; display: block; }
+        .sub-cat-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
+        .sub-cat-card:hover img { transform: scale(1.05); }
+
+        .sub-cat-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 30px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 5; }
+        
+        .shop-now-btn { background: #fff; color: #333; padding: 12px 30px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .sub-cat-badge { font-family: var(--font-primary); background: #fff; color: #333; padding: 15px 40px; border-radius: 10px; font-size: 18px; font-weight: 500; letter-spacing: 2px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .collection-all-grid { grid-template-columns: 1fr; }
+            .all-hero h1 { font-size: 48px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+        <a href="mockup.html" class="logo"><img src="logo.jpeg" alt="The Design Factory"></a>
+        <div class="nav-right">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <a href="cart.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></a>
+        </div>
+    </header>
+
+    <div class="all-hero">
+        <h1>Stationery</h1>
+        <p>Premium personalized stationery for kids and adults. From notebooks to gift envelopes, make every word special.</p>
+        
+    </div>
+
+    <main class="collection-all-grid">
+        <!-- Notebooks -->
+        <a href="collection-stationery.html" class="sub-cat-card">
+            <img src="category_stationery.png" alt="Notebooks">
+            <div class="sub-cat-overlay">
+                <div class="shop-now-btn">SHOP NOW</div>
+                <div class="sub-cat-badge">NOTEBOOKS</div>
+            </div>
+        </a>
+
+        <!-- Gift Envelopes -->
+        <a href="collection-stationery.html" class="sub-cat-card">
+            <img src="category_labels.png" alt="Gift Envelopes">
+            <div class="sub-cat-overlay">
+                <div class="shop-now-btn">SHOP NOW</div>
+                <div class="sub-cat-badge">GIFT ENVELOPES</div>
+            </div>
+        </a>
+
+        <!-- Planners -->
+        <a href="collection-adults.html" class="sub-cat-card">
+            <img src="category_stationery.png" alt="Planners">
+            <div class="sub-cat-overlay">
+                <div class="shop-now-btn">SHOP NOW</div>
+                <div class="sub-cat-badge">PLANNERS</div>
+            </div>
+        </a>
+
+        <!-- Gift Sets -->
+        <a href="collection-stationery.html" class="sub-cat-card">
+            <img src="https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655" alt="Gift Sets">
+            <div class="sub-cat-overlay">
+                <div class="shop-now-btn">SHOP NOW</div>
+                <div class="sub-cat-badge">GIFT SETS</div>
+            </div>
+        </a>
+    </main>
+
+</body>
+</html>

@@ -12,7 +12,9 @@ export default function ProductCard({ product }) {
   return (
     <div className={styles.card}>
       {product.badge && (
-        <span className={`badge ${product.badge === "New" ? "badge-salmon" : "badge-gold"} ${styles.badge}`}>
+        <span
+          className={`${styles.badge} ${product.badge === "New" ? styles.badgeNew : ""}`}
+        >
           {product.badge}
         </span>
       )}
@@ -26,15 +28,20 @@ export default function ProductCard({ product }) {
             className={styles.image}
           />
         </div>
+        <div className={styles.wishlistIcon}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+        </div>
       </Link>
       <div className={styles.info}>
         <Link href={`/product/${product.slug}`}>
           <h3 className={styles.title}>{product.title}</h3>
         </Link>
         <div className={styles.pricing}>
-          <span className="price-current">{formatPrice(product.price)}</span>
+          <span className={styles.price}>{formatPrice(product.price)}</span>
           {product.originalPrice && (
-            <span className="price-original">{formatPrice(product.originalPrice)}</span>
+            <span className={styles.originalPrice}>{formatPrice(product.originalPrice)}</span>
           )}
           {discount > 0 && <span className={styles.discount}>{discount}% off</span>}
         </div>
@@ -44,8 +51,7 @@ export default function ProductCard({ product }) {
         onClick={() => addToCart(product)}
         aria-label={`Add ${product.title} to cart`}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        Quick Add
+        QUICK ADD
       </button>
     </div>
   );
