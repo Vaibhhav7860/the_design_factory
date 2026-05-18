@@ -92,14 +92,14 @@ export default function Footer() {
       {/* Footer Characters */}
       <div className={styles.characterArea}>
         <div className={styles.characterProcession}>
-          <Image src="/images/footer-char-1.png" alt="Character 1" width={450} height={450} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
+          <Image src="/images/footer-char-1.png" alt="Character 1" width={280} height={280} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
           <div className={styles.centerGroup}>
             <div className={styles.tribute}>
-              CAPPUCCINO - Our Heart. Our Joy. Our Inspiration.
+              <span className={styles.cappuccino}>CAPPUCCINO</span> - Our Heart. Our Joy. Our Inspiration.
             </div>
-            <Image src="/images/footer-char-2.png" alt="Character 2" width={350} height={350} className={`${styles.footerChar} ${styles.footerCharCenter}`} />
+            <Image src="/images/footer-char-2.png" alt="Character 2" width={400} height={400} className={`${styles.footerChar} ${styles.footerCharCenter}`} />
           </div>
-          <Image src="/images/footer-char-3.png" alt="Character 3" width={450} height={450} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
+          <Image src="/images/footer-char-3.png" alt="Character 3" width={280} height={280} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
         </div>
       </div>
 

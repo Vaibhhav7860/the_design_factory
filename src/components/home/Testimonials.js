@@ -1,10 +1,13 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { testimonials } from "@/data/testimonials";
 import styles from "./Testimonials.module.css";
 
 export default function Testimonials() {
   const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -14,6 +17,28 @@ export default function Testimonials() {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
@@ -30,20 +55,29 @@ export default function Testimonials() {
             </svg>
           </button>
           
-          <div className={styles.slider} ref={scrollRef}>
+          <div 
+            className={`${styles.slider} ${isDragging ? styles.dragging : ""}`} 
+            ref={scrollRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+          >
             {testimonials.map((t) => (
-              <div key={t.id} className={styles.card}>
-                <p className={styles.text}>"{t.text}"</p>
-                <div className={styles.author}>
-                  <div className={styles.avatar}>
-                    {/* Small icon inside avatar */}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                    </svg>
-                  </div>
-                  <div className={styles.authorInfo}>
-                    <h4 className={styles.name}>{t.name}, {t.city}</h4>
-                    <p className={styles.heading}>{t.heading}</p>
+              <div key={t.id} className={styles.cardShell}>
+                <div className={styles.cardCore}>
+                  <p className={styles.text}>"{t.text}"</p>
+                  <div className={styles.author}>
+                    <div className={styles.avatar}>
+                      {/* Small icon inside avatar */}
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                      </svg>
+                    </div>
+                    <div className={styles.authorInfo}>
+                      <h4 className={styles.name}>{t.name}, {t.city}</h4>
+                      <p className={styles.heading}>{t.heading}</p>
+                    </div>
                   </div>
                 </div>
               </div>

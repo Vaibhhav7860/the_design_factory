@@ -1,5 +1,5 @@
 .section {
-  padding: 20px 4%;
+  padding: 10px 4%;
   background-color: #FAF9F6;
   max-width: 1800px;
   margin: 0 auto;
@@ -13,7 +13,7 @@
 
 .header {
   text-align: left;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .header h2 {

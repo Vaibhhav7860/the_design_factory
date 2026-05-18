@@ -14,7 +14,7 @@
 
 .header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 
 .subtitle {
@@ -24,25 +24,42 @@
 }
 
 .title {
-  font-family: var(--font-primary);
-  font-size: 32px;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--color-text);
+  font-family: 'Satisfy', cursive;
+  font-size: 50;
+  margin-bottom: 40px;
+  color: #555;
+  font-weight: 400;
+  text-align: center;
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
 }
 
 /* ── Product Grid ── */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0 20px;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 
 .cardLink {
   text-decoration: none;
   color: inherit;
   display: block;
+  flex: 0 0 calc((100% - 120px) / 5);
+  min-width: 250px;
+  scroll-snap-align: start;
 }
 
 .card {
@@ -183,7 +200,7 @@
 /* View All */
 .viewAllWrap {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .viewAllBtn {
@@ -207,9 +224,8 @@
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  .cardLink {
+    flex: 0 0 calc(50% - 15px);
   }
   .imageContainer {
     height: 250px;
@@ -226,10 +242,48 @@
     padding: 10px;
     font-size: 10px;
   }
+  .navButton {
+    display: none; /* Hide arrows on mobile, allow swipe */
+  }
 }
 
 @media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .cardLink {
+    flex: 0 0 100%;
   }
+}
+
+/* Carousel Navigation */
+.navButton {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border: 1px solid #eee;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #555;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  z-index: 20;
+}
+
+.navLeft {
+  left: -20px;
+}
+
+.navRight {
+  right: -20px;
+}
+
+.navButton:hover {
+  background: #fdfdfd;
+  color: #000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  border-color: #ddd;
 }

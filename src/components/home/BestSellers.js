@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
@@ -39,10 +40,41 @@ const featuredProducts = [
     image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_3978.jpg?v=1778573386",
     slug: "iron-on-labels-construction",
   },
+  {
+    id: 105,
+    title: "Art Bag - Unicorn",
+    price: 1250,
+    badge: "Must Have",
+    badgeStyle: "peach",
+    image: "/images/products/art_bag_unicorn.png",
+    slug: "art-bag-unicorn",
+  },
+  {
+    id: 106,
+    title: "Art Bag - Dinosaur",
+    price: 1250,
+    badge: "Trending",
+    badgeStyle: "blue",
+    image: "/images/products/art_bag_dinosaur.png",
+    slug: "art-bag-dinosaur",
+  },
 ];
 
 export default function BestSellers() {
   const { addToCart } = useCart();
+  const sliderRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -320, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 320, behavior: "smooth" });
+    }
+  };
 
   return (
     <section className={styles.section}>
@@ -51,14 +83,24 @@ export default function BestSellers() {
           <p className={styles.subtitle}>Carefully curated favorites for your loved ones</p>
           <h2 className={styles.title}>EXPLORE MORE</h2>
         </div>
-        <div className={styles.grid}>
-          {featuredProducts.map((product) => (
+        <div className={styles.carouselWrapper}>
+          <button className={`${styles.navButton} ${styles.navLeft}`} onClick={scrollLeft} aria-label="Scroll left">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          
+          <div className={styles.grid} ref={sliderRef}>
+            {featuredProducts.map((product, index) => {
+              const borderColor = ['#FCD589', '#FBC9BC', '#d7e4e4', '#E6D7FF', '#D4F0F0', '#FFD8B1'][index % 6];
+              return (
             <Link
               key={product.id}
               href={`/product/${product.slug}`}
               className={styles.cardLink}
             >
-              <div className={styles.card}>
+              <div 
+                className={styles.card}
+                style={{ border: `6px solid ${borderColor}` }}
+              >
                 <div className={styles.imageContainer}>
                   <div className={styles.wishlistIcon}>
                     <svg viewBox="0 0 24 24">
@@ -93,7 +135,13 @@ export default function BestSellers() {
                 <div className={styles.productPrice}>₹ {product.price.toLocaleString("en-IN")}.00</div>
               </div>
             </Link>
-          ))}
+            );
+          })}
+          </div>
+          
+          <button className={`${styles.navButton} ${styles.navRight}`} onClick={scrollRight} aria-label="Scroll right">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
         <div className={styles.viewAllWrap}>
           <Link href="/category/bags" className={styles.viewAllBtn}>

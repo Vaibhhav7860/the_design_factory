@@ -7,6 +7,7 @@ import AboutSection from "@/components/home/AboutSection";
 import VideoReels from "@/components/home/VideoReels";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import CommunityGallery from "@/components/home/CommunityGallery";
+import BulkOrders from "@/components/home/BulkOrders";
 
 export default function HomePage() {
   return (
@@ -19,6 +20,7 @@ export default function HomePage() {
       <AboutSection />
       <VideoReels />
       <Testimonials />
+      <BulkOrders />
       <CommunityGallery />
     </>
   );

@@ -1,14 +1,14 @@
 .section {
   text-align: center;
-  background-color: var(--color-bg-soft);
-  padding: 40px 8%;
+  background-color: #F5F2EB;
+  padding: 20px 8%;
   width: 100%;
   max-width: 100%;
 }
 
 .header {
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto 20px;
 }
 
 .logo {
@@ -34,58 +34,21 @@
   font-style: italic;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 80px 40px;
-  max-width: 1000px;
+.imageWrapper {
+  max-width: 750px;
   margin: 0 auto;
+  width: 100%;
 }
 
-.item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.iconWrap {
-  width: 52px;
-  height: 52px;
-  margin-bottom: 12px;
-  transition: var(--transition-smooth);
-}
-
-.iconWrap svg {
-  width: 52px;
-  height: 52px;
-  stroke: #BFA37E;
-  stroke-width: 0.8;
-}
-
-.item:hover .iconWrap {
-  transform: translateY(-5px);
-}
-
-.item:hover .iconWrap svg {
-  stroke: var(--color-text);
-}
-
-.item span {
-  font-size: 11px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #444;
+.valuesImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 30px 4%;
-  }
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px 30px;
+    padding: 12px 4%;
   }
   .heading {
     font-size: 24px;
@@ -93,12 +56,5 @@
   }
   .desc {
     font-size: 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
   }
 }

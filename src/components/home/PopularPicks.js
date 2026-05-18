@@ -8,11 +8,16 @@ const picks = [
   { label: "SCHOOL ESSENTIALS", href: "/category/school-essentials", image: "/images/categories/school.png" },
   { label: "BAGS COLLECTION", href: "/category/bags", image: "/images/categories/bags.png" },
   { label: "COMBO SETS", href: "/category/combos", image: "/images/categories/labels.png" },
+  { label: "LABELS", href: "/category/labels", image: "/images/categories/labels_new.png" },
+  { label: "GIFT STATIONERY", href: "/category/gift-stationery", image: "/images/categories/gift_stationery.png" },
+  { label: "KIDS ACCESSORIES", href: "/category/kids-accessories", image: "/images/categories/kids_accessories.png" },
+  { label: "ORGANISERS", href: "/category/organisers", image: "/images/categories/organisers.png" },
 ];
 
 const pastelColors = [
-  "#E6F4F1", "#FDF1F5", "#F1F1FD",
+  "#E6F4F1", "#FDF1F5", "#FCF7E3",
   "#FDF7F1", "#F9FDF1", "#F1FDFD",
+  "#FDF1F1", "#FCF7E3",
 ];
 
 export default function PopularPicks() {
