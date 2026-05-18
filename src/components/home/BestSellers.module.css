@@ -40,7 +40,7 @@
 /* ── Product Grid ── */
 .grid {
   display: flex;
-  gap: 30px;
+  gap: 5px;
   overflow-x: auto;
   scroll-behavior: smooth;
   scrollbar-width: none;
@@ -56,9 +56,10 @@
 .cardLink {
   text-decoration: none;
   color: inherit;
-  display: block;
-  flex: 0 0 calc((100% - 120px) / 5);
-  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 calc((100% - 40px) / 5);
+  min-width: 200px;
   scroll-snap-align: start;
 }
 
@@ -70,6 +71,9 @@
   background: #fff;
   padding: 10px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card:hover {
@@ -79,7 +83,8 @@
 
 .imageContainer {
   background-color: #fcfcfc;
-  height: 380px;
+  aspect-ratio: 1 / 1;
+  height: auto;
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
@@ -195,6 +200,7 @@
   font-size: 14px;
   color: var(--color-text);
   font-weight: 400;
+  margin-top: auto;
 }
 
 /* View All */
