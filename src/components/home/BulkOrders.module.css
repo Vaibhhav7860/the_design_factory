@@ -23,7 +23,8 @@
 .heading {
   font-family: 'Satisfy', cursive;
   font-size: 50px;
-  margin-bottom: 24px;
+  line-height: 1.1;
+  margin-bottom: 8px;
   color: #555;
   font-weight: 400;
 }

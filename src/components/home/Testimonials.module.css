@@ -5,8 +5,9 @@
 
 .mainHeading {
   font-family: 'Satisfy', cursive;
-  font-size: 50;
-  margin-bottom: 40px;
+  font-size: 50px;
+  line-height: 1.1;
+  margin-bottom: 8px;
   color: #555;
   font-weight: 400;
   text-align: center;
@@ -34,7 +35,7 @@
   scroll-behavior: smooth;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  padding: 20px 0 40px; /* Space for shadow */
+  padding: 0 0 40px; /* Space for shadow */
   margin: 0 40px; /* Space for the arrows */
   scroll-snap-type: x mandatory;
   cursor: grab;

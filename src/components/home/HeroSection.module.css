@@ -3,9 +3,7 @@
   width: 100%;
   height: auto;
   max-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   position: relative;
   background-color: #FAF9F6;
   margin-top: var(--nav-height);
@@ -69,6 +67,7 @@
   z-index: 20;
   transition: all 0.3s ease;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 .navBtn:hover {
   background: rgba(255, 255, 255, 0.4);
