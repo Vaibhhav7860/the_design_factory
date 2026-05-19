@@ -2,8 +2,7 @@
   padding: 20px 4%;
   text-align: center;
   background: #fff;
-  max-width: 1800px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .heading {
@@ -21,8 +20,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 60px 30px;
-  max-width: 1700px;
-  margin: 0 auto;
 }
 
 .card {
