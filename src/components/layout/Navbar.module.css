@@ -31,7 +31,8 @@
 
 .announcementTrack {
   display: inline-flex;
-  animation: marquee 30s linear infinite;
+  animation: marquee 25s linear infinite;
+  width: max-content;
 }
 
 @keyframes marquee {
@@ -44,48 +45,50 @@
 }
 
 .announcementText {
-  padding-right: 50px;
+  padding-right: 8px;
 }
 
 /* ── Nav ── */
 .nav {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) 1fr auto;
   align-items: center;
-  padding: 20px 4%;
+  padding: 15px 2%;
   max-width: 1800px;
   margin: 0 auto;
   transition: padding 0.3s ease;
+  gap: 15px;
 }
 
 .navScrolled {
-  padding: 15px 4%;
+  padding: 10px 2%;
 }
 
 /* ── Logo ── */
 .logo {
-  height: 60px;
+  height: 6ch;
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  justify-content: flex-start;
 }
 
 .logoImg {
-  max-height: 60px;
+  height: 170px;
   width: auto;
-  max-width: 180px;
+  min-width: 380px;
   object-fit: contain;
+  object-position: left center;
 }
 
 /* ── Nav Links ── */
 .navLinks {
   display: flex;
   list-style: none;
-  gap: 32px;
+  gap: 18px;
   align-items: center;
-  flex: 1;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  margin-left: -40px;
 }
 
 .navItem {
@@ -130,13 +133,37 @@
   width: 85vw;
   max-width: 1200px;
   padding: 50px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.08); /* Softer, wider high-end shadow */
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 50px;
   border-top: 1px solid #f0f0f0;
   z-index: 1000;
-  animation: fadeIn 0.25s ease;
+  animation: megaMenuReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  border-radius: 0 0 16px 16px; /* High-end visual touch */
+}
+
+/* Invisible bridge to prevent hover loss when moving mouse down */
+.megaMenu::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: transparent;
+}
+
+@keyframes megaMenuReveal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 15px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 .megaCol h4 {
@@ -158,16 +185,68 @@
 
 .megaCol a {
   text-transform: none;
-  font-size: 13px;
-  color: var(--color-text-light);
+  font-size: 14px; /* Increased slightly for readability */
+  color: var(--color-text);
   letter-spacing: 0.5px;
   font-weight: 400;
   text-decoration: none;
   transition: color 0.3s ease;
+  display: block;
 }
 
 .megaCol a:hover {
-  color: var(--color-peach);
+  color: #8B5CF6; /* Purple hover */
+}
+
+/* Expandable Nested Links inside Mega Menu */
+.navDetails {
+  margin-bottom: 10px;
+}
+
+.navSummary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #8B5CF6; /* Purple as requested */
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 1px;
+  list-style: none; /* Hide default triangle */
+  padding-right: 10px;
+  transition: opacity 0.2s ease;
+}
+
+.navSummary::-webkit-details-marker {
+  display: none;
+}
+
+.navSummary:hover {
+  opacity: 0.8;
+}
+
+/* Flip the arrow when details is open */
+.navDetails[open] .navSummary svg {
+  transform: rotate(180deg);
+}
+
+.navSummary svg {
+  transition: transform 0.3s ease;
+}
+
+.nestedLinks {
+  list-style: none;
+  padding-left: 15px; /* Indent sublinks */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nestedLinks a {
+  font-size: 13.5px;
+  color: var(--color-text);
 }
 
 .megaImage {
@@ -249,7 +328,8 @@
 /* ── Responsive ── */
 @media (max-width: 1200px) {
   .navLinks {
-    gap: 20px;
+    gap: 14px;
+    margin-left: -30px;
   }
   .navLink {
     font-size: 10px;
@@ -258,18 +338,22 @@
 }
 
 @media (max-width: 1024px) {
+  .nav {
+    grid-template-columns: auto 1fr auto; /* Hamburger, Logo, NavIcons */
+    padding: 15px 4%;
+  }
   .navLinks {
     display: none;
   }
   .hamburger {
     display: flex;
   }
+  .logo {
+    justify-content: center; /* Center logo on mobile */
+  }
   .logoImg {
     max-height: 45px;
     max-width: 140px;
-  }
-  .nav {
-    padding: 15px 4%;
   }
 }
 

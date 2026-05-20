@@ -1,7 +1,7 @@
 .section {
   text-align: center;
   background-color: #F5F2EB;
-  padding: 20px 8%;
+  padding: 40px 8%;
   width: 100%;
   max-width: 100%;
 }
@@ -14,7 +14,7 @@
 .logo {
   height: 80px;
   width: auto;
-  margin: 0 auto 15px;
+  margin: 0 auto 0px;
   object-fit: contain;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .imageWrapper {
-  max-width: 750px;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }

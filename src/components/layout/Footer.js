@@ -21,7 +21,7 @@ export default function Footer() {
           <div className={styles.socialIcons}>
             {/* Instagram */}
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="url(#ig-gradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#ig-gradient)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <defs>
                   <linearGradient id="ig-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
                     <stop offset="0%" stopColor="#f09433" />
@@ -38,7 +38,7 @@ export default function Footer() {
             </a>
             {/* Facebook */}
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1877F2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1877F2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
@@ -91,15 +91,13 @@ export default function Footer() {
 
       {/* Footer Characters */}
       <div className={styles.characterArea}>
+        <div className={styles.footerBackgroundWrapper} />
         <div className={styles.characterProcession}>
           <Image src="/images/footer-char-1.png" alt="Character 1" width={280} height={280} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
           <div className={styles.centerGroup}>
-            <div className={styles.tribute}>
-              <span className={styles.cappuccino}>CAPPUCCINO</span> - Our Heart. Our Joy. Our Inspiration.
-            </div>
             <Image src="/images/footer-char-2.png" alt="Character 2" width={400} height={400} className={`${styles.footerChar} ${styles.footerCharCenter}`} />
           </div>
-          <Image src="/images/footer-char-3.png" alt="Character 3" width={280} height={280} className={`${styles.footerChar} ${styles.footerCharLarge}`} />
+          <Image src="/images/footer-char-3.png" alt="Character 3" width={280} height={280} className={`${styles.footerChar} ${styles.footerCharLarge} ${styles.footerCharRight}`} />
         </div>
       </div>
 

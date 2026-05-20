@@ -1,6 +1,7 @@
 .footer {
   background-color: #FAF9F6;
   padding: 20px 8% 0;
+  overflow: hidden;
   border-top: none;
 }
 
@@ -108,7 +109,23 @@
 
 /* Character Area */
 .characterArea {
-  margin-top: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.footerBackgroundWrapper {
+  position: absolute;
+  bottom: 0;
+  left: -8vw;
+  width: calc(100% + 16vw);
+  height: 65%;
+  background-color: #FAF9F6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' fill='%23FAF9F6'/%3E%3Cpolygon points='16,2 30,16 16,30 2,16' fill='%23eeebe7'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 32px 32px;
+  z-index: -1;
 }
 
 .centerGroup {
@@ -160,11 +177,17 @@
 }
 
 .footerCharLarge {
-  width: 250px;
+  width: 300px;
 }
 
 .footerCharCenter {
   width: 300px;
+}
+
+.footerCharRight {
+  width: 350px;
+  align-self: flex-end;
+  transform: translateY(45px);
 }
 
 /* Bottom Pattern */
@@ -179,7 +202,7 @@
   background-size: 40px 40px;
   background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
   opacity: 0.5;
-  margin-top: -30px;
+  margin-top: -60px;
   position: relative;
   z-index: 1;
 }
@@ -198,18 +221,23 @@
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 40px;
   }
+
   .footerChar {
     width: 200px;
   }
+
   .footerCharLarge {
     width: 260px;
   }
+
   .footerCharCenter {
     width: 240px;
   }
+
   .characterProcession {
     margin-top: -40px;
   }
+
   .tribute {
     font-size: 20px;
   }
@@ -219,30 +247,38 @@
   .footer {
     padding: 20px 4% 0;
   }
+
   .grid {
     grid-template-columns: 1fr;
     gap: 30px;
   }
+
   .col h4 {
     margin-bottom: 20px;
   }
+
   .footerChar {
     width: 120px;
   }
+
   .footerCharLarge {
     width: 150px;
   }
+
   .footerCharCenter {
     width: 150px;
   }
+
   .characterProcession {
     margin-top: 20px;
     padding: 0 2%;
   }
+
   .tribute {
     font-size: 16px;
     letter-spacing: 1px;
   }
+
   .copyrightText {
     text-align: center;
   }

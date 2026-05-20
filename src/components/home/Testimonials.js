@@ -41,6 +41,12 @@ export default function Testimonials() {
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
+  const pastelColors = [
+    "#E6F4F1", "#FDF1F5", "#FCF7E3",
+    "#FDF7F1", "#F9FDF1", "#F1FDFD",
+    "#FDF1F1", "#FCF7E3",
+  ];
+
   return (
     <section className={`section ${styles.section}`}>
       <div className="container">
@@ -63,9 +69,15 @@ export default function Testimonials() {
             onMouseUp={handleMouseUp}
             onMouseMove={handleMouseMove}
           >
-            {testimonials.map((t) => (
-              <div key={t.id} className={styles.cardShell}>
-                <div className={styles.cardCore}>
+            {testimonials.map((t, index) => (
+              <div 
+                key={t.id} 
+                className={styles.cardShell}
+              >
+                <div 
+                  className={styles.cardCore}
+                  style={{ backgroundColor: pastelColors[index % pastelColors.length] }}
+                >
                   <p className={styles.text}>"{t.text}"</p>
                   <div className={styles.author}>
                     <div className={styles.avatar}>

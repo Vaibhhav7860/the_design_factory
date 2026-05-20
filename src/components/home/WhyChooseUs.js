@@ -8,10 +8,10 @@ export default function WhyChooseUs() {
     <section className={styles.section}>
       <div className={styles.header}>
         <Image
-          src="/images/the_design_factory_logo.png"
+          src="/images/butterfly.png"
           alt="The Design Factory Logo"
-          width={180}
-          height={70}
+          width={270}
+          height={100}
           className={styles.logo}
         />
         <h2 className={styles.heading}>WHY THE DESIGN FACTORY?</h2>
@@ -21,7 +21,7 @@ export default function WhyChooseUs() {
       </div>
       <div className={styles.imageWrapper}>
         <Image
-          src="/images/why_the_design_factory.jpeg"
+          src="/images/why_the_design_factory.png"
           alt="Why The Design Factory Values"
           width={1200}
           height={400}
