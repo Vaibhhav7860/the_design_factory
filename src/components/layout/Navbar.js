@@ -13,7 +13,7 @@ const navItems = [
     href: "/category/labels",
     megaMenu: [
       {
-        heading: "Popular Shapes",
+        heading: "Everyday Labels",
         links: [
           { label: "Rectangular Labels", href: "/category/labels" },
           { label: "Round Labels", href: "/category/labels" },
@@ -22,21 +22,13 @@ const navItems = [
         ],
       },
       {
-        heading: "Specialty",
+        heading: "Specialty Labels",
         links: [
           { label: "3D Embossed Stickers", href: "/category/labels" },
-          { label: "Iron On Labels", href: "/category/labels" },
           { label: "School Book Labels", href: "/category/labels" },
+          { label: "Iron On Labels For Clothes", href: "/category/labels" },
         ],
-      },
-      {
-        heading: "Shop by Theme",
-        links: [
-          { label: "Cute Lil Boy", href: "/category/themes" },
-          { label: "Cute Lil Girl", href: "/category/themes" },
-          { label: "Animals & Dino", href: "/category/themes" },
-        ],
-      },
+      }
     ],
     megaImage: "/images/categories/labels.png",
   },
@@ -45,33 +37,39 @@ const navItems = [
     href: "/category/school-essentials",
     megaMenu: [
       {
-        heading: "Essentials",
+        heading: "",
         links: [
-          { label: "Back to School Set", href: "/category/school-essentials" },
-          { label: "Name Labels", href: "/category/school-essentials" },
+          { 
+            label: "LABELS", 
+            href: "#", 
+            defaultOpen: true,
+            subLinks: [
+              { label: "Name Labels", href: "/category/labels" },
+              { label: "Iron On Labels For Clothes", href: "/category/labels" },
+              { label: "Permenant Waterproof Stickers", href: "/category/labels" },
+              { label: "School Book Labels", href: "/category/labels" }
+            ]
+          }
+        ],
+      },
+      {
+        heading: "",
+        links: [
           { label: "Bag Tags", href: "/category/school-essentials" },
+          { label: "Back to School Label Set", href: "/category/school-essentials" },
+          { label: "Sipper Bottle", href: "/category/school-essentials" },
+          { label: "Lunch Box", href: "/category/school-essentials" },
+          { label: "Sketch Book", href: "/category/school-essentials" },
+          { label: "Rewritable Planners", href: "/category/school-essentials" },
+          { label: "Pencil Case", href: "/category/school-essentials" },
+          { label: "School Bag & Combos", href: "/category/school-essentials" },
         ],
-      },
-      {
-        heading: "Gear",
-        links: [
-          { label: "Sipper Bottles", href: "/category/school-essentials" },
-          { label: "Pencil Cases", href: "/category/school-essentials" },
-          { label: "Sketch Books", href: "/category/school-essentials" },
-        ],
-      },
-      {
-        heading: "Combos",
-        links: [
-          { label: "Mega Gift Combo", href: "/category/combos" },
-          { label: "School Backpacks", href: "/category/bags" },
-        ],
-      },
+      }
     ],
     megaImage: "/images/categories/school.png",
   },
   {
-    label: "Stationery",
+    label: "Gift Stationery",
     href: "/category/gift-stationery",
     megaMenu: [
       {
@@ -79,86 +77,166 @@ const navItems = [
         links: [
           { label: "3D Gift Tags", href: "/category/gift-stationery" },
           { label: "Flat Gift Tags", href: "/category/gift-stationery" },
-          { label: "Hanging Tags", href: "/category/gift-stationery" },
+          { label: "Hanging Gift Tags", href: "/category/gift-stationery" },
         ],
       },
       {
-        heading: "Envelopes",
+        heading: "More Stationery",
         links: [
-          { label: "Money Envelopes", href: "/category/gift-stationery" },
           { label: "Gift Stickers", href: "/category/gift-stationery" },
-        ],
-      },
-      {
-        heading: "Sets",
-        links: [
-          { label: "Gift Stationery Sets", href: "/category/gift-stationery" },
+          { label: "Money Envelopes", href: "/category/gift-stationery" },
+          { label: "Gift Stationery Combo", href: "/category/gift-stationery" },
         ],
       },
     ],
     megaImage: "/images/categories/stationery.png",
   },
   {
+    label: "Adults Corner",
+    href: "/category/adults-corner",
+    megaMenu: [
+      {
+        heading: "Tags & Envelopes",
+        links: [
+          { label: "Flat Gift Tags", href: "/category/adults-corner" },
+          { label: "3D Gift Tags", href: "/category/adults-corner" },
+          { label: "Money Envelopes", href: "/category/adults-corner" },
+        ],
+      },
+      {
+        heading: "Accessories & Combos",
+        links: [
+          { label: "Bag Tags", href: "/category/adults-corner" },
+          { label: "Towels", href: "/category/adults-corner" },
+          { label: "Gift Stationery Combo", href: "/category/adults-corner" },
+        ],
+      },
+    ],
+    megaImage: "/images/categories/adults-corner.png",
+  },
+  {
     label: "Bags",
     href: "/category/bags",
     megaMenu: [
       {
-        heading: "Kid's Bags",
+        heading: "",
         links: [
+          { label: "Duffle Bags", href: "/category/bags" },
+          { label: "Jelly Bags", href: "/category/bags" },
+          { label: "Art Bags", href: "/category/bags" },
           { label: "Backpacks", href: "/category/bags" },
-          { label: "Waist Bags", href: "/category/bags" },
-          { label: "Crossbody Bags", href: "/category/bags" },
+          { label: "Tote Bags", href: "/category/bags" },
         ],
       },
       {
-        heading: "Women's Totes",
+        heading: "",
         links: [
-          { label: "Canvas Totes", href: "/category/bags" },
-          { label: "Jute Bags", href: "/category/bags" },
-          { label: "Vanity Pouches", href: "/category/bags" },
+          { label: "Swimming Bags", href: "/category/bags" },
+          { label: "School Bags", href: "/category/bags" },
+          { label: "Denim Bags", href: "/category/bags" },
+          { label: "Baby Diaper Bag", href: "/category/bags" },
         ],
-      },
-      {
-        heading: "Style Guide",
-        links: [
-          { label: "Floral Prints", href: "/category/bags" },
-        ],
-      },
+      }
     ],
     megaImage: "/images/categories/bags.png",
+  },
+  {
+    label: "Organisers",
+    href: "/category/organisers",
+    megaMenu: [
+      {
+        heading: "",
+        links: [
+          { label: "Utility Pouches", href: "/category/organisers" },
+          { label: "Storage Basket", href: "/category/organisers" },
+        ],
+      },
+      {
+        heading: "",
+        links: [
+          { label: "Vanity", href: "/category/organisers" },
+          { label: "Organiser Sets", href: "/category/organisers" },
+        ],
+      }
+    ],
+    megaImage: "/images/categories/organisers.png",
+  },
+  {
+    label: "Kids Accessories",
+    href: "/category/kids-accessories",
+    megaMenu: [
+      {
+        heading: "",
+        links: [
+          { label: "Wall Clock", href: "/category/kids-accessories" },
+          { label: "Table Mat", href: "/category/kids-accessories" },
+          { label: "Towel", href: "/category/kids-accessories" },
+          { label: "Table Organiser", href: "/category/kids-accessories" },
+        ],
+      },
+      {
+        heading: "",
+        links: [
+          { label: "Cap", href: "/category/kids-accessories" },
+          { label: "Apron Set", href: "/category/kids-accessories" },
+          { label: "Neck Pillow Combo", href: "/category/kids-accessories" },
+        ],
+      }
+    ],
+    megaImage: "/images/categories/kids-accessories.png",
   },
   {
     label: "Combos",
     href: "/category/combos",
     megaMenu: [
       {
-        heading: "Gift Sets",
+        heading: "",
         links: [
-          { label: "Birthday Combos", href: "/category/combos" },
-          { label: "Baby Shower Sets", href: "/category/combos" },
-          { label: "Sibling Sets", href: "/category/combos" },
+          { label: "Back To School Label Set", href: "/category/combos" },
+          { label: "Gift Stationery Combo - Kids", href: "/category/combos" },
+          { label: "Gift Stationery Combo - Adults", href: "/category/combos" },
         ],
       },
       {
-        heading: "School Kits",
+        heading: "",
         links: [
-          { label: "New Session Combo", href: "/category/combos" },
-          { label: "Lunch & Sipper Duo", href: "/category/combos" },
+          { label: "Bag Combo Set", href: "/category/combos" },
+          { label: "School Bag Combo", href: "/category/combos" },
+          { label: "Organiser Sets", href: "/category/combos" },
         ],
-      },
-      {
-        heading: "Corporate",
-        links: [
-          { label: "Executive Bundles", href: "/category/combos" },
-          { label: "Welcome Kits", href: "/category/combos" },
-        ],
-      },
+      }
     ],
-    megaImage: "/images/categories/labels.png",
+    megaImage: "/images/categories/combos.png",
   },
-  { label: "Collection by Theme", href: "/category/themes" },
-  { label: "Accessories & Gifts", href: "/category/accessories-gifts" },
-  { label: "Adults Corner", href: "/category/adults-corner" },
+  {
+    label: "Shop By Theme",
+    href: "/category/themes",
+    megaMenu: [
+      {
+        heading: "",
+        links: [
+          { label: "Animals", href: "/category/themes" },
+          { label: "Cute Lil Boy", href: "/category/themes" },
+          { label: "Cute Lil Girl", href: "/category/themes" },
+          { label: "Dino", href: "/category/themes" },
+          { label: "Favourite Characters", href: "/category/themes" },
+          { label: "Princess", href: "/category/themes" },
+        ],
+      },
+      {
+        heading: "",
+        links: [
+          { label: "Space", href: "/category/themes" },
+          { label: "Superheroes", href: "/category/themes" },
+          { label: "Transport", href: "/category/themes" },
+          { label: "Unicorn", href: "/category/themes" },
+          { label: "Underwater", href: "/category/themes" },
+        ],
+      }
+    ],
+    megaImage: "/images/categories/themes.png",
+  },
+  { label: "Bulk Orders", href: "/bulk-orders" }
 ];
 
 export default function Navbar() {
@@ -205,7 +283,7 @@ export default function Navbar() {
               src="/images/the_design_factory_logo.png"
               alt="The Design Factory"
               width={220}
-              height={73}
+              height={90}
               className={styles.logoImg}
               priority
             />
@@ -231,7 +309,23 @@ export default function Navbar() {
                         <ul>
                           {col.links.map((link, li) => (
                             <li key={li}>
-                              <Link href={link.href}>{link.label}</Link>
+                              {link.subLinks ? (
+                                <details className={styles.navDetails} open={link.defaultOpen}>
+                                  <summary className={styles.navSummary}>
+                                    {link.label}
+                                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                  </summary>
+                                  <ul className={styles.nestedLinks}>
+                                    {link.subLinks.map((sub, si) => (
+                                      <li key={si}>
+                                        <Link href={sub.href}>{sub.label}</Link>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </details>
+                              ) : (
+                                <Link href={link.href}>{link.label}</Link>
+                              )}
                             </li>
                           ))}
                         </ul>
