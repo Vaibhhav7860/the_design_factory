@@ -11,6 +11,8 @@ const featuredProducts = [
     id: 101,
     title: "Art Bag - Mermaid",
     price: 1200,
+    originalPrice: 1500,
+    discount: 20,
     badge: "Top Seller",
     image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/88E28002-BDF3-426D-9B9A-6D04BC555BAE.png?v=1778577574",
     slug: "bag-tag-mermaid-design-1",
@@ -19,6 +21,8 @@ const featuredProducts = [
     id: 102,
     title: "Art Bag - Frozen",
     price: 1200,
+    originalPrice: 1500,
+    discount: 20,
     badge: null,
     image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/3F874BDF-C3FA-47F8-94C3-2C2EA2E8A56D_3b96681b-9de8-400e-b226-40fa33b297cd.png?v=1778577476",
     slug: "iron-on-labels-cute-lil-girl",
@@ -27,6 +31,8 @@ const featuredProducts = [
     id: 103,
     title: "Jelly Tote Bag - Pink",
     price: 1150,
+    originalPrice: 1450,
+    discount: 21,
     badge: "New",
     badgeStyle: "peach",
     image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655",
@@ -36,6 +42,8 @@ const featuredProducts = [
     id: 104,
     title: "Swim Bag with Pouch - Frozen",
     price: 1150,
+    originalPrice: 1450,
+    discount: 21,
     badge: null,
     image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_3978.jpg?v=1778573386",
     slug: "iron-on-labels-construction",
@@ -44,6 +52,8 @@ const featuredProducts = [
     id: 105,
     title: "Art Bag - Unicorn",
     price: 1250,
+    originalPrice: 1600,
+    discount: 22,
     badge: "Must Have",
     badgeStyle: "peach",
     image: "/images/products/art_bag_unicorn.png",
@@ -53,6 +63,8 @@ const featuredProducts = [
     id: 106,
     title: "Art Bag - Dinosaur",
     price: 1250,
+    originalPrice: 1600,
+    discount: 22,
     badge: "Trending",
     badgeStyle: "blue",
     image: "/images/products/art_bag_dinosaur.png",
@@ -96,11 +108,11 @@ export default function BestSellers() {
               href={`/product/${product.slug}`}
               className={styles.cardLink}
             >
-              <div 
-                className={styles.card}
-                style={{ border: `6px solid ${borderColor}` }}
-              >
-                <div className={styles.imageContainer}>
+              <div className={styles.card}>
+                <div 
+                  className={styles.imageContainer}
+                  style={{ border: `6px solid ${borderColor}` }}
+                >
                   <div className={styles.wishlistIcon}>
                     <svg viewBox="0 0 24 24">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -120,18 +132,17 @@ export default function BestSellers() {
                     height={380}
                     className={styles.productImage}
                   />
-                  <div
-                    className={styles.quickAdd}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      addToCart({ ...product, originalPrice: null });
-                    }}
-                  >
-                    QUICK ADD
-                  </div>
                 </div>
                 <h4 className={styles.productTitle}>{product.title}</h4>
-                <div className={styles.productPrice}>₹ {product.price.toLocaleString("en-IN")}.00</div>
+                <div className={styles.priceContainer}>
+                  <span className={styles.productPrice}>₹{product.price.toLocaleString("en-IN")}</span>
+                  {product.originalPrice && (
+                    <>
+                      <span className={styles.originalPrice}>₹{product.originalPrice.toLocaleString("en-IN")}</span>
+                      <span className={styles.discount}>{product.discount}% OFF</span>
+                    </>
+                  )}
+                </div>
               </div>
             </Link>
             );
