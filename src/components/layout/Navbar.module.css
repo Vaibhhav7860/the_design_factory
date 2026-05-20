@@ -326,17 +326,60 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 1200px) {
+
+/* Large laptops (1400px and below) */
+@media (max-width: 1400px) {
+  .logoImg {
+    height: 100px;
+    min-width: 280px;
+  }
   .navLinks {
-    gap: 14px;
-    margin-left: -30px;
+    gap: 16px;
+    margin-left: -35px;
+  }
+  .navLink {
+    font-size: 10.5px;
+    letter-spacing: 1.8px;
+  }
+}
+
+/* Medium laptops (1200px and below) */
+@media (max-width: 1200px) {
+  .logoImg {
+    height: 85px;
+    min-width: 240px;
+  }
+  .navLinks {
+    gap: 12px;
+    margin-left: -25px;
   }
   .navLink {
     font-size: 10px;
     letter-spacing: 1.5px;
   }
+  .nav {
+    gap: 10px;
+    padding: 15px 1.5%;
+  }
 }
 
+/* Small laptops (1100px and below) */
+@media (max-width: 1100px) {
+  .logoImg {
+    height: 75px;
+    min-width: 210px;
+  }
+  .navLinks {
+    gap: 10px;
+    margin-left: -20px;
+  }
+  .navLink {
+    font-size: 9.5px;
+    letter-spacing: 1.2px;
+  }
+}
+
+/* Tablet and below - Switch to mobile menu */
 @media (max-width: 1024px) {
   .nav {
     grid-template-columns: auto 1fr auto; /* Hamburger, Logo, NavIcons */
@@ -352,7 +395,8 @@
     justify-content: center; /* Center logo on mobile */
   }
   .logoImg {
-    max-height: 45px;
+    height: 45px;
+    min-width: auto;
     max-width: 140px;
   }
 }
