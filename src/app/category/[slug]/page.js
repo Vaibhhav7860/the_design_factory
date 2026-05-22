@@ -24,6 +24,26 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Eyebrow text based on category
+function getEyebrowText(slug) {
+  const eyebrows = {
+    "labels": "PREMIUM PERSONALIZED",
+    "school-essentials": "BACK TO SCHOOL",
+    "gift-stationery": "HANDCRAFTED WITH LOVE",
+    "adults-corner": "SOPHISTICATED & ELEGANT",
+    "decor-dining": "ELEVATE YOUR SPACE",
+    "travel-essentials": "TRAVEL IN STYLE",
+    "organisers": "STAY ORGANIZED",
+    "bags": "CARRY YOUR STYLE",
+    "kids-accessories": "FUN & FUNCTIONAL",
+    "accessories-gifts": "UNIQUE & PERSONAL",
+    "combos": "VALUE-PACKED SETS",
+    "play-learn": "LEARN THROUGH PLAY",
+    "themes": "SHOP BY THEME",
+  };
+  return eyebrows[slug] || "EXPLORE OUR COLLECTION";
+}
+
 export default async function CategoryPage({ params, searchParams }) {
   const { slug } = await params;
   const subcategory = (await searchParams)?.subcategory;
@@ -50,17 +70,28 @@ export default async function CategoryPage({ params, searchParams }) {
     maxPrice = Math.max(...prices); // Set to highest product price
   }
 
-  // Placeholder images for subcategories
-  const getSubcategoryImage = (index) => {
-    const images = [
-      '/images/categories/labels.png',
-      '/images/categories/school.png',
-      '/images/categories/stationery.png',
-      '/images/categories/bags.png',
-      '/images/categories/organisers.png',
-      '/images/categories/kids_accessories.png',
-    ];
-    return images[index % images.length];
+  // Subcategory-specific images
+  const subcategoryImages = {
+    'rectangular-labels': '/images/categories/rectangular-labels.png',
+    'round-labels': '/images/categories/round-labels.png',
+    'mixed-shape-labels': '/images/categories/mixed-shape-labels.png',
+    'transparent-labels': '/images/categories/transparent-labels.png',
+    '3d-embossed-stickers': '/images/categories/3d-embossed-stickers.png',
+    'school-book-labels': '/images/categories/school-book-labels.png',
+    'iron-on-labels': '/images/categories/iron-on-labels.png',
+  };
+
+  const fallbackImages = [
+    '/images/categories/labels.png',
+    '/images/categories/school.png',
+    '/images/categories/stationery.png',
+    '/images/categories/bags.png',
+    '/images/categories/organisers.png',
+    '/images/categories/kids_accessories.png',
+  ];
+
+  const getSubcategoryImage = (sub, index) => {
+    return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
   };
 
   // Get current subcategory details
@@ -71,7 +102,7 @@ export default async function CategoryPage({ params, searchParams }) {
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
       <div className="container">
-        {/* Header Area with Pastel Background */}
+        {/* Hero Header Area with Pastel Gradient */}
         <div className={styles.headerArea}>
           {/* Breadcrumb */}
           <nav className={styles.breadcrumb}>
@@ -85,6 +116,11 @@ export default async function CategoryPage({ params, searchParams }) {
               </>
             )}
           </nav>
+
+          {/* Eyebrow Tag */}
+          <span className={styles.eyebrowTag}>
+            {getEyebrowText(slug)}
+          </span>
 
           {/* Section Header */}
           <div className={styles.sectionHeader}>
@@ -113,7 +149,7 @@ export default async function CategoryPage({ params, searchParams }) {
               >
                 <div className={styles.showcaseImageWrapper}>
                   <Image
-                    src={getSubcategoryImage(index)}
+                    src={getSubcategoryImage(sub, index)}
                     alt={sub.title}
                     width={600}
                     height={400}

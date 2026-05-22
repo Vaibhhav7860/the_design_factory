@@ -7,17 +7,28 @@ import styles from "./category.module.css";
 export default function FilterSlider({ subcategories, currentSlug, activeSubcategory }) {
   const sliderRef = useRef(null);
 
-  // Move the function inside the client component
-  const getSubcategoryImage = (index) => {
-    const images = [
-      '/images/categories/labels.png',
-      '/images/categories/school.png',
-      '/images/categories/stationery.png',
-      '/images/categories/bags.png',
-      '/images/categories/organisers.png',
-      '/images/categories/kids_accessories.png',
-    ];
-    return images[index % images.length];
+  // Subcategory-specific images
+  const subcategoryImages = {
+    'rectangular-labels': '/images/categories/rectangular-labels.png',
+    'round-labels': '/images/categories/round-labels.png',
+    'mixed-shape-labels': '/images/categories/mixed-shape-labels.png',
+    'transparent-labels': '/images/categories/transparent-labels.png',
+    '3d-embossed-stickers': '/images/categories/3d-embossed-stickers.png',
+    'school-book-labels': '/images/categories/school-book-labels.png',
+    'iron-on-labels': '/images/categories/iron-on-labels.png',
+  };
+
+  const fallbackImages = [
+    '/images/categories/labels.png',
+    '/images/categories/school.png',
+    '/images/categories/stationery.png',
+    '/images/categories/bags.png',
+    '/images/categories/organisers.png',
+    '/images/categories/kids_accessories.png',
+  ];
+
+  const getSubcategoryImage = (sub, index) => {
+    return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
   };
 
   const scrollLeft = () => {
@@ -59,7 +70,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
               >
                 <div className={styles.filterIcon}>
                   <Image
-                    src={getSubcategoryImage(index)}
+                    src={getSubcategoryImage(sub, index)}
                     alt={sub.title}
                     width={80}
                     height={80}
@@ -90,7 +101,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
             >
               <div className={styles.filterIcon}>
                 <Image
-                  src={getSubcategoryImage(index)}
+                  src={getSubcategoryImage(sub, index)}
                   alt={sub.title}
                   width={80}
                   height={80}
