@@ -178,6 +178,7 @@
 
 .footerCharLarge {
   width: 300px;
+  transform: translateY(10px);
 }
 
 .footerCharCenter {

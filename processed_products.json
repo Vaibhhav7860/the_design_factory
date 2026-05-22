@@ -1,7 +1,4 @@
-// Auto-generated from processed_products.json
-// Total products: 1161
-
-export const products = [
+[
   {
     "handle": "storage-bin-rocket",
     "title": "Storage Basket - Rocket",
@@ -13934,44 +13931,4 @@ export const products = [
     "description": "Teaching little ones about their five senses will be so much fun with our Five Senses Sorting Activity. Because some of the items can go on more than one mat, you may need to help your kids or student...",
     "badge": null
   }
-];
-
-export function getProductBySlug(slug) {
-  return products.find((p) => p.slug === slug);
-}
-
-export function getProductsByCollection(collection) {
-  return products.filter((p) => p.collection === collection);
-}
-
-export function getProductsByCategory(categorySlug) {
-  return products.filter((p) => p.category === categorySlug);
-}
-
-export function getProductsBySubcategory(categorySlug, subcategorySlug) {
-  return products.filter(
-    (p) => p.category === categorySlug && p.subcategory === subcategorySlug
-  );
-}
-
-export function getRelatedProducts(productId, limit = 4) {
-  const product = products.find((p) => p.id === productId);
-  if (!product) return [];
-  return products
-    .filter((p) => p.id !== productId && p.category === product.category)
-    .slice(0, limit);
-}
-
-export function getAllCategories() {
-  const categories = new Set();
-  products.forEach(p => categories.add(p.category));
-  return Array.from(categories);
-}
-
-export function getAllSubcategories(categorySlug) {
-  const subcategories = new Set();
-  products
-    .filter(p => p.category === categorySlug)
-    .forEach(p => subcategories.add(p.subcategory));
-  return Array.from(subcategories);
-}
+]

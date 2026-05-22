@@ -51,7 +51,7 @@ export default function Testimonials() {
     <section className={`section ${styles.section}`}>
       <div className="container">
         
-        <h2 className={styles.mainHeading}>What our Clients Says</h2>
+        <h2 className={styles.mainHeading}>What our Clients Say</h2>
 
         <div className={styles.carouselWrapper}>
           {/* Navigation Arrows */}

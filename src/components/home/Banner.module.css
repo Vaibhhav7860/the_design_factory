@@ -4,9 +4,21 @@
   margin: 20px 0 0;
 }
 
+.imageWrapper {
+  overflow: hidden;
+  border-radius: 0;
+  position: relative;
+}
+
 .image {
   width: 100%;
   height: auto;
   border-radius: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft shadow */
+  display: block;
+  transition: transform 1.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.imageWrapper:hover .image {
+  transform: scale(1.03);
 }

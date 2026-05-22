@@ -1,7 +1,7 @@
 .section {
   text-align: center;
   background-color: #F5F2EB;
-  padding: 40px 8%;
+  padding: 20px 8% 20px;
   width: 100%;
   max-width: 100%;
 }
@@ -23,7 +23,7 @@
   font-size: 32px;
   letter-spacing: 4px;
   margin-bottom: 10px;
-  color: #BFA37E;
+  color: #000000;
   font-weight: 500;
 }
 

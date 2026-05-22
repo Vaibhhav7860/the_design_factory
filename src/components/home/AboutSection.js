@@ -27,7 +27,7 @@ export default function AboutSection() {
             Every piece is curated with extreme attention to detail, ensuring that your personalized
             gifts leave a lasting impression.
           </p>
-          <Link href="/category/labels" className="btn">
+          <Link href="/category/labels" className={styles.ctaButton}>
             Discover Our Story
           </Link>
         </div>
