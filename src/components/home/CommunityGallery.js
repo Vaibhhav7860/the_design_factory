@@ -34,7 +34,7 @@ export default function CommunityGallery() {
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <h2>JOIN OUR COMMUNITY OF 45K+</h2>
+        <h2>JOIN OUR GROWING INSTAGRAM COMMUNITY</h2>
       </div>
       <div className={styles.galleryWrapper}>
         <div className={styles.marqueeContainer}>

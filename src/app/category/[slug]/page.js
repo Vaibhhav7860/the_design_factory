@@ -1,6 +1,10 @@
 import { categories, getCategoryBySlug } from "@/data/categories";
-import { getProductsByCategory, products } from "@/data/products";
+import { getProductsByCategory, getProductsBySubcategory, products } from "@/data/products";
 import ProductCard from "@/components/product/ProductCard";
+import Link from "next/link";
+import Image from "next/image";
+import FilterSlider from "./FilterSlider";
+import FilteredProductsWrapper from "./FilteredProductsWrapper";
 import styles from "./category.module.css";
 
 export function generateStaticParams() {
@@ -20,47 +24,157 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CategoryPage({ params }) {
+// Eyebrow text based on category
+function getEyebrowText(slug) {
+  const eyebrows = {
+    "labels": "PREMIUM PERSONALIZED",
+    "school-essentials": "BACK TO SCHOOL",
+    "gift-stationery": "HANDCRAFTED WITH LOVE",
+    "adults-corner": "SOPHISTICATED & ELEGANT",
+    "decor-dining": "ELEVATE YOUR SPACE",
+    "travel-essentials": "TRAVEL IN STYLE",
+    "organisers": "STAY ORGANIZED",
+    "bags": "CARRY YOUR STYLE",
+    "kids-accessories": "FUN & FUNCTIONAL",
+    "accessories-gifts": "UNIQUE & PERSONAL",
+    "combos": "VALUE-PACKED SETS",
+    "play-learn": "LEARN THROUGH PLAY",
+    "themes": "SHOP BY THEME",
+  };
+  return eyebrows[slug] || "EXPLORE OUR COLLECTION";
+}
+
+export default async function CategoryPage({ params, searchParams }) {
   const { slug } = await params;
+  const subcategory = (await searchParams)?.subcategory;
   const category = getCategoryBySlug(slug);
-  const catProducts = getProductsByCategory(slug);
-  const displayProducts =
-    catProducts.length > 0 ? catProducts : products.slice(0, 12);
+  
+  // If no subcategory is selected and category has subcategories, show subcategory grid
+  const showSubcategories = !subcategory && category?.subcategories && category.subcategories.length > 0;
+  
+  // Get products based on whether subcategory is selected
+  let catProducts;
+  if (subcategory) {
+    catProducts = getProductsBySubcategory(slug, subcategory);
+  } else {
+    catProducts = getProductsByCategory(slug);
+  }
+  
+  const displayProducts = catProducts.length > 0 ? catProducts : [];
+  
+  // Calculate min and max prices from all products in this category
+  let minPrice = 0; // Always start from 0
+  let maxPrice = 100000;
+  if (displayProducts.length > 0) {
+    const prices = displayProducts.map(p => p.price).filter(p => p);
+    maxPrice = Math.max(...prices); // Set to highest product price
+  }
+
+  // Subcategory-specific images
+  const subcategoryImages = {
+    'rectangular-labels': '/images/categories/rectangular-labels.png',
+    'round-labels': '/images/categories/round-labels.png',
+    'mixed-shape-labels': '/images/categories/mixed-shape-labels.png',
+    'transparent-labels': '/images/categories/transparent-labels.png',
+    '3d-embossed-stickers': '/images/categories/3d-embossed-stickers.png',
+    'school-book-labels': '/images/categories/school-book-labels.png',
+    'iron-on-labels': '/images/categories/iron-on-labels.png',
+  };
+
+  const fallbackImages = [
+    '/images/categories/labels.png',
+    '/images/categories/school.png',
+    '/images/categories/stationery.png',
+    '/images/categories/bags.png',
+    '/images/categories/organisers.png',
+    '/images/categories/kids_accessories.png',
+  ];
+
+  const getSubcategoryImage = (sub, index) => {
+    return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
+  };
+
+  // Get current subcategory details
+  const currentSubcategory = subcategory 
+    ? category?.subcategories?.find(sub => sub.slug === subcategory)
+    : null;
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
       <div className="container">
-        {/* Breadcrumb */}
-        <nav className={styles.breadcrumb}>
-          <a href="/">Home</a>
-          <span>/</span>
-          <span>{category?.title || "Collection"}</span>
-        </nav>
+        {/* Hero Header Area with Pastel Gradient */}
+        <div className={styles.headerArea}>
+          {/* Breadcrumb */}
+          <nav className={styles.breadcrumb}>
+            <a href="/">Home</a>
+            <span>/</span>
+            <a href={`/category/${slug}`}>{category?.title || "Collection"}</a>
+            {currentSubcategory && (
+              <>
+                <span>/</span>
+                <span>{currentSubcategory.title}</span>
+              </>
+            )}
+          </nav>
 
-        {/* Section Header */}
-        <div className={styles.sectionHeader}>
-          <h2>{category?.title || slug}</h2>
-          {category?.description && <p>{category.description}</p>}
+          {/* Eyebrow Tag */}
+          <span className={styles.eyebrowTag}>
+            {getEyebrowText(slug)}
+          </span>
+
+          {/* Section Header */}
+          <div className={styles.sectionHeader}>
+            <h2>{currentSubcategory?.title || category?.title || slug}</h2>
+            {!currentSubcategory && category?.description && <p>{category.description}</p>}
+          </div>
+
+          {/* Subcategory Filter Pills (only when not showing subcategory showcase) */}
+          {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
+            <FilterSlider 
+              subcategories={category.subcategories}
+              currentSlug={slug}
+              activeSubcategory={subcategory}
+            />
+          )}
         </div>
 
-        {/* Subcategory pills */}
-        {category?.subcategories && (
-          <div className={styles.pills}>
-            <span className={`${styles.pill} ${styles.pillActive}`}>All</span>
-            {category.subcategories.slice(0, 6).map((sub) => (
-              <span key={sub.slug} className={styles.pill}>
-                {sub.title}
-              </span>
+        {/* Show Subcategory Cards if no subcategory is selected */}
+        {showSubcategories ? (
+          <div className={styles.subcategoryShowcase}>
+            {category.subcategories.map((sub, index) => (
+              <Link 
+                key={sub.slug} 
+                href={`/category/${slug}?subcategory=${sub.slug}`}
+                className={styles.showcaseCard}
+              >
+                <div className={styles.showcaseImageWrapper}>
+                  <Image
+                    src={getSubcategoryImage(sub, index)}
+                    alt={sub.title}
+                    width={600}
+                    height={400}
+                    className={styles.showcaseImage}
+                  />
+                  <div className={styles.showcaseOverlay}>
+                    <div className={styles.showcaseContent}>
+                      <h3 className={styles.showcaseTitle}>{sub.title.toUpperCase()}</h3>
+                      <button className={styles.showcaseButton}>SHOP NOW</button>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
+        ) : (
+          <>
+            {/* Filtered Products with Sidebar */}
+            <FilteredProductsWrapper 
+              products={displayProducts}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+            />
+          </>
         )}
-
-        {/* Product Grid */}
-        <div className={styles.grid}>
-          {displayProducts.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
       </div>
     </section>
   );

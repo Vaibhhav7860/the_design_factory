@@ -1,5 +1,5 @@
 .section {
-  padding: 80px 4% 40px;
+  padding: 80px 4% 20px;
   text-align: center;
   background: #fff;
   width: 100%;
@@ -19,7 +19,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 60px 30px;
+  gap: 30px 30px;
 }
 
 .card {
@@ -87,7 +87,7 @@
   }
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 60px 30px;
+    gap: 30px 30px;
   }
   .badge {
     padding: 12px 30px;
