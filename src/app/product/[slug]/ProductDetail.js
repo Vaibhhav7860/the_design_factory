@@ -1,56 +1,305 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import styles from "./product.module.css";
 
+const FONT_OPTIONS = [
+  { value: "garamond", label: "AGaramond Italic", className: styles.fontGaramond },
+  { value: "bickham", label: "Bickam Script One", className: styles.fontBickham },
+  { value: "candlescript", label: "Candlescript Pro", className: styles.fontCandlescript },
+  { value: "cataneo", label: "Cataneo BT", className: styles.fontCataneo },
+  { value: "signet", label: "Signet Roundhand Italic", className: styles.fontSignet },
+  { value: "trajan", label: "Trajan Pro", className: styles.fontTrajan },
+];
+
+const PERSONALISATION_FEE = 500;
+const AUTO_SCROLL_INTERVAL = 4000;
+const IDLE_RESUME_DELAY = 6000;
+const MAX_NAME_LENGTH = 150;
+
 export default function ProductDetail({ product }) {
   const { addToCart } = useCart();
+
+  /* ── Core State ── */
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const discount = calculateDiscount(product.originalPrice, product.price);
 
-  const handleAdd = () => {
-    for (let i = 0; i < qty; i++) addToCart(product);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+  /* ── Personalisation State ── */
+  const [isPersonalised, setIsPersonalised] = useState(false);
+  const [personalisationName, setPersonalisationName] = useState("");
+  const [selectedFont, setSelectedFont] = useState(FONT_OPTIONS[0].value);
+
+  /* ── Gallery State ── */
+  const gallery =
+    product.images?.filter(Boolean).length > 0
+      ? product.images.filter(Boolean)
+      : product.image
+      ? [product.image]
+      : [];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const thumbnailsRef = useRef(null);
+  const autoScrollRef = useRef(null);
+  const idleTimerRef = useRef(null);
+  const isPausedRef = useRef(false);
+
+  /* ── Pricing ── */
+  const basePrice = product.price;
+  const baseOriginal = product.originalPrice;
+  const displayPrice = isPersonalised ? basePrice + PERSONALISATION_FEE : basePrice;
+  const displayOriginal = baseOriginal
+    ? (isPersonalised ? baseOriginal + PERSONALISATION_FEE : baseOriginal)
+    : null;
+  const discount = calculateDiscount(displayOriginal, displayPrice);
+
+  /* ── Gallery Navigation ── */
+  const goTo = useCallback(
+    (index) => {
+      setActiveIndex(index);
+      if (thumbnailsRef.current) {
+        const thumb = thumbnailsRef.current.children[index];
+        if (thumb)
+          thumb.scrollIntoView({
+            behavior: "smooth",
+            inline: "center",
+            block: "nearest",
+          });
+      }
+    },
+    []
+  );
+
+  const goPrev = useCallback(
+    () => goTo((activeIndex - 1 + gallery.length) % gallery.length),
+    [activeIndex, gallery.length, goTo]
+  );
+
+  const goNext = useCallback(
+    () => goTo((activeIndex + 1) % gallery.length),
+    [activeIndex, gallery.length, goTo]
+  );
+
+  /* ── Auto-Scroll Logic ── */
+  const startAutoScroll = useCallback(() => {
+    if (gallery.length <= 1) return;
+    clearInterval(autoScrollRef.current);
+    autoScrollRef.current = setInterval(() => {
+      if (!isPausedRef.current) {
+        setActiveIndex((prev) => {
+          const next = (prev + 1) % gallery.length;
+          if (thumbnailsRef.current) {
+            const thumb = thumbnailsRef.current.children[next];
+            if (thumb)
+              thumb.scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest",
+              });
+          }
+          return next;
+        });
+      }
+    }, AUTO_SCROLL_INTERVAL);
+  }, [gallery.length]);
+
+  const pauseAutoScroll = useCallback(() => {
+    isPausedRef.current = true;
+    clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      isPausedRef.current = false;
+    }, IDLE_RESUME_DELAY);
+  }, []);
+
+  const handleManualNav = useCallback(
+    (navFn) => {
+      pauseAutoScroll();
+      navFn();
+    },
+    [pauseAutoScroll]
+  );
+
+  useEffect(() => {
+    startAutoScroll();
+    return () => {
+      clearInterval(autoScrollRef.current);
+      clearTimeout(idleTimerRef.current);
+    };
+  }, [startAutoScroll]);
+
+  /* ── Mouse hover pause ── */
+  const handleGalleryMouseEnter = () => {
+    isPausedRef.current = true;
   };
+
+  const handleGalleryMouseLeave = () => {
+    clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      isPausedRef.current = false;
+    }, 1500);
+  };
+
+  /* ── Add to Cart ── */
+  const handleAdd = () => {
+    const cartProduct = {
+      ...product,
+      price: displayPrice,
+      originalPrice: displayOriginal,
+      slug: isPersonalised
+        ? `${product.slug}__p__${selectedFont}__${personalisationName.trim().toLowerCase().replace(/\s+/g, "-")}`
+        : product.slug,
+      personalisation: isPersonalised
+        ? {
+            isPersonalised: true,
+            name: personalisationName.trim(),
+            font: FONT_OPTIONS.find((f) => f.value === selectedFont)?.label || selectedFont,
+          }
+        : null,
+    };
+
+    for (let i = 0; i < qty; i++) addToCart(cartProduct);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2200);
+  };
+
+  /* ── Selected Font Class ── */
+  const activeFontOption = FONT_OPTIONS.find((f) => f.value === selectedFont);
 
   return (
     <div className={styles.detail}>
-      {/* Gallery */}
-      <div className={styles.gallery}>
-        <div className={styles.mainImage}>
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={600}
-            height={600}
-            className={styles.img}
-          />
+      {/* ═══════ Gallery Column ═══════ */}
+      <div
+        className={styles.gallery}
+        onMouseEnter={handleGalleryMouseEnter}
+        onMouseLeave={handleGalleryMouseLeave}
+      >
+        {/* Main Image — Double-Bezel Shell */}
+        <div className={styles.mainImageShell}>
+          <div className={styles.mainImageCore}>
+            {gallery.length > 0 && (
+              <Image
+                key={activeIndex}
+                src={gallery[activeIndex]}
+                alt={`${product.title} — view ${activeIndex + 1}`}
+                width={500}
+                height={500}
+                className={styles.mainImg}
+                priority
+              />
+            )}
+          </div>
+
+          {/* Prev / Next arrows */}
+          {gallery.length > 1 && (
+            <>
+              <button
+                className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`}
+                onClick={() => handleManualNav(goPrev)}
+                aria-label="Previous image"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <button
+                className={`${styles.galleryArrow} ${styles.galleryArrowNext}`}
+                onClick={() => handleManualNav(goNext)}
+                aria-label="Next image"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+
+              {/* Dot indicators */}
+              <div className={styles.galleryDots}>
+                {gallery.map((_, i) => (
+                  <button
+                    key={i}
+                    className={`${styles.galleryDot} ${
+                      i === activeIndex ? styles.galleryDotActive : ""
+                    }`}
+                    onClick={() => handleManualNav(() => goTo(i))}
+                    aria-label={`Go to image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
+
+        {/* Thumbnail Strip */}
+        {gallery.length > 1 && (
+          <div className={styles.thumbnailStrip} ref={thumbnailsRef}>
+            {gallery.map((src, i) => (
+              <button
+                key={i}
+                className={`${styles.thumbnail} ${
+                  i === activeIndex ? styles.thumbnailActive : ""
+                }`}
+                onClick={() => handleManualNav(() => goTo(i))}
+                aria-label={`Image ${i + 1}`}
+              >
+                <Image
+                  src={src}
+                  alt={`Thumbnail ${i + 1}`}
+                  width={80}
+                  height={80}
+                  className={styles.thumbnailImg}
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Info */}
+      {/* ═══════ Info Column ═══════ */}
       <div className={styles.info}>
         {product.badge && (
           <span
             className={`${styles.infoBadge} ${
-              product.badge === "New" ? styles.infoBadgeSalmon : styles.infoBadgeGold
+              product.badge === "New"
+                ? styles.infoBadgeSalmon
+                : styles.infoBadgeGold
             }`}
           >
             {product.badge}
           </span>
         )}
+
         <h1 className={styles.title}>{product.title}</h1>
+
         <div className={styles.pricing}>
-          <span className={styles.price}>{formatPrice(product.price)}</span>
-          {product.originalPrice && (
-            <span className={styles.original}>{formatPrice(product.originalPrice)}</span>
+          <span className={styles.price}>{formatPrice(displayPrice)}</span>
+          {displayOriginal && (
+            <span className={styles.original}>
+              {formatPrice(displayOriginal)}
+            </span>
           )}
-          {discount > 0 && <span className={styles.discountBadge}>{discount}% OFF</span>}
+          {discount > 0 && (
+            <span className={styles.discountBadge}>{discount}% OFF</span>
+          )}
         </div>
+
         <p className={styles.desc}>{product.description}</p>
 
         {product.features && (
@@ -63,6 +312,115 @@ export default function ProductDetail({ product }) {
           </div>
         )}
 
+        {/* ── Divider ── */}
+        <div className={styles.divider} />
+
+        {/* ═══════ Personalisation Section ═══════ */}
+        <div className={styles.personalisationSection}>
+          <p className={styles.personalisationHeader}>Personalisation</p>
+
+          {/* Segmented Toggle & Delivery Time */}
+          <div className={styles.toggleRow}>
+            <div className={styles.segmentedToggle}>
+              <button
+                className={`${styles.segmentBtn} ${
+                  !isPersonalised ? styles.segmentBtnActive : ""
+                }`}
+                onClick={() => setIsPersonalised(false)}
+              >
+                Non-Personalised
+              </button>
+              <button
+                className={`${styles.segmentBtn} ${
+                  isPersonalised ? styles.segmentBtnActive : ""
+                }`}
+                onClick={() => setIsPersonalised(true)}
+              >
+                Personalised
+              </button>
+            </div>
+
+            <div className={styles.deliveryEstimate}>
+              <span className={styles.deliveryEstimateLabel}>Estimated Dispatch & Delivery</span>
+              <span className={styles.deliveryEstimateValue}>
+                Dispatch: {isPersonalised ? "3-4 days" : "1-2 days"}  •  Delivery: 2-5 days
+              </span>
+            </div>
+          </div>
+
+          {/* Personalisation Card — Double-Bezel */}
+          {isPersonalised && (
+            <div className={styles.personalisationCard}>
+              <div className={styles.personalisationCardInner}>
+                <p className={styles.personalisationFee}>
+                  Name Personalisation{" "}
+                  <span>(+₹{PERSONALISATION_FEE})</span>
+                </p>
+
+                {/* Name / Content */}
+                <div className={styles.formField}>
+                  <label className={styles.formLabel}>
+                    Name/Content<span className={styles.required}>*</span>
+                  </label>
+                  <div className={styles.formInputWrap}>
+                    <input
+                      type="text"
+                      className={styles.formInput}
+                      value={personalisationName}
+                      onChange={(e) =>
+                        setPersonalisationName(
+                          e.target.value.slice(0, MAX_NAME_LENGTH)
+                        )
+                      }
+                      placeholder="Enter name or text to personalise"
+                      maxLength={MAX_NAME_LENGTH}
+                    />
+                    <span className={styles.charCounter}>
+                      {personalisationName.length}/{MAX_NAME_LENGTH}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Select Font */}
+                <div className={styles.formField}>
+                  <label className={styles.formLabel}>
+                    Select Font (for Name/Main Content only)
+                    <span className={styles.required}>*</span>
+                  </label>
+                  <select
+                    className={styles.formSelect}
+                    value={selectedFont}
+                    onChange={(e) => setSelectedFont(e.target.value)}
+                  >
+                    {FONT_OPTIONS.map((font) => (
+                      <option key={font.value} value={font.value}>
+                        {font.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Font Preview */}
+                {personalisationName.trim() && (
+                  <div className={styles.fontPreview}>
+                    <span className={styles.fontPreviewLabel}>Preview</span>
+                    <span
+                      className={`${styles.fontPreviewText} ${
+                        activeFontOption?.className || ""
+                      }`}
+                    >
+                      {personalisationName}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── Divider ── */}
+        <div className={styles.divider} />
+
         {/* Quantity */}
         <div className={styles.qtyRow}>
           <span className={styles.qtyLabel}>Quantity</span>
@@ -73,8 +431,14 @@ export default function ProductDetail({ product }) {
           </div>
         </div>
 
-        <button className={styles.addBtn} onClick={handleAdd}>
-          {added ? "✓ Added to Cart!" : "Add to Cart"}
+        <button
+          className={styles.addBtn}
+          onClick={handleAdd}
+          disabled={isPersonalised && !personalisationName.trim()}
+        >
+          {added
+            ? "✓ Added to Cart!"
+            : `Add to Cart — ${formatPrice(displayPrice * qty)}`}
         </button>
 
         <a

@@ -8,13 +8,13 @@
   position: relative;
   text-align: left;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 5px;
-  border-radius: 16px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.03);
+  border: none;
+  box-shadow: none;
   transition: all 0.6s cubic-bezier(0.32, 0.72, 0, 1);
   overflow: visible;
 }
@@ -25,10 +25,6 @@
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow:
-    0 24px 56px rgba(0, 0, 0, 0.07),
-    0 8px 24px rgba(251, 201, 188, 0.12);
-  border-color: rgba(251, 201, 188, 0.25);
 }
 
 .card:hover .image {
@@ -75,19 +71,19 @@
 .imageWrap {
   display: block;
   overflow: hidden;
-  border-radius: calc(16px - 5px);
+  border-radius: 0;
   position: relative;
-  background: #FFFFFF;
+  background: #fcfcfc;
 }
 
 .imageBg {
-  background: #FFFFFF;
+  background: #fcfcfc;
   aspect-ratio: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
   overflow: hidden;
   position: relative;
+  border: 6px solid #FBC9BC;
 }
 
 .imageBg::before {
@@ -96,6 +92,24 @@
 
 .card:hover .imageBg::before {
   opacity: 0;
+}
+
+/* ── Image Strip (carousel) ── */
+.imageStrip {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-shrink: 0;
+  transition: none;
+}
+
+/* Each slide takes up 100% of the strip's visible area */
+.imageSlide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .image {
@@ -107,8 +121,30 @@
   filter: brightness(1);
 }
 
+/* Animate the strip on card hover — scrolls all images left */
+@keyframes stripScroll {
+  0%   { transform: translateX(0); }
+  /* Pause on first image */
+  15%  { transform: translateX(0); }
+  /* Slide to next */
+  30%  { transform: translateX(-100%); }
+  /* Pause */
+  45%  { transform: translateX(-100%); }
+  /* Slide to next */
+  60%  { transform: translateX(-200%); }
+  /* Pause */
+  75%  { transform: translateX(-200%); }
+  /* Slide to next */
+  88%  { transform: translateX(-300%); }
+  /* Pause */
+  100% { transform: translateX(-300%); }
+}
+
+.card:hover .imageStripMulti {
+  animation: stripScroll 5s cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}
+
 .card:hover .image {
-  transform: scale(1.06);
   filter: brightness(1.02);
 }
 
@@ -157,7 +193,7 @@
 
 /* ── Product Info ── */
 .info {
-  padding: 16px 10px 6px;
+  padding: 8px 0 0;
   flex: 1;
   position: relative;
   z-index: 2;
@@ -169,7 +205,7 @@
   font-family: var(--font-secondary);
   font-size: 13px;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 3px;
   letter-spacing: 0.2px;
   color: var(--color-text);
   transition: color 0.5s cubic-bezier(0.32, 0.72, 0, 1);
@@ -178,7 +214,6 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.4;
-  min-height: 36px;
 }
 
 .card:hover .title {
@@ -213,20 +248,15 @@
   font-family: var(--font-secondary);
   font-size: 13px;
   font-weight: 400;
-  color: var(--color-text-light);
+  color: #2e7d32;
   text-decoration: line-through;
-  opacity: 0.5;
 }
 
 .discount {
   font-family: var(--font-secondary);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: #2e7d32;
-  background: rgba(46, 125, 50, 0.08);
-  padding: 3px 8px;
-  border-radius: 50px;
-  letter-spacing: 0.3px;
 }
 
 /* ── Quick Add Button ── */
@@ -278,7 +308,6 @@
 
   .title {
     font-size: 14px;
-    min-height: 40px;
   }
 
   .price {
@@ -286,14 +315,13 @@
   }
 
   .info {
-    padding: 18px 12px 8px;
+    padding: 10px 0 0;
   }
 }
 
 @media (min-width: 1025px) and (max-width: 1199px) {
   .title {
     font-size: 12px;
-    min-height: 34px;
   }
 
   .price {
@@ -315,18 +343,8 @@
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .card {
-    padding: 4px;
-    border-radius: 14px;
-  }
-
-  .imageWrap {
-    border-radius: calc(14px - 4px);
-  }
-
   .title {
     font-size: 12px;
-    min-height: 32px;
   }
 
   .price {
@@ -338,7 +356,7 @@
   }
 
   .info {
-    padding: 12px 8px 4px;
+    padding: 8px 0 0;
   }
 
   .image {
@@ -363,18 +381,8 @@
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  .card {
-    padding: 4px;
-    border-radius: 12px;
-  }
-
-  .imageWrap {
-    border-radius: calc(12px - 4px);
-  }
-
   .title {
     font-size: 12px;
-    min-height: 32px;
   }
 
   .price {
@@ -386,7 +394,7 @@
   }
 
   .info {
-    padding: 10px 6px 4px;
+    padding: 8px 0 0;
   }
 
   .image {
@@ -424,22 +432,12 @@
 }
 
 @media (max-width: 480px) {
-  .card {
-    padding: 3px;
-    border-radius: 10px;
-  }
-
-  .imageWrap {
-    border-radius: calc(10px - 3px);
-  }
-
   .card:hover {
     transform: translateY(-4px);
   }
 
   .title {
     font-size: 11px;
-    min-height: 28px;
     line-height: 1.3;
   }
 
@@ -453,15 +451,18 @@
 
   .discount {
     font-size: 9px;
-    padding: 2px 6px;
   }
 
   .info {
-    padding: 8px 4px 4px;
+    padding: 6px 0 0;
   }
 
   .image {
     padding: 6px;
+  }
+
+  .imageBg {
+    border-width: 4px;
   }
 
   .addBtn {

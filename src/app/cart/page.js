@@ -31,7 +31,7 @@ export default function CartPage() {
         <div className={styles.layout}>
           <div className={styles.items}>
             {cart.map((item) => (
-              <div key={item.id} className={styles.item}>
+              <div key={item.slug} className={styles.item}>
                 <div className={styles.itemImage}>
                   <Image src={item.image} alt={item.title} width={100} height={100} style={{ objectFit: "contain" }} />
                 </div>
@@ -40,12 +40,12 @@ export default function CartPage() {
                   <p className={styles.itemPrice}>{formatPrice(item.price)}</p>
                 </div>
                 <div className={styles.itemQty}>
-                  <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>−</button>
+                  <button onClick={() => updateQuantity(item.slug, item.quantity - 1)}>−</button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  <button onClick={() => updateQuantity(item.slug, item.quantity + 1)}>+</button>
                 </div>
                 <p className={styles.itemTotal}>{formatPrice(item.price * item.quantity)}</p>
-                <button className={styles.removeBtn} onClick={() => removeFromCart(item.id)} aria-label="Remove">
+                <button className={styles.removeBtn} onClick={() => removeFromCart(item.slug)} aria-label="Remove">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>

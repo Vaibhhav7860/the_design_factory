@@ -4,73 +4,37 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
+import { products } from "@/data/products";
 import styles from "./BestSellers.module.css";
 
-const featuredProducts = [
-  {
-    id: 101,
-    title: "Art Bag - Mermaid",
-    price: 1200,
-    originalPrice: 1500,
-    discount: 20,
-    badge: "Top Seller",
-    image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/88E28002-BDF3-426D-9B9A-6D04BC555BAE.png?v=1778577574",
-    slug: "bag-tag-mermaid-design-1",
-  },
-  {
-    id: 102,
-    title: "Art Bag - Frozen",
-    price: 1200,
-    originalPrice: 1500,
-    discount: 20,
-    badge: null,
-    image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/3F874BDF-C3FA-47F8-94C3-2C2EA2E8A56D_3b96681b-9de8-400e-b226-40fa33b297cd.png?v=1778577476",
-    slug: "iron-on-labels-cute-lil-girl",
-  },
-  {
-    id: 103,
-    title: "Jelly Tote Bag - Pink",
-    price: 1150,
-    originalPrice: 1450,
-    discount: 21,
-    badge: "New",
-    badgeStyle: "peach",
-    image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_4055.webp?v=1778573655",
-    slug: "mixed-shape-labels-baby-jungle-animals",
-  },
-  {
-    id: 104,
-    title: "Swim Bag with Pouch - Frozen",
-    price: 1150,
-    originalPrice: 1450,
-    discount: 21,
-    badge: null,
-    image: "https://cdn.shopify.com/s/files/1/0750/4694/5085/files/IMG_3978.jpg?v=1778573386",
-    slug: "iron-on-labels-construction",
-  },
-  {
-    id: 105,
-    title: "Art Bag - Unicorn",
-    price: 1250,
-    originalPrice: 1600,
-    discount: 22,
-    badge: "Must Have",
-    badgeStyle: "peach",
-    image: "/images/products/art_bag_unicorn.png",
-    slug: "art-bag-unicorn",
-  },
-  {
-    id: 106,
-    title: "Art Bag - Dinosaur",
-    price: 1250,
-    originalPrice: 1600,
-    discount: 22,
-    badge: "Trending",
-    badgeStyle: "blue",
-    image: "/images/products/art_bag_dinosaur.png",
-    slug: "art-bag-dinosaur",
-  },
+const SEASON_SLUGS = [
+  "art-bag-mermaid",
+  "art-bag-frozen",
+  "jelly-tote-bag-pink",
+  "swim-bag-with-pouch-frozen",
+  "art-bag-dinosaur",
+  "duffle-bag-with-toy-keychain-frozen",
 ];
+
+const BADGES = {
+  "art-bag-mermaid": { badge: "Top Seller" },
+  "jelly-tote-bag-pink": { badge: "New", badgeStyle: "peach" },
+  "art-bag-dinosaur": { badge: "Must Have", badgeStyle: "peach" },
+  "duffle-bag-with-toy-keychain-frozen": { badge: "Trending", badgeStyle: "blue" },
+};
+
+const featuredProducts = SEASON_SLUGS.map((slug) => {
+  const p = products.find((prod) => prod.slug === slug);
+  if (!p) return null;
+  const discount = p.originalPrice
+    ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100)
+    : 0;
+  return {
+    ...p,
+    discount,
+    ...(BADGES[slug] || {}),
+  };
+}).filter(Boolean);
 
 export default function BestSellers() {
   const { addToCart } = useCart();
@@ -92,7 +56,7 @@ export default function BestSellers() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Explore More</h2>
+          <h2 className={styles.title}>Season's Favourite</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <button className={`${styles.navButton} ${styles.navLeft}`} onClick={scrollLeft} aria-label="Scroll left">
@@ -104,7 +68,7 @@ export default function BestSellers() {
               const borderColor = ['#FCD589', '#FBC9BC', '#d7e4e4', '#E6D7FF', '#D4F0F0', '#FFD8B1'][index % 6];
               return (
             <Link
-              key={product.id}
+              key={product.slug}
               href={`/product/${product.slug}`}
               className={styles.cardLink}
             >

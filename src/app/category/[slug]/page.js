@@ -104,39 +104,20 @@ export default async function CategoryPage({ params, searchParams }) {
       <div className="container">
         {/* Hero Header Area with Pastel Gradient */}
         <div className={styles.headerArea}>
-          {/* Breadcrumb */}
-          <nav className={styles.breadcrumb}>
-            <a href="/">Home</a>
-            <span>/</span>
-            <a href={`/category/${slug}`}>{category?.title || "Collection"}</a>
-            {currentSubcategory && (
-              <>
-                <span>/</span>
-                <span>{currentSubcategory.title}</span>
-              </>
-            )}
-          </nav>
-
-          {/* Eyebrow Tag */}
-          <span className={styles.eyebrowTag}>
-            {getEyebrowText(slug)}
-          </span>
-
           {/* Section Header */}
           <div className={styles.sectionHeader}>
             <h2>{currentSubcategory?.title || category?.title || slug}</h2>
-            {!currentSubcategory && category?.description && <p>{category.description}</p>}
           </div>
-
-          {/* Subcategory Filter Pills (only when not showing subcategory showcase) */}
-          {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
-            <FilterSlider 
-              subcategories={category.subcategories}
-              currentSlug={slug}
-              activeSubcategory={subcategory}
-            />
-          )}
         </div>
+
+        {/* Subcategory Filter Pills — outside the header card */}
+        {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
+          <FilterSlider 
+            subcategories={category.subcategories}
+            currentSlug={slug}
+            activeSubcategory={subcategory}
+          />
+        )}
 
         {/* Show Subcategory Cards if no subcategory is selected */}
         {showSubcategories ? (

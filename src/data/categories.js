@@ -36,6 +36,8 @@ export const categories = [
       { title: "Rewritable Planners", slug: "rewritable-planners" },
       { title: "Pencil Case", slug: "pencil-case" },
       { title: "School Bag & Combos", slug: "school-bag-combos" },
+      { title: "Ring Folders", slug: "ring-folders" },
+      { title: "Expandable Folders", slug: "expandable-folders" },
     ],
   },
   {
@@ -114,6 +116,8 @@ export const categories = [
       { title: "Storage Basket", slug: "storage-basket" },
       { title: "Vanity", slug: "vanity" },
       { title: "Organiser Sets", slug: "organiser-sets" },
+      { title: "Reward Charts", slug: "reward-charts" },
+      { title: "Sorting Activities", slug: "sorting-activities" },
     ],
   },
   {
@@ -150,6 +154,7 @@ export const categories = [
       { title: "Cap", slug: "cap" },
       { title: "Apron Set", slug: "apron-set" },
       { title: "Neck Pillow Combo", slug: "neck-pillow-combo" },
+      { title: "Felt Hangings", slug: "felt-hangings" },
     ],
   },
   {
@@ -164,6 +169,7 @@ export const categories = [
       { title: "Wooden Organisers", slug: "wooden-organisers" },
       { title: "Caps", slug: "caps" },
       { title: "Apron Sets", slug: "apron-sets" },
+      { title: "Rakhi", slug: "rakhi" },
     ],
   },
   {

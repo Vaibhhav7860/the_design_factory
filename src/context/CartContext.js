@@ -9,12 +9,12 @@ const CART_STORAGE_KEY = "tdf_cart";
 function cartReducer(state, action) {
   switch (action.type) {
     case "ADD_ITEM": {
-      const existing = state.items.find((item) => item.id === action.payload.id);
+      const existing = state.items.find((item) => item.slug === action.payload.slug);
       if (existing) {
         return {
           ...state,
           items: state.items.map((item) =>
-            item.id === action.payload.id
+            item.slug === action.payload.slug
               ? { ...item, quantity: item.quantity + 1 }
               : item
           ),
@@ -28,19 +28,19 @@ function cartReducer(state, action) {
     case "REMOVE_ITEM":
       return {
         ...state,
-        items: state.items.filter((item) => item.id !== action.payload),
+        items: state.items.filter((item) => item.slug !== action.payload),
       };
     case "UPDATE_QUANTITY":
       if (action.payload.quantity <= 0) {
         return {
           ...state,
-          items: state.items.filter((item) => item.id !== action.payload.id),
+          items: state.items.filter((item) => item.slug !== action.payload.slug),
         };
       }
       return {
         ...state,
         items: state.items.map((item) =>
-          item.id === action.payload.id
+          item.slug === action.payload.slug
             ? { ...item, quantity: action.payload.quantity }
             : item
         ),
@@ -83,12 +83,12 @@ export function CartProvider({ children }) {
     dispatch({ type: "ADD_ITEM", payload: product });
   }, []);
 
-  const removeFromCart = useCallback((productId) => {
-    dispatch({ type: "REMOVE_ITEM", payload: productId });
+  const removeFromCart = useCallback((productSlug) => {
+    dispatch({ type: "REMOVE_ITEM", payload: productSlug });
   }, []);
 
-  const updateQuantity = useCallback((id, quantity) => {
-    dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+  const updateQuantity = useCallback((slug, quantity) => {
+    dispatch({ type: "UPDATE_QUANTITY", payload: { slug, quantity } });
   }, []);
 
   const clearCart = useCallback(() => {

@@ -47,6 +47,13 @@ const reelVideos = [
     price: "1,899",
     mrp: "2,999",
     discount: "36% off",
+  },
+  {
+    src: "/videos/insta_videos/749d355c740343efb295ee601eecae41.HD-1080p-7.2Mbps-83595540.mp4",
+    title: "Soccer Canvas Bag",
+    price: "1,299",
+    mrp: "2,399",
+    discount: "46% off",
   }
 ];
 
@@ -62,7 +69,7 @@ export default function VideoReels() {
   return (
     <>
       <section className={styles.section}>
-        <h2 className={styles.heading}>All Time Favourites</h2>
+        <h2 className={styles.heading}>Trending</h2>
         <div className={styles.carouselContainer}>
           {reelVideos.map((video, index) => (
             <div 
