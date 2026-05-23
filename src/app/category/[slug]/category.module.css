@@ -10,7 +10,7 @@
 /* ── Hero / Header Area ── */
 .headerArea {
   background: linear-gradient(135deg, #f8f4f0 0%, #fdf0e8 50%, #f0e6f4 100%);
-  padding: 100px 6% 70px;
+  padding: 50px 6% 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -91,15 +91,15 @@
 /* ── Section Header ── */
 .sectionHeader {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   position: relative;
   z-index: 1;
 }
 
 .sectionHeader h2 {
   font-family: var(--font-primary);
-  font-size: 56px;
-  letter-spacing: 6px;
+  font-size: 36px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--color-text);
@@ -147,7 +147,7 @@
 /* Slider mode (>8 items) */
 .filterSection {
   margin: 0;
-  padding: 30px 0 0 0;
+  padding: 40px 6% 10px;
   background: transparent;
   border-radius: 0;
   display: flex;
@@ -160,7 +160,7 @@
 /* Normal mode (≤8 items) */
 .filterSectionNormal {
   margin: 0;
-  padding: 30px 0 0 0;
+  padding: 40px 6% 10px;
   background: transparent;
   border-radius: 0;
   position: relative;
@@ -238,8 +238,8 @@
   transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   cursor: pointer;
   flex-shrink: 0;
-  min-width: 110px;
-  width: 110px;
+  min-width: 130px;
+  width: 130px;
 }
 
 .filterPill:hover {
@@ -248,8 +248,8 @@
 
 /* Circular Icon — Double-Bezel */
 .filterIcon {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.9);
@@ -296,7 +296,7 @@
   letter-spacing: 0.8px;
   color: var(--color-text-light);
   text-align: center;
-  max-width: 110px;
+  max-width: 130px;
   transition: color 0.4s ease;
 }
 
@@ -516,8 +516,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   background: transparent;
   padding: 0;
   border-radius: 0;
@@ -528,10 +528,10 @@
 /* Content Wrapper — Sidebar Layout */
 .contentWrapper {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 44px;
+  grid-template-columns: 230px 1fr;
+  gap: 36px;
   margin-top: 50px;
-  padding: 0 6%;
+  padding: 0 2% 0 2%;
 }
 
 .filterSidebar {
@@ -551,12 +551,12 @@
 /* Large Desktop (21.5" and above) */
 @media (min-width: 1920px) {
   .headerArea {
-    padding: 120px 6% 90px;
+    padding: 60px 6% 50px;
   }
 
   .sectionHeader h2 {
-    font-size: 64px;
-    letter-spacing: 8px;
+    font-size: 40px;
+    letter-spacing: 5px;
   }
 
   .subcategoryShowcase {
@@ -579,15 +579,16 @@
   }
 
   .contentWrapper {
-    grid-template-columns: 300px 1fr;
-    gap: 60px;
+    grid-template-columns: 260px 1fr;
+    gap: 50px;
     max-width: 2400px;
     margin: 40px auto 0;
+    padding: 0 2%;
   }
 
   .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     padding: 0;
   }
 }
@@ -595,12 +596,12 @@
 /* Extra Large Desktop */
 @media (min-width: 1600px) and (max-width: 1919px) {
   .headerArea {
-    padding: 110px 6% 85px;
+    padding: 55px 6% 45px;
   }
 
   .sectionHeader h2 {
-    font-size: 58px;
-    letter-spacing: 7px;
+    font-size: 38px;
+    letter-spacing: 4px;
   }
 
   .subcategoryShowcase {
@@ -614,13 +615,14 @@
   }
 
   .contentWrapper {
-    grid-template-columns: 280px 1fr;
-    gap: 50px;
+    grid-template-columns: 250px 1fr;
+    gap: 44px;
+    padding: 0 2%;
   }
 
   .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
     padding: 0;
   }
 }
@@ -628,12 +630,12 @@
 /* Standard Desktop */
 @media (min-width: 1200px) and (max-width: 1599px) {
   .headerArea {
-    padding: 90px 6% 70px;
+    padding: 50px 6% 40px;
   }
 
   .sectionHeader h2 {
-    font-size: 48px;
-    letter-spacing: 5px;
+    font-size: 34px;
+    letter-spacing: 4px;
   }
 
   .subcategoryShowcase {
@@ -647,13 +649,14 @@
   }
 
   .contentWrapper {
-    grid-template-columns: 250px 1fr;
-    gap: 40px;
+    grid-template-columns: 230px 1fr;
+    gap: 36px;
+    padding: 0 2%;
   }
 
   .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     padding: 0;
   }
 }
@@ -661,12 +664,12 @@
 /* Laptop / Small Desktop */
 @media (min-width: 1025px) and (max-width: 1199px) {
   .headerArea {
-    padding: 80px 5% 60px;
+    padding: 45px 5% 35px;
   }
 
   .sectionHeader h2 {
-    font-size: 40px;
-    letter-spacing: 4px;
+    font-size: 30px;
+    letter-spacing: 3px;
   }
 
   .subcategoryShowcase {
@@ -691,15 +694,15 @@
   }
 
   .grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
     padding: 0;
   }
 
   .contentWrapper {
-    grid-template-columns: 220px 1fr;
-    gap: 35px;
-    padding: 0 5%;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    padding: 0 2%;
   }
 
   .filterPillsNormal {
@@ -710,12 +713,12 @@
 /* Tablet Landscape */
 @media (min-width: 769px) and (max-width: 1024px) {
   .headerArea {
-    padding: 70px 4% 50px;
+    padding: 40px 4% 30px;
   }
 
   .sectionHeader h2 {
-    font-size: 36px;
-    letter-spacing: 4px;
+    font-size: 26px;
+    letter-spacing: 3px;
   }
 
   .sectionHeader p {
@@ -749,15 +752,15 @@
   }
 
   .grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
     padding: 0;
   }
 
   .contentWrapper {
-    grid-template-columns: 200px 1fr;
-    gap: 30px;
-    padding: 0 4%;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    padding: 0 2%;
   }
 
   .filterPillsNormal {
@@ -765,13 +768,13 @@
   }
 
   .filterPill {
-    min-width: 100px;
-    width: 100px;
+    min-width: 115px;
+    width: 115px;
   }
 
   .filterIcon {
-    width: 84px;
-    height: 84px;
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -782,7 +785,7 @@
   }
 
   .headerArea {
-    padding: 60px 4% 40px;
+    padding: 35px 4% 25px;
   }
 
   .eyebrowTag {
@@ -871,14 +874,14 @@
   }
 
   .filterPill {
-    min-width: 88px;
-    width: 88px;
+    min-width: 100px;
+    width: 100px;
     gap: 10px;
   }
 
   .filterIcon {
-    width: 72px;
-    height: 72px;
+    width: 88px;
+    height: 88px;
   }
 
   .filterPill span {
@@ -993,14 +996,14 @@
   }
 
   .filterPill {
-    min-width: 76px;
-    width: 76px;
+    min-width: 84px;
+    width: 84px;
     gap: 8px;
   }
 
   .filterIcon {
-    width: 64px;
-    height: 64px;
+    width: 76px;
+    height: 76px;
     border-width: 2px;
   }
 

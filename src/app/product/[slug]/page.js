@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
 export default async function ProductPage({ params }) {
   const { slug } = await params;
   const product = getProductBySlug(slug) || products[0];
-  const related = getRelatedProducts(product.id, 4);
+  const related = getRelatedProducts(product.slug, 4);
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
@@ -41,7 +41,7 @@ export default async function ProductPage({ params }) {
             </div>
             <div className={styles.relatedGrid}>
               {related.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.slug} product={p} />
               ))}
             </div>
           </div>

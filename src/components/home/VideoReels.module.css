@@ -1,5 +1,5 @@
 .section {
-  padding: 20px 4% 40px;
+  padding: 20px 2% 40px;
   background-color: var(--color-background);
   width: 100%;
 }
@@ -8,7 +8,7 @@
   font-family: 'Satisfy', cursive;
   font-size: 40px;
   line-height: 1.1;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #555;
   font-weight: 400;
   text-align: center;
@@ -16,9 +16,8 @@
 
 .carouselContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -43,7 +42,7 @@
 
 .videoWrapper {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 6;
   position: relative;
   overflow: hidden;
 }
@@ -134,7 +133,7 @@
 
 @media (max-width: 1024px) {
   .carouselContainer {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(6, 1fr);
     gap: 12px;
   }
 }
@@ -148,7 +147,7 @@
     margin-bottom: 20px;
   }
   .carouselContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
   .productTitle {

@@ -72,8 +72,8 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
                   <Image
                     src={getSubcategoryImage(sub, index)}
                     alt={sub.title}
-                    width={80}
-                    height={80}
+                    width={110}
+                    height={110}
                   />
                 </div>
                 <span>{sub.title}</span>
@@ -103,8 +103,8 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
                 <Image
                   src={getSubcategoryImage(sub, index)}
                   alt={sub.title}
-                  width={80}
-                  height={80}
+                  width={110}
+                  height={110}
                 />
               </div>
               <span>{sub.title}</span>
