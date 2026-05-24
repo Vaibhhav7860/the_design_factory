@@ -116,8 +116,6 @@ export const categories = [
       { title: "Storage Basket", slug: "storage-basket" },
       { title: "Vanity", slug: "vanity" },
       { title: "Organiser Sets", slug: "organiser-sets" },
-      { title: "Reward Charts", slug: "reward-charts" },
-      { title: "Sorting Activities", slug: "sorting-activities" },
     ],
   },
   {

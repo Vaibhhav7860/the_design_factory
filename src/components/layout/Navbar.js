@@ -258,7 +258,7 @@ export default function Navbar() {
           <div className={styles.announcementTrack}>
             {[...Array(4)].map((_, i) => (
               <span key={i} className={styles.announcementText}>
-                PERSONALIZED WITH LOVE &bull; WORLDWIDE SHIPPING &bull; UNIQUE GIFTING SOLUTIONS &bull;&nbsp;
+                PERSONALIZED WITH LOVE &bull; FREE SHIPPING INDIAWIDE &bull; UNIQUE GIFTS &bull;&nbsp;
               </span>
             ))}
           </div>

@@ -9,7 +9,6 @@
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   transition: var(--transition-smooth);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
 }
 
 .scrolled {
@@ -139,11 +138,10 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 50px;
-  border-top: 1px solid #f0f0f0;
   z-index: 1000;
   animation: megaMenuReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
-  border-radius: 0 0 16px 16px; /* High-end visual touch */
+  border-radius: 0;
 }
 
 /* Invisible bridge to prevent hover loss when moving mouse down */
@@ -255,7 +253,7 @@
 .megaImage {
   width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 0;
   object-fit: cover;
 }
 

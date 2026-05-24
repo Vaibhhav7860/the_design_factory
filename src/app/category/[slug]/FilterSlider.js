@@ -48,51 +48,16 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
     }
   };
 
-  // Check if we need slider (more than 8 items)
-  const needsSlider = subcategories.length > 8;
-
-  if (needsSlider) {
-    // Render with slider
-    return (
-      <div className={styles.filterSection}>
-        <button className={styles.filterNavBtn} onClick={scrollLeft}>
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-        <div className={styles.filterContainer}>
-          <div className={styles.filterPills} ref={sliderRef}>
-            {subcategories.map((sub, index) => (
-              <Link 
-                key={sub.slug} 
-                href={`/category/${currentSlug}?subcategory=${sub.slug}`}
-                className={`${styles.filterPill} ${activeSubcategory === sub.slug ? styles.filterPillActive : ''}`}
-              >
-                <div className={styles.filterIcon}>
-                  <Image
-                    src={getSubcategoryImage(sub, index)}
-                    alt={sub.title}
-                    width={110}
-                    height={110}
-                  />
-                </div>
-                <span>{sub.title}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <button className={styles.filterNavBtn} onClick={scrollRight}>
-          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-      </div>
-    );
-  } else {
-    // Render without slider (normal centered layout)
-    return (
-      <div className={styles.filterSectionNormal}>
-        <div className={styles.filterPillsNormal}>
+  // Always use the slider layout as requested by the user
+  return (
+    <div className={styles.filterSection}>
+      <button className={styles.filterNavBtn} onClick={scrollLeft}>
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div className={styles.filterContainer}>
+        <div className={styles.filterPills} ref={sliderRef}>
           {subcategories.map((sub, index) => (
             <Link 
               key={sub.slug} 
@@ -112,6 +77,11 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
           ))}
         </div>
       </div>
-    );
-  }
+      <button className={styles.filterNavBtn} onClick={scrollRight}>
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  );
 }

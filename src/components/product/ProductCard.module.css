@@ -159,7 +159,7 @@
 
 /* ── Product Info ── */
 .info {
-  padding: 8px 0 0;
+  padding: 8px 25px 0;
   flex: 1;
   position: relative;
   z-index: 2;
@@ -196,8 +196,8 @@
 
 .price {
   font-family: var(--font-secondary);
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--color-text);
   position: relative;
 }
@@ -281,7 +281,7 @@
   }
 
   .info {
-    padding: 10px 0 0;
+    padding: 10px 14px 0;
   }
 }
 
@@ -322,7 +322,7 @@
   }
 
   .info {
-    padding: 8px 0 0;
+    padding: 8px 10px 0;
   }
 
   .image {
@@ -360,7 +360,7 @@
   }
 
   .info {
-    padding: 8px 0 0;
+    padding: 8px 10px 0;
   }
 
   .image {
@@ -420,7 +420,7 @@
   }
 
   .info {
-    padding: 6px 0 0;
+    padding: 6px 8px 0;
   }
 
   .image {
