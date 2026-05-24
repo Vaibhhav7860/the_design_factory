@@ -90,7 +90,7 @@ export default function BestSellers() {
                     </span>
                   )}
                   <Image
-                    src={product.image}
+                    src={product.images?.[0] || "/placeholder.jpg"}
                     alt={product.title}
                     width={400}
                     height={380}
