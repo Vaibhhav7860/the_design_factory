@@ -56,7 +56,7 @@ export default function BestSellers() {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Season's Picks</h2>
+          <h2 className={styles.title}>Season&apos;s Picks</h2>
         </div>
         <div className={styles.carouselWrapper}>
           <button className={`${styles.navButton} ${styles.navLeft}`} onClick={scrollLeft} aria-label="Scroll left">

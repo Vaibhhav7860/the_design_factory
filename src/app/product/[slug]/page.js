@@ -2,6 +2,7 @@ import { products, getProductBySlug, getRelatedProducts } from "@/data/products"
 import ProductDetail from "./ProductDetail";
 import ProductCard from "@/components/product/ProductCard";
 import styles from "./product.module.css";
+import Link from "next/link";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -25,11 +26,11 @@ export default async function ProductPage({ params }) {
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
       <div className="container">
         <nav className={styles.breadcrumb}>
-          <a href="/">Home</a>
+          <Link href="/" className={styles.breadcrumbLink}>Home</Link>
           <span>/</span>
-          <a href={`/category/${product.categories?.[0] || 'labels'}`}>
+          <Link href={`/category/${product.categories?.[0] || 'labels'}`}>
             {product.categories?.[0]?.replace(/-/g, ' ') || 'Labels'}
-          </a>
+          </Link>
           <span>/</span>
           <span>{product.title}</span>
         </nav>
