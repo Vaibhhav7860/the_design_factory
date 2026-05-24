@@ -101,15 +101,19 @@ export default async function CategoryPage({ params, searchParams }) {
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
-      <div className="container">
-        {/* Hero Header Area with Pastel Gradient */}
-        <div className={styles.headerArea}>
-          {/* Section Header */}
-          <div className={styles.sectionHeader}>
-            <h2>{currentSubcategory?.title || category?.title || slug}</h2>
-          </div>
+      {/* Hero Header Area with Pastel Gradient */}
+      <div className={styles.headerArea}>
+        {/* Ethereal background layers */}
+        <div className={styles.headerNoise}></div>
+        <div className={styles.headerShimmer}></div>
+        
+        {/* Section Header */}
+        <div className={styles.sectionHeader}>
+          <h2>{currentSubcategory?.title || category?.title || slug}</h2>
         </div>
+      </div>
 
+      <div className="container">
         {/* Subcategory Filter Pills — outside the header card */}
         {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
           <FilterSlider 

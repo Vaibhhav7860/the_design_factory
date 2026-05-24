@@ -27,7 +27,9 @@ export default async function ProductPage({ params }) {
         <nav className={styles.breadcrumb}>
           <a href="/">Home</a>
           <span>/</span>
-          <a href={`/category/${product.category}`}>{product.category}</a>
+          <a href={`/category/${product.categories?.[0] || 'labels'}`}>
+            {product.categories?.[0]?.replace(/-/g, ' ') || 'Labels'}
+          </a>
           <span>/</span>
           <span>{product.title}</span>
         </nav>
