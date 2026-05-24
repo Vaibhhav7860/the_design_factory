@@ -10,7 +10,7 @@
 /* ── Hero / Header Area ── */
 .headerArea {
   background: linear-gradient(135deg, #f8f4f0 0%, #fdf0e8 50%, #f0e6f4 100%);
-  padding: 100px 6% 80px;
+  padding: 80px 6% 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -277,14 +277,15 @@
 }
 
 .filterPill span {
-  font-family: var(--font-secondary);
-  font-size: 11px;
-  font-weight: 600;
+  font-family: var(--font-primary);
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--color-text-light);
+  letter-spacing: 1px;
+  color: var(--color-text);
+  -webkit-text-stroke: 0.3px var(--color-text);
   text-align: center;
-  max-width: 130px;
+  max-width: 140px;
   transition: color 0.4s ease;
 }
 

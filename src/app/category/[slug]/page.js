@@ -107,10 +107,7 @@ export default async function CategoryPage({ params, searchParams }) {
         <div className={styles.sectionHeader}>
           <h2>{currentSubcategory?.title || category?.title || slug}</h2>
         </div>
-      </div>
-
-      <div className="container">
-        {/* Subcategory Filter Pills — outside the header card */}
+        {/* Subcategory Filter Pills — moved inside the header card to extend background */}
         {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
           <FilterSlider 
             subcategories={category.subcategories}
@@ -118,6 +115,9 @@ export default async function CategoryPage({ params, searchParams }) {
             activeSubcategory={subcategory}
           />
         )}
+      </div>
+
+      <div className="container">
 
         {/* Show Subcategory Cards if no subcategory is selected */}
         {showSubcategories ? (

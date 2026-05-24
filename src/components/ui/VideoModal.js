@@ -18,12 +18,16 @@ export default function VideoModal({ videos, initialIndex, onClose }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") handlePrev();
-      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") {
+        setCurrentIndex((prev) => (prev - 1 + videos.length) % videos.length);
+      }
+      if (e.key === "ArrowRight") {
+        setCurrentIndex((prev) => (prev + 1) % videos.length);
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex, onClose]);
+  }, [currentIndex, onClose, videos.length]);
 
   // Handle play/pause based on active index
   useEffect(() => {
