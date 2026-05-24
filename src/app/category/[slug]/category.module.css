@@ -9,35 +9,68 @@
 
 /* ── Hero / Header Area ── */
 .headerArea {
-  background: linear-gradient(135deg, #f8f4f0 0%, #fdf0e8 50%, #f0e6f4 100%);
+  background-color: #FDFBF7;
   padding: 50px 6% 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 1), inset 0 -1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .headerArea::before {
   content: '';
   position: absolute;
   top: -50%;
-  right: -20%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(252, 213, 137, 0.15) 0%, transparent 70%);
+  left: -20%;
+  width: 140%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(252, 213, 137, 0.45) 0%, transparent 35%),
+    radial-gradient(circle at 85% 30%, rgba(251, 201, 188, 0.55) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(215, 228, 228, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.9) 0%, transparent 35%);
+  filter: blur(15px);
   pointer-events: none;
+  animation: meshFlow 12s ease-in-out infinite alternate;
+  z-index: 0;
 }
 
-.headerArea::after {
-  content: '';
+.headerNoise {
   position: absolute;
-  bottom: -30%;
-  left: -15%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(251, 201, 188, 0.12) 0%, transparent 70%);
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.headerShimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSweep 8s infinite linear;
+}
+
+@keyframes meshFlow {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.05) translate(-2%, 5%); }
+  100% { transform: scale(1.1) translate(2%, -5%); }
+}
+
+@keyframes shimmerSweep {
+  0% { background-position: 200% 0; }
+  20% { background-position: -200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ── Breadcrumb ── */

@@ -1,13 +1,13 @@
 import csv
 import json
 import re
+import os
+import html
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PASS 1: Read all rows, group by handle
-#   - First row with a non-empty Title is the "primary" row
-#   - All rows (including secondary) may have an Image Src → gallery images
 # ─────────────────────────────────────────────────────────────────────────────
-handle_data = {}  # handle → { primary_row, images: [] }
+handle_data = {}
 
 with open('products_export_1.csv', 'r', encoding='utf-8') as file:
     reader = csv.DictReader(file)
@@ -27,157 +27,270 @@ with open('products_export_1.csv', 'r', encoding='utf-8') as file:
             handle_data[handle]['images'].append(img)
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PASS 2: Categorize each product and build the product object
+# PASS 2: Categorize each product into MULTIPLE categories/subcategories
 # ─────────────────────────────────────────────────────────────────────────────
 
-def categorize(title, tags_str):
-    """
-    Return (category, subcategory) by matching title keywords.
-    Falls back to tags if title match fails.
-    """
+def categorize_multi(title, tags_str):
     t = title.lower()
     tags = [tag.strip().lower() for tag in tags_str.split(',')] if tags_str else []
+    all_text = t + ' ' + ' '.join(tags)
 
-    # ── Labels ──────────────────────────────────────────────────────────────
-    if any(word in t for word in ['label', 'sticker']):
+    categories = set()
+    subcategories = set()
+
+    is_adult = 'adult' in t or 'adults' in t or 'grown up' in t
+
+    # 1. LABELS
+    if any(word in all_text for word in ['label', 'sticker']):
+        categories.add('labels')
         if 'rectangular' in t:
-            return 'labels', 'rectangular-labels'
+            subcategories.add('rectangular-labels')
         elif 'round' in t or 'circle' in t:
-            return 'labels', 'round-labels'
+            subcategories.add('round-labels')
         elif 'iron' in t or 'iron-on' in t:
-            return 'labels', 'iron-on-labels'
+            subcategories.add('iron-on-labels')
+            categories.add('school-essentials')
+            subcategories.add('iron-on-labels-clothes')
         elif 'book' in t:
-            return 'labels', 'school-book-labels'
+            subcategories.add('school-book-labels')
+            categories.add('school-essentials')
         elif 'transparent' in t:
-            return 'labels', 'transparent-labels'
+            subcategories.add('transparent-labels')
         elif '3d' in t or 'embossed' in t:
-            return 'labels', '3d-embossed-stickers'
+            subcategories.add('3d-embossed-stickers')
+        elif 'gift tag' not in t and 'notecard' not in t:
+            subcategories.add('mixed-shape-labels')
+            categories.add('school-essentials')
+            subcategories.add('name-labels')
+
+    # 2. SCHOOL ESSENTIALS & TRAVEL ESSENTIALS
+    if any(word in t for word in ['bag tag', 'bagtag']):
+        if is_adult:
+            categories.update(['adults-corner', 'travel-essentials'])
+            subcategories.update(['bag-tags-adults'])
         else:
-            return 'labels', 'mixed-shape-labels'
+            categories.update(['school-essentials', 'travel-essentials'])
+            subcategories.update(['bag-tags', 'bag-tags-kids'])
+    if 'sipper' in t or 'bottle' in t:
+        categories.add('school-essentials')
+        subcategories.add('sipper-bottle')
+    if 'lunch box' in t or 'lunchbox' in t:
+        categories.add('school-essentials')
+        subcategories.add('lunch-box')
+    if 'sketch book' in t or 'sketchbook' in t:
+        categories.add('school-essentials')
+        subcategories.add('sketch-book')
+    if 'pencil case' in t:
+        categories.add('school-essentials')
+        subcategories.add('pencil-case')
+    if 'planner' in t and 'meal' not in t:
+        categories.update(['school-essentials', 'play-learn'])
+        subcategories.add('rewritable-planners')
+    if 'back to school' in t or 'school set' in t:
+        categories.update(['school-essentials', 'combos'])
+        subcategories.add('back-to-school-label-set')
+    if 'ring folder' in t:
+        categories.add('school-essentials')
+        subcategories.add('ring-folders')
+    if 'expandable folder' in t:
+        categories.add('school-essentials')
+        subcategories.add('expandable-folders')
 
-    # ── School Essentials ────────────────────────────────────────────────────
-    elif any(word in t for word in ['bag tag', 'bagtag']):
-        return 'school-essentials', 'bag-tags'
-    elif any(word in t for word in ['sipper', 'bottle']):
-        return 'school-essentials', 'sipper-bottle'
-    elif 'lunch box' in t or 'lunchbox' in t:
-        return 'school-essentials', 'lunch-box'
-    elif 'sketch book' in t or 'sketchbook' in t:
-        return 'school-essentials', 'sketch-book'
-    elif 'pencil case' in t:
-        return 'school-essentials', 'pencil-case'
-    elif 'planner' in t and 'meal' not in t:
-        return 'school-essentials', 'rewritable-planners'
-    elif 'back to school' in t or 'school set' in t:
-        return 'school-essentials', 'back-to-school-label-set'
-    elif 'ring folder' in t:
-        return 'school-essentials', 'ring-folders'
-    elif 'expandable folder' in t:
-        return 'school-essentials', 'expandable-folders'
-
-    # ── Gift Stationery ──────────────────────────────────────────────────────
-    elif any(word in t for word in ['gift tag', 'gifttag', 'notecard', 'note card']):
-        if '3d' in t:
-            return 'gift-stationery', '3d-gift-tags'
-        elif 'flat' in t:
-            return 'gift-stationery', 'flat-gift-tags'
-        elif 'hanging' in t:
-            return 'gift-stationery', 'hanging-gift-tags'
-        else:
-            return 'gift-stationery', '3d-gift-tags'
-    elif 'money envelope' in t or ('envelope' in t and 'adult' not in t):
-        return 'gift-stationery', 'money-envelopes'
-    elif 'gift sticker' in t:
-        return 'gift-stationery', 'gift-stickers'
-    elif 'gift hamper' in t or 'hamper' in t:
-        return 'gift-stationery', 'gift-stationery-sets'
-
-    # ── Bags ─────────────────────────────────────────────────────────────────
-    elif any(word in t for word in ['duffle', 'duffel']):
-        return 'bags', 'duffle-bags'
-    elif 'jelly bag' in t:
-        return 'bags', 'jelly-bags'
-    elif 'art bag' in t:
-        return 'bags', 'art-bags'
-    elif 'backpack' in t:
-        return 'bags', 'backpacks'
-    elif 'tote' in t:
-        return 'bags', 'tote-bags'
-    elif 'swimming bag' in t or 'swim bag' in t:
-        return 'bags', 'swimming-bags'
-    elif 'school bag' in t:
-        return 'bags', 'school-bags'
-    elif 'denim bag' in t:
-        return 'bags', 'denim-bags'
-    elif 'diaper bag' in t:
-        return 'bags', 'baby-diaper-bag'
-
-    # ── Organisers ───────────────────────────────────────────────────────────
-    elif 'storage' in t or 'basket' in t:
-        return 'organisers', 'storage-basket'
-    elif 'pouch' in t or 'utility' in t:
-        return 'organisers', 'utility-pouches'
-    elif 'vanity' in t:
-        return 'organisers', 'vanity'
-    elif 'organiser set' in t or 'organizer set' in t:
-        return 'organisers', 'organiser-sets'
-    elif 'reward chart' in t:
-        return 'organisers', 'reward-charts'
-    elif 'daily checklist' in t or 'responsibility chart' in t or 'responsibilty chart' in t or 'daily check' in t:
-        return 'organisers', 'reward-charts'
-    elif 'meal planner' in t or 'weekly planner' in t or 'weekly meal' in t:
-        return 'kids-accessories', 'table-organiser'
-    elif 'christmas ornament' in t or 'ornament' in t or 'felt' in t or 'hanging' in t or 'bunting' in t:
-        return 'kids-accessories', 'felt-hangings'
-    elif 'activity' in t or 'sorting' in t or 'matching' in t:
-        return 'organisers', 'sorting-activities'
-
-    # ── Kids Accessories ─────────────────────────────────────────────────────
-    elif 'wall clock' in t or 'clock' in t:
-        return 'kids-accessories', 'wall-clock'
-    elif 'table mat' in t or 'placemat' in t:
-        return 'kids-accessories', 'table-mat'
-    elif 'towel' in t:
-        return 'kids-accessories', 'towel'
-    elif 'table organiser' in t or 'desk organiser' in t or 'penstand' in t or 'pen stand' in t:
-        return 'kids-accessories', 'table-organiser'
-    elif 'cap' in t or 'hat' in t:
-        return 'kids-accessories', 'cap'
-    elif 'apron' in t:
-        return 'kids-accessories', 'apron-set'
-    elif 'neck pillow' in t or 'travel pillow' in t:
-        return 'kids-accessories', 'neck-pillow-combo'
-
-    # ── Accessories & Gifts (Rakhi) ──────────────────────────────────────────
-    elif 'rakhi' in t or 'raksha' in t:
-        return 'accessories-gifts', 'rakhi'
-    elif 'bracelet' in t and 'charm' in t:
-        return 'accessories-gifts', 'rakhi'
-
-    # ── Combos ──────────────────────────────────────────────────────────────
-    elif 'combo' in t or 'set' in t:
-        if 'bag' in t:
-            return 'combos', 'bag-combo-set'
-        elif 'school' in t:
-            return 'combos', 'school-bag-combo'
-        elif 'gift' in t:
-            if 'adult' in t:
-                return 'combos', 'gift-stationery-combo-adults'
+    # 3. GIFT STATIONERY & ADULTS CORNER
+    if any(word in t for word in ['gift tag', 'gifttag', 'notecard', 'note card']):
+        categories.add('gift-stationery')
+        if is_adult:
+            categories.add('adults-corner')
+            if 'flat' in t:
+                subcategories.add('flat-gift-tags-adults')
+                subcategories.add('flat-gift-tags')
             else:
-                return 'combos', 'gift-stationery-combo-kids'
-        elif 'organiser' in t or 'organizer' in t:
-            return 'combos', 'organiser-sets'
+                subcategories.add('3d-gift-tags-adults')
+                subcategories.add('3d-gift-tags')
         else:
-            return 'combos', 'back-to-school-label-set'
+            if '3d' in t:
+                subcategories.add('3d-gift-tags')
+            elif 'flat' in t:
+                subcategories.add('flat-gift-tags')
+            elif 'hanging' in t:
+                subcategories.add('hanging-gift-tags')
+            else:
+                subcategories.add('3d-gift-tags')
+    if 'money envelope' in t or ('envelope' in t and not is_adult):
+        if is_adult:
+            categories.update(['adults-corner', 'gift-stationery'])
+            subcategories.update(['money-envelopes-adults', 'money-envelopes'])
+        else:
+            categories.add('gift-stationery')
+            subcategories.add('money-envelopes')
+    if 'envelope' in t and is_adult:
+        categories.update(['adults-corner', 'gift-stationery'])
+        subcategories.update(['money-envelopes-adults', 'money-envelopes'])
+    if 'gift sticker' in t:
+        categories.add('gift-stationery')
+        subcategories.add('gift-stickers')
+    if 'gift hamper' in t or ('hamper' in t and 'rakhi' not in t):
+        categories.add('combos')
+        if is_adult:
+            subcategories.add('gift-stationery-combo-adults')
+            categories.add('adults-corner')
+        else:
+            subcategories.add('gift-stationery-combo-kids')
+            categories.add('gift-stationery')
+            subcategories.add('gift-stationery-sets')
 
-    # Fallback: try tags
-    for tag in tags:
-        if 'label' in tag:
-            return 'labels', 'mixed-shape-labels'
-        if 'bag' in tag:
-            return 'bags', 'duffle-bags'
+    # 4. BAGS
+    if 'duffle' in t or 'duffel' in t:
+        categories.add('bags')
+        subcategories.add('duffle-bags')
+    if 'jelly bag' in t:
+        categories.add('bags')
+        subcategories.add('jelly-bags')
+    if 'art bag' in t:
+        categories.add('bags')
+        subcategories.add('art-bags')
+    if 'backpack' in t:
+        categories.add('bags')
+        subcategories.add('backpacks')
+    if 'tote' in t:
+        categories.add('bags')
+        subcategories.add('tote-bags')
+    if 'swimming bag' in t or 'swim bag' in t:
+        categories.add('bags')
+        subcategories.add('swimming-bags')
+        if 'pouch' in t:
+            categories.add('travel-essentials')
+            subcategories.add('multipurpose-pouches')
+    if 'school bag' in t:
+        categories.add('bags')
+        subcategories.add('school-bags')
+        if 'combo' in t or 'set' in t:
+            categories.add('combos')
+            subcategories.add('school-bag-combo')
+    if 'denim bag' in t:
+        categories.add('bags')
+        subcategories.add('denim-bags')
+    if 'diaper bag' in t:
+        categories.add('bags')
+        subcategories.add('baby-diaper-bag')
 
-    return 'uncategorized', ''
+    # 5. ORGANISERS
+    if ('storage' in t or 'basket' in t) and 'gift' not in t:
+        categories.update(['organisers', 'decor-dining'])
+        subcategories.add('storage-basket')
+    if ('pouch' in t or 'utility' in t) and 'swim' not in t:
+        categories.update(['organisers', 'travel-essentials'])
+        subcategories.update(['utility-pouches', 'multipurpose-pouches'])
+    if 'vanity' in t:
+        categories.update(['organisers', 'travel-essentials'])
+        subcategories.add('vanity')
+    if 'organiser set' in t or 'organizer set' in t:
+        categories.update(['organisers', 'combos'])
+        subcategories.add('organiser-sets')
+    if 'reward chart' in t or 'daily checklist' in t or 'responsibility chart' in t or 'responsibilty chart' in t or 'daily check' in t:
+        categories.update(['organisers', 'play-learn'])
+        subcategories.add('reward-charts')
+    if 'activity' in t or 'sorting' in t or 'matching' in t:
+        categories.update(['organisers', 'play-learn'])
+        subcategories.add('sorting-activities')
+
+    # 6. DECOR & DINING / KIDS ACCESSORIES
+    if 'meal planner' in t or 'weekly planner' in t or 'weekly meal' in t:
+        categories.add('decor-dining')
+        subcategories.add('meal-planner')
+    if 'christmas ornament' in t or 'ornament' in t or 'felt' in t or 'hanging' in t or 'bunting' in t:
+        categories.update(['decor-dining', 'kids-accessories'])
+        subcategories.update(['felt-hangings-buntings', 'felt-hangings'])
+    if 'wall clock' in t or 'clock' in t:
+        categories.update(['decor-dining', 'kids-accessories'])
+        subcategories.add('wall-clock')
+    if 'table mat' in t or 'placemat' in t:
+        categories.update(['decor-dining', 'kids-accessories'])
+        subcategories.add('table-mat')
+    if 'table organiser' in t or 'desk organiser' in t or 'penstand' in t or 'pen stand' in t:
+        categories.update(['kids-accessories', 'accessories-gifts'])
+        subcategories.update(['table-organiser', 'wooden-organisers'])
+    if 'cap' in t or 'hat' in t:
+        categories.update(['kids-accessories', 'accessories-gifts'])
+        subcategories.update(['cap', 'caps'])
+    if 'apron' in t:
+        categories.update(['kids-accessories', 'accessories-gifts'])
+        subcategories.update(['apron-set', 'apron-sets'])
+    if 'neck pillow' in t or 'travel pillow' in t:
+        categories.update(['kids-accessories', 'travel-essentials'])
+        subcategories.update(['neck-pillow-combo', 'neck-pillow-set'])
+    
+    # Towels
+    if 'towel' in t:
+        if is_adult:
+            categories.update(['adults-corner', 'accessories-gifts'])
+            subcategories.update(['towels', 'towels-adults'])
+        else:
+            categories.update(['kids-accessories', 'accessories-gifts'])
+            subcategories.update(['towel', 'towels'])
+
+    # Accessories & Gifts
+    if 'rakhi' in t or 'raksha' in t or ('bracelet' in t and 'charm' in t):
+        categories.add('accessories-gifts')
+        subcategories.add('rakhi')
+
+    # Travel Essentials Additions
+    if 'travel organiser' in t or 'travel organizer' in t:
+        categories.add('travel-essentials')
+        subcategories.add('travel-organisers')
+    if 'mix n match' in t or 'mix and match' in t or 'travel set' in t:
+        categories.add('travel-essentials')
+        subcategories.add('mix-match-sets')
+        categories.add('combos')
+        subcategories.add('back-to-school-label-set')
+
+    # Combos Additions
+    if 'combo' in t or 'set' in t:
+        if 'bag' in t:
+            categories.add('combos')
+            subcategories.add('bag-combo-set')
+
+    # THEMES
+    theme_mapping = {
+        'animal': 'animals', 'safari': 'animals', 'jungle': 'animals',
+        'dino': 'dino', 'dinosaur': 'dino',
+        'unicorn': 'unicorn',
+        'space': 'space', 'astronaut': 'space', 'rocket': 'space',
+        'princess': 'princess', 'fairy': 'princess',
+        'mermaid': 'favourite-characters', # actually mermaid can be favourite-characters
+        'superhero': 'superheroes', 'spiderman': 'superheroes', 'avengers': 'superheroes', 'marvel': 'superheroes', 'batman': 'superheroes',
+        'transport': 'transport', 'car': 'transport', 'train': 'transport', 'airplane': 'transport', 'truck': 'transport',
+        'underwater': 'underwater',
+        'peppa': 'favourite-characters', 'cocomelon': 'favourite-characters', 'harry potter': 'favourite-characters',
+        'minnie': 'favourite-characters', 'mickey': 'favourite-characters', 'barbie': 'favourite-characters'
+    }
+    
+    for kw, theme in theme_mapping.items():
+        if kw in t or kw in tags:
+            categories.add('themes')
+            subcategories.add(theme)
+            
+    if 'boy' in t and 'cute' in t:
+        categories.add('themes')
+        subcategories.add('cute-lil-boy')
+    if 'girl' in t and 'cute' in t:
+        categories.add('themes')
+        subcategories.add('cute-lil-girl')
+
+    # Fallbacks if completely empty
+    if not categories:
+        for tag in tags:
+            if 'label' in tag and 'gift' not in tag and 'gift' not in t:
+                categories.update(['labels', 'school-essentials'])
+                subcategories.update(['mixed-shape-labels', 'name-labels'])
+            if 'bag' in tag and 'swim' not in tag and 'swim' not in t:
+                categories.add('bags')
+                subcategories.add('duffle-bags')
+    
+    if not categories:
+        categories.add('uncategorized')
+
+    return list(categories), list(subcategories)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -188,7 +301,6 @@ products = []
 for handle, data in handle_data.items():
     row = data['primary']
     if row is None:
-        # No primary row (edge case — skip)
         continue
 
     title = row['Title'].strip()
@@ -208,51 +320,118 @@ for handle, data in handle_data.items():
             seen.add(img)
             images.append(img)
 
-    category, subcategory = categorize(title, tags_str)
+    cats, subcats = categorize_multi(title, tags_str)
 
+    clean_desc = ''
+    if description:
+        # Unescape HTML entities (e.g., &lt;p&gt; to <p>) first, then strip tags
+        clean_desc = html.unescape(description)
+        clean_desc = re.sub('<[^<]+?>', '', clean_desc).strip()
+    
     product = {
-        'handle': handle,
-        'title': title,
+        'id': handle,
         'slug': handle,
+        'title': title,
         'price': int(price),
-        'originalPrice': int(compare_price) if compare_price else int(price * 1.25),
-        'image': images[0] if images else '',
-        'images': images,  # Full gallery
-        'category': category,
-        'subcategory': subcategory,
-        'description': re.sub('<[^<]+?>', '', description)[:200] + '...' if description else f'Premium {title}',
+        'images': images,
+        'description': clean_desc if clean_desc else f'Premium {title}',
         'badge': None,
+        'categories': sorted(cats),
+        'subcategories': sorted(subcats),
     }
-
+    
+    if compare_price and compare_price > price:
+        product['originalPrice'] = int(compare_price)
+    
     products.append(product)
 
-# ─────────────────────────────────────────────────────────────────────────────
-# Save to JSON for review
-# ─────────────────────────────────────────────────────────────────────────────
+# Save processed json
 with open('processed_products.json', 'w', encoding='utf-8') as f:
     json.dump(products, f, indent=2, ensure_ascii=False)
 
-print(f'Processed {len(products)} products')
+print(f'Processed {len(products)} products into processed_products.json')
 
-# Category breakdown
-print('\nCategory breakdown:')
-cat_counts = {}
-for p in products:
-    c = p['category']
-    cat_counts[c] = cat_counts.get(c, 0) + 1
 
-for cat, count in sorted(cat_counts.items()):
-    print(f'  {cat}: {count}')
+# ─────────────────────────────────────────────────────────────────────────────
+# Generate src/data/products.js
+# ─────────────────────────────────────────────────────────────────────────────
 
-# Uncategorized detail
-uncategorized = [p for p in products if p['category'] == 'uncategorized']
-if uncategorized:
-    print(f'\nSTILL UNCATEGORIZED ({len(uncategorized)}):')
-    for p in uncategorized:
-        print(f'  - {p["title"]}')
+lines = []
+lines.append('// Auto-generated from products_export_1.csv')
+lines.append(f'// Total products: {len(products)}')
+lines.append('')
+lines.append('export const products = [')
 
-# Image stats
-with_gallery = [p for p in products if len(p['images']) > 1]
-print(f'\nProducts with multiple images: {len(with_gallery)}')
-max_imgs = max(len(p["images"]) for p in products)
-print(f'Max images on a single product: {max_imgs}')
+for i, p in enumerate(products):
+    comma = '' if i == len(products) - 1 else ','
+    entry = json.dumps(p, ensure_ascii=False, indent=2)
+    
+    # We want to keep the output structure clean and similar to existing products.js
+    # We can just write it directly.
+    # To fix formatting slightly, we indent by 2 spaces inside the array
+    entry_lines = entry.split('\\n')
+    entry_str = '\\n'.join('  ' + line if j > 0 else '  ' + line for j, line in enumerate(entry_lines))
+    
+    # Replace \/ with / if json.dumps escapes it (ensure_ascii=False usually doesn't, but let's be safe)
+    entry_str = entry.replace("\\/", "/")
+    
+    indented_entry = []
+    for j, line in enumerate(entry_str.split('\n')):
+        if j == 0:
+            indented_entry.append('  ' + line)
+        else:
+            indented_entry.append('  ' + line)
+    
+    # Better approach for indenting:
+    lines.append('  ' + entry_str.replace('\n', '\n  ') + comma)
+
+lines.append('];')
+lines.append('')
+lines.append('export function getProductsByCategory(categorySlug) {')
+lines.append('  return products.filter((p) => p.categories && p.categories.includes(categorySlug));')
+lines.append('}')
+lines.append('')
+lines.append('export function getProductsBySubcategory(categorySlug, subcategorySlug) {')
+lines.append('  return products.filter(')
+lines.append('    (p) => p.categories && p.categories.includes(categorySlug) && p.subcategories && p.subcategories.includes(subcategorySlug)')
+lines.append('  );')
+lines.append('}')
+lines.append('')
+lines.append('export function getRelatedProducts(productSlug, limit = 4) {')
+lines.append('  const product = products.find((p) => p.slug === productSlug);')
+lines.append('  if (!product) return [];')
+lines.append('  const primaryCat = product.categories?.[0];')
+lines.append('  return products')
+lines.append('    .filter((p) => p.slug !== productSlug && p.categories?.includes(primaryCat))')
+lines.append('    .slice(0, limit);')
+lines.append('}')
+lines.append('')
+lines.append('export function getAllCategories() {')
+lines.append('  const cats = new Set();')
+lines.append('  products.forEach(p => {')
+lines.append('    if (p.categories) p.categories.forEach(c => cats.add(c));')
+lines.append('  });')
+lines.append('  return Array.from(cats);')
+lines.append('}')
+lines.append('')
+lines.append('export function getAllSubcategories(categorySlug) {')
+lines.append('  const subcats = new Set();')
+lines.append('  products')
+lines.append('    .filter(p => p.categories && p.categories.includes(categorySlug))')
+lines.append('    .forEach(p => {')
+lines.append('      if (p.subcategories) p.subcategories.forEach(s => subcats.add(s));')
+lines.append('    });')
+lines.append('  return Array.from(subcats);')
+lines.append('}')
+lines.append('')
+lines.append('export function getProductBySlug(slug) {')
+lines.append('  return products.find((p) => p.slug === slug);')
+lines.append('}')
+lines.append('')
+
+output = '\n'.join(lines)
+
+with open('src/data/products.js', 'w', encoding='utf-8') as f:
+    f.write(output)
+
+print(f'Successfully wrote src/data/products.js')
