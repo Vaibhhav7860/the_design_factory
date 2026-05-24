@@ -210,6 +210,9 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-right: 30px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .filterPills::-webkit-scrollbar {
@@ -226,8 +229,8 @@
   transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   cursor: pointer;
   flex-shrink: 0;
-  min-width: 130px;
-  width: 130px;
+  min-width: 150px;
+  width: 150px;
 }
 
 .filterPill:hover {
@@ -236,8 +239,8 @@
 
 /* Circular Icon — Double-Bezel */
 .filterIcon {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.9);
@@ -434,7 +437,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .showcaseCard:hover .showcaseOverlay {
@@ -470,8 +472,8 @@
 
 /* CTA Button — Rounded pill */
 .showcaseButton {
-  background: var(--color-text);
-  color: var(--color-white);
+  background: var(--btn-bg, var(--color-peach));
+  color: var(--color-text);
   border: none;
   padding: 11px 24px;
   font-family: var(--font-secondary);
@@ -482,17 +484,17 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
   transform: translateY(6px);
   opacity: 0.9;
 }
 
 .showcaseCard:hover .showcaseButton {
-  background: var(--color-peach);
-  color: white;
+  background: var(--btn-bg, var(--color-peach));
+  color: var(--color-text);
   transform: translateY(0);
   opacity: 1;
-  box-shadow: 0 8px 28px rgba(251, 201, 188, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .showcaseButton:active {
@@ -761,13 +763,13 @@
   }
 
   .filterPill {
-    min-width: 115px;
-    width: 115px;
+    min-width: 135px;
+    width: 135px;
   }
 
   .filterIcon {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 }
 
@@ -867,14 +869,14 @@
   }
 
   .filterPill {
-    min-width: 100px;
-    width: 100px;
+    min-width: 115px;
+    width: 115px;
     gap: 10px;
   }
 
   .filterIcon {
-    width: 88px;
-    height: 88px;
+    width: 105px;
+    height: 105px;
   }
 
   .filterPill span {
@@ -989,14 +991,14 @@
   }
 
   .filterPill {
-    min-width: 84px;
-    width: 84px;
+    min-width: 96px;
+    width: 96px;
     gap: 8px;
   }
 
   .filterIcon {
-    width: 76px;
-    height: 76px;
+    width: 88px;
+    height: 88px;
     border-width: 2px;
   }
 

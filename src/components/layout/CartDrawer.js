@@ -31,7 +31,7 @@ export default function CartDrawer({ open, onClose }) {
               {cart.map((item) => (
                 <div key={item.slug} className={styles.item}>
                   <div className={styles.itemImage}>
-                    <Image src={item.image} alt={item.title} width={72} height={72} style={{ objectFit: "contain" }} />
+                    <Image src={item.images?.[0] || item.image || ""} alt={item.title} width={72} height={72} style={{ objectFit: "contain" }} />
                   </div>
                   <div className={styles.itemInfo}>
                     <h4 className={styles.itemTitle}>{item.title}</h4>

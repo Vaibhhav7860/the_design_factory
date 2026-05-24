@@ -139,7 +139,12 @@ export default async function CategoryPage({ params, searchParams }) {
                   <div className={styles.showcaseOverlay}>
                     <div className={styles.showcaseContent}>
                       <h3 className={styles.showcaseTitle}>{sub.title.toUpperCase()}</h3>
-                      <button className={styles.showcaseButton}>SHOP NOW</button>
+                      <button 
+                        className={styles.showcaseButton}
+                        style={{ '--btn-bg': ['#FCD589', '#FBC9BC', '#d7e4e4'][index % 3] }}
+                      >
+                        SHOP NOW
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -22417,12 +22417,12 @@ export const products = [
     "description": "In order to encourage kids to complete their daily tasks, this chart can come handy. Kids will love to give themselves a star for every chore done and also a small reward can be attached on completion of all or many activities.\nContents:\n\n\n1 rewritable personalised board - 10 x 14 inches\n\n1 white board marker",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn",
       "themes"
     ],
     "subcategories": [
-      "reward-charts",
+      "rewritable-planners",
       "unicorn"
     ]
   },
@@ -22438,13 +22438,13 @@ export const products = [
     "description": "In order to encourage kids to complete their daily tasks, this chart can come handy. Kids will love to give themselves a star for every chore done and also a small reward can be attached on completion of all or many activities.\nContents:\n\n\n1 rewritable personalised board - 10 x 14 inches\n\n1 white board marker",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn",
       "themes"
     ],
     "subcategories": [
       "favourite-characters",
-      "reward-charts"
+      "rewritable-planners"
     ]
   },
   {
@@ -22459,12 +22459,12 @@ export const products = [
     "description": "In order to encourage kids to complete their daily tasks, this chart can come handy. Kids will love to give themselves a star for every chore done and also a small reward can be attached on completion of all or many activities.\nContents:\n\n\n1 rewritable personalised board - 10 x 14 inches\n\n1 white board marker",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn",
       "themes"
     ],
     "subcategories": [
-      "reward-charts",
+      "rewritable-planners",
       "space"
     ]
   },
@@ -22480,11 +22480,11 @@ export const products = [
     "description": "In order to encourage kids to complete their daily tasks, this chart can come handy. Kids will love to give themselves a star for every chore done and also a small reward can be attached on completion of all or many activities.\nContents:\n\n\n1 rewritable personalised board - 10 x 14 inches\n\n\n1 white board marker",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn"
     ],
     "subcategories": [
-      "reward-charts"
+      "rewritable-planners"
     ]
   },
   {
@@ -22499,13 +22499,13 @@ export const products = [
     "description": "A good way to teach kids to complete their daily tasks. It is a way of appreciating the kids to complete each activity.\n Contents : \n\n\n1 personalised board -14 by 10 inches\n\nSmall cutouts with velcro dots",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn",
       "themes"
     ],
     "subcategories": [
       "princess",
-      "reward-charts"
+      "rewritable-planners"
     ]
   },
   {
@@ -22520,12 +22520,12 @@ export const products = [
     "description": "A good way to teach kids to complete their daily tasks. It is a way of appreciating the kids to complete each activity.\n \nContents : \n\n\n1 personalised board -14 by 10 inches\n\n\nSmall cutouts with velcro dots",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn",
       "themes"
     ],
     "subcategories": [
-      "reward-charts",
+      "rewritable-planners",
       "superheroes"
     ]
   },
@@ -22541,11 +22541,11 @@ export const products = [
     "description": "A good way to teach kids to complete their daily tasks. It is a way of appreciating the kids to complete each activity.\nContents :\n\n\n1 personalised board -14 by 10 inches\n\nCutouts with velcro dots",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn"
     ],
     "subcategories": [
-      "reward-charts"
+      "rewritable-planners"
     ]
   },
   {
@@ -22560,11 +22560,11 @@ export const products = [
     "description": "A good way to teach kids to complete their daily tasks. It is a way of appreciating the kids to complete each activity.\nContents :\n\n\n1 personalised board -14 by 10 inches\n\n\nCutouts with velcro dots",
     "badge": null,
     "categories": [
-      "organisers",
+      "school-essentials",
       "play-learn"
     ],
     "subcategories": [
-      "reward-charts"
+      "rewritable-planners"
     ]
   },
   {
