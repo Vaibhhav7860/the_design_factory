@@ -175,7 +175,7 @@
 }
 
 .card:hover .productTitle {
-  color: var(--color-peach);
+  color: var(--card-border-color);
 }
 
 .priceContainer {
