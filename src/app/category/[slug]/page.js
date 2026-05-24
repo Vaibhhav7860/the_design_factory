@@ -101,12 +101,8 @@ export default async function CategoryPage({ params, searchParams }) {
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
-      {/* Hero Header Area with Pastel Gradient */}
+      {/* Hero Header Area */}
       <div className={styles.headerArea}>
-        {/* Ethereal background layers */}
-        <div className={styles.headerNoise}></div>
-        <div className={styles.headerShimmer}></div>
-        
         {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2>{currentSubcategory?.title || category?.title || slug}</h2>

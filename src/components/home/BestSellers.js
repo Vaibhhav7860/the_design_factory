@@ -71,11 +71,12 @@ export default function BestSellers() {
               key={product.slug}
               href={`/product/${product.slug}`}
               className={styles.cardLink}
+              style={{ "--card-border-color": borderColor }}
             >
               <div className={styles.card}>
                 <div 
                   className={styles.imageContainer}
-                  style={{ border: `6px solid ${borderColor}` }}
+                  style={{ border: `6px solid var(--card-border-color)` }}
                 >
                   <div className={styles.wishlistIcon}>
                     <svg viewBox="0 0 24 24">

@@ -23,27 +23,7 @@
   display: none;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-}
 
-.card:hover .image {
-  transform: scale(1.06);
-}
-
-.card:hover .addBtn {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card:hover .wishlistIcon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.card:hover .title {
-  color: var(--color-peach);
-}
 
 /* ── Badge ── */
 .badge {
@@ -83,16 +63,13 @@
   align-items: stretch;
   overflow: hidden;
   position: relative;
-  border: 6px solid #FBC9BC;
 }
 
 .imageBg::before {
   display: none;
 }
 
-.card:hover .imageBg::before {
-  opacity: 0;
-}
+
 
 /* ── Image Strip (carousel) ── */
 .imageStrip {
@@ -140,13 +117,7 @@
   100% { transform: translateX(-300%); }
 }
 
-.card:hover .imageStripMulti {
-  animation: stripScroll 5s cubic-bezier(0.32, 0.72, 0, 1) infinite;
-}
 
-.card:hover .image {
-  filter: brightness(1.02);
-}
 
 /* ── Wishlist ── */
 .wishlistIcon {
@@ -165,11 +136,6 @@
   justify-content: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  opacity: 0;
-  transform: scale(0.7);
-}
-
-.card:hover .wishlistIcon {
   opacity: 1;
   transform: scale(1);
 }
@@ -459,10 +425,6 @@
 
   .image {
     padding: 6px;
-  }
-
-  .imageBg {
-    border-width: 4px;
   }
 
   .addBtn {

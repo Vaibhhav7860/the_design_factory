@@ -111,9 +111,7 @@
   will-change: transform;
 }
 
-.mainImageCore:hover .mainImg {
-  transform: scale(1.03);
-}
+
 
 /* ── Gallery Navigation Arrows ── */
 .galleryArrow {
@@ -239,9 +237,7 @@
   transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.thumbnail:hover .thumbnailImg {
-  transform: scale(1.06);
-}
+
 
 /* ═══════════════════════════════════════════
    INFO COLUMN — Editorial Layout

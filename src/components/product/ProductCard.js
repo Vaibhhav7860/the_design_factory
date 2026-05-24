@@ -46,16 +46,7 @@ export default function ProductCard({ product }) {
         </div>
       </Link>
 
-      <button
-        className={styles.addBtn}
-        onClick={(e) => {
-          e.stopPropagation();
-          addToCart(product);
-        }}
-        aria-label={`Add ${product.title} to cart`}
-      >
-        QUICK ADD
-      </button>
+
 
       <div className={styles.info}>
         <Link href={`/product/${product.slug}`}>
