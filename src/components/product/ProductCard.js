@@ -5,12 +5,47 @@ import { useCart } from "@/context/CartContext";
 import { formatPrice, calculateDiscount } from "@/lib/utils";
 import styles from "./ProductCard.module.css";
 
+const TAG_OPTIONS = ["Express", "New", "Trending", "New Drop", "Top Pick", "Most 💖"];
+const TAG_COLORS = ["#FCD589", "#FBC9BC", "#d7e4e4"];
+
+// Deterministic hash so tags stay stable between server / client renders
+function hashStr(str = "") {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h * 31 + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h);
+}
+
+function getProductTags(product) {
+  const seed = hashStr(product.slug || product.title || "");
+  const count = 2;
+
+  const tags = [];
+  const used = new Set();
+  for (let i = 0; i < count; i++) {
+    const tagIdx = (seed + i * 7) % TAG_OPTIONS.length;
+    let chosen = tagIdx;
+    // Avoid duplicates
+    while (used.has(chosen)) {
+      chosen = (chosen + 1) % TAG_OPTIONS.length;
+    }
+    used.add(chosen);
+    tags.push({
+      label: TAG_OPTIONS[chosen],
+      color: TAG_COLORS[(seed + i) % TAG_COLORS.length],
+    });
+  }
+  return tags;
+}
+
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
   const discount = calculateDiscount(product.originalPrice, product.price);
   // Use images[] if available, fall back to [image]
   const gallery = product.images?.length > 0 ? product.images : [product.image];
   const hasMultiple = gallery.length > 1;
+  const tags = getProductTags(product);
 
   return (
     <div className={styles.card}>
@@ -49,6 +84,19 @@ export default function ProductCard({ product }) {
 
 
       <div className={styles.info}>
+        {tags.length > 0 && (
+          <div className={styles.tags}>
+            {tags.map((tag, i) => (
+              <span
+                key={i}
+                className={styles.tag}
+                style={{ backgroundColor: tag.color }}
+              >
+                {tag.label}
+              </span>
+            ))}
+          </div>
+        )}
         <Link href={`/product/${product.slug}`}>
           <h3 className={styles.title}>{product.title}</h3>
         </Link>
