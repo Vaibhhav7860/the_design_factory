@@ -29,8 +29,15 @@ export default function ProductDetail({ product }) {
 
   /* ── Personalisation State ── */
   const [personalisationName, setPersonalisationName] = useState("");
+  const [schoolName, setSchoolName] = useState("");
   const [selectedFont, setSelectedFont] = useState(FONT_OPTIONS[0].value);
   const isPersonalised = personalisationName.trim().length > 0;
+
+  /* ── Detect if this product needs a School input (school book labels & back-to-school label sets) ── */
+  const SCHOOL_INPUT_SUBCATEGORIES = ["school-book-labels", "back-to-school-label-set"];
+  const requiresSchool = (product.subcategories || []).some((sc) =>
+    SCHOOL_INPUT_SUBCATEGORIES.includes(sc)
+  );
 
   /* ── Gallery State ── */
   const gallery =
@@ -94,11 +101,27 @@ export default function ProductDetail({ product }) {
 
     const commitList = () => {
       if (currentListKey && currentListValues.length > 0) {
-        specsList.push({
-          key: currentListKey,
-          value: currentListValues.map(v => v.replace(/^[-•]\s*/, '')).join('\n'),
-          isList: true,
-        });
+        const cleanedValues = currentListValues.map(v => v.replace(/^[-•]\s*/, ''));
+        const existing = specsList.find(
+          s => s.key.toLowerCase() === currentListKey.toLowerCase()
+        );
+        if (existing) {
+          // Merge into the existing card so we never render duplicates
+          const mergedValues = [
+            ...(existing.isList
+              ? existing.value.split('\n').filter(Boolean)
+              : [existing.value]),
+            ...cleanedValues,
+          ];
+          existing.value = mergedValues.join('\n');
+          existing.isList = true;
+        } else {
+          specsList.push({
+            key: currentListKey,
+            value: cleanedValues.join('\n'),
+            isList: true,
+          });
+        }
       }
       currentListKey = null;
       currentListValues = [];
@@ -259,6 +282,9 @@ export default function ProductDetail({ product }) {
             isPersonalised: true,
             name: personalisationName.trim(),
             font: FONT_OPTIONS.find((f) => f.value === selectedFont)?.label || selectedFont,
+            ...(requiresSchool && schoolName.trim()
+              ? { school: schoolName.trim() }
+              : {}),
           }
         : null,
     };
@@ -295,60 +321,20 @@ export default function ProductDetail({ product }) {
             )}
           </div>
 
-          {/* Prev / Next arrows */}
+          {/* Dot indicators */}
           {gallery.length > 1 && (
-            <>
-              <button
-                className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`}
-                onClick={() => handleManualNav(goPrev)}
-                aria-label="Previous image"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-              <button
-                className={`${styles.galleryArrow} ${styles.galleryArrowNext}`}
-                onClick={() => handleManualNav(goNext)}
-                aria-label="Next image"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
-
-              {/* Dot indicators */}
-              <div className={styles.galleryDots}>
-                {gallery.map((_, i) => (
-                  <button
-                    key={i}
-                    className={`${styles.galleryDot} ${
-                      i === activeIndex ? styles.galleryDotActive : ""
-                    }`}
-                    onClick={() => handleManualNav(() => goTo(i))}
-                    aria-label={`Go to image ${i + 1}`}
-                  />
-                ))}
-              </div>
-            </>
+            <div className={styles.galleryDots}>
+              {gallery.map((_, i) => (
+                <button
+                  key={i}
+                  className={`${styles.galleryDot} ${
+                    i === activeIndex ? styles.galleryDotActive : ""
+                  }`}
+                  onClick={() => handleManualNav(() => goTo(i))}
+                  aria-label={`Go to image ${i + 1}`}
+                />
+              ))}
+            </div>
           )}
         </div>
 
@@ -407,7 +393,7 @@ export default function ProductDetail({ product }) {
 
         {/* ═══════ The Story (Description) ═══════ */}
         <div className={styles.storySection}>
-          <p className={styles.sectionLabel}>The Story</p>
+          <p className={styles.sectionLabel}>Description</p>
           <div className={styles.descTextWrapper}>
             {dropCapLetter && <span className={styles.dropCap}>{dropCapLetter}</span>}
             <span className={styles.descText}>{displayDesc}</span>
@@ -423,37 +409,69 @@ export default function ProductDetail({ product }) {
         </div>
 
         {/* ═══════ Product Details (Specifications) — Inline Below Description ═══════ */}
-        {specs.length > 0 && (
-          <div className={styles.detailsSection}>
-            <p className={styles.sectionLabel}>Product Details</p>
-            <div className={styles.detailsGrid}>
-              {specs.map((spec, idx) => {
-                const accent = BRAND_COLORS[idx % BRAND_COLORS.length];
-                return (
-                  <div
-                    key={idx}
-                    className={styles.detailCard}
-                    style={{ '--accent': accent }}
-                  >
-                    <div className={styles.detailCardAccent} />
-                    <div className={styles.detailCardContent}>
-                      <p className={styles.detailKey}>{spec.key}</p>
-                      {spec.isList ? (
-                        <ul className={styles.detailList}>
-                          {spec.value.split('\n').map((item, i) => (
-                            <li key={i}>{item}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className={styles.detailValue}>{spec.value}</p>
-                      )}
-                    </div>
+        {specs.length > 0 && (() => {
+          // Identify the longest spec so it gets a dedicated tall column on the left.
+          // The remaining specs stack densely on the right.
+          let longestIdx = 0;
+          let longestSize = 0;
+          specs.forEach((s, i) => {
+            const size = s.isList
+              ? s.value.split('\n').filter(Boolean).length * 2
+              : (s.value || '').length / 30;
+            if (size > longestSize) {
+              longestSize = size;
+              longestIdx = i;
+            }
+          });
+          const useTwoColumnLayout = specs.length > 2 && longestSize >= 6;
+          const longest = specs[longestIdx];
+          const others = specs.filter((_, i) => i !== longestIdx);
+
+          const renderCard = (spec, idx) => {
+            const accent = BRAND_COLORS[idx % BRAND_COLORS.length];
+            return (
+              <div
+                key={`${spec.key}-${idx}`}
+                className={styles.detailCard}
+                style={{ '--accent': accent }}
+              >
+                <div className={styles.detailCardAccent} />
+                <div className={styles.detailCardContent}>
+                  <p className={styles.detailKey}>{spec.key}</p>
+                  {spec.isList ? (
+                    <ul className={styles.detailList}>
+                      {spec.value.split('\n').map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className={styles.detailValue}>{spec.value}</p>
+                  )}
+                </div>
+              </div>
+            );
+          };
+
+          return (
+            <div className={styles.detailsSection}>
+              <p className={styles.sectionLabel}>Product Details</p>
+              {useTwoColumnLayout ? (
+                <div className={styles.detailsSplit}>
+                  <div className={styles.detailsSplitLeft}>
+                    {renderCard(longest, longestIdx)}
                   </div>
-                );
-              })}
+                  <div className={styles.detailsSplitRight}>
+                    {others.map((spec, i) => renderCard(spec, i + 1))}
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.detailsGrid}>
+                  {specs.map((spec, idx) => renderCard(spec, idx))}
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {product.features && (
           <div className={styles.features}>
@@ -481,10 +499,6 @@ export default function ProductDetail({ product }) {
             <span className={styles.ribbonMint} aria-hidden="true" />
 
             <div className={styles.personalisationCardInner}>
-              <p className={styles.personalisationIntro}>
-                Make it yours — enter a name and choose a font
-              </p>
-
               {/* Name Input */}
               <div className={styles.formField}>
                 <label className={styles.formLabel}>
@@ -509,10 +523,34 @@ export default function ProductDetail({ product }) {
                 </div>
               </div>
 
+              {/* School Input — only for School Book Labels & Back to School Label Sets */}
+              {requiresSchool && (
+                <div className={styles.formField}>
+                  <label className={styles.formLabel}>
+                    School <span className={styles.optional}>(Optional)</span>
+                  </label>
+                  <div className={styles.formInputWrap}>
+                    <input
+                      type="text"
+                      className={styles.formInput}
+                      value={schoolName}
+                      onChange={(e) =>
+                        setSchoolName(e.target.value.slice(0, MAX_NAME_LENGTH))
+                      }
+                      placeholder="Enter your child’s school name"
+                      maxLength={MAX_NAME_LENGTH}
+                    />
+                    <span className={styles.charCounter}>
+                      {schoolName.length}/{MAX_NAME_LENGTH}
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Font Selector */}
               <div className={styles.formField}>
                 <label className={styles.formLabel}>
-                  Font <span className={styles.required}>*</span>
+                  Font <span className={styles.optional}>(Optional)</span>
                 </label>
                 <select
                   className={styles.formSelect}
@@ -539,18 +577,19 @@ export default function ProductDetail({ product }) {
                 </span>
               </div>
 
-              {/* Delivery info */}
-              <div className={styles.deliveryInline}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="1" y="3" width="15" height="13" />
-                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-                  <circle cx="5.5" cy="18.5" r="2.5" />
-                  <circle cx="18.5" cy="18.5" r="2.5" />
+              {/* WhatsApp assistance */}
+              <a
+                href="https://wa.me/919981133225"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.deliveryInline}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.469A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.487 0-4.78-.809-6.643-2.177l-.463-.348-2.738.87.907-2.677-.381-.489A9.945 9.945 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
                 </svg>
-                <span>
-                  Dispatch: {isPersonalised ? "3-4 days" : "1-2 days"}  •  Delivery: 2-5 days
-                </span>
-              </div>
+                <span>For further assistance, please connect on WhatsApp</span>
+              </a>
             </div>
           </div>
         </div>

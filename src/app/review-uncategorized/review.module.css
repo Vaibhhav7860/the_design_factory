@@ -2,6 +2,14 @@
   padding: 40px 0 80px;
   background: #fafafa;
   min-height: 100vh;
+  /* macOS / iOS Safari: dynamic viewport */
+  min-height: -webkit-fill-available;
+}
+
+@supports (min-height: 100dvh) {
+  .page {
+    min-height: 100dvh;
+  }
 }
 
 .header {

@@ -62,7 +62,7 @@ export default function HeroSection() {
 
       {/* CTA Button */}
       <div className={styles.heroCta}>
-        <Link href="/category/bags" className={styles.exploreBtn}>
+        <Link href="/explore" className={styles.exploreBtn}>
           Explore Collection
         </Link>
       </div>

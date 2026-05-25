@@ -17,9 +17,9 @@
 
 .header h2 {
   font-family: var(--font-primary);
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 4px;
-  font-weight: 400;
+  font-weight: 800;
   text-transform: uppercase;
   color: var(--color-text);
 }

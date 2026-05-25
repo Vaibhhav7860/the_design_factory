@@ -207,6 +207,7 @@
   padding: 0 20px;
   transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-right: 30px;

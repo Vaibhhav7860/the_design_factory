@@ -167,6 +167,29 @@
   background: transparent;
 }
 
+/* ── Tags ── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
 .title {
   font-family: var(--font-secondary);
   font-size: 13px;
@@ -183,7 +206,7 @@
 }
 
 .card:hover .title {
-  color: var(--color-peach);
+  color: var(--color-text);
 }
 
 .pricing {

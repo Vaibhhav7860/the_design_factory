@@ -8,6 +8,8 @@
   overflow: hidden;
   border-radius: 0;
   position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .image {

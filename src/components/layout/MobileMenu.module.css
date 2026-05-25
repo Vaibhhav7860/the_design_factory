@@ -13,11 +13,20 @@
   width: 320px;
   max-width: 85vw;
   height: 100vh;
+  /* macOS / iOS Safari: dynamic viewport so the drawer doesn't get clipped by the URL bar */
+  height: -webkit-fill-available;
   background: #fff;
   z-index: 9999;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   animation: slideIn 0.35s cubic-bezier(0.2, 1, 0.2, 1);
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+@supports (height: 100dvh) {
+  .drawer {
+    height: 100dvh;
+  }
 }
 
 @keyframes slideIn {
