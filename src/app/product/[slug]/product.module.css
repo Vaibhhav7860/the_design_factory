@@ -16,9 +16,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 85% 15%, rgba(251, 201, 188, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 15% 85%, rgba(215, 228, 228, 0.3) 0%, transparent 45%);
+  background: transparent;
   pointer-events: none;
   z-index: -1;
 }
@@ -314,36 +312,21 @@
 }
 
 /* ═══════════════════════════════════════════
-   EDITORIAL SPLIT LAYOUT (Description & Specs)
+   STORY SECTION (Description)
    ═══════════════════════════════════════════ */
-.editorialSplit {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  margin-bottom: 32px;
+.storySection {
+  margin-bottom: 28px;
   animation: fadeUpReveal 0.8s cubic-bezier(0.32, 0.72, 0, 1) 0.05s both;
 }
 
-@media (min-width: 768px) {
-  .editorialSplit {
-    grid-template-columns: 1.2fr 1fr;
-    gap: 48px;
-  }
-}
-
-.storyColumn, .specsColumn {
-  display: flex;
-  flex-direction: column;
-}
-
-.descHeader {
+.sectionLabel {
   font-family: var(--font-secondary);
   font-size: 10px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .descTextWrapper {
@@ -354,7 +337,6 @@
   color: var(--color-text);
   opacity: 0.85;
   font-weight: 400;
-  max-width: 540px;
   white-space: pre-wrap;
 }
 
@@ -409,97 +391,94 @@
   transform: scaleX(1);
 }
 
-/* ── Minimalist Accordions ── */
-.specsAccordionList {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
+/* ═══════════════════════════════════════════
+   PRODUCT DETAILS — Brand-Colored Cards
+   ═══════════════════════════════════════════ */
+.detailsSection {
+  margin-bottom: 28px;
+  animation: fadeUpReveal 0.8s cubic-bezier(0.32, 0.72, 0, 1) 0.1s both;
 }
 
-.specAccordion {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
 }
 
-.specHeaderRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 16px 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-}
-
-.specTitle {
-  font-family: var(--font-secondary);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 500;
-  color: var(--color-text);
-}
-
-.specIcon {
+.detailCard {
   position: relative;
-  width: 10px;
-  height: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #fdfbf7;
+  border-radius: 14px;
+  padding: 16px 18px 16px 22px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), box-shadow 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.specIcon::before,
-.specIcon::after {
+.detailCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.detailCardAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--accent, #FCD589);
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.detailCardContent {
+  position: relative;
+}
+
+.detailKey {
+  font-family: var(--font-secondary);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-text-light);
+  margin-bottom: 6px;
+}
+
+.detailValue {
+  font-family: var(--font-secondary);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--color-text);
+  font-weight: 500;
+  white-space: pre-wrap;
+}
+
+.detailList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detailList li {
+  position: relative;
+  padding-left: 14px;
+  font-family: var(--font-secondary);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.detailList li::before {
   content: '';
   position: absolute;
-  background-color: var(--color-text);
-  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.specIcon::before {
-  width: 100%;
-  height: 1px;
-}
-
-.specIcon::after {
-  height: 100%;
-  width: 1px;
-}
-
-.specAccordionOpen .specIcon::after {
-  transform: rotate(90deg);
-}
-
-.specContentWrapper {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.specAccordionOpen .specContentWrapper {
-  grid-template-rows: 1fr;
-}
-
-.specContent {
-  overflow: hidden;
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--color-text-light);
-  font-weight: 400;
-  white-space: pre-wrap;
-  padding-bottom: 0;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-}
-
-.specAccordionOpen .specContent {
-  padding-bottom: 16px;
-  opacity: 1;
-  transform: translateY(0);
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent, #FCD589);
 }
 
 .features {
@@ -536,242 +515,315 @@
 }
 
 /* ═══════════════════════════════════════════
-   PERSONALISATION SECTION
+   PERSONALISATION SECTION — Editorial Atelier
+   Double-bezel · Ink + cream · Hairline rules
    ═══════════════════════════════════════════ */
 .personalisationSection {
-  animation: fadeUpReveal 0.8s cubic-bezier(0.32, 0.72, 0, 1) 0.1s both;
+  animation: fadeUpReveal 0.8s cubic-bezier(0.32, 0.72, 0, 1) 0.15s both;
 }
 
-.personalisationHeader {
-  font-family: var(--font-secondary);
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 16px;
-}
-
-/* ── Segmented Toggle & Delivery ── */
-.toggleRow {
+.personalisationHeadingRow {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
 }
 
-.segmentedToggle {
-  display: flex;
-  gap: 0;
-  border-radius: 50px;
-  overflow: hidden;
-  border: 1.5px solid var(--color-text);
-  width: fit-content;
+.personalisationHeadingRow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.08);
 }
 
-.deliveryEstimate {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-family: var(--font-secondary);
+.personalisationHeadingRow .sectionLabel {
+  margin-bottom: 0;
 }
 
-.deliveryEstimateLabel {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: var(--color-text-light);
-}
-
-.deliveryEstimateValue {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-text);
-  letter-spacing: 0.3px;
-}
-
-.segmentBtn {
-  padding: 11px 24px;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-family: var(--font-secondary);
-  color: var(--color-text);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
-  border: none;
-  white-space: nowrap;
-  position: relative;
-}
-
-.segmentBtnActive {
-  background: var(--color-blue);
-  color: var(--color-text);
-}
-
-.segmentBtn:not(.segmentBtnActive):hover {
-  background: rgba(215, 228, 228, 0.3);
-}
-
-/* ── Personalisation Card — Double-Bezel ── */
+/* ── Outer Shell (Double-Bezel) ── */
 .personalisationCard {
-  border-radius: 18px;
-  background: rgba(253, 251, 247, 0.5);
-  padding: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  background: #F4EFE6;
+  padding: 7px;
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  border-radius: 0;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.03),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8);
-  overflow: hidden;
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 30px 60px -36px rgba(26, 16, 8, 0.22),
+    0 4px 12px -8px rgba(26, 16, 8, 0.05);
   animation: fadeUpReveal 0.5s cubic-bezier(0.32, 0.72, 0, 1) both;
+  overflow: hidden;
 }
 
+/* ── Inner Core ── */
 .personalisationCardInner {
-  border-radius: calc(18px - 5px);
-  background: #fdfbf7;
-  padding: 28px 24px;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 2;
+  padding: 36px 38px 30px;
+  background: #FFFFFF;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
-.personalisationFee {
+/* Subtle film-grain on the inner core for editorial paper feel */
+.personalisationCardInner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* Hide legacy ribbon classes */
+.ribbonYellow,
+.ribbonPeach,
+.ribbonMint {
+  display: none;
+}
+
+/* ── Atelier Header with brand-color dot ── */
+.personalisationIntro {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
   font-family: var(--font-primary);
   font-size: 1.05rem;
-  font-weight: 500;
-  color: var(--color-text);
-  margin-bottom: 22px;
-  letter-spacing: 0.3px;
+  font-style: italic;
+  font-weight: 400;
+  color: #1A1A1A;
+  letter-spacing: 0.2px;
+  margin: 0 0 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.08);
 }
 
-.personalisationFee span {
-  color: #2e7d32;
-  font-weight: 600;
+.personalisationIntro::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FCD589;
+  box-shadow: 0 0 0 3px rgba(252, 213, 137, 0.18);
 }
 
 /* ── Form Field ── */
 .formField {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.formField:last-of-type {
+  margin-bottom: 0;
 }
 
 .formLabel {
-  display: block;
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: #1A1A1A;
+  margin-bottom: 12px;
+}
+
+.formLabel::before {
+  content: '01';
+  font-family: var(--font-primary);
+  font-size: 10px;
   font-weight: 500;
-  color: var(--color-text);
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
+  font-style: italic;
+  letter-spacing: 0;
+  color: #9A9A9A;
+  text-transform: none;
+}
+
+.formField:nth-of-type(2) .formLabel::before {
+  content: '02';
 }
 
 .formLabel .required {
-  color: #c0392b;
-  margin-left: 2px;
+  color: #B85A3E;
+  margin-left: 1px;
+  font-weight: 400;
 }
 
 .formInputWrap {
   position: relative;
 }
 
+/* ── Inputs: Underline style, no boxes ── */
 .formInput {
   width: 100%;
-  padding: 14px 18px;
-  border: 1.5px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  font-family: var(--font-secondary);
-  font-size: 14px;
+  padding: 12px 78px 14px 0;
+  border: none;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.18);
+  border-radius: 0;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
   font-weight: 400;
-  color: var(--color-text);
-  background: white;
-  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+  color: #1A1A1A;
+  background: transparent;
+  transition: border-color 0.6s cubic-bezier(0.32, 0.72, 0, 1);
   outline: none;
+  letter-spacing: 0.2px;
 }
 
 .formInput:focus {
-  border-color: var(--color-peach);
-  box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.02),
-    0 0 0 3px rgba(251, 201, 188, 0.15);
+  border-bottom-color: #1A1A1A;
 }
 
 .formInput::placeholder {
-  color: rgba(45, 45, 45, 0.3);
+  color: rgba(26, 26, 26, 0.32);
+  font-style: italic;
   font-weight: 300;
 }
 
 .charCounter {
   position: absolute;
-  right: 14px;
-  bottom: 12px;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--color-text-light);
+  right: 0;
+  bottom: 16px;
+  font-family: var(--font-secondary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  color: #9A9A9A;
   pointer-events: none;
+  background: transparent;
+  padding: 0;
+  border: none;
+  border-radius: 0;
 }
 
-/* ── Custom Select ── */
+/* ── Custom Select — Underline style ── */
 .formSelect {
   width: 100%;
-  padding: 14px 44px 14px 18px;
-  border: 1.5px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  font-family: var(--font-secondary);
-  font-size: 14px;
+  padding: 12px 30px 14px 0;
+  border: none;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.18);
+  border-radius: 0;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
   font-weight: 400;
-  color: var(--color-text);
-  background: white;
-  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.02);
+  color: #1A1A1A;
+  background-color: transparent;
+  transition: border-color 0.6s cubic-bezier(0.32, 0.72, 0, 1);
   outline: none;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232D2D2D' stroke-width='1.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231A1A1A' stroke-width='1.2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 16px;
+  background-position: right 0 center;
+  background-size: 12px;
+  letter-spacing: 0.2px;
 }
 
 .formSelect:focus {
-  border-color: var(--color-peach);
-  box-shadow:
-    inset 0 1px 3px rgba(0, 0, 0, 0.02),
-    0 0 0 3px rgba(251, 201, 188, 0.15);
+  border-bottom-color: #1A1A1A;
 }
 
-/* ── Font Preview ── */
+/* ── Live Preview — The Monogram Plate ── */
 .fontPreview {
-  margin-top: 14px;
-  padding: 18px 20px;
-  border-radius: 12px;
-  background: white;
-  border: 1px dashed rgba(0, 0, 0, 0.08);
-  min-height: 52px;
+  position: relative;
+  z-index: 1;
+  margin-top: 32px;
+  padding: 32px 30px;
+  border-radius: 0;
+  background: linear-gradient(180deg, #FBF8F2 0%, #F4EFE6 100%);
+  min-height: 110px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid rgba(26, 26, 26, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(26, 26, 26, 0.04);
+  overflow: hidden;
+}
+
+/* Hairline frame inside the plate */
+.fontPreview::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  pointer-events: none;
+}
+
+/* Tiny brand-color marker top-center */
+.fontPreview::after {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 1px;
+  background: #1A1A1A;
+  z-index: 2;
 }
 
 .fontPreviewLabel {
-  font-size: 10px;
-  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-secondary);
+  font-size: 9px;
+  letter-spacing: 3.6px;
   text-transform: uppercase;
   font-weight: 500;
-  color: var(--color-text-light);
-  margin-right: 16px;
-  flex-shrink: 0;
+  color: #6E6E6E;
+  margin: 0;
+  text-align: center;
 }
 
 .fontPreviewText {
-  font-size: 1.4rem;
-  color: var(--color-text);
+  position: relative;
+  z-index: 2;
+  font-size: 1.95rem;
+  color: #1A1A1A;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-  line-height: 1.4;
+  max-width: 100%;
+  transition: all 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+  line-height: 1.2;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+/* ── Inline Delivery Estimate ── */
+.deliveryInline {
+  position: relative;
+  z-index: 1;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-secondary);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #6E6E6E;
+}
+
+.deliveryInline svg {
+  flex-shrink: 0;
+  color: #1A1A1A;
+  width: 14px;
+  height: 14px;
 }
 
 /* Font style mappings */
@@ -818,20 +870,13 @@
   margin-top: 24px;
 }
 
-@media (min-width: 768px) {
-  .actionsContainer {
-    flex-direction: row;
-    gap: 16px;
-  }
-}
-
 /* ── Add to Cart ── */
 .addBtn {
   flex: 1;
   padding: 18px 24px;
-  background: #FFD814;
+  background: #FBC9BC;
   color: #111111;
-  border-radius: 50px;
+  border-radius: 0;
   font-family: var(--font-secondary);
   font-weight: 700;
   font-size: 11px;
@@ -847,42 +892,13 @@
 }
 
 .addBtn:hover {
-  background: #F3CE13;
+  background: #F5C76E;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 216, 20, 0.25);
+  box-shadow: 0 8px 24px rgba(252, 213, 137, 0.35);
 }
 
 .addBtn:active {
   transform: translateY(0) scale(0.98);
-}
-
-/* ── WhatsApp ── */
-.whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex: 1;
-  padding: 18px 24px;
-  background: #075E54;
-  border: none;
-  border-radius: 50px;
-  font-family: var(--font-secondary);
-  font-weight: 700;
-  font-size: 11px;
-  color: #ffffff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-  animation: fadeUpReveal 0.8s cubic-bezier(0.32, 0.72, 0, 1) 0.25s both;
-}
-
-.whatsapp:hover {
-  background: #054c44;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(7, 94, 84, 0.25);
 }
 
 /* ═══════════════════════════════════════════
@@ -1033,24 +1049,12 @@
     font-size: 1.35rem;
   }
 
-  .segmentedToggle {
-    width: 100%;
-  }
-
-  .segmentBtn {
-    flex: 1;
-    text-align: center;
-    padding: 11px 16px;
-    font-size: 8px;
-    letter-spacing: 1.5px;
-  }
-
   .personalisationCardInner {
     padding: 22px 18px;
   }
 
-  .desc {
-    font-size: 13px;
+  .detailsGrid {
+    grid-template-columns: 1fr;
   }
 
   .breadcrumb {
@@ -1061,12 +1065,6 @@
 @media (max-width: 480px) {
   .detail {
     gap: 20px;
-  }
-
-  .segmentBtn {
-    padding: 10px 12px;
-    font-size: 7.5px;
-    letter-spacing: 1px;
   }
 
   .formInput,
@@ -1081,11 +1079,6 @@
 
   .addBtn {
     padding: 16px;
-    font-size: 10px;
-  }
-
-  .whatsapp {
-    padding: 14px;
     font-size: 10px;
   }
 }

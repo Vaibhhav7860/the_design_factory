@@ -76,10 +76,6 @@ export default function VideoReels() {
               key={index} 
               className={styles.card}
               onClick={() => openModal(index)}
-              style={{ 
-                '--card-border-color': ['#FCD589', '#FBC9BC', '#d7e4e4'][index % 3],
-                border: '6px solid var(--card-border-color)'
-              }}
             >
               <div className={styles.videoWrapper}>
                 <video
