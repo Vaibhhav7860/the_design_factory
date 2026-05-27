@@ -3,6 +3,7 @@
   text-align: center;
   background: #fff;
   width: 100%;
+  margin-bottom: 80px;
 }
 
 .heading {
@@ -79,6 +80,86 @@
 
 .card:hover .badge {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: 100px 6% 0;
+    margin-bottom: 100px;
+  }
+  
+  .heading {
+    font-size: 64px;
+    margin-bottom: 12px;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 40px;
+  }
+  
+  .card {
+    border-radius: 24px;
+    padding: 18px;
+    margin-top: 25px;
+  }
+  
+  .imageWrapper {
+    border-radius: 18px;
+  }
+  
+  .badge {
+    top: -18px;
+    padding: 14px 36px;
+    border-radius: 10px;
+    font-size: 15px;
+    letter-spacing: 3px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .section {
+    padding: 90px 5% 0;
+    margin-bottom: 90px;
+  }
+  
+  .heading {
+    font-size: 58px;
+  }
+  
+  .grid {
+    gap: 35px 35px;
+  }
+  
+  .card {
+    border-radius: 22px;
+    padding: 16px;
+    margin-top: 22px;
+  }
+  
+  .imageWrapper {
+    border-radius: 17px;
+  }
+  
+  .badge {
+    top: -16px;
+    padding: 13px 33px;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .heading {
+    font-size: 54px;
+  }
+  
+  .grid {
+    gap: 32px 32px;
+  }
 }
 
 @media (max-width: 1024px) {

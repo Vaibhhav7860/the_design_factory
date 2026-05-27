@@ -217,6 +217,221 @@
 }
 
 /* ── Responsive ── */
+
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .footer {
+    padding: 40px 6% 0;
+  }
+  
+  .grid {
+    grid-template-columns: 1.8fr 1fr 1fr 1.5fr;
+    gap: 100px;
+    max-width: 2400px;
+  }
+  
+  .col h4 {
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 25px;
+  }
+  
+  .col p {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 18px;
+  }
+  
+  .col a {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .socialIcons {
+    margin-top: 25px;
+    gap: 25px;
+  }
+  
+  .socialIcons svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .newsletterDesc {
+    font-size: 15px;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  
+  .newsletterInput {
+    padding: 8px 18px;
+  }
+  
+  .newsletterInput input {
+    padding: 12px 0;
+    font-size: 15px;
+  }
+  
+  .newsletterInput svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .copyrightText {
+    margin-top: 25px;
+    font-size: 13px;
+  }
+  
+  .characterProcession {
+    padding: 0 5%;
+  }
+  
+  .footerCharLarge {
+    width: 380px;
+  }
+  
+  .footerCharCenter {
+    width: 380px;
+  }
+  
+  .footerCharRight {
+    width: 420px;
+    transform: translateY(55px);
+  }
+  
+  .tribute {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+  
+  .cappuccino {
+    font-size: 34px;
+  }
+  
+  .bottomPattern {
+    height: 80px;
+    background-size: 50px 50px;
+    background-position: 0 0, 0 25px, 25px -25px, -25px 0px;
+    margin-top: -80px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .footer {
+    padding: 30px 5% 0;
+  }
+  
+  .grid {
+    gap: 90px;
+    max-width: 2000px;
+  }
+  
+  .col h4 {
+    font-size: 13px;
+    letter-spacing: 2.5px;
+    margin-bottom: 22px;
+  }
+  
+  .col p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  
+  .col a {
+    font-size: 14px;
+    margin-bottom: 14px;
+  }
+  
+  .socialIcons {
+    margin-top: 22px;
+    gap: 22px;
+  }
+  
+  .socialIcons svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .newsletterDesc {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .newsletterInput {
+    padding: 6px 16px;
+  }
+  
+  .newsletterInput input {
+    padding: 11px 0;
+    font-size: 14px;
+  }
+  
+  .newsletterInput svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .copyrightText {
+    margin-top: 22px;
+    font-size: 12px;
+  }
+  
+  .characterProcession {
+    padding: 0 4.5%;
+  }
+  
+  .footerCharLarge {
+    width: 340px;
+  }
+  
+  .footerCharCenter {
+    width: 340px;
+  }
+  
+  .footerCharRight {
+    width: 380px;
+    transform: translateY(50px);
+  }
+  
+  .tribute {
+    font-size: 22px;
+    margin-bottom: 22px;
+  }
+  
+  .cappuccino {
+    font-size: 32px;
+  }
+  
+  .bottomPattern {
+    height: 70px;
+    background-size: 45px 45px;
+    background-position: 0 0, 0 22.5px, 22.5px -22.5px, -22.5px 0px;
+    margin-top: -70px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .grid {
+    gap: 85px;
+    max-width: 1900px;
+  }
+  
+  .footerCharLarge {
+    width: 320px;
+  }
+  
+  .footerCharCenter {
+    width: 320px;
+  }
+  
+  .footerCharRight {
+    width: 360px;
+  }
+}
+
 @media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1.5fr 1fr 1fr;

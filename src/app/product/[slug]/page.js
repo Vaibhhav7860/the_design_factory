@@ -1,6 +1,6 @@
 import { products, getProductBySlug, getRelatedProducts } from "@/data/products";
 import ProductDetail from "./ProductDetail";
-import ProductCard from "@/components/product/ProductCard";
+import RelatedProductsSlider from "./RelatedProductsSlider";
 import styles from "./product.module.css";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
 export default async function ProductPage({ params }) {
   const { slug } = await params;
   const product = getProductBySlug(slug) || products[0];
-  const related = getRelatedProducts(product.slug, 4);
+  const related = getRelatedProducts(product.slug, 10);
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
@@ -42,11 +42,7 @@ export default async function ProductPage({ params }) {
             <div className={styles.relatedHeader}>
               <h2>You May Also Like</h2>
             </div>
-            <div className={styles.relatedGrid}>
-              {related.map((p) => (
-                <ProductCard key={p.slug} product={p} />
-              ))}
-            </div>
+            <RelatedProductsSlider products={related} />
           </div>
         )}
       </div>

@@ -46,6 +46,67 @@
   object-fit: contain;
 }
 
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: 50px 6% 40px;
+  }
+  
+  .logo {
+    height: 100px;
+  }
+  
+  .heading {
+    font-size: 42px;
+    letter-spacing: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .desc {
+    font-size: 17px;
+    line-height: 2;
+  }
+  
+  .imageWrapper {
+    max-width: 1600px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .section {
+    padding: 40px 5% 30px;
+  }
+  
+  .logo {
+    height: 90px;
+  }
+  
+  .heading {
+    font-size: 36px;
+    letter-spacing: 4.5px;
+  }
+  
+  .desc {
+    font-size: 16px;
+  }
+  
+  .imageWrapper {
+    max-width: 1400px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .heading {
+    font-size: 34px;
+  }
+  
+  .imageWrapper {
+    max-width: 1300px;
+  }
+}
+
 @media (max-width: 768px) {
   .section {
     padding: 20px 4% 20px;

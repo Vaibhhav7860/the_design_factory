@@ -7,27 +7,32 @@ const milestones = [
   {
     year: "2018",
     title: "The Spark of an Idea",
-    desc: "What started as a hobby of creating personalized gifts for friends and family quickly became a passion project. The early days were spent experimenting with materials in a tiny home studio."
+    desc: "What started as a hobby of creating personalized gifts for friends and family quickly became a passion project. The early days were spent experimenting with materials in a tiny home studio.",
+    image: "/images/2018.jpeg"
   },
   {
     year: "2019",
     title: "The Design Factory is Born",
-    desc: "We officially launched our brand, focusing on high-quality, handcrafted labels and tags. The overwhelming positive response from our first customers fueled our drive to expand."
+    desc: "We officially launched our brand, focusing on high-quality, handcrafted labels and tags. The overwhelming positive response from our first customers fueled our drive to expand.",
+    image: "/images/2019.jpeg"
   },
   {
     year: "2021",
     title: "Expanding Horizons",
-    desc: "As demand grew, so did our team and our product line. We introduced complete school essential kits, beautiful combos, and invested in premium printing technology."
+    desc: "As demand grew, so did our team and our product line. We introduced complete school essential kits, beautiful combos, and invested in premium printing technology.",
+    image: "/images/2021.jpeg"
   },
   {
     year: "2023",
     title: "A Global Reach",
-    desc: "From a local passion project to shipping indiawide and internationally. We scaled our operations while keeping the artisan touch that makes every single product feel special."
+    desc: "From a local passion project to shipping indiawide and internationally. We scaled our operations while keeping the artisan touch that makes every single product feel special.",
+    image: "/images/2023.jpeg"
   },
   {
     year: "Today",
     title: "Adorning Lives",
-    desc: "Today, The Design Factory is a premier destination for personalized gifting. We continue to innovate, crafting memories and bringing smiles to faces every single day."
+    desc: "Today, The Design Factory is a premier destination for personalized gifting. We continue to innovate, crafting memories and bringing smiles to faces every single day.",
+    image: "/images/today1.jpeg"
   }
 ];
 
@@ -66,7 +71,7 @@ export default function OurStoryPage() {
           <p className={styles.heroLabel}>THE JOURNEY OF</p>
           <h1 className={styles.heroTitle}>The Design Factory</h1>
           <p className={styles.heroSubtitle}>
-            Born out of a passion for beautiful aesthetics and heartfelt personalization,
+            Born out of passion for aesthetic and heartfelt personalization,
             we craft unique gifts that leave a lasting impression.
           </p>
         </div>
@@ -77,7 +82,7 @@ export default function OurStoryPage() {
         <div className={styles.founderContainer}>
           <div className={styles.founderImageWrapper}>
             <Image 
-              src="/images/founder_dummy.png" 
+              src="/images/DOS.jpeg" 
               alt="Founder of The Design Factory" 
               width={600} 
               height={800} 
@@ -94,21 +99,18 @@ export default function OurStoryPage() {
             <div className={styles.quoteWrapper}>
               <span className={styles.quoteMark}>&ldquo;</span>
               <p className={styles.founderQuote}>
-                I believe that a gift is more than just an object; it&apos;s a memory waiting 
-                to happen. Perfection is in the details, and we obsess over every single one.
+                Hi, I’m Radhika — the heart behind The Design Factory. What started as a passion for thoughtful gifting and beautiful stationery slowly turned into a brand loved by thousands of families, kids & gifting enthusiasts.
               </p>
             </div>
 
             <div className={styles.founderBio}>
               <p>
-                My journey started with a simple desire: to make everyday items feel extraordinary. 
-                What began as crafting personalized tags for my children&apos;s school supplies quickly 
-                blossomed into a full-fledged design studio.
+                From personalised school essentials to unique gifts and curated hampers, 
+                I love turning everyday products into something meaningful and memorable.
               </p>
               <p>
-                At The Design Factory, we don&apos;t just print names on products; we weave your 
-                personal stories into beautiful, tangible aesthetics. Every piece that leaves our 
-                studio is touched by human hands and crafted with genuine love.
+                I believe details matter, creativity has no limits, and the best gifts are the ones made specially for you.
+                Every order at The Design Factory is designed with love, packed with care, and created to bring smiles.
               </p>
             </div>
             
@@ -136,10 +138,25 @@ export default function OurStoryPage() {
                 data-index={String(index)}
               >
                 <div className={styles.timelineDot}></div>
+                
+                {/* Text Content */}
                 <div className={styles.timelineContent}>
                   <div className={styles.timelineYear}>{item.year}</div>
                   <h3 className={styles.timelineCardTitle}>{item.title}</h3>
                   <p className={styles.timelineCardDesc}>{item.desc}</p>
+                </div>
+
+                {/* Image Card */}
+                <div className={styles.timelineImageCard}>
+                  <div className={styles.imageCardBorder}>
+                    <Image 
+                      src={item.image} 
+                      alt={item.title}
+                      width={300}
+                      height={400}
+                      className={styles.timelineImage}
+                    />
+                  </div>
                 </div>
               </div>
             );
@@ -154,7 +171,7 @@ export default function OurStoryPage() {
           <p className={styles.ctaSubtitle}>
             Explore our collections and find the perfect personalized gift for your next special occasion.
           </p>
-          <a href="/category/labels" className={styles.shopCta}>Explore Collections</a>
+          <a href="/explore" className={styles.shopCta}>Explore Collections</a>
         </div>
       </section>
     </main>

@@ -232,6 +232,194 @@
   transform: translateY(-3px);
 }
 
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: var(--section-padding);
+  }
+  
+  .container {
+    max-width: 2400px;
+    padding: 0 6%;
+  }
+  
+  .title {
+    font-size: 52px;
+    margin-bottom: 12px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+  
+  .grid {
+    gap: 8px;
+    padding: 0 0 25px;
+  }
+  
+  .cardLink {
+    flex: 0 0 calc((100% - 48px) / 5);
+    min-width: 240px;
+  }
+  
+  .imageContainer {
+    margin-bottom: 15px;
+    border-radius: 10px;
+  }
+  
+  .wishlistIcon {
+    top: 25px;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .wishlistIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .badge {
+    top: 25px;
+    left: 25px;
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+  
+  .productTitle {
+    font-size: 17px;
+    margin-bottom: 5px;
+  }
+  
+  .productPrice {
+    font-size: 17px;
+  }
+  
+  .originalPrice {
+    font-size: 15px;
+  }
+  
+  .discount {
+    font-size: 14px;
+  }
+  
+  .viewAllBtn {
+    padding: 22px 60px;
+    font-size: 13px;
+    letter-spacing: 4px;
+  }
+  
+  .navButton {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .navLeft {
+    left: -25px;
+  }
+  
+  .navRight {
+    right: -25px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .container {
+    max-width: 2000px;
+    padding: 0 5%;
+  }
+  
+  .title {
+    font-size: 48px;
+  }
+  
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  
+  .cardLink {
+    flex: 0 0 calc((100% - 44px) / 5);
+    min-width: 220px;
+  }
+  
+  .imageContainer {
+    margin-bottom: 14px;
+  }
+  
+  .wishlistIcon {
+    top: 22px;
+    right: 22px;
+    width: 38px;
+    height: 38px;
+  }
+  
+  .wishlistIcon svg {
+    width: 19px;
+    height: 19px;
+  }
+  
+  .badge {
+    top: 22px;
+    left: 22px;
+    padding: 7px 13px;
+    font-size: 10.5px;
+  }
+  
+  .productTitle {
+    font-size: 16px;
+  }
+  
+  .productPrice {
+    font-size: 16px;
+  }
+  
+  .originalPrice {
+    font-size: 14px;
+  }
+  
+  .discount {
+    font-size: 13px;
+  }
+  
+  .viewAllBtn {
+    padding: 20px 55px;
+    font-size: 12px;
+    letter-spacing: 3.5px;
+  }
+  
+  .navButton {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .navLeft {
+    left: -22px;
+  }
+  
+  .navRight {
+    right: -22px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .container {
+    max-width: 1900px;
+  }
+  
+  .title {
+    font-size: 44px;
+  }
+  
+  .cardLink {
+    min-width: 210px;
+  }
+}
+
 @media (max-width: 768px) {
   .cardLink {
     flex: 0 0 calc(50% - 15px);

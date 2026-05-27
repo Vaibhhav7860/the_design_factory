@@ -130,6 +130,109 @@
   font-weight: 600;
 }
 
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: 30px 3% 60px;
+  }
+  
+  .heading {
+    font-size: 52px;
+    margin-bottom: 30px;
+  }
+  
+  .carouselContainer {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  
+  .card {
+    border-radius: 16px;
+  }
+  
+  .videoWrapper {
+    aspect-ratio: 4 / 6;
+  }
+  
+  .playIconOverlay {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .productInfo {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .productTitle {
+    font-size: 15px;
+  }
+  
+  .price {
+    font-size: 16px;
+  }
+  
+  .mrp {
+    font-size: 14px;
+  }
+  
+  .discount {
+    font-size: 14px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .section {
+    padding: 25px 2.5% 50px;
+  }
+  
+  .heading {
+    font-size: 48px;
+    margin-bottom: 25px;
+  }
+  
+  .carouselContainer {
+    gap: 18px;
+  }
+  
+  .card {
+    border-radius: 14px;
+  }
+  
+  .playIconOverlay {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .productInfo {
+    padding: 14px;
+  }
+  
+  .productTitle {
+    font-size: 14px;
+  }
+  
+  .price {
+    font-size: 15px;
+  }
+  
+  .mrp {
+    font-size: 13px;
+  }
+  
+  .discount {
+    font-size: 13px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .heading {
+    font-size: 44px;
+  }
+}
+
 @media (max-width: 1024px) {
   .carouselContainer {
     grid-template-columns: repeat(6, 1fr);

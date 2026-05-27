@@ -8,7 +8,7 @@ export default function AboutSection() {
       <div className={styles.wrapper}>
         <div className={styles.imageCol}>
           <Image
-            src="/images/hero_banner.png"
+            src="/images/radhika_mam1.jpeg"
             alt="About The Design Factory"
             width={600}
             height={500}

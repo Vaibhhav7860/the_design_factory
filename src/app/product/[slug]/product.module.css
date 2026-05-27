@@ -749,7 +749,7 @@
   position: relative;
   z-index: 1;
   margin-top: 22px;
-  padding: 18px 22px;
+  padding: 18px 20px;
   border-radius: 0;
   background: linear-gradient(180deg, #FBF8F2 0%, #F4EFE6 100%);
   min-height: 70px;
@@ -763,6 +763,9 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
     inset 0 -1px 0 rgba(26, 26, 26, 0.04);
   overflow: hidden;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Hairline frame inside the plate */
@@ -806,39 +809,42 @@
   font-size: 1.4rem;
   color: #1A1A1A;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  overflow: visible;
+  text-overflow: clip;
+  width: 100%;
   transition: all 0.6s cubic-bezier(0.32, 0.72, 0, 1);
   line-height: 1.2;
   letter-spacing: 0.4px;
   text-align: center;
+  padding: 0;
+  margin: 0;
 }
 
 /* ── WhatsApp Assistance Button ── */
 .deliveryInline {
   position: relative;
   z-index: 1;
-  margin-top: 28px;
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: var(--font-secondary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   color: #ffffff;
   text-decoration: none;
   background: #25D366;
-  padding: 13px 22px;
+  padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.28);
   transition:
     background 0.3s cubic-bezier(0.32, 0.72, 0, 1),
     transform 0.3s cubic-bezier(0.32, 0.72, 0, 1),
     box-shadow 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-  width: 100%;
+  width: fit-content;
   justify-content: center;
+  align-self: center;
 }
 
 .deliveryInline:hover {
@@ -910,11 +916,12 @@
   flex-direction: column;
   gap: 12px;
   margin-top: 24px;
+  align-items: center;
 }
 
 /* ── Add to Cart ── */
 .addBtn {
-  flex: 1;
+  width: 100%;
   padding: 18px 24px;
   background: #FBC9BC;
   color: #111111;
@@ -1027,8 +1034,84 @@
 
 .relatedGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 24px;
+}
+
+/* ── Slider Wrapper ── */
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Slider Navigation Buttons ── */
+.sliderBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  color: var(--color-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.sliderBtn:hover {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: white;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.sliderBtn:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.sliderBtnPrev {
+  left: -24px;
+}
+
+.sliderBtnNext {
+  right: -24px;
+}
+
+/* ── Slider Dots ── */
+.sliderDots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.sliderDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  padding: 0;
+}
+
+.sliderDot:hover {
+  background: rgba(0, 0, 0, 0.3);
+  transform: scale(1.2);
+}
+
+.sliderDotActive {
+  background: var(--color-text);
+  width: 28px;
+  border-radius: 5px;
 }
 
 /* ═══════════════════════════════════════════
@@ -1045,6 +1128,19 @@
 @media (max-width: 1024px) {
   .relatedGrid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sliderBtnPrev {
+    left: -16px;
+  }
+
+  .sliderBtnNext {
+    right: -16px;
+  }
+
+  .sliderBtn {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -1066,6 +1162,15 @@
   .relatedGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
+  }
+
+  .sliderBtnPrev,
+  .sliderBtnNext {
+    display: none;
+  }
+
+  .sliderDots {
+    margin-top: 24px;
   }
 
   .thumbnail {
