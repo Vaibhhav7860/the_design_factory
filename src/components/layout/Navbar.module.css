@@ -328,6 +328,182 @@
 
 /* ── Responsive ── */
 
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .announcementBar {
+    padding: 14px 0;
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+  
+  .nav {
+    grid-template-columns: minmax(220px, 300px) 1fr auto;
+    padding: 20px 3%;
+    max-width: 2400px;
+    gap: 25px;
+  }
+  
+  .navScrolled {
+    padding: 15px 3%;
+  }
+  
+  .logo {
+    margin-left: -30px;
+  }
+  
+  .logoImg {
+    height: 200px;
+    min-width: 450px;
+  }
+  
+  .navLinks {
+    gap: 28px;
+    margin-left: -50px;
+  }
+  
+  .navLink {
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 8px 0;
+  }
+  
+  .navLink::after {
+    height: 2px;
+  }
+  
+  .megaMenu {
+    width: 80vw;
+    max-width: 1600px;
+    padding: 60px;
+    gap: 60px;
+  }
+  
+  .megaCol h4 {
+    font-size: 16px;
+    margin-bottom: 25px;
+  }
+  
+  .megaCol a {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .navSummary {
+    font-size: 15px;
+  }
+  
+  .nestedLinks a {
+    font-size: 14.5px;
+  }
+  
+  .navIcons {
+    gap: 30px;
+  }
+  
+  .navIcons svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cartBadge {
+    min-width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .announcementBar {
+    padding: 12px 0;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+  }
+  
+  .nav {
+    grid-template-columns: minmax(200px, 280px) 1fr auto;
+    padding: 18px 2.5%;
+    max-width: 2000px;
+    gap: 20px;
+  }
+  
+  .navScrolled {
+    padding: 13px 2.5%;
+  }
+  
+  .logo {
+    margin-left: -28px;
+  }
+  
+  .logoImg {
+    height: 180px;
+    min-width: 420px;
+  }
+  
+  .navLinks {
+    gap: 24px;
+    margin-left: -45px;
+  }
+  
+  .navLink {
+    font-size: 12px;
+    letter-spacing: 2.5px;
+  }
+  
+  .megaMenu {
+    width: 82vw;
+    max-width: 1400px;
+    padding: 55px;
+    gap: 55px;
+  }
+  
+  .megaCol h4 {
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  
+  .megaCol a {
+    font-size: 14.5px;
+  }
+  
+  .navIcons {
+    gap: 28px;
+  }
+  
+  .navIcons svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .cartBadge {
+    min-width: 19px;
+    height: 19px;
+    font-size: 10.5px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .logoImg {
+    height: 140px;
+    min-width: 350px;
+  }
+  
+  .navLinks {
+    gap: 20px;
+    margin-left: -40px;
+  }
+  
+  .navLink {
+    font-size: 11px;
+    letter-spacing: 2.2px;
+  }
+  
+  .megaMenu {
+    max-width: 1300px;
+  }
+}
+
 /* Large laptops (1400px and below) */
 @media (max-width: 1400px) {
   .logoImg {

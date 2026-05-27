@@ -171,11 +171,108 @@
   border-color: #ddd;
 }
 
-.bottomLine {
-  margin: 30px auto 0;
-  border-bottom: 1px solid #ddd;
-  width: 90%;
-  max-width: 1200px;
+
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: 60px 0 0;
+  }
+  
+  .mainHeading {
+    font-size: 52px;
+    margin-bottom: 15px;
+  }
+  
+  .carouselWrapper {
+    max-width: 2000px;
+  }
+  
+  .slider {
+    gap: 30px;
+    margin: 0 60px;
+    padding: 0 0 60px;
+  }
+  
+  .cardShell {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 380px;
+    padding: 10px;
+  }
+  
+  .cardCore {
+    padding: 45px 40px;
+  }
+  
+  .text {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+  }
+  
+  .navButton {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .navLeft {
+    left: -25px;
+  }
+  
+  .navRight {
+    right: -25px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .section {
+    padding: 50px 0 0;
+  }
+  
+  .mainHeading {
+    font-size: 46px;
+    margin-bottom: 12px;
+  }
+  
+  .carouselWrapper {
+    max-width: 1800px;
+  }
+  
+  .slider {
+    gap: 25px;
+    margin: 0 50px;
+    padding: 0 0 50px;
+  }
+  
+  .cardShell {
+    flex: 0 0 calc(33.333% - 17px);
+    min-width: 350px;
+  }
+  
+  .cardCore {
+    padding: 40px 35px;
+  }
+  
+  .text {
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  
+  .navButton {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .mainHeading {
+    font-size: 42px;
+  }
+  
+  .cardShell {
+    min-width: 340px;
+  }
 }
 
 @media (max-width: 1024px) {

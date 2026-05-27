@@ -256,7 +256,7 @@ export default function Navbar() {
         {/* Announcement Bar */}
         <div className={styles.announcementBar}>
           <div className={styles.announcementTrack}>
-            {[...Array(4)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
               <span key={i} className={styles.announcementText}>
                 PERSONALIZED WITH LOVE &bull; FREE SHIPPING INDIAWIDE &bull; UNIQUE GIFTS &bull;&nbsp;
               </span>

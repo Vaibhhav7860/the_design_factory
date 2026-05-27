@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function BulkOrdersPage() {
@@ -57,22 +58,88 @@ export default function BulkOrdersPage() {
         </div>
       </section>
 
-      {/* Popular Categories */}
-      <section className={styles.categories}>
-        <h2 className={styles.sectionTitle}>Popular for Bulk Orders</h2>
-        <div className={styles.categoryGrid}>
-          {[
-            "School Label Sets",
-            "Bag Tags",
-            "Sipper Bottles",
-            "Lunch Boxes",
-            "Gift Stationery Combos",
-            "Corporate Welcome Kits",
-            "Event Giveaways",
-            "Customized Bags",
-          ].map((cat, i) => (
-            <div key={i} className={styles.categoryChip}>{cat}</div>
-          ))}
+      {/* Gallery Grid */}
+      <section className={styles.gallery}>
+        <h2 className={styles.sectionTitle}>Our Bulk Order Showcase</h2>
+        <p className={styles.gallerySubtitle}>Real projects, real impact — see what we've created for schools, corporates, and events.</p>
+        
+        <div className={styles.masonryGrid}>
+          {/* Left Column - 3 small squares */}
+          <div className={`${styles.gridItem} ${styles.leftSmall1}`}>
+            <Image 
+              src="/images/grid images/grid_1.jpeg"
+              alt="Bulk Order Showcase 1"
+              fill
+              className={styles.gridImage}
+            />
+          </div>
+          
+          <div className={`${styles.gridItem} ${styles.leftSmall2}`}>
+            <Image 
+              src="/images/grid images/grid_2.jpeg"
+              alt="Bulk Order Showcase 2"
+              fill
+              className={styles.gridImage}
+            />
+          </div>
+
+          <div className={`${styles.gridItem} ${styles.leftSmall3}`}>
+            <video 
+              className={styles.gridVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/images/grid images/grid_3.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          {/* Middle - 1 tall rectangle */}
+          <div className={`${styles.gridItem} ${styles.middleTall}`}>
+            <Image 
+              src="/images/grid images/grid_4.jpeg"
+              alt="Bulk Order Showcase 4"
+              fill
+              className={styles.gridImage}
+            />
+          </div>
+
+          {/* Right - 1 tall rectangle (video) */}
+          <div className={`${styles.gridItem} ${styles.rightTall}`}>
+            <video 
+              className={styles.gridVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/images/grid images/grid_5.mp4" type="video/mp4" />
+            </video>
+          </div>
+
+          {/* Bottom row - 1 wide medium (spans 2 columns) */}
+          <div className={`${styles.gridItem} ${styles.middleMedium1}`}>
+            <Image 
+              src="/images/grid images/grid_6.jpeg"
+              alt="Bulk Order Showcase 6"
+              fill
+              className={styles.gridImage}
+            />
+          </div>
+
+          {/* Bottom right - 1 small square (video) */}
+          <div className={`${styles.gridItem} ${styles.rightSmall1}`}>
+            <video 
+              className={styles.gridVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+            >
+              <source src="/images/grid images/grid_7.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
 

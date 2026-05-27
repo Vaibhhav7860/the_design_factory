@@ -1,23 +1,23 @@
 .section {
   background-color: #FAF9F6;
-  padding: 60px 4%;
+  padding: 20px 4% 60px;
 }
 
 .wrapper {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 0;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 .imageCol {
-  flex: 0.85;
+  flex: 1;
   position: relative;
   display: flex;
   align-items: center;
   padding: 20px;
-  background-color: #D4E8E8;
+  background-color: #FAF9F6;
   border-radius: 8px;
 }
 
@@ -26,8 +26,9 @@
   height: auto;
   display: block;
   border-radius: 4px;
-  object-fit: cover;
-  max-height: 380px;
+  object-fit: contain;
+  object-position: center;
+  max-height: none;
 }
 
 .imageShadow {
@@ -46,9 +47,10 @@
   font-family: var(--font-primary, serif);
   font-size: 36px;
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.4;
   color: #333;
   margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
 .heading span {
@@ -58,10 +60,11 @@
 
 .desc {
   font-size: 14px;
-  line-height: 1.8;
+  line-height: 2;
   color: #666;
   margin-bottom: 30px;
   font-family: var(--font-secondary, sans-serif);
+  max-width: 75%;
 }
 
 .ctaButton {
@@ -83,6 +86,87 @@
   background-color: #000;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .section {
+    padding: 30px 6% 80px;
+  }
+  
+  .wrapper {
+    gap: 0;
+    max-width: 1800px;
+  }
+  
+  .heading {
+    font-size: 48px;
+    margin-bottom: 30px;
+  }
+  
+  .desc {
+    font-size: 16px;
+    line-height: 2;
+    margin-bottom: 40px;
+  }
+  
+  .ctaButton {
+    padding: 20px 50px;
+    font-size: 13px;
+    letter-spacing: 3px;
+  }
+  
+  .image {
+    max-height: 500px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .section {
+    padding: 25px 5% 70px;
+  }
+  
+  .wrapper {
+    gap: 0;
+    max-width: 1600px;
+  }
+  
+  .heading {
+    font-size: 42px;
+    margin-bottom: 25px;
+  }
+  
+  .desc {
+    font-size: 15px;
+    line-height: 1.9;
+  }
+  
+  .ctaButton {
+    padding: 18px 45px;
+    font-size: 12.5px;
+    letter-spacing: 2.5px;
+  }
+  
+  .image {
+    max-height: 450px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .wrapper {
+    max-width: 1500px;
+    gap: 0;
+  }
+  
+  .heading {
+    font-size: 38px;
+  }
+  
+  .image {
+    max-height: 400px;
+  }
 }
 
 @media (max-width: 768px) {

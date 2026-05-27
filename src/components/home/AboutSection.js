@@ -8,7 +8,7 @@ export default function AboutSection() {
       <div className={styles.wrapper}>
         <div className={styles.imageCol}>
           <Image
-            src="/images/hero_banner.png"
+            src="/images/radhika_mam1.jpeg"
             alt="About The Design Factory"
             width={600}
             height={500}
@@ -27,7 +27,7 @@ export default function AboutSection() {
             Every piece is curated with extreme attention to detail, ensuring that your personalized
             gifts leave a lasting impression.
           </p>
-          <Link href="/category/labels" className={styles.ctaButton}>
+          <Link href="/our-story" className={styles.ctaButton}>
             Discover Our Story
           </Link>
         </div>

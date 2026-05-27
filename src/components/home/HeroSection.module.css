@@ -125,6 +125,67 @@
 }
 
 /* ── Responsive ── */
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .hero {
+    max-height: 95vh;
+  }
+  
+  .navBtn {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .prevBtn {
+    left: 4%;
+  }
+  
+  .nextBtn {
+    right: 4%;
+  }
+  
+  .heroCta {
+    bottom: 80px;
+  }
+  
+  .exploreBtn {
+    padding: 24px 70px;
+    font-size: 14px;
+    letter-spacing: 5px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .hero {
+    max-height: 92vh;
+  }
+  
+  .navBtn {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .heroCta {
+    bottom: 70px;
+  }
+  
+  .exploreBtn {
+    padding: 22px 65px;
+    font-size: 13.5px;
+    letter-spacing: 4.5px;
+  }
+}
+
+/* Standard Desktop */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .exploreBtn {
+    padding: 20px 55px;
+    font-size: 13px;
+    letter-spacing: 4px;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero {
     min-height: 350px;
