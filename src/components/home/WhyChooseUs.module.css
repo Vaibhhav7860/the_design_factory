@@ -1,7 +1,7 @@
 .section {
   text-align: center;
   background-color: #fdf7f4;
-  padding: 20px 8% 20px;
+  padding: 30px 8% 20px;
   width: 100%;
   max-width: 100%;
 }
@@ -48,7 +48,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 12px 4%;
+    padding: 20px 4% 20px;
   }
   .heading {
     font-size: 24px;

@@ -1,5 +1,5 @@
 .section {
-  padding: 80px 4% 20px;
+  padding: 80px 4% 0;
   text-align: center;
   background: #fff;
   width: 100%;
@@ -98,7 +98,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 12px 4%;
+    padding: 12px 4% 0;
   }
   .heading {
     font-size: 36px;

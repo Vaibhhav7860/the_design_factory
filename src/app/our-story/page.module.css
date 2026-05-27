@@ -1,0 +1,430 @@
+/* ═══════════════════════════════════════════
+   OUR STORY PAGE (REDESIGN)
+   ═══════════════════════════════════════════ */
+
+.page {
+  padding-top: var(--nav-height);
+  background-color: #faf9f6; /* Overall clean background */
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #f8f4f0 0%, #e8f0f8 50%, #f0e6f4 100%);
+  padding: 120px 6% 100px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(215, 228, 228, 0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.heroContent {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.heroLabel {
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.heroTitle {
+  font-family: var(--font-primary);
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ── Section Title ── */
+.sectionTitle {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--color-text);
+}
+
+.centerTitle {
+  text-align: center;
+}
+
+/* ── Founder Section ── */
+.founderSection {
+  padding: 80px 6% 40px;
+  background: var(--color-white);
+  position: relative;
+}
+
+.founderContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.founderImageWrapper {
+  position: relative;
+  border-radius: 20px 20px 0 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
+.founderImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 1.5s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.founderImageWrapper:hover .founderImage {
+  transform: scale(1.05);
+}
+
+.imageAccent {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 80%;
+  height: 80%;
+  background-color: var(--color-peach);
+  z-index: -1;
+  border-radius: 20px;
+  opacity: 0.3;
+}
+
+.founderText {
+  padding-right: 40px;
+}
+
+.founderName {
+  font-family: var(--font-secondary);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.founderRole {
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: var(--color-text-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.quoteWrapper {
+  position: relative;
+  padding: 30px 0 30px 40px;
+  margin-bottom: 40px;
+  border-left: 2px solid var(--color-peach);
+}
+
+.quoteMark {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-family: var(--font-primary);
+  font-size: 80px;
+  line-height: 1;
+  color: var(--color-peach);
+  opacity: 0.2;
+}
+
+.founderQuote {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--color-text);
+  font-style: italic;
+}
+
+.founderBio p {
+  font-family: var(--font-secondary);
+  font-size: 15px;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.signaturePlaceholder {
+  margin-top: 30px;
+  opacity: 0.6;
+  filter: grayscale(100%);
+}
+
+/* ── Interactive Timeline ── */
+.timelineSection {
+  padding: 60px 6% 120px;
+  background: linear-gradient(180deg, #faf9f6 0%, #fff 100%);
+  position: relative;
+}
+
+.timelineSubtitle {
+  text-align: center;
+  font-family: var(--font-secondary);
+  font-size: 15px;
+  color: var(--color-text-light);
+  margin-bottom: 80px;
+}
+
+.timelineContainer {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Vertical Center Line */
+.timelineLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timelineItem {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50%;
+  position: relative;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.timelineItem.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Alternating sides */
+.timelineItem.right {
+  justify-content: flex-start;
+  padding-right: 0;
+  padding-left: 50%;
+}
+
+/* The Dot */
+.timelineDot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: 3px solid var(--color-text);
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.timelineItem:hover .timelineDot {
+  background-color: var(--color-peach);
+  border-color: var(--color-peach);
+  transform: translateX(-50%) scale(1.3);
+  box-shadow: 0 0 15px rgba(251, 201, 188, 0.6);
+}
+
+/* Content Box */
+.timelineContent {
+  width: 85%;
+  padding: 40px;
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.02);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.timelineItem.left .timelineContent {
+  margin-right: 40px;
+}
+
+.timelineItem.right .timelineContent {
+  margin-left: 40px;
+}
+
+.timelineItem:hover .timelineContent {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+}
+
+.timelineYear {
+  font-family: var(--font-primary);
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--color-peach);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.timelineCardTitle {
+  font-family: var(--font-secondary);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text);
+  margin-bottom: 15px;
+}
+
+.timelineCardDesc {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  color: var(--color-text-light);
+  line-height: 1.7;
+}
+
+/* ── CTA / Enquiry ── */
+.enquiry {
+  padding: 100px 6%;
+  background: linear-gradient(135deg, #faf9f6 0%, #f5f0eb 100%);
+  text-align: center;
+}
+
+.ctaInner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ctaSubtitle {
+  font-family: var(--font-secondary);
+  font-size: 15px;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.shopCta {
+  display: inline-block;
+  padding: 18px 55px;
+  background-color: var(--color-text);
+  color: var(--color-white);
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+  border-radius: 8px;
+}
+
+.shopCta:hover {
+  background-color: var(--color-peach);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(251, 201, 188, 0.3);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .heroTitle {
+    font-size: 40px;
+  }
+  
+  .founderContainer {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .founderText {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 70px 5% 60px;
+  }
+
+  .heroTitle {
+    font-size: 32px;
+    letter-spacing: 4px;
+  }
+  
+  .founderSection {
+    padding: 40px 5% 20px;
+  }
+
+  .quoteWrapper {
+    padding: 20px 0 20px 20px;
+  }
+
+  .founderQuote {
+    font-size: 20px;
+  }
+  
+  .timelineLine {
+    left: 20px; /* Move line to left edge */
+  }
+  
+  .timelineItem {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: 0;
+    margin-bottom: 60px;
+  }
+  
+  .timelineItem.right {
+    padding-left: 0;
+  }
+  
+  .timelineDot {
+    left: 20px;
+  }
+  
+  .timelineItem.left .timelineContent,
+  .timelineItem.right .timelineContent {
+    margin-left: 50px;
+    margin-right: 0;
+    width: calc(100% - 50px);
+    padding: 25px;
+  }
+}

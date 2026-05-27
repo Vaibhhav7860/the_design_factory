@@ -102,7 +102,6 @@ export default function Testimonials() {
           </button>
         </div>
 
-        <div className={styles.bottomLine}></div>
       </div>
     </section>
   );

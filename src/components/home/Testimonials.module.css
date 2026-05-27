@@ -171,12 +171,6 @@
   border-color: #ddd;
 }
 
-.bottomLine {
-  margin: 30px auto 0;
-  border-bottom: 1px solid #ddd;
-  width: 90%;
-  max-width: 1200px;
-}
 
 @media (max-width: 1024px) {
   .cardShell {
