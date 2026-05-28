@@ -1,0 +1,208 @@
+.banner {
+  padding: 60px 6%;
+  background: linear-gradient(135deg, #faf9f6 0%, #f5f0eb 100%);
+}
+
+.bannerContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  background: var(--color-white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+/* Image Section */
+.imageSection {
+  position: relative;
+  height: 100%;
+  min-height: 400px;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text Section */
+.textSection {
+  padding: 60px 60px 60px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: 42px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.ctaButton {
+  display: inline-block;
+  width: fit-content;
+  padding: 18px 48px;
+  background-color: var(--color-text);
+  color: var(--color-white);
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+  border-radius: 4px;
+}
+
+.ctaButton:hover {
+  background-color: var(--color-peach);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(251, 201, 188, 0.3);
+}
+
+/* Responsive */
+
+/* Mac Desktop (2560x1440) */
+@media (min-width: 2560px) {
+  .banner {
+    padding: 80px 6%;
+  }
+
+  .bannerContainer {
+    max-width: 1600px;
+    gap: 80px;
+  }
+
+  .imageSection {
+    min-height: 500px;
+  }
+
+  .textSection {
+    padding: 80px 80px 80px 0;
+    gap: 30px;
+  }
+
+  .title {
+    font-size: 52px;
+    letter-spacing: 5px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+
+  .ctaButton {
+    padding: 22px 56px;
+    font-size: 13px;
+  }
+}
+
+/* Large Desktop (1920-2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .banner {
+    padding: 70px 6%;
+  }
+
+  .bannerContainer {
+    gap: 70px;
+  }
+
+  .imageSection {
+    min-height: 450px;
+  }
+
+  .textSection {
+    padding: 70px 70px 70px 0;
+  }
+
+  .title {
+    font-size: 46px;
+  }
+
+  .description {
+    font-size: 17px;
+  }
+
+  .ctaButton {
+    padding: 20px 52px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .bannerContainer {
+    gap: 40px;
+  }
+
+  .textSection {
+    padding: 40px 40px 40px 0;
+  }
+
+  .title {
+    font-size: 36px;
+    letter-spacing: 3px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    padding: 40px 4%;
+  }
+
+  .bannerContainer {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .imageSection {
+    min-height: 300px;
+  }
+
+  .textSection {
+    padding: 40px 30px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .description {
+    font-size: 14px;
+  }
+
+  .ctaButton {
+    width: 100%;
+    text-align: center;
+  }
+}
