@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import ProductCard from "@/components/product/ProductCard";
 import { products } from "@/data/products";
+import { useCart } from "@/context/CartContext";
 import styles from "./page.module.css";
 
 // Combo categories
@@ -84,45 +86,65 @@ function getComboProducts(categoryId) {
       filteredProducts = [];
   }
   
-  // Limit to 30 products per category and format for display
+  // Limit to 30 products per category and format with full object preservation
   return filteredProducts.slice(0, 30).map(p => ({
-    slug: p.slug,
-    title: p.title,
-    price: p.price,
-    image: p.images?.[0] || "/images/products/art_bag_dinosaur.png",
-    badge: p.badge,
+    ...p,
+    image: p.images?.[0] || p.image || "/images/products/art_bag_dinosaur.png",
   }));
 }
 
 export default function MakeComboPage() {
   const [activeCategory, setActiveCategory] = useState("bags");
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const { cart, addToCart, removeFromCart } = useCart();
+  const [toastMessage, setToastMessage] = useState(null);
+  const [toastTimeoutId, setToastTimeoutId] = useState(null);
 
   const categoryProducts = getComboProducts(activeCategory);
 
+  const triggerToast = (message) => {
+    if (toastTimeoutId) {
+      clearTimeout(toastTimeoutId);
+    }
+    setToastMessage(message);
+    const id = setTimeout(() => {
+      setToastMessage(null);
+    }, 2500);
+    setToastTimeoutId(id);
+  };
+
+  const selectedProducts = cart.filter(item => item.isComboItem);
+
+  const isSelected = (product) => {
+    return cart.some(item => item.slug === `${product.slug}__combo`);
+  };
+
   const toggleProduct = (product) => {
-    if (selectedProducts.find(p => p.slug === product.slug)) {
-      setSelectedProducts(selectedProducts.filter(p => p.slug !== product.slug));
+    const comboSlug = `${product.slug}__combo`;
+    if (isSelected(product)) {
+      removeFromCart(comboSlug);
+      triggerToast(`Removed "${product.title}" from your combo`);
     } else {
-      setSelectedProducts([...selectedProducts, product]);
+      addToCart({
+        ...product,
+        slug: comboSlug,
+        isComboItem: true,
+      });
+      triggerToast(`Added "${product.title}" to your combo`);
     }
   };
 
-  const isSelected = (product) => {
-    return selectedProducts.some(p => p.slug === product.slug);
-  };
-
-  // Calculate discount
-  const getDiscount = () => {
-    const count = selectedProducts.length;
+  // Calculate discount and prices
+  const totalCount = selectedProducts.reduce((sum, p) => sum + p.quantity, 0);
+  
+  const getDiscount = (count) => {
     if (count >= 5) return 20;
     if (count >= 3) return 10;
     return 0;
   };
 
-  const totalPrice = selectedProducts.reduce((sum, p) => sum + p.price, 0);
-  const discount = getDiscount();
-  const finalPrice = totalPrice - (totalPrice * discount / 100);
+  const totalPrice = selectedProducts.reduce((sum, p) => sum + p.price * p.quantity, 0);
+  const discount = getDiscount(totalCount);
+  const finalPrice = totalPrice - Math.round(totalPrice * discount / 100);
 
   return (
     <main className={styles.page}>
@@ -152,20 +174,13 @@ export default function MakeComboPage() {
         </div>
       </section>
 
-      {/* Selected Products Summary */}
+      {/* Floating Checkout Button */}
       {selectedProducts.length > 0 && (
-        <div className={styles.summary}>
-          <div className={styles.summaryInner}>
-            <div className={styles.summaryText}>
-              <strong>{selectedProducts.length} items selected</strong>
-              {discount > 0 && <span className={styles.discountBadge}>{discount}% OFF Applied!</span>}
-            </div>
-            <div className={styles.summaryPrice}>
-              {discount > 0 && <span className={styles.originalPrice}>₹{totalPrice}</span>}
-              <span className={styles.finalPrice}>₹{finalPrice}</span>
-            </div>
-            <button className={styles.addToCartBtn}>Add Combo to Cart</button>
-          </div>
+        <div className={styles.floatingBar}>
+          <Link href="/cart" className={styles.floatingBtn}>
+            View Cart & Checkout
+            {totalCount > 0 && <span className={styles.floatingCount}>{totalCount}</span>}
+          </Link>
         </div>
       )}
 
@@ -179,15 +194,31 @@ export default function MakeComboPage() {
                 className={`${styles.productWrapper} ${isSelected(product) ? styles.selected : ''}`}
                 onClick={() => toggleProduct(product)}
               >
-                {isSelected(product) && (
-                  <div className={styles.selectedBadge}>✓ Selected</div>
-                )}
-                <ProductCard product={product} />
+                {/* Custom Checkbox Overlay */}
+                <div className={styles.checkboxContainer}>
+                  <div className={styles.customCheckbox}>
+                    <svg viewBox="0 0 24 24" className={styles.checkmark}>
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                </div>
+
+                <ProductCard product={product} disableLinks={true} />
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Interactive Toast Message */}
+      {toastMessage && (
+        <div className={styles.toast}>
+          <div className={styles.toastContent}>
+            <span className={styles.toastTick}>✓</span>
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

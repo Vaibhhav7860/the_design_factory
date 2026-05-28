@@ -1,29 +1,49 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductCard from "@/components/product/ProductCard";
 import styles from "./product.module.css";
 
 export default function RelatedProductsSlider({ products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 6;
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setItemsPerPage(2);
+      } else if (window.innerWidth <= 1024) {
+        setItemsPerPage(3);
+      } else {
+        setItemsPerPage(6);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, products.length - itemsPerPage);
+
+  // Keep index within bounds if size changes
+  useEffect(() => {
+    if (currentIndex > maxIndex) {
+      setCurrentIndex(maxIndex);
+    }
+  }, [itemsPerPage, maxIndex, currentIndex]);
 
   const goToPrev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - itemsPerPage));
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
 
   const goToNext = () => {
-    setCurrentIndex((prev) => 
-      Math.min(products.length - itemsPerPage, prev + itemsPerPage)
-    );
+    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
-  const visibleProducts = products.slice(currentIndex, currentIndex + itemsPerPage);
   const canGoPrev = currentIndex > 0;
-  const canGoNext = currentIndex + itemsPerPage < products.length;
+  const canGoNext = currentIndex < maxIndex;
 
   return (
-    <div className={styles.sliderWrapper}>
+    <div className={styles.sliderWrapper} style={{ "--slider-gap": "24px" }}>
       {canGoPrev && (
         <button 
           className={`${styles.sliderBtn} ${styles.sliderBtnPrev}`}
@@ -36,10 +56,19 @@ export default function RelatedProductsSlider({ products }) {
         </button>
       )}
 
-      <div className={styles.relatedGrid}>
-        {visibleProducts.map((p) => (
-          <ProductCard key={p.slug} product={p} />
-        ))}
+      <div className={styles.sliderContainer}>
+        <div 
+          className={styles.sliderTrack} 
+          style={{ 
+            transform: `translateX(calc(-1 * ${currentIndex} * (100% + var(--slider-gap, 24px)) / ${itemsPerPage}))`
+          }}
+        >
+          {products.map((p) => (
+            <div key={p.slug} className={styles.sliderItem}>
+              <ProductCard product={p} />
+            </div>
+          ))}
+        </div>
       </div>
 
       {canGoNext && (
@@ -55,18 +84,20 @@ export default function RelatedProductsSlider({ products }) {
       )}
 
       {/* Pagination dots */}
-      <div className={styles.sliderDots}>
-        {Array.from({ length: totalPages }).map((_, idx) => (
-          <button
-            key={idx}
-            className={`${styles.sliderDot} ${
-              Math.floor(currentIndex / itemsPerPage) === idx ? styles.sliderDotActive : ""
-            }`}
-            onClick={() => setCurrentIndex(idx * itemsPerPage)}
-            aria-label={`Go to page ${idx + 1}`}
-          />
-        ))}
-      </div>
+      {maxIndex > 0 && (
+        <div className={styles.sliderDots}>
+          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+            <button
+              key={idx}
+              className={`${styles.sliderDot} ${
+                currentIndex === idx ? styles.sliderDotActive : ""
+              }`}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

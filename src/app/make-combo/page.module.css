@@ -98,82 +98,64 @@
   color: var(--color-peach);
 }
 
-/* Summary Bar */
-.summary {
-  position: sticky;
-  top: var(--nav-height);
-  z-index: 100;
-  background: var(--color-text);
-  color: white;
-  padding: 20px 6%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* Floating Checkout Button */
+.floatingBar {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  animation: floatUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.summaryInner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+@keyframes floatUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-.summaryText {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  font-family: var(--font-secondary);
-  font-size: 15px;
-}
-
-.discountBadge {
-  background: var(--color-peach);
-  color: var(--color-text);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.summaryPrice {
-  display: flex;
+.floatingBtn {
+  display: inline-flex;
   align-items: center;
   gap: 12px;
+  background: var(--color-text);
+  color: #fff;
+  padding: 16px 36px;
+  border-radius: 4px;
   font-family: var(--font-secondary);
-}
-
-.originalPrice {
-  text-decoration: line-through;
-  opacity: 0.6;
-  font-size: 16px;
-}
-
-.finalPrice {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.addToCartBtn {
-  background: var(--color-peach);
-  color: var(--color-text);
-  border: none;
-  padding: 14px 32px;
-  font-family: var(--font-secondary);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
 }
 
-.addToCartBtn:hover {
-  background: #FCD589;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(252, 213, 137, 0.4);
+.floatingBtn:hover {
+  background: var(--color-peach);
+  color: var(--color-text);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(251, 201, 188, 0.45);
+}
+
+.floatingCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 50px;
+  background: var(--color-peach);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.floatingBtn:hover .floatingCount {
+  background: white;
 }
 
 /* Products Section */
@@ -338,5 +320,128 @@
   
   .addToCartBtn {
     width: 100%;
+  }
+}
+
+/* Custom Checkbox styles */
+.checkboxContainer {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+}
+
+.customCheckbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.productWrapper:hover .customCheckbox {
+  border-color: var(--color-peach);
+  transform: scale(1.05);
+}
+
+.productWrapper.selected .customCheckbox {
+  background: var(--color-peach);
+  border-color: var(--color-peach);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(251, 201, 188, 0.4);
+}
+
+.checkmark {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: white;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.3s ease 0.1s;
+}
+
+.productWrapper.selected .checkmark {
+  stroke-dashoffset: 0;
+}
+
+/* Selected glow effect */
+.productWrapper.selected {
+  outline: 3px solid var(--color-peach);
+  outline-offset: 4px;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(251, 201, 188, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Glassmorphic Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1000;
+  background: rgba(43, 43, 43, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 16px 28px;
+  border-radius: 50px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  letter-spacing: 1px;
+  animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toastContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toastTick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-peach);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(30px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .toast {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    border-radius: 8px;
+    text-align: center;
+    justify-content: center;
+  }
+  .toastContent {
+    justify-content: center;
   }
 }

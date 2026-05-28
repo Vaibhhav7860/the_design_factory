@@ -98,7 +98,7 @@
 
 .founderImageWrapper {
   position: relative;
-  border-radius: 20px 20px 0 20px;
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
   z-index: 2;
@@ -127,7 +127,7 @@
   height: 80%;
   background-color: var(--color-peach);
   z-index: -1;
-  border-radius: 20px;
+  border-radius: 0;
   opacity: 0.3;
 }
 

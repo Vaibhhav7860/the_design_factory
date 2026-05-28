@@ -120,3 +120,24 @@
   transition: all 0.3s ease; text-decoration: none;
 }
 .checkoutBtn:hover { background: var(--color-peach); }
+
+.discountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 14px;
+  color: #2e7d32;
+}
+.subtotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-light);
+}
