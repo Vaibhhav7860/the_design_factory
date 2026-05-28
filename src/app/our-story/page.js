@@ -82,7 +82,7 @@ export default function OurStoryPage() {
         <div className={styles.founderContainer}>
           <div className={styles.founderImageWrapper}>
             <Image 
-              src="/images/DOS.jpeg" 
+              src="/images/founder_dummy.jpeg" 
               alt="Founder of The Design Factory" 
               width={600} 
               height={800} 

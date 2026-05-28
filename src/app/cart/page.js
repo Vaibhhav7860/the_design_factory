@@ -7,7 +7,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import styles from "./cart.module.css";
 
 export default function CartPage() {
-  const { cart, cartTotal, updateQuantity, removeFromCart, clearCart } = useCart();
+  const { cart, cartTotal, cartSubtotal, comboDiscount, comboDiscountPercent, updateQuantity, removeFromCart, clearCart } = useCart();
 
   if (cart.length === 0) {
     return (
@@ -36,7 +36,7 @@ export default function CartPage() {
                   <Image src={item.image} alt={item.title} width={100} height={100} style={{ objectFit: "contain" }} />
                 </div>
                 <div className={styles.itemInfo}>
-                  <Link href={`/product/${item.slug}`} className={styles.itemTitle}>{item.title}</Link>
+                  <Link href={`/product/${item.slug.split('__')[0]}`} className={styles.itemTitle}>{item.title}</Link>
                   <p className={styles.itemPrice}>{formatPrice(item.price)}</p>
                 </div>
                 <div className={styles.itemQty}>
@@ -56,8 +56,14 @@ export default function CartPage() {
             <h3 className={styles.summaryTitle}>Order Summary</h3>
             <div className={styles.summaryRow}>
               <span>Subtotal</span>
-              <span>{formatPrice(cartTotal)}</span>
+              <span>{formatPrice(cartSubtotal)}</span>
             </div>
+            {comboDiscount > 0 && (
+              <div className={`${styles.summaryRow} ${styles.discountRow}`}>
+                <span>Combo Discount ({comboDiscountPercent}%)</span>
+                <span className={styles.discountValue}>-{formatPrice(comboDiscount)}</span>
+              </div>
+            )}
             <div className={styles.summaryRow}>
               <span>Shipping</span>
               <span className={styles.freeShip}>Free</span>

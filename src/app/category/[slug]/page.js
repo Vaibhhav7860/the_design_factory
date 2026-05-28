@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FilterSlider from "./FilterSlider";
 import FilteredProductsWrapper from "./FilteredProductsWrapper";
+import ComboBanner from "@/components/ComboBanner";
 import styles from "./category.module.css";
 
 export function generateStaticParams() {
@@ -121,36 +122,41 @@ export default async function CategoryPage({ params, searchParams }) {
 
         {/* Show Subcategory Cards if no subcategory is selected */}
         {showSubcategories ? (
-          <div className={styles.subcategoryShowcase}>
-            {category.subcategories.map((sub, index) => (
-              <Link 
-                key={sub.slug} 
-                href={`/category/${slug}?subcategory=${sub.slug}`}
-                className={styles.showcaseCard}
-              >
-                <div className={styles.showcaseImageWrapper}>
-                  <Image
-                    src={getSubcategoryImage(sub, index)}
-                    alt={sub.title}
-                    width={600}
-                    height={400}
-                    className={styles.showcaseImage}
-                  />
-                  <div className={styles.showcaseOverlay}>
-                    <div className={styles.showcaseContent}>
-                      <h3 className={styles.showcaseTitle}>{sub.title.toUpperCase()}</h3>
-                      <button 
-                        className={styles.showcaseButton}
-                        style={{ '--btn-bg': ['#FCD589', '#FBC9BC', '#d7e4e4'][index % 3] }}
-                      >
-                        SHOP NOW
-                      </button>
+          <>
+            <div className={styles.subcategoryShowcase}>
+              {category.subcategories.map((sub, index) => (
+                <Link 
+                  key={sub.slug} 
+                  href={`/category/${slug}?subcategory=${sub.slug}`}
+                  className={styles.showcaseCard}
+                >
+                  <div className={styles.showcaseImageWrapper}>
+                    <Image
+                      src={getSubcategoryImage(sub, index)}
+                      alt={sub.title}
+                      width={600}
+                      height={400}
+                      className={styles.showcaseImage}
+                    />
+                    <div className={styles.showcaseOverlay}>
+                      <div className={styles.showcaseContent}>
+                        <h3 className={styles.showcaseTitle}>{sub.title.toUpperCase()}</h3>
+                        <button 
+                          className={styles.showcaseButton}
+                          style={{ '--btn-bg': ['#FCD589', '#FBC9BC', '#d7e4e4'][index % 3] }}
+                        >
+                          SHOP NOW
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
+            
+            {/* Show Combo Banner only for combos category after subcategories */}
+            {slug === 'combos' && <ComboBanner />}
+          </>
         ) : (
           <>
             {/* Filtered Products with Sidebar */}

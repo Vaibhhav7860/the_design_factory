@@ -129,3 +129,12 @@
   .itemTotal { min-width: auto; }
   .summary { position: static; }
 }
+
+.discountRow {
+  color: #2e7d32;
+  font-weight: 500;
+}
+.discountValue {
+  color: #2e7d32;
+  font-weight: 600;
+}

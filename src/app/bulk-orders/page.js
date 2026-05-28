@@ -8,7 +8,7 @@ export default function BulkOrdersPage() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <p className={styles.heroLabel}>FOR SCHOOLS, CORPORATES & EVENTS</p>
+          <p className={styles.heroLabel}>For corporate birthday parties weddings hampers festivities all occasions</p>
           <h1 className={styles.heroTitle}>Bulk Orders</h1>
           <p className={styles.heroSubtitle}>
             Personalized products crafted at scale — for schools, corporate gifting, 
@@ -44,7 +44,7 @@ export default function BulkOrdersPage() {
         <h2 className={styles.sectionTitle}>How It Works</h2>
         <div className={styles.processSteps}>
           {[
-            { step: "01", title: "Share Your Requirements", desc: "Tell us what you need — products, quantity, personalization details, and timeline." },
+            { step: "01", title: "Share Your Requirements", desc: "Products, quantity and personalization details" },
             { step: "02", title: "Get a Custom Quote", desc: "We'll prepare a tailored quote with the best pricing for your order size." },
             { step: "03", title: "Approve & Confirm", desc: "Review a sample or digital proof, approve the design, and confirm your order." },
             { step: "04", title: "We Deliver", desc: "Sit back while we produce, pack individually, and ship directly to you." },
@@ -97,12 +97,15 @@ export default function BulkOrdersPage() {
 
           {/* Middle - 1 tall rectangle */}
           <div className={`${styles.gridItem} ${styles.middleTall}`}>
-            <Image 
-              src="/images/grid images/grid_4.jpeg"
-              alt="Bulk Order Showcase 4"
-              fill
-              className={styles.gridImage}
-            />
+            <video 
+                className={styles.gridVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+              >
+                <source src="/images/grid images/grid_4.mp4" type="video/mp4" />
+              </video>
           </div>
 
           {/* Right - 1 tall rectangle (video) */}
@@ -130,15 +133,12 @@ export default function BulkOrdersPage() {
 
           {/* Bottom right - 1 small square (video) */}
           <div className={`${styles.gridItem} ${styles.rightSmall1}`}>
-            <video 
-              className={styles.gridVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/images/grid images/grid_7.mp4" type="video/mp4" />
-            </video>
+            <Image 
+                src="/images/grid images/grid_7.jpeg"
+                alt="Bulk Order Showcase 7"
+                fill
+                className={styles.gridImage}
+              />
           </div>
         </div>
       </section>

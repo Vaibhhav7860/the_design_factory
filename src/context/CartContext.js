@@ -96,16 +96,32 @@ export function CartProvider({ children }) {
   }, []);
 
   const cartCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
-  const cartTotal = state.items.reduce(
+
+  const comboCount = state.items
+    .filter((item) => item.isComboItem)
+    .reduce((sum, item) => sum + item.quantity, 0);
+
+  const comboDiscountPercent = comboCount >= 5 ? 20 : comboCount >= 3 ? 10 : 0;
+
+  const cartSubtotal = state.items.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const comboDiscount = state.items
+    .filter((item) => item.isComboItem)
+    .reduce((sum, item) => sum + Math.round((item.price * comboDiscountPercent / 100)) * item.quantity, 0);
+
+  const cartTotal = cartSubtotal - comboDiscount;
 
   return (
     <CartContext.Provider
       value={{
         cart: state.items,
         cartCount,
+        cartSubtotal,
+        comboDiscount,
+        comboDiscountPercent,
         cartTotal,
         addToCart,
         removeFromCart,

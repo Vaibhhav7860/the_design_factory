@@ -6,7 +6,7 @@ import { formatPrice } from "@/lib/utils";
 import styles from "./CartDrawer.module.css";
 
 export default function CartDrawer({ open, onClose }) {
-  const { cart, cartTotal, updateQuantity, removeFromCart } = useCart();
+  const { cart, cartTotal, cartSubtotal, comboDiscount, comboDiscountPercent, updateQuantity, removeFromCart } = useCart();
 
   return (
     <>
@@ -49,10 +49,27 @@ export default function CartDrawer({ open, onClose }) {
               ))}
             </div>
             <div className={styles.footer}>
-              <div className={styles.total}>
-                <span>Subtotal</span>
-                <span className="price-current">{formatPrice(cartTotal)}</span>
-              </div>
+              {comboDiscount > 0 ? (
+                <>
+                  <div className={styles.subtotalRow}>
+                    <span>Subtotal</span>
+                    <span>{formatPrice(cartSubtotal)}</span>
+                  </div>
+                  <div className={styles.discountRow}>
+                    <span>Combo Discount ({comboDiscountPercent}%)</span>
+                    <span>-{formatPrice(comboDiscount)}</span>
+                  </div>
+                  <div className={styles.total}>
+                    <span>Total</span>
+                    <span className="price-current">{formatPrice(cartTotal)}</span>
+                  </div>
+                </>
+              ) : (
+                <div className={styles.total}>
+                  <span>Subtotal</span>
+                  <span className="price-current">{formatPrice(cartTotal)}</span>
+                </div>
+              )}
               <Link href="/cart" onClick={onClose} className={styles.checkoutBtn}>
                 View Cart & Checkout
               </Link>

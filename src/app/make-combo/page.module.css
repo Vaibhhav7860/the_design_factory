@@ -1,0 +1,447 @@
+.page {
+  padding-top: var(--nav-height);
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #f8f4f0 0%, #fdf0e8 50%, #f0e6f4 100%);
+  padding: 80px 6% 60px;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-primary);
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.heroSubtitle {
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  color: var(--color-text-light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Category Circles */
+.categories {
+  padding: 60px 6% 40px;
+  background: var(--color-white);
+}
+
+.categoryCircles {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: nowrap;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: 0 20px;
+}
+
+.categoryCircle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: all 0.4s ease;
+}
+
+.categoryCircle:hover {
+  transform: translateY(-5px);
+}
+
+.circleImage {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryCircle.active .circleImage {
+  border-color: var(--color-peach);
+  border-width: 5px;
+  box-shadow: 0 8px 28px rgba(251, 201, 188, 0.35);
+}
+
+.circleImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.circleLabel {
+  font-family: var(--font-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.categoryCircle.active .circleLabel {
+  color: var(--color-peach);
+}
+
+/* Floating Checkout Button */
+.floatingBar {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  animation: floatUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.floatingBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-text);
+  color: #fff;
+  padding: 16px 36px;
+  border-radius: 4px;
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  white-space: nowrap;
+}
+
+.floatingBtn:hover {
+  background: var(--color-peach);
+  color: var(--color-text);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(251, 201, 188, 0.45);
+}
+
+.floatingCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 50px;
+  background: var(--color-peach);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.floatingBtn:hover .floatingCount {
+  background: white;
+}
+
+/* Products Section */
+.productsSection {
+  padding: 40px 0 80px;
+  background: var(--color-white);
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.productWrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.productWrapper.selected {
+  outline: 3px solid var(--color-peach);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.selectedBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--color-peach);
+  color: var(--color-text);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(251, 201, 188, 0.4);
+}
+
+/* Responsive */
+
+/* Mac Desktop (2560x1440) */
+@media (min-width: 2560px) {
+  .heroTitle {
+    font-size: 56px;
+    letter-spacing: 6px;
+    padding: 100px 6% 70px;
+  }
+  
+  .heroSubtitle {
+    font-size: 18px;
+  }
+  
+  .categories {
+    padding: 80px 6% 50px;
+  }
+  
+  .categoryCircles {
+    gap: 50px;
+    max-width: 100%;
+  }
+  
+  .circleImage {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .circleLabel {
+    font-size: 14px;
+  }
+  
+  .productsSection {
+    padding: 50px 0 100px;
+  }
+  
+  .productsGrid {
+    gap: 28px;
+  }
+}
+
+/* Large Desktop (1920-2559px) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .heroTitle {
+    font-size: 52px;
+  }
+  
+  .categoryCircles {
+    gap: 45px;
+  }
+  
+  .circleImage {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Standard Desktop (1440-1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .categoryCircles {
+    gap: 35px;
+  }
+  
+  .circleImage {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .productsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .categoryCircles {
+    gap: 25px;
+    justify-content: flex-start;
+  }
+  
+  .circleImage {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .circleLabel {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 32px;
+    letter-spacing: 3px;
+  }
+  
+  .productsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .categoryCircles {
+    gap: 20px;
+    padding: 0 10px;
+  }
+  
+  .circleImage {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .circleLabel {
+    font-size: 10px;
+  }
+  
+  .summaryInner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  
+  .addToCartBtn {
+    width: 100%;
+  }
+}
+
+/* Custom Checkbox styles */
+.checkboxContainer {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+}
+
+.customCheckbox {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.productWrapper:hover .customCheckbox {
+  border-color: var(--color-peach);
+  transform: scale(1.05);
+}
+
+.productWrapper.selected .customCheckbox {
+  background: var(--color-peach);
+  border-color: var(--color-peach);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(251, 201, 188, 0.4);
+}
+
+.checkmark {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: white;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.3s ease 0.1s;
+}
+
+.productWrapper.selected .checkmark {
+  stroke-dashoffset: 0;
+}
+
+/* Selected glow effect */
+.productWrapper.selected {
+  outline: 3px solid var(--color-peach);
+  outline-offset: 4px;
+  border-radius: 0;
+  box-shadow: 0 10px 30px rgba(251, 201, 188, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Glassmorphic Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1000;
+  background: rgba(43, 43, 43, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 16px 28px;
+  border-radius: 50px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  letter-spacing: 1px;
+  animation: toastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toastContent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toastTick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-peach);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(30px) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .toast {
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    border-radius: 8px;
+    text-align: center;
+    justify-content: center;
+  }
+  .toastContent {
+    justify-content: center;
+  }
+}
