@@ -1,0 +1,112 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  border-radius: var(--admin-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease,
+    transform 0.18s ease, box-shadow 0.18s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+}
+
+/* ── Sizes ── */
+.size-md {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.size-sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.size-lg {
+  height: 44px;
+  padding: 0 22px;
+  font-size: 14px;
+}
+
+/* ── Variants ── */
+.variant-primary {
+  background: var(--admin-ink);
+  color: #ffffff;
+  border-color: var(--admin-ink);
+}
+
+.variant-primary:hover:not(:disabled) {
+  background: #000;
+  border-color: #000;
+}
+
+.variant-secondary {
+  background: var(--admin-surface);
+  color: var(--admin-ink);
+  border-color: var(--admin-border-strong);
+}
+
+.variant-secondary:hover:not(:disabled) {
+  background: var(--admin-surface-elevated);
+  border-color: var(--admin-ink);
+}
+
+.variant-ghost {
+  background: transparent;
+  color: var(--admin-ink);
+}
+
+.variant-ghost:hover:not(:disabled) {
+  background: var(--admin-surface-elevated);
+}
+
+.variant-accent {
+  background: var(--admin-accent);
+  color: var(--admin-ink);
+  border-color: var(--admin-accent);
+}
+
+.variant-accent:hover:not(:disabled) {
+  background: #f5c76e;
+  border-color: #f5c76e;
+}
+
+.variant-danger {
+  background: var(--admin-danger);
+  color: #ffffff;
+  border-color: var(--admin-danger);
+}
+
+.variant-danger:hover:not(:disabled) {
+  background: #a52a1f;
+  border-color: #a52a1f;
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -14,7 +14,7 @@ export default function ComboBanner() {
           <p className={styles.desc}>
             Why settle for one when you can have it all? Pick your favourite products,
             mix and match them into a perfect combo, and enjoy exclusive discounts.
-            Choose any 3 products and get 10% off — or go big with 5+ products and save 20%!
+            <b>Choose any 3 products and get 10% off — or go big with 5+ products and save 20%!</b>
           </p>
           <Link href="/make-combo" className={styles.ctaButton}>
             Create Your Combo

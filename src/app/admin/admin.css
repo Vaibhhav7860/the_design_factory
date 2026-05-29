@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════
+   ADMIN PANEL — Design Tokens
+   Editorial luxury palette adapted for dense data UI
+   ═══════════════════════════════════════════ */
+
+.adminRoot {
+  --admin-bg: #F7F5F0;
+  --admin-surface: #FFFFFF;
+  --admin-surface-elevated: #FBFAF6;
+  --admin-border: rgba(26, 16, 8, 0.08);
+  --admin-border-strong: rgba(26, 16, 8, 0.16);
+  --admin-ink: #1A1A1A;
+  --admin-ink-muted: #6B6B6B;
+  --admin-ink-soft: #9A9A9A;
+
+  --admin-accent: #FCD589;
+  --admin-accent-2: #FBC9BC;
+  --admin-accent-3: #D7E4E4;
+  --admin-accent-deep: #B89968;
+
+  --admin-success: #2E7D32;
+  --admin-warning: #B85A3E;
+  --admin-danger: #C0392B;
+
+  --admin-radius: 8px;
+  --admin-radius-sm: 4px;
+  --admin-shadow-sm: 0 1px 2px rgba(26, 16, 8, 0.04);
+  --admin-shadow: 0 8px 24px -12px rgba(26, 16, 8, 0.10);
+  --admin-shadow-lg: 0 30px 60px -36px rgba(26, 16, 8, 0.18);
+
+  --admin-sidebar-width: 240px;
+  --admin-topbar-height: 60px;
+
+  --admin-font-display: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --admin-font-ui: var(--font-montserrat), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+
+  background: var(--admin-bg);
+  color: var(--admin-ink);
+  font-family: var(--admin-font-ui);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.adminRoot * {
+  box-sizing: border-box;
+}
+
+/* Hide the storefront navbar / footer when /admin is rendered.
+   Not needed because the storefront chrome lives in a separate route group,
+   but kept here as documentation. */

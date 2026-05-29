@@ -131,3 +131,21 @@
     display: block;
   }
 }
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .section {
+    padding: 16px 4% 16px;
+  }
+  .heading {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .desc {
+    font-size: 12px;
+  }
+  .logo {
+    height: 60px;
+  }
+}

@@ -450,6 +450,26 @@
   }
 }
 
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .title {
+    font-size: 20px;
+    letter-spacing: 3px;
+  }
+  .productTitle {
+    font-size: 13px;
+  }
+  .productPrice {
+    font-size: 13px;
+  }
+  .originalPrice {
+    font-size: 11px;
+  }
+  .discount {
+    font-size: 10px;
+  }
+}
+
 /* Carousel Navigation */
 .navButton {
   position: absolute;

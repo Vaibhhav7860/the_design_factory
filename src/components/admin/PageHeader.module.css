@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.text {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--admin-ink-soft);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: var(--admin-font-display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--admin-ink);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.description {
+  font-size: 14px;
+  color: var(--admin-ink-muted);
+  margin: 8px 0 0;
+  max-width: 60ch;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 28px;
+  }
+}

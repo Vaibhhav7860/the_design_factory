@@ -218,5 +218,22 @@
   .exploreBtn {
     padding: 12px 24px;
     font-size: 10px;
+    white-space: nowrap;
+  }
+  .heroCta {
+    bottom: 30px;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .exploreBtn {
+    padding: 11px 22px;
+    font-size: 9.5px;
+    letter-spacing: 1.8px;
+    white-space: nowrap;
+  }
+  .heroCta {
+    bottom: 25px;
   }
 }
