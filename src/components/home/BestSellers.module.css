@@ -422,13 +422,10 @@
 
 @media (max-width: 768px) {
   .cardLink {
-    flex: 0 0 calc(50% - 15px);
-  }
-  .imageContainer {
-    height: 250px;
+    flex: 0 0 calc(50% - 2.5px);
   }
   .productImage {
-    padding: 15px;
+    padding: 12px;
   }
   .title {
     font-size: 22px;
@@ -446,7 +443,10 @@
 
 @media (max-width: 480px) {
   .cardLink {
-    flex: 0 0 100%;
+    flex: 0 0 calc(50% - 2.5px);
+  }
+  .productImage {
+    padding: 8px;
   }
 }
 

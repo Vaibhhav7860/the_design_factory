@@ -569,12 +569,21 @@
     display: flex;
   }
   .logo {
-    justify-content: center; /* Center logo on mobile */
+    justify-content: center;
+    height: 65px;
+    margin-left: 0;
+    position: relative;
   }
   .logoImg {
-    height: 45px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 155px;
+    width: auto;
     min-width: auto;
-    max-width: 140px;
+    max-width: 270px;
+    object-fit: contain;
   }
 }
 

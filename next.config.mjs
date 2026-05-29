@@ -10,6 +10,10 @@ const nextConfig = {
       },
     ],
   },
+  // Disable Turbopack to avoid font loading issues
+  experimental: {
+    turbo: false,
+  },
 };
 
 export default nextConfig;

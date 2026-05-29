@@ -55,3 +55,16 @@
     max-width: 1500px;
   }
 }
+
+@media (max-width: 768px) {
+  .section {
+    padding: 0 4%;
+    margin: 15px 0 0;
+  }
+  .image {
+    width: 100%;
+    aspect-ratio: 2.5 / 1;
+    object-fit: cover;
+    object-position: center;
+  }
+}

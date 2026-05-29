@@ -446,7 +446,7 @@
 
   .sortSelect,
   .input {
-    font-size: 12px;
+    font-size: 16px;
     padding: 10px 12px;
     border-radius: 8px;
   }
@@ -469,62 +469,63 @@
 /* Mobile */
 @media (max-width: 480px) {
   .filterSidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
   }
 
   .filterSection {
-    padding: 16px;
-    border-radius: 12px;
+    padding: 8px;
+    border-radius: 6px;
   }
 
   .filterTitle {
-    font-size: 10px;
-    letter-spacing: 1.5px;
+    font-size: 9px;
+    letter-spacing: 1px;
     margin-bottom: 0;
   }
 
   .filterHeader {
-    margin-bottom: 14px;
-    padding-bottom: 10px;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
   }
 
   .sortSelect,
   .input {
-    font-size: 12px;
-    padding: 10px 11px;
-    border-radius: 8px;
+    font-size: 16px; /* Retain 16px for iOS zoom prevention */
+    height: 32px;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
 
-  .slider::-webkit-slider-thumb,
-  .slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-width: 2px;
+  .sortSelect {
+    padding: 0 20px 0 6px;
+    background-position: right 6px center;
+    background-size: 12px;
+    width: 100%;
   }
 
   .sliderContainer {
-    height: 18px;
-    margin-bottom: 16px;
+    display: none !important; /* Hide range slider on mobile */
   }
 
   .priceInputs {
-    gap: 10px;
+    gap: 4px;
   }
 
   .currency {
-    font-size: 12px;
-    left: 10px;
+    font-size: 11px;
+    left: 6px;
   }
 
   .input {
-    padding-left: 24px;
+    padding: 0 4px 0 16px;
+    text-align: center;
   }
 
   .collapseBtn {
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
+    display: none !important; /* Hide collapse buttons on mobile */
   }
 }
+

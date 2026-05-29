@@ -407,6 +407,12 @@
   .form {
     padding: 30px;
   }
+
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    font-size: 16px;
+  }
 }
 
 /* ═══════════════════════════════════════════

@@ -110,10 +110,7 @@ export default function ExplorePage() {
                     />
                   </div>
 
-                  {/* Number marker */}
-                  <span className={styles.cardIndex}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+
                 </div>
               </div>
 

@@ -522,8 +522,8 @@
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 30px;
-  margin: 50px 0 0 0;
-  padding: 0 1% 0 20px;
+  margin: 50px 0 0 -80px;
+  padding: 0;
 }
 
 .filterSidebar {
@@ -785,7 +785,7 @@
   }
 
   .headerArea {
-    padding: 35px 4% 25px;
+    padding: 85px 4% 25px;
   }
 
   .eyebrowTag {
@@ -852,6 +852,7 @@
   .contentWrapper {
     grid-template-columns: 1fr;
     gap: 20px;
+    margin: 20px 0 0;
     padding: 0 4%;
   }
 
@@ -896,7 +897,7 @@
   }
 
   .headerArea {
-    padding: 45px 4% 30px;
+    padding: 85px 4% 30px;
   }
 
   .headerArea::before {
@@ -975,6 +976,7 @@
   .contentWrapper {
     grid-template-columns: 1fr;
     gap: 16px;
+    margin: 20px 0 0;
     padding: 0 4%;
   }
 
@@ -991,29 +993,59 @@
     margin-bottom: 20px;
   }
 
+  .filterSection {
+    padding: 15px 0 10px;
+    gap: 4px;
+  }
+
+  .filterContainer {
+    margin: 0;
+    flex: 1;
+  }
+
+  .filterPills {
+    gap: 0;
+    padding: 0;
+    width: 100%;
+  }
+
   .filterPillsNormal {
-    gap: 16px;
+    gap: 0;
   }
 
   .filterPill {
-    min-width: 96px;
-    width: 96px;
-    gap: 8px;
+    width: 50%;
+    min-width: 50%;
+    flex-shrink: 0;
+    gap: 10px;
   }
 
   .filterIcon {
-    width: 88px;
-    height: 88px;
+    width: 145px;
+    height: 145px;
     border-width: 2px;
   }
 
   .filterPill span {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.5px;
+    max-width: 100%;
+    line-height: 1.3;
   }
 
   .filterNavBtn {
-    width: 36px;
-    height: 36px;
+    display: flex !important;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
+  }
+
+  .filterNavBtn svg {
+    width: 12px !important;
+    height: 12px !important;
   }
 }
+
