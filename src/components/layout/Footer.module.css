@@ -59,6 +59,10 @@
   transform: scale(1.15);
 }
 
+.socialIconsMobileOnly {
+  display: none;
+}
+
 /* Newsletter */
 .newsletterDesc {
   font-size: 13px;
@@ -465,37 +469,102 @@
   }
 
   .grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+
+  .grid > .col:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  .grid > .col:nth-child(2) {
+    grid-column: span 1;
+  }
+
+  .grid > .col:nth-child(3) {
+    grid-column: span 1;
+  }
+
+  /* Make the newsletter column a flex column so we can reorder children */
+  .grid > .col:nth-child(4) {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grid > .col:nth-child(4) h4 {
+    order: 1;
+  }
+
+  .grid > .col:nth-child(4) .newsletterDesc {
+    order: 2;
+  }
+
+  .newsletterInput {
+    order: 3;
+  }
+
+  .copyrightText {
+    order: 4;
+    text-align: right;
+    margin-top: 10px;
   }
 
   .col h4 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
-  .footerChar {
-    width: 120px;
+  /* Hide original social icons in About Us column on mobile */
+  .col .socialIcons:not(.socialIconsMobileOnly) {
+    display: none !important;
   }
 
-  .footerCharLarge {
-    width: 150px;
+  /* Show duplicated social icons in Newsletter column on mobile */
+  .socialIconsMobileOnly {
+    display: flex !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    gap: 15px;
+    order: 5;
   }
 
-  .footerCharCenter {
-    width: 150px;
+  .footerBackgroundWrapper {
+    height: 65%;
+    background-size: 4vw 4vw;
   }
 
   .characterProcession {
-    margin-top: 20px;
-    padding: 0 2%;
+    margin-top: 15px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .footerCharLarge {
+    width: 35vw;
+    flex-shrink: 0;
+    transform: translateY(1.4vw);
+  }
+
+  .centerGroup {
+    margin: 0 -5vw;
+    flex-shrink: 0;
+    z-index: 2;
+  }
+
+  .footerCharCenter {
+    width: 35vw;
+    flex-shrink: 0;
+  }
+
+  .footerCharRight {
+    width: 40vw;
+    flex-shrink: 0;
+    transform: translateY(5.4vw);
+    align-self: flex-end;
   }
 
   .tribute {
     font-size: 16px;
     letter-spacing: 1px;
-  }
-
-  .copyrightText {
-    text-align: center;
   }
 }

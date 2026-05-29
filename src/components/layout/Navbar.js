@@ -190,6 +190,7 @@ const navItems = [
       {
         heading: "",
         links: [
+          { label: "Make Your Own Combo", href: "/make-combo" },
           { label: "Back To School Label Set", href: "/category/combos?subcategory=back-to-school-label-set" },
           { label: "Gift Stationery Combo - Kids", href: "/category/combos?subcategory=gift-stationery-combo-kids" },
           { label: "Gift Stationery Combo - Adults", href: "/category/combos?subcategory=gift-stationery-combo-adults" },

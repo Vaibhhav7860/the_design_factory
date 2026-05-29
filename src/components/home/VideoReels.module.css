@@ -233,29 +233,113 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .carouselContainer {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
-  }
+/* ── Slider Wrapper (arrows + container) ── */
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Slider Arrows — hidden on desktop ── */
+.sliderArrow {
+  display: none;
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 12px 4%;
+    padding: 12px 0;
   }
   .heading {
     font-size: 26px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    padding: 0 4%;
   }
+
+  .sliderWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 2px;
+  }
+
+  .sliderArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 5;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+
+  .sliderArrow:active {
+    transform: scale(0.92);
+  }
+
   .carouselContainer {
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     gap: 10px;
+    padding: 4px 6px;
+    flex: 1;
   }
+  .carouselContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: 0 0 calc((100% - 10px) / 2);
+    min-width: calc((100% - 10px) / 2);
+    scroll-snap-align: start;
+  }
+
   .productTitle {
-    font-size: 12px;
+    font-size: 11px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.2;
+  }
+  .priceBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
   }
   .price {
-    font-size: 13px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .mrp {
+    font-size: 9px;
+    white-space: nowrap;
+    margin: 0;
+  }
+  .discount {
+    font-size: 9px;
+    white-space: nowrap;
+    margin: 0;
+  }
+  .playIconOverlay {
+    width: 36px;
+    height: 36px;
+  }
+  .productInfo {
+    padding: 8px;
+    gap: 4px;
   }
 }
+

@@ -700,12 +700,22 @@
     padding: 40px 5% 20px;
   }
 
+  .founderText {
+    padding-right: 0;
+    text-align: center;
+  }
+
   .quoteWrapper {
-    padding: 20px 0 20px 20px;
+    padding: 20px;
+    border-left: none;
+    border-top: 2px solid var(--color-peach);
+    border-bottom: 2px solid var(--color-peach);
+    margin-bottom: 30px;
   }
 
   .founderQuote {
     font-size: 20px;
+    text-align: center;
   }
   
   /* Timeline - Stack vertically on mobile */

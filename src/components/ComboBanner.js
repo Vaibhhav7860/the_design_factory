@@ -4,30 +4,30 @@ import styles from "./ComboBanner.module.css";
 
 export default function ComboBanner() {
   return (
-    <section className={styles.banner}>
-      <div className={styles.bannerContainer}>
-        {/* Left - Image */}
-        <div className={styles.imageSection}>
-          <div className={styles.imageWrapper}>
-            <Image
-              src="/images/bulk_order_banner.png"
-              alt="Make Your Own Combo"
-              width={600}
-              height={400}
-              className={styles.bannerImage}
-            />
-          </div>
-        </div>
-
-        {/* Right - Text & Button */}
-        <div className={styles.textSection}>
-          <h2 className={styles.title}>Make Your Own Combo</h2>
-          <p className={styles.description}>
-            Choose any 3 products and get 10% off • Choose 5+ products and get 20% off
+    <section className={styles.section}>
+      <div className={styles.wrapper}>
+        <div className={styles.textCol}>
+          <h2 className={styles.heading}>
+            Mix, Match &amp; <br />
+            <span>Create</span> Your Combo
+          </h2>
+          <p className={styles.desc}>
+            Why settle for one when you can have it all? Pick your favourite products,
+            mix and match them into a perfect combo, and enjoy exclusive discounts.
+            Choose any 3 products and get 10% off — or go big with 5+ products and save 20%!
           </p>
           <Link href="/make-combo" className={styles.ctaButton}>
             Create Your Combo
           </Link>
+        </div>
+        <div className={styles.imageCol}>
+          <Image
+            src="/images/make_your_combo.png"
+            alt="Make Your Own Combo"
+            width={600}
+            height={500}
+            className={styles.image}
+          />
         </div>
       </div>
     </section>

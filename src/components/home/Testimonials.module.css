@@ -275,17 +275,29 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .cardShell {
-    flex: 0 0 calc(50% - 10px);
-  }
-}
-
 @media (max-width: 768px) {
-  .cardShell {
-    flex: 0 0 100%;
+  .slider {
+    margin: 0 15px;
+    padding: 0 0 20px;
   }
-  .navigation {
-    display: none; /* Hide arrows on mobile, users can swipe */
+  .cardShell {
+    flex: 0 0 calc(100% - 10px);
+    min-width: 0;
+    padding: 6px;
+  }
+  .cardCore {
+    padding: 20px 20px;
+  }
+  .text {
+    font-size: 13.5px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .navButton {
+    display: none;
+  }
+  .mainHeading {
+    font-size: 32px;
+    margin-bottom: 15px;
   }
 }

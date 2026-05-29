@@ -92,6 +92,7 @@ export default function HeroSection() {
                 ref={index === currentIndex ? videoRef : null}
                 src={slide.src}
                 muted
+                loop
                 playsInline
                 className={styles.slideMedia}
               />

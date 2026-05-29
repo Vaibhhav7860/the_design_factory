@@ -4,6 +4,7 @@ import Banner from "@/components/home/Banner";
 import Testimonials from "@/components/home/Testimonials";
 import PopularPicks from "@/components/home/PopularPicks";
 import AboutSection from "@/components/home/AboutSection";
+import ComboBanner from "@/components/ComboBanner";
 import VideoReels from "@/components/home/VideoReels";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import CommunityGallery from "@/components/home/CommunityGallery";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <PopularPicks />
       <WhyChooseUs />
       <AboutSection />
+      <ComboBanner />
       <VideoReels />
       <Testimonials />
       <BulkOrders />

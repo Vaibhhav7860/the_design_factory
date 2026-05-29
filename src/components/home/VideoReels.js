@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styles from "./VideoReels.module.css";
 const PlayIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -60,46 +60,83 @@ const reelVideos = [
 export default function VideoReels() {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const sliderRef = useRef(null);
 
   const openModal = (index) => {
     setActiveVideoIndex(index);
     setModalOpen(true);
   };
 
+  const scrollSlider = (direction) => {
+    if (sliderRef.current) {
+      const container = sliderRef.current;
+      // Scroll by roughly 2 card widths
+      const scrollAmount = container.clientWidth * 0.85;
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <>
       <section className={styles.section}>
         <h2 className={styles.heading}>Trending</h2>
-        <div className={styles.carouselContainer}>
-          {reelVideos.map((video, index) => (
-            <div 
-              key={index} 
-              className={styles.card}
-              onClick={() => openModal(index)}
-            >
-              <div className={styles.videoWrapper}>
-                <video
-                  src={video.src}
-                  className={styles.videoPreview}
-                  loop
-                  muted
-                  playsInline
-                  autoPlay
-                />
-                <div className={styles.playIconOverlay}>
-                  <PlayIcon />
+
+        {/* Slider wrapper with arrows — arrows visible on mobile only */}
+        <div className={styles.sliderWrapper}>
+          <button
+            className={`${styles.sliderArrow} ${styles.sliderArrowLeft}`}
+            onClick={() => scrollSlider("left")}
+            aria-label="Scroll left"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" strokeWidth="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+
+          <div className={styles.carouselContainer} ref={sliderRef}>
+            {reelVideos.map((video, index) => (
+              <div 
+                key={index} 
+                className={styles.card}
+                onClick={() => openModal(index)}
+              >
+                <div className={styles.videoWrapper}>
+                  <video
+                    src={video.src}
+                    className={styles.videoPreview}
+                    loop
+                    muted
+                    playsInline
+                    autoPlay
+                  />
+                  <div className={styles.playIconOverlay}>
+                    <PlayIcon />
+                  </div>
+                </div>
+                <div className={styles.productInfo}>
+                  <h4 className={styles.productTitle}>{video.title}</h4>
+                  <div className={styles.priceBlock}>
+                    <span className={styles.price}>₹ {video.price}</span>
+                    <span className={styles.mrp}>₹ {video.mrp}</span>
+                    <span className={styles.discount}>{video.discount}</span>
+                  </div>
                 </div>
               </div>
-              <div className={styles.productInfo}>
-                <h4 className={styles.productTitle}>{video.title}</h4>
-                <div className={styles.priceBlock}>
-                  <span className={styles.price}>₹ {video.price}</span>
-                  <span className={styles.mrp}>₹ {video.mrp}</span>
-                  <span className={styles.discount}>{video.discount}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <button
+            className={`${styles.sliderArrow} ${styles.sliderArrowRight}`}
+            onClick={() => scrollSlider("right")}
+            aria-label="Scroll right"
+          >
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
       </section>
 

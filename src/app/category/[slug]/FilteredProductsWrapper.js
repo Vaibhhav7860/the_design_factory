@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import ProductCard from "@/components/product/ProductCard";
 import styles from "./category.module.css";
 import filterStyles from "./filterbar.module.css";
@@ -9,6 +9,11 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
   const [sortBy, setSortBy] = useState("newest");
   const [priceOpen, setPriceOpen] = useState(true);
   const [sortOpen, setSortOpen] = useState(true);
+
+  // Sync state when maxPrice prop changes
+  useEffect(() => {
+    setPriceRange([0, maxPrice]);
+  }, [maxPrice]);
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {

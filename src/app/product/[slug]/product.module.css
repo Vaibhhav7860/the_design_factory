@@ -821,6 +821,14 @@
 }
 
 /* ── WhatsApp Assistance Button ── */
+.desktopText {
+  display: inline;
+}
+
+.mobileText {
+  display: none;
+}
+
 .deliveryInline {
   position: relative;
   z-index: 1;
@@ -1242,6 +1250,26 @@
   .breadcrumb {
     margin-bottom: 24px;
   }
+
+  .desktopText {
+    display: none;
+  }
+
+  .mobileText {
+    display: inline;
+  }
+
+  .deliveryInline {
+    font-size: 11px;
+    padding: 8px 16px;
+    align-self: center;
+    margin: 14px auto 0;
+  }
+
+  .deliveryInline svg {
+    width: 14px;
+    height: 14px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1252,7 +1280,7 @@
   .formInput,
   .formSelect {
     padding: 12px 14px;
-    font-size: 13px;
+    font-size: 16px;
   }
 
   .fontPreviewText {

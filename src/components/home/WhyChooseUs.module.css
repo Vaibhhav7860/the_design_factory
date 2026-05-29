@@ -118,4 +118,16 @@
   .desc {
     font-size: 13px;
   }
+  .imageWrapper {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .valuesImage {
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
 }
