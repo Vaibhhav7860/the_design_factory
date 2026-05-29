@@ -99,28 +99,37 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 20px 4%;
+    padding: 30px 4%;
   }
   .header {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
   .header h2 {
-    font-size: 14px;
-    letter-spacing: 2px;
+    font-size: 16px;
+    letter-spacing: 2.5px;
   }
   .marqueeItem {
-    min-width: 140px;
-    width: 35vw;
+    min-width: 240px;
+    width: 60vw;
+    padding: 0 8px;
   }
 }
 
-/* iPhone 16 Pro Max */
+/* iPhone 16 Pro Max and smaller */
 @media (max-width: 430px) {
   .section {
-    padding: 16px 4%;
+    padding: 25px 4%;
+  }
+  .header {
+    margin-bottom: 18px;
+  }
+  .header h2 {
+    font-size: 15px;
+    letter-spacing: 2px;
   }
   .marqueeItem {
-    min-width: 130px;
-    width: 33vw;
+    min-width: 220px;
+    width: 65vw;
+    padding: 0 8px;
   }
 }
