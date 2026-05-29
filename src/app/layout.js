@@ -2,6 +2,7 @@ import { Cormorant_Garamond, Montserrat, Birthstone_Bounce, Satisfy } from "next
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/context/CartContext";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -75,9 +76,9 @@ export default function RootLayout({ children }) {
     >
       <body className={montserrat.className}>
         <CartProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
         </CartProvider>
       </body>
     </html>

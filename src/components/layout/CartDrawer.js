@@ -70,8 +70,8 @@ export default function CartDrawer({ open, onClose }) {
                   <span className="price-current">{formatPrice(cartTotal)}</span>
                 </div>
               )}
-              <Link href="/cart" onClick={onClose} className={styles.checkoutBtn}>
-                View Cart & Checkout
+              <Link href="/checkout" onClick={onClose} className={styles.checkoutBtn}>
+                Proceed to Checkout
               </Link>
             </div>
           </>

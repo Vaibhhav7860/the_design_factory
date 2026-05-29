@@ -1,0 +1,103 @@
+.section {
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.heading {
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.placeholder {
+  padding: 20px;
+  background: #F8F8F8;
+  border: 1px solid #E0E0E0;
+  border-radius: 4px;
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  background: #F8F8F8;
+  border: 2px solid #E0E0E0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option:hover {
+  border-color: var(--color-peach);
+  background: var(--color-white);
+}
+
+.option:has(input:checked) {
+  border-color: var(--color-peach);
+  background: var(--color-white);
+  box-shadow: 0 2px 8px rgba(251, 201, 188, 0.25);
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--color-peach);
+}
+
+.optionContent {
+  flex: 1;
+}
+
+.optionName {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.optionDuration {
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  color: #666;
+}
+
+.optionPrice {
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Responsive */
+@media (min-width: 2560px) {
+  .heading {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  
+  .optionName {
+    font-size: 15px;
+  }
+  
+  .optionPrice {
+    font-size: 15px;
+  }
+}
