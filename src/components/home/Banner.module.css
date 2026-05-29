@@ -59,12 +59,19 @@
 @media (max-width: 768px) {
   .section {
     padding: 0 4%;
-    margin: 15px 0 0;
+    margin: 10px 0 0;
   }
   .image {
     width: 100%;
     aspect-ratio: 2.5 / 1;
     object-fit: cover;
     object-position: center;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .section {
+    margin: 8px 0 0;
   }
 }

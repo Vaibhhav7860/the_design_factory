@@ -540,7 +540,7 @@
   }
 
   .footerCharLarge {
-    width: 35vw;
+    width: 45vw;
     flex-shrink: 0;
     transform: translateY(1.4vw);
   }
@@ -552,19 +552,58 @@
   }
 
   .footerCharCenter {
-    width: 35vw;
+    width: 45vw;
     flex-shrink: 0;
   }
 
   .footerCharRight {
-    width: 40vw;
+    width: 45vw;
     flex-shrink: 0;
-    transform: translateY(5.4vw);
+    transform: translateY(1.4vw);
     align-self: flex-end;
   }
 
   .tribute {
     font-size: 16px;
     letter-spacing: 1px;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .footer {
+    padding: 16px 4% 0;
+  }
+
+  .grid {
+    gap: 30px 16px;
+  }
+
+  .col h4 {
+    margin-bottom: 12px;
+    font-size: 11px;
+  }
+
+  .col p {
+    font-size: 12px;
+  }
+
+  .col a {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .footerCharLarge {
+    width: 42vw;
+    transform: translateY(1.2vw);
+  }
+
+  .footerCharCenter {
+    width: 42vw;
+  }
+
+  .footerCharRight {
+    width: 42vw;
+    transform: translateY(1.2vw);
   }
 }

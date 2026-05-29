@@ -341,7 +341,7 @@
 
 @media (max-width: 900px) {
   .page {
-    padding: calc(var(--nav-height) + 50px) 5% 80px;
+    padding: calc(var(--nav-height, 60px) + 70px) 5% 80px;
   }
 
   .header {
@@ -367,7 +367,20 @@
 
 @media (max-width: 600px) {
   .page {
-    padding: calc(var(--nav-height) + 30px) 5% 60px;
+    padding: calc(var(--nav-height, 60px) + 40px) 4% 60px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+  }
+
+  .title {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    margin: 0 0 16px;
+  }
+
+  .subtitle {
+    font-size: 13px;
   }
 
   .grid {
@@ -395,3 +408,28 @@
     margin-top: 60px;
   }
 }
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .page {
+    padding: calc(var(--nav-height, 60px) + 30px) 4% 50px;
+  }
+
+  .header {
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    margin: 0 0 12px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .headerRule {
+    margin: 24px auto 0;
+  }
+}
+

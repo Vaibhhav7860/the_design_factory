@@ -384,20 +384,58 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 70px 5% 60px;
+    padding: 50px 5% 40px;
   }
 
   .heroTitle {
     font-size: 32px;
     letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+
+  .heroSubtitle {
+    font-size: 14px;
+    margin: 0 auto 24px;
+  }
+
+  .sectionTitle {
+    font-size: 22px;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+  }
+
+  .benefits {
+    padding: 30px 5%;
   }
 
   .benefitsGrid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .benefitCard {
+    padding: 28px 24px;
+  }
+
+  .process {
+    padding: 30px 5% 30px;
   }
 
   .processSteps {
     grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .stepCard {
+    padding: 24px 16px;
+  }
+
+  .categories {
+    padding: 30px 5%;
+  }
+
+  .enquiry {
+    padding: 30px 5%;
   }
 
   .formRow {
@@ -405,13 +443,80 @@
   }
 
   .form {
-    padding: 30px;
+    padding: 24px;
   }
 
   .formGroup input,
   .formGroup select,
   .formGroup textarea {
     font-size: 16px;
+  }
+
+  .gallery {
+    padding: 30px 5% 40px;
+  }
+
+  .gallerySubtitle {
+    margin-bottom: 30px;
+    font-size: 13px;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .hero {
+    padding: 40px 4% 30px;
+  }
+
+  .heroTitle {
+    font-size: 28px;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+
+  .heroLabel {
+    font-size: 10px;
+    margin-bottom: 14px;
+  }
+
+  .heroSubtitle {
+    font-size: 13px;
+    margin: 0 auto 20px;
+  }
+
+  .heroCta {
+    padding: 14px 40px;
+    font-size: 10px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .benefits {
+    padding: 24px 4%;
+  }
+
+  .process {
+    padding: 24px 4%;
+  }
+
+  .categories {
+    padding: 24px 4%;
+  }
+
+  .enquiry {
+    padding: 24px 4%;
+  }
+
+  .gallery {
+    padding: 24px 4% 30px;
+  }
+
+  .form {
+    padding: 20px;
   }
 }
 
@@ -590,7 +695,7 @@
 @media (max-width: 480px) {
   .masonryGrid {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(9, 150px);
+    grid-template-rows: repeat(7, 250px);
     height: auto;
   }
 
@@ -599,11 +704,10 @@
   .leftSmall3,
   .middleTall,
   .middleMedium1,
-  .middleMedium2,
   .rightTall,
-  .rightSmall1,
-  .rightSmall2 {
+  .rightSmall1 {
     grid-column: 1;
     grid-row: auto;
   }
 }
+

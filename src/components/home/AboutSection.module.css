@@ -170,9 +170,17 @@
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 20px 4% 30px;
+  }
+
   .wrapper {
     flex-direction: column;
-    gap: 40px;
+    gap: 15px;
+  }
+
+  .imageCol {
+    padding: 10px;
   }
 
   .textCol {
@@ -183,15 +191,43 @@
   .heading {
     font-size: 26px;
     text-align: center;
+    margin-bottom: 12px;
   }
   
   .desc {
     font-size: 14px;
     max-width: 100%;
     text-align: center;
+    margin-bottom: 20px;
   }
 
   .ctaButton {
     align-self: center;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .section {
+    padding: 16px 4% 24px;
+  }
+
+  .wrapper {
+    gap: 12px;
+  }
+
+  .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .desc {
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .ctaButton {
+    padding: 14px 35px;
+    font-size: 11px;
   }
 }
