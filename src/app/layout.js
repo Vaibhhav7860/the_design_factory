@@ -1,8 +1,4 @@
 import { Cormorant_Garamond, Montserrat, Birthstone_Bounce, Satisfy } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import { CartProvider } from "@/context/CartContext";
-import ConditionalLayout from "@/components/layout/ConditionalLayout";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -68,19 +64,20 @@ export const viewport = {
   themeColor: "#FAF9F6",
 };
 
+/**
+ * Root layout: HTML shell, fonts, metadata only.
+ *
+ * Storefront chrome (Navbar / Footer / CartProvider) lives inside
+ * `(storefront)/layout.js` so it doesn't leak into the admin or any
+ * future route group. The admin's own chrome lives in `admin/layout.js`.
+ */
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       className={`${cormorant.variable} ${montserrat.variable} ${birthstone.variable} ${satisfy.variable}`}
     >
-      <body className={montserrat.className}>
-        <CartProvider>
-          <ConditionalLayout>
-            {children}
-          </ConditionalLayout>
-        </CartProvider>
-      </body>
+      <body className={montserrat.className}>{children}</body>
     </html>
   );
 }

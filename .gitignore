@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# admin uploads — keep folder, exclude contents
+/public/uploads/*
+!/public/uploads/.gitkeep
+.agent
+.agents
+.kiro

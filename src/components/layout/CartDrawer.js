@@ -28,25 +28,30 @@ export default function CartDrawer({ open, onClose }) {
         ) : (
           <>
             <div className={styles.items}>
-              {cart.map((item) => (
-                <div key={item.slug} className={styles.item}>
-                  <div className={styles.itemImage}>
-                    <Image src={item.images?.[0] || item.image || ""} alt={item.title} width={72} height={72} style={{ objectFit: "contain" }} />
-                  </div>
-                  <div className={styles.itemInfo}>
-                    <h4 className={styles.itemTitle}>{item.title}</h4>
-                    <p className={styles.itemPrice}>{formatPrice(item.price)}</p>
-                    <div className={styles.qty}>
-                      <button onClick={() => updateQuantity(item.slug, item.quantity - 1)}>−</button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.slug, item.quantity + 1)}>+</button>
+              {cart.map((item) => {
+                const imgSrc = item.images?.[0] || item.image || "";
+                return (
+                  <div key={item.slug} className={styles.item}>
+                    <div className={styles.itemImage}>
+                      {imgSrc ? (
+                        <Image src={imgSrc} alt={item.title} width={72} height={72} style={{ objectFit: "contain" }} />
+                      ) : null}
                     </div>
+                    <div className={styles.itemInfo}>
+                      <h4 className={styles.itemTitle}>{item.title}</h4>
+                      <p className={styles.itemPrice}>{formatPrice(item.price)}</p>
+                      <div className={styles.qty}>
+                        <button onClick={() => updateQuantity(item.slug, item.quantity - 1)}>−</button>
+                        <span>{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.slug, item.quantity + 1)}>+</button>
+                      </div>
+                    </div>
+                    <button className={styles.removeBtn} onClick={() => removeFromCart(item.slug)} aria-label="Remove item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
                   </div>
-                  <button className={styles.removeBtn} onClick={() => removeFromCart(item.slug)} aria-label="Remove item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <div className={styles.footer}>
               {comboDiscount > 0 ? (

@@ -18,31 +18,36 @@ export default function OrderSummary({
     <div className={styles.summary}>
       {/* Product List */}
       <div className={styles.products}>
-        {cart.map((item) => (
-          <div key={item.slug} className={styles.product}>
-            <div className={styles.productImage}>
-              <Image
-                src={item.images?.[0] || item.image || "/images/products/placeholder.png"}
-                alt={item.title}
-                width={64}
-                height={64}
-                style={{ objectFit: "contain" }}
-              />
-              {item.quantity > 1 && (
-                <span className={styles.quantity}>{item.quantity}</span>
-              )}
+        {cart.map((item) => {
+          const imgSrc = item.images?.[0] || item.image || "";
+          return (
+            <div key={item.slug} className={styles.product}>
+              <div className={styles.productImage}>
+                {imgSrc ? (
+                  <Image
+                    src={imgSrc}
+                    alt={item.title}
+                    width={64}
+                    height={64}
+                    style={{ objectFit: "contain" }}
+                  />
+                ) : null}
+                {item.quantity > 1 && (
+                  <span className={styles.quantity}>{item.quantity}</span>
+                )}
+              </div>
+              <div className={styles.productInfo}>
+                <h4 className={styles.productTitle}>{item.title}</h4>
+                {item.isComboItem && (
+                  <span className={styles.comboBadge}>Combo Item</span>
+                )}
+              </div>
+              <div className={styles.productPrice}>
+                {formatPrice(item.price * item.quantity)}
+              </div>
             </div>
-            <div className={styles.productInfo}>
-              <h4 className={styles.productTitle}>{item.title}</h4>
-              {item.isComboItem && (
-                <span className={styles.comboBadge}>Combo Item</span>
-              )}
-            </div>
-            <div className={styles.productPrice}>
-              {formatPrice(item.price * item.quantity)}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Discount Code */}

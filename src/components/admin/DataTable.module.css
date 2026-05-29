@@ -1,0 +1,185 @@
+.tableWrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table thead th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--admin-ink-soft);
+  padding: 12px 16px;
+  background: var(--admin-surface-elevated);
+  border-bottom: 1px solid var(--admin-border);
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-ink);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background: var(--admin-surface-elevated);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.empty {
+  padding: 56px 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--admin-ink-muted);
+}
+
+/* ── Status pill ── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.pill-neutral {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--admin-ink);
+}
+
+.pill-positive {
+  background: rgba(46, 125, 50, 0.1);
+  color: var(--admin-success);
+}
+
+.pill-warning {
+  background: rgba(184, 90, 62, 0.12);
+  color: var(--admin-warning);
+}
+
+.pill-danger {
+  background: rgba(192, 57, 43, 0.12);
+  color: var(--admin-danger);
+}
+
+.pill-accent {
+  background: var(--admin-accent);
+  color: var(--admin-ink);
+}
+
+/* ── Mobile card fallback ── */
+@media (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+  .table tbody tr {
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    margin-bottom: 12px;
+    padding: 8px 12px;
+  }
+  .table tbody td {
+    border-bottom: none;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .table tbody td::before {
+    content: attr(data-label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--admin-ink-soft);
+  }
+  .table tbody td[data-label=""]::before {
+    content: none;
+  }
+}
+
+
+/* ── Clickable rows ── */
+/*
+ * The clickable row uses an absolutely-positioned <a> inside the FIRST cell
+ * that stretches across the whole row. This keeps DataTable a Server
+ * Component (no hooks needed) while still supporting middle-click, Cmd-click,
+ * "Copy link" and keyboard nav. We need the row to be position:relative
+ * so the absolute anchor anchors to it, and the rest of the cells need
+ * z-index above the anchor so links/buttons inside cells still work.
+ */
+.tableClickable tbody tr {
+  position: relative;
+}
+
+.rowClickable {
+  cursor: pointer;
+}
+
+.rowAnchorCell {
+  position: static;
+}
+
+.rowAnchor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  text-decoration: none;
+  /* Keeps screen readers happy without showing visible text */
+  font-size: 0;
+  color: transparent;
+}
+
+.rowAnchor:focus-visible {
+  outline: 2px solid var(--admin-accent-deep);
+  outline-offset: -2px;
+  border-radius: 2px;
+}
+
+.tableClickable tbody tr:hover {
+  background: var(--admin-surface-elevated);
+}
+
+/* Anything truly interactive inside the cells must sit above the anchor */
+.tableClickable tbody tr a:not(.rowAnchor),
+.tableClickable tbody tr button,
+.tableClickable tbody tr input,
+.tableClickable tbody tr select,
+.tableClickable tbody tr textarea,
+.tableClickable tbody tr label {
+  position: relative;
+  z-index: 2;
+}

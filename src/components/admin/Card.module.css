@@ -1,0 +1,132 @@
+.card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-shadow-sm);
+}
+
+.padded {
+  padding: 22px 24px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-family: var(--admin-font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--admin-ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cardSubtitle {
+  font-size: 13px;
+  color: var(--admin-ink-muted);
+  margin: 4px 0 0;
+  line-height: 1.5;
+}
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.cardSection {
+  border-top: 1px solid var(--admin-border);
+  margin: 18px -24px 0;
+  padding: 18px 24px 0;
+}
+
+/* ── Stat tile ── */
+.statTile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--admin-ink-soft);
+}
+
+.statValue {
+  font-family: var(--admin-font-display);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--admin-ink);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.statChange {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.tone-positive {
+  color: var(--admin-success);
+}
+
+.tone-negative {
+  color: var(--admin-danger);
+}
+
+.tone-neutral {
+  color: var(--admin-ink-muted);
+}
+
+/* ── Empty state ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 56px 24px;
+}
+
+.emptyIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  color: var(--admin-ink-soft);
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  font-family: var(--admin-font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--admin-ink);
+  margin: 0;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: var(--admin-ink-muted);
+  margin: 8px 0 0;
+  max-width: 36ch;
+  line-height: 1.6;
+}
+
+.emptyAction {
+  margin-top: 18px;
+}

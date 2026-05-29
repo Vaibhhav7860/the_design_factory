@@ -1,0 +1,138 @@
+.page {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--admin-bg);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 72px;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.brand {
+  margin-bottom: 36px;
+}
+
+.brandLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--admin-ink-soft);
+  margin-bottom: 10px;
+}
+
+.brandTitle {
+  font-family: var(--admin-font-display);
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--admin-ink);
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+
+.brandTitle em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--admin-ink-muted);
+}
+
+.brandTagline {
+  font-size: 14px;
+  color: var(--admin-ink-muted);
+  margin: 0;
+  line-height: 1.6;
+  max-width: 38ch;
+}
+
+.foot {
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--admin-ink-soft);
+  border-top: 1px solid var(--admin-border);
+  padding-top: 20px;
+}
+
+/* ── Aside ── */
+.aside {
+  position: relative;
+  background:
+    linear-gradient(135deg, #FCD58922, #FBC9BC22, #D7E4E422),
+    var(--admin-surface);
+  border-left: 1px solid var(--admin-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+  overflow: hidden;
+}
+
+.aside::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 25% 30%, rgba(252, 213, 137, 0.45), transparent 45%),
+    radial-gradient(circle at 75% 70%, rgba(251, 201, 188, 0.35), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(215, 228, 228, 0.5), transparent 50%);
+  filter: blur(60px);
+  opacity: 0.85;
+}
+
+.asideInner {
+  position: relative;
+  z-index: 1;
+  max-width: 420px;
+}
+
+.swatchRow {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.asideHeading {
+  font-family: var(--admin-font-display);
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--admin-ink);
+  margin: 0 0 12px;
+  font-style: italic;
+}
+
+.asideBody {
+  font-size: 14px;
+  color: var(--admin-ink-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .aside {
+    display: none;
+  }
+  .panel {
+    padding: 48px 28px;
+  }
+}
