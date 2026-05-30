@@ -3,9 +3,29 @@ const nextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
+      // Legacy Shopify CDN URLs — kept until every product is migrated.
       {
         protocol: "https",
         hostname: "cdn.shopify.com",
+        pathname: "/**",
+      },
+      // Cloudflare R2 direct (only used as a fallback if MEDIA_CDN_URL is unset)
+      {
+        protocol: "https",
+        hostname: "*.r2.cloudflarestorage.com",
+        pathname: "/**",
+      },
+      // Custom CDN domain in front of the R2 bucket. We can't read
+      // process.env at module evaluation reliably across both dev/build,
+      // so we list both the apex and the www subdomain explicitly.
+      {
+        protocol: "https",
+        hostname: "thedesignfactoryshop.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.thedesignfactoryshop.com",
         pathname: "/**",
       },
     ],

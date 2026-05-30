@@ -4,6 +4,22 @@ import { connectToDatabase } from "../db/mongoose.js";
 import { Product } from "../db/models/Product.js";
 import { CATEGORY_SLUGS, TAG_COLORS } from "../data/categories-taxonomy.js";
 
+/**
+ * Returns true when an image URL is hosted somewhere we don't control —
+ * i.e. it's a leftover Shopify CDN URL from the imported catalog and we
+ * still need to re-host it. URLs on our own CDN (MEDIA_CDN_URL) or local
+ * `/uploads/` paths don't count.
+ */
+function isExternalAsset(url) {
+  if (typeof url !== "string") return false;
+  // Local-served paths from the dev fallback storage backend
+  if (url.startsWith("/uploads/")) return false;
+  if (!/^https?:\/\//i.test(url)) return false;
+  const cdn = process.env.MEDIA_CDN_URL;
+  if (cdn && url.startsWith(cdn.replace(/\/+$/, ""))) return false;
+  return true;
+}
+
 const TagInput = z.object({
   label: z.string().trim().min(1).max(40),
   color: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
@@ -168,7 +184,7 @@ export async function createProduct(input) {
     tags: parsed.tags,
     status: parsed.status,
     variants: [defaultVariant],
-    needsAssetMigration: parsed.images.some((u) => /^https?:\/\//.test(u)),
+    needsAssetMigration: parsed.images.some(isExternalAsset),
     seo: {
       title: parsed.title.slice(0, 70),
       description: (parsed.description || "").slice(0, 160),
@@ -222,9 +238,7 @@ export async function updateProduct(id, input) {
 
   if (parsed.images !== undefined) {
     doc.images = parsed.images;
-    doc.needsAssetMigration = parsed.images.some((u) =>
-      /^https?:\/\//.test(u)
-    );
+    doc.needsAssetMigration = parsed.images.some(isExternalAsset);
   }
 
   // Pricing — compute the final pair using whichever values are present

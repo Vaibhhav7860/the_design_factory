@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { adminRoute, requirePermission } from "@/lib/auth/permissions";
-import { saveFormDataImages } from "@/lib/storage";
+import { saveFormDataImages, folderFromTitle } from "@/lib/storage";
 import { createProduct } from "@/lib/services/products";
 
 export const runtime = "nodejs";
@@ -36,10 +36,15 @@ export const POST = adminRoute(async (request) => {
     return NextResponse.json({ error: "'payload' is not valid JSON" }, { status: 400 });
   }
 
-  // Persist uploaded images to disk (Cloudflare R2 will plug in here later)
+  // Persist uploaded images. Each product's images live in a folder
+  // named after the product title, so admins see one human-readable
+  // folder per product in the Cloudflare bucket UI.
+  const folderName = folderFromTitle(payload.title);
   let savedUploads = [];
   try {
-    savedUploads = await saveFormDataImages(formData, "images");
+    savedUploads = await saveFormDataImages(formData, "images", {
+      folder: `products/${folderName}`,
+    });
   } catch (err) {
     return NextResponse.json(
       { error: err.message || "Image upload failed" },
