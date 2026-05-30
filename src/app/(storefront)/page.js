@@ -10,6 +10,10 @@ import WhyChooseUs from "@/components/home/WhyChooseUs";
 import CommunityGallery from "@/components/home/CommunityGallery";
 import BulkOrders from "@/components/home/BulkOrders";
 
+// Render on demand. The homepage's BestSellers section reads from
+// MongoDB, and DB credentials aren't available at build time on Vercel.
+export const dynamic = "force-dynamic";
+
 export default function HomePage() {
   return (
     <>
