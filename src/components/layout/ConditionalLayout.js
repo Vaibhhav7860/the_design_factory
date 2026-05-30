@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
@@ -16,7 +17,9 @@ export default function ConditionalLayout({ children }) {
 
   return (
     <>
-      <ScrollToTop />
+      <Suspense fallback={null}>
+        <ScrollToTop />
+      </Suspense>
       <Navbar />
       <main>{children}</main>
       {!hideFooter && <Footer />}
