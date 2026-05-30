@@ -9,10 +9,14 @@
     "start": "next start",
     "lint": "eslint",
     "seed:admin": "node scripts/seed-admin.js",
-    "seed:demo": "node scripts/seed-demo-data.js"
+    "seed:demo": "node scripts/seed-demo-data.js",
+    "smoke:r2": "node scripts/smoke-r2.js",
+    "migrate:images": "node scripts/migrate-images-to-r2.js",
+    "migrate:tags": "node scripts/migrate-product-tags.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
+    "@aws-sdk/client-s3": "^3.1057.0",
     "bcryptjs": "^2.4.3",
     "mongodb": "^6.10.0",
     "mongoose": "^8.8.0",

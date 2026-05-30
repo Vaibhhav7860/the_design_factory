@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { adminRoute, requirePermission } from "@/lib/auth/permissions";
-import { saveFormDataImages } from "@/lib/storage";
+import {
+  saveFormDataImages,
+  folderFromTitle,
+  inferFolderFromImageUrls,
+} from "@/lib/storage";
 import {
   getProductById,
   updateProduct,
@@ -25,11 +29,6 @@ export const GET = adminRoute(async (_request, { params }) => {
 
 /**
  * PUT /api/admin/products/:id — update a product.
- *
- * Accepts the same multipart/form-data shape as POST, where `payload` is a
- * JSON blob and `images` are the *new* files to upload. The payload may also
- * include a `keepImages` array of CDN URLs to retain. The final `images`
- * array is `[...keepImages, ...newlyUploaded]` in that order.
  */
 export const PUT = adminRoute(async (request, { params }) => {
   await requirePermission("products.write");
@@ -60,10 +59,26 @@ export const PUT = adminRoute(async (request, { params }) => {
     );
   }
 
+  // Look up the existing product so we can pick a folder for any new
+  // image uploads. Order of preference:
+  //   1. Folder of the existing images (so renames don't split them)
+  //   2. The new title (when admin sent one in this update)
+  //   3. The current title on the document
+  const existing = await getProductById(id);
+  if (!existing) {
+    return NextResponse.json({ error: "Product not found" }, { status: 404 });
+  }
+
+  const inferredFolder = inferFolderFromImageUrls(existing.images);
+  const titleForFolder = payload.title || existing.title;
+  const folderPath = inferredFolder || `products/${folderFromTitle(titleForFolder)}`;
+
   // Persist any newly-uploaded images
   let savedUploads = [];
   try {
-    savedUploads = await saveFormDataImages(formData, "images");
+    savedUploads = await saveFormDataImages(formData, "images", {
+      folder: folderPath,
+    });
   } catch (err) {
     return NextResponse.json(
       { error: err.message || "Image upload failed" },

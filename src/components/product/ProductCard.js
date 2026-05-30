@@ -17,7 +17,13 @@ function hashStr(str = "") {
   return Math.abs(h);
 }
 
-function getProductTags(product) {
+/**
+ * Pick 2 deterministic tags for a product that has none stored on the
+ * document. Mirrors `scripts/migrate-product-tags.js` exactly so the
+ * fallback values match what the migration writes — no visual jump
+ * before/after a product is migrated.
+ */
+function deriveProductTags(product) {
   const seed = hashStr(product.slug || product.title || "");
   const count = 2;
 
@@ -26,7 +32,6 @@ function getProductTags(product) {
   for (let i = 0; i < count; i++) {
     const tagIdx = (seed + i * 7) % TAG_OPTIONS.length;
     let chosen = tagIdx;
-    // Avoid duplicates
     while (used.has(chosen)) {
       chosen = (chosen + 1) % TAG_OPTIONS.length;
     }
@@ -39,13 +44,31 @@ function getProductTags(product) {
   return tags;
 }
 
+/**
+ * Tags the card should render. Prefers the values stored on the
+ * product document (which is what the admin saved or the migration
+ * wrote). Falls back to the deterministic derivation only if the
+ * document has no tags at all.
+ */
+function resolveProductTags(product) {
+  if (Array.isArray(product.tags) && product.tags.length > 0) {
+    return product.tags
+      .filter((t) => t && t.label)
+      .map((t) => ({
+        label: t.label,
+        color: t.color || TAG_COLORS[0],
+      }));
+  }
+  return deriveProductTags(product);
+}
+
 export default function ProductCard({ product, disableLinks = false }) {
   const { addToCart } = useCart();
   const discount = calculateDiscount(product.originalPrice, product.price);
   // Use images[] if available, fall back to [image]
   const gallery = product.images?.length > 0 ? product.images : [product.image];
   const hasMultiple = gallery.length > 1;
-  const tags = getProductTags(product);
+  const tags = resolveProductTags(product);
 
   return (
     <div className={styles.card}>
