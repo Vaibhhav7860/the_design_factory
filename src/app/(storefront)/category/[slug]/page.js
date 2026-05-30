@@ -1,12 +1,17 @@
 import { categories, getCategoryBySlug } from "@/data/categories";
-import { getProductsByCategory, getProductsBySubcategory, products } from "@/data/products";
-import ProductCard from "@/components/product/ProductCard";
+import {
+  getProductsByCategory,
+  getProductsBySubcategory,
+} from "@/lib/services/storefront-products";
 import Link from "next/link";
 import Image from "next/image";
 import FilterSlider from "./FilterSlider";
 import FilteredProductsWrapper from "./FilteredProductsWrapper";
 import ComboBanner from "@/components/ComboBanner";
 import styles from "./category.module.css";
+
+// MongoDB-backed; re-fetch every request so admin edits show immediately.
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
@@ -25,108 +30,83 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Eyebrow text based on category
-function getEyebrowText(slug) {
-  const eyebrows = {
-    "labels": "PREMIUM PERSONALIZED",
-    "school-essentials": "BACK TO SCHOOL",
-    "gift-stationery": "HANDCRAFTED WITH LOVE",
-    "adults-corner": "SOPHISTICATED & ELEGANT",
-    "decor-dining": "ELEVATE YOUR SPACE",
-    "travel-essentials": "TRAVEL IN STYLE",
-    "organisers": "STAY ORGANIZED",
-    "bags": "CARRY YOUR STYLE",
-    "kids-accessories": "FUN & FUNCTIONAL",
-    "accessories-gifts": "UNIQUE & PERSONAL",
-    "combos": "VALUE-PACKED SETS",
-    "play-learn": "LEARN THROUGH PLAY",
-    "themes": "SHOP BY THEME",
-  };
-  return eyebrows[slug] || "EXPLORE OUR COLLECTION";
-}
-
 export default async function CategoryPage({ params, searchParams }) {
   const { slug } = await params;
   const subcategory = (await searchParams)?.subcategory;
   const category = getCategoryBySlug(slug);
-  
-  // If no subcategory is selected and category has subcategories, show subcategory grid
-  const showSubcategories = !subcategory && category?.subcategories && category.subcategories.length > 0;
-  
-  // Get products based on whether subcategory is selected
-  let catProducts;
-  if (subcategory) {
-    catProducts = getProductsBySubcategory(slug, subcategory);
-  } else {
-    catProducts = getProductsByCategory(slug);
-  }
-  
-  const displayProducts = catProducts.length > 0 ? catProducts : [];
-  
-  // Calculate min and max prices from all products in this category
-  let minPrice = 0; // Always start from 0
+
+  // Pick subcategory grid view OR product grid view
+  const showSubcategories =
+    !subcategory && category?.subcategories && category.subcategories.length > 0;
+
+  // ── Mongo-backed product lookup ──
+  // A product whose `categories` array contains <slug> is included.
+  // If subcategory is also active, it must additionally have it in
+  // `subcategories`. So a product belonging to both labels +
+  // school-essentials shows up under both /category/labels and
+  // /category/school-essentials.
+  const displayProducts = subcategory
+    ? await getProductsBySubcategory(slug, subcategory)
+    : await getProductsByCategory(slug);
+
+  // Calculate min and max prices for the slider
+  let minPrice = 0;
   let maxPrice = 100000;
   if (displayProducts.length > 0) {
-    const prices = displayProducts.map(p => p.price).filter(p => p);
-    maxPrice = Math.max(...prices); // Set to highest product price
+    const prices = displayProducts.map((p) => p.price).filter(Boolean);
+    if (prices.length) maxPrice = Math.max(...prices);
   }
 
-  // Subcategory-specific images
+  // Subcategory tile imagery
   const subcategoryImages = {
-    'rectangular-labels': '/images/categories/rectangular-labels.png',
-    'round-labels': '/images/categories/round-labels.png',
-    'mixed-shape-labels': '/images/categories/mixed-shape-labels.png',
-    'transparent-labels': '/images/categories/transparent-labels.png',
-    '3d-embossed-stickers': '/images/categories/3d-embossed-stickers.png',
-    'school-book-labels': '/images/categories/school-book-labels.png',
-    'iron-on-labels': '/images/categories/iron-on-labels.png',
+    "rectangular-labels": "/images/categories/rectangular-labels.png",
+    "round-labels": "/images/categories/round-labels.png",
+    "mixed-shape-labels": "/images/categories/mixed-shape-labels.png",
+    "transparent-labels": "/images/categories/transparent-labels.png",
+    "3d-embossed-stickers": "/images/categories/3d-embossed-stickers.png",
+    "school-book-labels": "/images/categories/school-book-labels.png",
+    "iron-on-labels": "/images/categories/iron-on-labels.png",
   };
-
   const fallbackImages = [
-    '/images/categories/labels.png',
-    '/images/categories/school.png',
-    '/images/categories/stationery.png',
-    '/images/categories/bags.png',
-    '/images/categories/organisers.png',
-    '/images/categories/kids_accessories.png',
+    "/images/categories/labels.png",
+    "/images/categories/school.png",
+    "/images/categories/stationery.png",
+    "/images/categories/bags.png",
+    "/images/categories/organisers.png",
+    "/images/categories/kids_accessories.png",
   ];
+  const getSubcategoryImage = (sub, index) =>
+    subcategoryImages[sub.slug] ||
+    fallbackImages[index % fallbackImages.length];
 
-  const getSubcategoryImage = (sub, index) => {
-    return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
-  };
-
-  // Get current subcategory details
-  const currentSubcategory = subcategory 
-    ? category?.subcategories?.find(sub => sub.slug === subcategory)
+  const currentSubcategory = subcategory
+    ? category?.subcategories?.find((sub) => sub.slug === subcategory)
     : null;
 
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
-      {/* Hero Header Area */}
       <div className={styles.headerArea}>
-        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2>{currentSubcategory?.title || category?.title || slug}</h2>
         </div>
-        {/* Subcategory Filter Pills — moved inside the header card to extend background */}
-        {!showSubcategories && category?.subcategories && category.subcategories.length > 0 && (
-          <FilterSlider 
-            subcategories={category.subcategories}
-            currentSlug={slug}
-            activeSubcategory={subcategory}
-          />
-        )}
+        {!showSubcategories &&
+          category?.subcategories &&
+          category.subcategories.length > 0 && (
+            <FilterSlider
+              subcategories={category.subcategories}
+              currentSlug={slug}
+              activeSubcategory={subcategory}
+            />
+          )}
       </div>
 
       <div className="container">
-
-        {/* Show Subcategory Cards if no subcategory is selected */}
         {showSubcategories ? (
           <>
             <div className={styles.subcategoryShowcase}>
               {category.subcategories.map((sub, index) => (
-                <Link 
-                  key={sub.slug} 
+                <Link
+                  key={sub.slug}
                   href={`/category/${slug}?subcategory=${sub.slug}`}
                   className={styles.showcaseCard}
                 >
@@ -140,10 +120,16 @@ export default async function CategoryPage({ params, searchParams }) {
                     />
                     <div className={styles.showcaseOverlay}>
                       <div className={styles.showcaseContent}>
-                        <h3 className={styles.showcaseTitle}>{sub.title.toUpperCase()}</h3>
-                        <button 
+                        <h3 className={styles.showcaseTitle}>
+                          {sub.title.toUpperCase()}
+                        </h3>
+                        <button
                           className={styles.showcaseButton}
-                          style={{ '--btn-bg': ['#FCD589', '#FBC9BC', '#d7e4e4'][index % 3] }}
+                          style={{
+                            "--btn-bg": ["#FCD589", "#FBC9BC", "#d7e4e4"][
+                              index % 3
+                            ],
+                          }}
                         >
                           SHOP NOW
                         </button>
@@ -153,19 +139,14 @@ export default async function CategoryPage({ params, searchParams }) {
                 </Link>
               ))}
             </div>
-            
-            {/* Show Combo Banner only for combos category after subcategories */}
-            {slug === 'combos' && <ComboBanner />}
+            {slug === "combos" && <ComboBanner />}
           </>
         ) : (
-          <>
-            {/* Filtered Products with Sidebar */}
-            <FilteredProductsWrapper 
-              products={displayProducts}
-              minPrice={minPrice}
-              maxPrice={maxPrice}
-            />
-          </>
+          <FilteredProductsWrapper
+            products={displayProducts}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+          />
         )}
       </div>
     </section>
