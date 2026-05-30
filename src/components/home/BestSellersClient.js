@@ -1,0 +1,154 @@
+"use client";
+import { useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./BestSellers.module.css";
+
+/**
+ * Carousel renderer for the Season's Picks. Receives a fully-resolved
+ * product list from the server component above, so we don't need cart
+ * context here — Add-to-Cart still happens via the standard ProductCard
+ * elsewhere on the storefront.
+ */
+export default function BestSellersClient({ products }) {
+  const sliderRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -320, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 320, behavior: "smooth" });
+    }
+  };
+
+  if (products.length === 0) return null;
+
+  return (
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h2 className={styles.title}>Season&apos;s Picks</h2>
+        </div>
+        <div className={styles.carouselWrapper}>
+          <button
+            className={`${styles.navButton} ${styles.navLeft}`}
+            onClick={scrollLeft}
+            aria-label="Scroll left"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div className={styles.grid} ref={sliderRef}>
+            {products.map((product, index) => {
+              const borderColor = [
+                "#FCD589",
+                "#FBC9BC",
+                "#d7e4e4",
+                "#E6D7FF",
+                "#D4F0F0",
+                "#FFD8B1",
+              ][index % 6];
+              return (
+                <Link
+                  key={product.slug}
+                  href={`/product/${product.slug}`}
+                  className={styles.cardLink}
+                  style={{ "--card-border-color": borderColor }}
+                >
+                  <div className={styles.card}>
+                    <div
+                      className={styles.imageContainer}
+                      style={{ border: `6px solid var(--card-border-color)` }}
+                    >
+                      <div className={styles.wishlistIcon}>
+                        <svg viewBox="0 0 24 24">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                      </div>
+                      {product.badge && (
+                        <span
+                          className={`${styles.badge} ${
+                            product.badgeStyle === "peach"
+                              ? styles.badgePeach
+                              : ""
+                          }`}
+                        >
+                          {product.badge}
+                        </span>
+                      )}
+                      {product.images?.[0] ? (
+                        <Image
+                          src={product.images[0]}
+                          alt={product.title}
+                          width={400}
+                          height={380}
+                          className={styles.productImage}
+                        />
+                      ) : null}
+                    </div>
+                    <h4 className={styles.productTitle}>{product.title}</h4>
+                    <div className={styles.priceContainer}>
+                      <span className={styles.productPrice}>
+                        ₹{product.price.toLocaleString("en-IN")}
+                      </span>
+                      {product.originalPrice &&
+                        product.originalPrice > product.price && (
+                          <>
+                            <span className={styles.originalPrice}>
+                              ₹{product.originalPrice.toLocaleString("en-IN")}
+                            </span>
+                            <span className={styles.discount}>
+                              {product.discount}% OFF
+                            </span>
+                          </>
+                        )}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <button
+            className={`${styles.navButton} ${styles.navRight}`}
+            onClick={scrollRight}
+            aria-label="Scroll right"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+        <div className={styles.viewAllWrap}>
+          <Link href="/category/bags" className={styles.viewAllBtn}>
+            View All Products
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

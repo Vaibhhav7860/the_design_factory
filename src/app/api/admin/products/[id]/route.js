@@ -9,6 +9,7 @@ import {
 import {
   getProductById,
   updateProduct,
+  deleteProduct,
 } from "@/lib/services/products";
 
 export const runtime = "nodejs";
@@ -152,4 +153,53 @@ export const PUT = adminRoute(async (request, { params }) => {
   }
 
   return NextResponse.json({ product });
+});
+
+/**
+ * DELETE /api/admin/products/:id — hard-delete a product.
+ *
+ * Removes the document from MongoDB and revalidates the storefront
+ * caches that referenced it. Image objects in R2 are deliberately
+ * left in place (see deleteProduct() in services/products.js for the
+ * reasoning) — a future orphan-cleanup job can reclaim those.
+ */
+export const DELETE = adminRoute(async (_request, { params }) => {
+  await requirePermission("products.write");
+  const { id } = await params;
+
+  let deleted;
+  try {
+    deleted = await deleteProduct(id);
+  } catch (err) {
+    if (err?.code === "NOT_FOUND") {
+      return NextResponse.json({ error: err.message }, { status: 404 });
+    }
+    if (err?.code === "INVALID_ID") {
+      return NextResponse.json({ error: err.message }, { status: 400 });
+    }
+    console.error("[admin/products DELETE]", err);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+
+  // Revalidate every storefront page that referenced this product
+  try {
+    revalidateTag("storefront:products");
+    revalidateTag(`storefront:product:${deleted.slug}`);
+    for (const cat of deleted.categories || []) {
+      revalidateTag(`storefront:category:${cat}`);
+    }
+  } catch {
+    /* non-blocking */
+  }
+
+  return NextResponse.json({
+    deleted: {
+      id: deleted.id,
+      slug: deleted.slug,
+      title: deleted.title,
+    },
+  });
 });

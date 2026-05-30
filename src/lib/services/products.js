@@ -308,6 +308,38 @@ export async function updateProduct(id, input) {
 }
 
 /**
+ * Hard-delete a product from MongoDB.
+ *
+ * Returns a small descriptor of what was deleted so callers can
+ * revalidate the right storefront cache tags. We don't currently
+ * delete the R2 image objects — products can in theory share images
+ * (the storage layer dedupes by content hash) and we'd rather leak a
+ * few bytes than risk breaking a survivor's gallery. A periodic
+ * orphan-cleanup job can reclaim those later.
+ */
+export async function deleteProduct(id) {
+  if (!mongoose.isValidObjectId(id)) {
+    const err = new Error("Invalid product id");
+    err.code = "INVALID_ID";
+    throw err;
+  }
+  await connectToDatabase();
+  const doc = await Product.findById(id).lean();
+  if (!doc) {
+    const err = new Error("Product not found");
+    err.code = "NOT_FOUND";
+    throw err;
+  }
+  await Product.deleteOne({ _id: doc._id });
+  return {
+    id: String(doc._id),
+    slug: doc.slug,
+    title: doc.title,
+    categories: doc.categories || [],
+  };
+}
+
+/**
  * Convert lean Mongoose objects to plain JSON-safe objects suitable for
  * Server → Client component prop passing.
  */

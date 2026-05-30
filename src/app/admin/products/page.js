@@ -5,6 +5,7 @@ import DataTable, { StatusPill } from "@/components/admin/DataTable";
 import ListToolbar from "@/components/admin/ListToolbar";
 import Pagination from "@/components/admin/Pagination";
 import ExportButton from "@/components/admin/ExportButton";
+import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import { HiOutlineTag, HiOutlinePlus } from "react-icons/hi";
 import { connectToDatabase } from "@/lib/db/mongoose";
 import { Product } from "@/lib/db/models";
@@ -133,6 +134,14 @@ export default async function ProductsPage({ searchParams }) {
                   header: "Price",
                   align: "right",
                   render: (p) => formatINR(p.price ?? 0),
+                },
+                {
+                  key: "actions",
+                  header: "",
+                  align: "right",
+                  render: (p) => (
+                    <DeleteProductButton id={p.id} title={p.title} />
+                  ),
                 },
               ]}
               rows={products.map((p) => ({ ...p, id: String(p._id) }))}
