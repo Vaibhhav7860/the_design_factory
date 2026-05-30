@@ -1,0 +1,457 @@
+/* ═══════════════════════════════════════════
+   TERMS AND CONDITIONS PAGE
+   ═══════════════════════════════════════════ */
+
+.page {
+  min-height: 100vh;
+  background: #FBFAF6;
+  padding: calc(var(--nav-height) + 60px) 0 80px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 6%;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.lastUpdated {
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: var(--color-text-light);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* ── Content ── */
+.content {
+  font-family: var(--font-secondary);
+  color: var(--color-text);
+  line-height: 1.8;
+}
+
+.section {
+  margin-bottom: 48px;
+  animation: fadeUpReveal 0.6s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+.section:nth-child(1) { animation-delay: 0.05s; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+
+@keyframes fadeUpReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-primary);
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.section p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.section a {
+  color: var(--color-peach);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.section a:hover {
+  color: var(--color-gold-dark);
+}
+
+/* ── Lists ── */
+.list {
+  margin: 20px 0;
+  padding-left: 24px;
+}
+
+.list li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.list li::marker {
+  color: var(--color-peach);
+}
+
+/* ── Disclaimer Text ── */
+.disclaimer {
+  background: #F4EFE6;
+  padding: 20px 24px;
+  border-left: 4px solid var(--color-peach);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 16px;
+  border-radius: 0;
+}
+
+/* ── Contact Info ── */
+.contactInfo {
+  background: #ffffff;
+  padding: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0;
+  margin-top: 20px;
+}
+
+.contactInfo p {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #444;
+}
+
+.contactInfo p:last-child {
+  margin-bottom: 0;
+}
+
+.contactInfo a {
+  color: var(--color-peach);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contactInfo a:hover {
+  color: var(--color-gold-dark);
+  text-decoration: underline;
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.backBtn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+  text-decoration: none;
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.backBtn:hover {
+  background: var(--color-text);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+
+/* Mac Desktop 2560x1440 */
+@media (min-width: 2560px) {
+  .page {
+    padding: calc(var(--nav-height) + 80px) 0 100px;
+  }
+  
+  .container {
+    max-width: 1100px;
+    padding: 0 8%;
+  }
+  
+  .header {
+    margin-bottom: 80px;
+    padding-bottom: 50px;
+  }
+  
+  .title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .lastUpdated {
+    font-size: 15px;
+  }
+  
+  .section {
+    margin-bottom: 60px;
+  }
+  
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+  
+  .section p {
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 18px;
+  }
+  
+  .list li {
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+  
+  .disclaimer {
+    padding: 25px 30px;
+    font-size: 15px;
+  }
+  
+  .contactInfo {
+    padding: 30px;
+  }
+  
+  .contactInfo p {
+    font-size: 16px;
+  }
+  
+  .footer {
+    margin-top: 80px;
+    padding-top: 50px;
+  }
+  
+  .backBtn {
+    padding: 16px 40px;
+    font-size: 13px;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .page {
+    padding: calc(var(--nav-height) + 70px) 0 90px;
+  }
+  
+  .container {
+    max-width: 1000px;
+    padding: 0 7%;
+  }
+  
+  .header {
+    margin-bottom: 70px;
+    padding-bottom: 45px;
+  }
+  
+  .title {
+    font-size: 3.2rem;
+  }
+  
+  .lastUpdated {
+    font-size: 14px;
+  }
+  
+  .section {
+    margin-bottom: 55px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+  }
+  
+  .section p {
+    font-size: 15px;
+  }
+  
+  .list li {
+    font-size: 15px;
+  }
+  
+  .disclaimer {
+    padding: 22px 28px;
+    font-size: 14px;
+  }
+  
+  .contactInfo {
+    padding: 28px;
+  }
+  
+  .contactInfo p {
+    font-size: 15px;
+  }
+  
+  .backBtn {
+    padding: 15px 36px;
+  }
+}
+
+/* Tablet and Mobile */
+@media (max-width: 768px) {
+  .page {
+    padding: calc(var(--nav-height) + 40px) 0 60px;
+  }
+  
+  .container {
+    padding: 0 5%;
+  }
+  
+  .header {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  
+  .lastUpdated {
+    font-size: 12px;
+  }
+  
+  .section {
+    margin-bottom: 36px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+  
+  .section p {
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+  
+  .list {
+    padding-left: 20px;
+  }
+  
+  .list li {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .disclaimer {
+    padding: 16px 18px;
+    font-size: 12px;
+    border-left-width: 3px;
+  }
+  
+  .contactInfo {
+    padding: 18px;
+  }
+  
+  .contactInfo p {
+    font-size: 13px;
+  }
+  
+  .footer {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+  
+  .backBtn {
+    padding: 12px 24px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* iPhone 16 Pro Max */
+@media (max-width: 430px) {
+  .page {
+    padding: calc(var(--nav-height) + 30px) 0 50px;
+  }
+  
+  .container {
+    padding: 0 4%;
+  }
+  
+  .header {
+    margin-bottom: 30px;
+    padding-bottom: 24px;
+  }
+  
+  .title {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  
+  .lastUpdated {
+    font-size: 11px;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+  }
+  
+  .sectionTitle {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+  
+  .section p {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .list li {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  
+  .disclaimer {
+    padding: 14px 16px;
+    font-size: 11px;
+  }
+  
+  .contactInfo {
+    padding: 16px;
+  }
+  
+  .contactInfo p {
+    font-size: 12px;
+  }
+  
+  .backBtn {
+    padding: 10px 20px;
+    font-size: 10px;
+  }
+}
