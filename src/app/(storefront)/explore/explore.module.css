@@ -375,8 +375,12 @@
   }
 
   .title {
+    /* CHANGE 5: Fix heading cutting on mobile */
     font-size: clamp(1.8rem, 7vw, 2.4rem);
     margin: 0 0 16px;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .subtitle {
