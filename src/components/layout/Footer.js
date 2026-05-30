@@ -48,19 +48,17 @@ export default function Footer() {
         {/* Support */}
         <div className={styles.col}>
           <h4>SUPPORT</h4>
-          <Link href="#">Contact Us</Link>
-          <Link href="#">FAQs</Link>
-          <Link href="#">Track Order</Link>
-          <Link href="#">Blogs</Link>
+          <Link href="/contact">Contact Us</Link>
+          <Link href="/faq">FAQs</Link>
         </div>
 
         {/* Policies */}
         <div className={styles.col}>
           <h4>POLICIES</h4>
-          <Link href="#">Return & Exchange</Link>
-          <Link href="#">Privacy Policy</Link>
-          <Link href="#">Terms & Conditions</Link>
-          <Link href="#">Shipping Policy</Link>
+          <Link href="/refund-policy">Return & Exchange</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <Link href="/terms">Terms & Conditions</Link>
+          <Link href="/shipping-policy">Shipping Policy</Link>
         </div>
 
         {/* Newsletter */}
