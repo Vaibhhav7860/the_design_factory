@@ -1,21 +1,21 @@
 .section {
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--color-blue);
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  border-bottom: 2px solid #F5F5F5;
 }
 
 .headerRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .heading {
   font-family: var(--font-secondary);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-text);
   margin: 0;
@@ -24,13 +24,18 @@
 .signInLink {
   font-family: var(--font-secondary);
   font-size: 14px;
-  color: var(--color-text);
+  font-weight: 500;
+  color: var(--color-peach);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: rgba(251, 201, 188, 0.1);
 }
 
 .signInLink:hover {
-  color: var(--color-peach);
+  background: rgba(251, 201, 188, 0.2);
+  transform: translateX(-2px);
 }
 
 .inputRow {
@@ -46,25 +51,26 @@
 
 .input {
   width: 100%;
-  height: 48px;
-  padding: 0 16px;
+  height: 52px;
+  padding: 0 18px;
   font-family: var(--font-secondary);
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text);
-  background: var(--color-white);
-  border: 1px solid var(--color-blue);
-  border-radius: 4px;
+  background: #FAFAFA;
+  border: 2px solid #E8E8E8;
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--color-peach);
-  box-shadow: 0 0 0 3px rgba(251, 201, 188, 0.15);
+  border-color: var(--color-gold);
+  background: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(252, 213, 137, 0.1);
 }
 
 .input::placeholder {
-  color: var(--color-text-light);
+  color: #999;
 }
 
 /* Custom Checkbox */
@@ -130,6 +136,77 @@
   .inputRow {
     grid-template-columns: 1fr;
     gap: 12px;
+  }
+  
+  .section {
+    margin-bottom: 35px;
+    padding-bottom: 35px;
+  }
+  
+  .heading {
+    font-size: 15px;
+    letter-spacing: 1.5px;
+  }
+  
+  .signInLink {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+  
+  .input {
+    height: 48px;
+    font-size: 14px;
+    padding: 0 14px;
+  }
+  
+  .checkbox {
+    font-size: 13px;
+  }
+}
+
+/* iOS Devices */
+@media only screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
+  .input {
+    font-size: 16px;
+    -webkit-appearance: none;
+    border-radius: 8px;
+  }
+  
+  .input:focus {
+    font-size: 16px;
+  }
+  
+  .section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+  
+  .heading {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .signInLink {
+    font-size: 12px;
+  }
+  
+  .input {
+    height: 46px;
+    font-size: 14px;
   }
 }
 

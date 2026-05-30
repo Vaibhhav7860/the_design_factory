@@ -5,7 +5,6 @@ import { useCart } from "@/context/CartContext";
 import ContactForm from "@/components/checkout/ContactForm";
 import DeliveryForm from "@/components/checkout/DeliveryForm";
 import ShippingMethod from "@/components/checkout/ShippingMethod";
-import PaymentSection from "@/components/checkout/PaymentSection";
 import BillingAddress from "@/components/checkout/BillingAddress";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import styles from "./page.module.css";
@@ -222,22 +221,12 @@ export default function CheckoutPage() {
             hasAddress={deliveryInfo.pinCode.length === 6}
           />
 
-          <PaymentSection />
-
           <BillingAddress
             billingAddressSame={billingAddressSame}
             setBillingAddressSame={setBillingAddressSame}
             billingInfo={billingInfo}
             setBillingInfo={setBillingInfo}
           />
-
-          <button
-            className={styles.payButton}
-            onClick={handlePayment}
-            disabled={isProcessing}
-          >
-            {isProcessing ? "Processing..." : "Pay Now"}
-          </button>
 
           <div className={styles.footer}>
             <a href="/refund-policy">Refund policy</a>
@@ -259,6 +248,8 @@ export default function CheckoutPage() {
             setDiscountCode={setDiscountCode}
             onApplyDiscount={handleApplyDiscount}
             onRemoveDiscount={handleRemoveDiscount}
+            onPayNow={handlePayment}
+            isProcessing={isProcessing}
           />
         </div>
       </div>

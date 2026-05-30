@@ -33,10 +33,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Changed from smooth to auto for instant scroll to top on navigation */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  /* iOS: prevent rubber-band scrolling issues */
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -51,6 +54,9 @@ body {
   /* Safari: ensure body never collapses below visible area */
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  /* iOS: prevent scroll issues */
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* macOS Safari: smoother modern viewport unit when supported */
@@ -60,16 +66,57 @@ body {
   }
 }
 
+/* iOS Safari: Fix for viewport height issues */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
 /* Prevent images and embeds from forcing horizontal scroll on mobile */
 img, video, iframe {
   max-width: 100%;
   height: auto;
+  /* iOS: prevent image flickering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
-button, input, select, textarea { cursor: pointer; border: none; background: none; font: inherit; appearance: none; -webkit-appearance: none; -moz-appearance: none; }
-img { max-width: 100%; display: block; }
+button, input, select, textarea { 
+  cursor: pointer; 
+  border: none; 
+  background: none; 
+  font: inherit; 
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  /* iOS: prevent tap delay */
+  touch-action: manipulation;
+}
+img { 
+  max-width: 100%; 
+  display: block;
+  /* iOS: prevent image selection */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 ul, ol { list-style: none; }
+
+/* iOS Safari: Fix for fixed positioning and scrolling */
+@supports (-webkit-touch-callout: none) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* iOS: Prevent zoom on double tap */
+* {
+  touch-action: manipulation;
+}
 
 /* iOS Safari: prevent auto-zoom on input focus by ensuring 16px+ on touch devices */
 @media (max-width: 768px) {
@@ -82,6 +129,8 @@ ul, ol { list-style: none; }
   textarea,
   select {
     font-size: 16px !important;
+    /* iOS: prevent zoom */
+    -webkit-text-size-adjust: 100%;
   }
 }
 
@@ -439,5 +488,195 @@ ul, ol { list-style: none; }
     padding: 25px 70px;
     font-size: 13px;
     letter-spacing: 5px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   iOS DEVICE SPECIFIC FIXES
+   ═══════════════════════════════════════════ */
+
+/* All iOS Devices */
+@supports (-webkit-touch-callout: none) {
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    position: relative;
+  }
+  
+  /* Fix for iOS Safari address bar */
+  .section {
+    min-height: 0;
+  }
+  
+  /* Prevent iOS Safari from adding extra padding */
+  input, textarea, select, button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+  }
+  
+  /* Fix for iOS Safari sticky positioning */
+  [style*="position: sticky"],
+  [style*="position:sticky"] {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+/* iPhone SE, 12 Mini, 13 Mini (375px - 390px) */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 428px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  :root {
+    --nav-height: 70px;
+    --section-padding: 18px 4%;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  .container {
+    padding: 0 4%;
+  }
+  
+  .section-header h2 {
+    font-size: 18px;
+    letter-spacing: 1.5px;
+  }
+  
+  .btn, .btn-outline {
+    padding: 12px 28px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* iPhone 14, 15, 16 Standard (390px - 393px) */
+@media only screen 
+  and (min-device-width: 390px) 
+  and (max-device-width: 393px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  :root {
+    --nav-height: 75px;
+    --section-padding: 20px 4%;
+  }
+  
+  .section-header h2 {
+    font-size: 19px;
+    letter-spacing: 1.8px;
+  }
+}
+
+/* iPhone 14 Plus, 15 Plus, 16 Plus (414px - 430px) */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 430px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  :root {
+    --nav-height: 80px;
+    --section-padding: 22px 4%;
+  }
+  
+  .section-header h2 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+}
+
+/* iPhone 14 Pro Max, 15 Pro Max, 16 Pro Max (430px) */
+@media only screen 
+  and (min-device-width: 430px) 
+  and (max-device-width: 430px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  :root {
+    --nav-height: 80px;
+    --section-padding: 22px 4%;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .container {
+    padding: 0 4%;
+    max-width: 100%;
+  }
+  
+  .section-header h2 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  
+  /* Fix for any fixed/sticky elements */
+  [style*="position: fixed"],
+  [style*="position:fixed"] {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* iPad Mini, iPad Air, iPad Pro (768px - 1024px) */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  :root {
+    --nav-height: 100px;
+    --section-padding: 30px 4%;
+  }
+  
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  .section-header h2 {
+    font-size: 24px;
+    letter-spacing: 3px;
+  }
+}
+
+/* iOS: Fix for landscape orientation */
+@media only screen 
+  and (orientation: landscape) 
+  and (max-device-height: 430px) {
+  
+  :root {
+    --nav-height: 60px;
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+}
+
+/* iOS: Safe area insets for notch devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  .container {
+    padding-left: max(4%, env(safe-area-inset-left));
+    padding-right: max(4%, env(safe-area-inset-right));
   }
 }

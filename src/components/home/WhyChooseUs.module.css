@@ -46,6 +46,15 @@
   object-fit: contain;
 }
 
+/* Show desktop image by default, hide mobile */
+.desktopImage {
+  display: block;
+}
+
+.mobileImage {
+  display: none;
+}
+
 /* Mac Desktop 2560x1440 */
 @media (min-width: 2560px) {
   .section {
@@ -128,6 +137,15 @@
     width: 100%;
     height: auto;
     object-fit: contain;
+    display: block;
+  }
+  
+  /* Hide desktop image, show mobile image */
+  .desktopImage {
+    display: none;
+  }
+  
+  .mobileImage {
     display: block;
   }
 }

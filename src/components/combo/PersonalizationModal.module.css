@@ -1,0 +1,381 @@
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9998;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Modal Container */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+/* Modal Header */
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 30px 20px;
+  border-bottom: 2px solid #F5F5F5;
+}
+
+.modalTitle {
+  font-family: var(--font-primary);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F5F5F5;
+  color: var(--color-text);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  background: var(--color-peach);
+  color: var(--color-white);
+  transform: rotate(90deg);
+}
+
+/* Modal Body */
+.modalBody {
+  padding: 30px;
+}
+
+/* Items Summary */
+.itemsSummary {
+  background: linear-gradient(135deg, #FFF9F5 0%, #F8F4F0 100%);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  border: 2px solid rgba(252, 213, 137, 0.3);
+}
+
+.summaryText {
+  font-family: var(--font-secondary);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 15px;
+}
+
+.itemsList {
+  margin-top: 12px;
+}
+
+.itemsLabel {
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.itemName {
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  color: var(--color-text-light);
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+/* Input Section */
+.inputSection {
+  margin-bottom: 25px;
+}
+
+.inputLabel {
+  display: block;
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+.nameInput {
+  width: 100%;
+  height: 56px;
+  padding: 0 20px;
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  color: var(--color-text);
+  background: #FAFAFA;
+  border: 2px solid #E8E8E8;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.nameInput:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(252, 213, 137, 0.15);
+}
+
+.nameInput.inputError {
+  border-color: #E74C3C;
+  background: #FFF5F5;
+}
+
+.errorText {
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  color: #E74C3C;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+
+.helperText {
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  color: var(--color-text-light);
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
+/* Pricing Summary */
+.pricingSummary {
+  background: linear-gradient(135deg, #F0F9F4 0%, #E8F5EC 100%);
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(168, 213, 186, 0.3);
+}
+
+.discountBadge {
+  display: inline-block;
+  background: var(--color-gold);
+  color: var(--color-text);
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.priceRow:last-child {
+  margin-bottom: 0;
+  padding-top: 10px;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.originalPrice {
+  text-decoration: line-through;
+  color: var(--color-text-light);
+}
+
+.finalLabel {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.finalPrice {
+  font-weight: 800;
+  font-size: 20px;
+  color: #27AE60;
+}
+
+/* Modal Footer */
+.modalFooter {
+  display: flex;
+  gap: 15px;
+  padding: 20px 30px 30px;
+  border-top: 2px solid #F5F5F5;
+}
+
+.cancelBtn,
+.confirmBtn {
+  flex: 1;
+  height: 54px;
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.cancelBtn {
+  background: #F5F5F5;
+  color: var(--color-text);
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background: #E8E8E8;
+  transform: translateY(-2px);
+}
+
+.confirmBtn {
+  background: linear-gradient(135deg, #A8D5BA 0%, #95C9A8 100%);
+  color: var(--color-text);
+  box-shadow: 0 4px 15px rgba(168, 213, 186, 0.4);
+}
+
+.confirmBtn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #95C9A8 0%, #82B895 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 213, 186, 0.5);
+}
+
+.confirmBtn:disabled,
+.cancelBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .modalHeader {
+    padding: 20px 20px 15px;
+  }
+
+  .modalTitle {
+    font-size: 20px;
+    letter-spacing: 1.5px;
+  }
+
+  .modalBody {
+    padding: 20px;
+  }
+
+  .itemsSummary {
+    padding: 16px;
+  }
+
+  .summaryText {
+    font-size: 14px;
+  }
+
+  .itemsLabel,
+  .itemName {
+    font-size: 12px;
+  }
+
+  .nameInput {
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .pricingSummary {
+    padding: 16px;
+  }
+
+  .discountBadge {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .finalPrice {
+    font-size: 18px;
+  }
+
+  .modalFooter {
+    padding: 15px 20px 20px;
+    flex-direction: column;
+  }
+
+  .cancelBtn,
+  .confirmBtn {
+    height: 48px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalTitle {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  .closeBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
+
+  .modalBody {
+    padding: 16px;
+  }
+
+  .nameInput {
+    height: 46px;
+    font-size: 15px;
+  }
+
+  .finalPrice {
+    font-size: 16px;
+  }
+}
