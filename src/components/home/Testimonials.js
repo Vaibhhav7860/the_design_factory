@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { testimonials } from "@/data/testimonials";
 import styles from "./Testimonials.module.css";
 
@@ -8,6 +8,37 @@ export default function Testimonials() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // CHANGE 2: Auto-slider for mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || !scrollRef.current) return;
+
+    const slider = scrollRef.current;
+    const cardWidth = slider.scrollWidth / testimonials.length;
+    let currentIndex = 0;
+
+    const autoScroll = setInterval(() => {
+      currentIndex = (currentIndex + 1) % testimonials.length;
+      slider.scrollTo({
+        left: cardWidth * currentIndex,
+        behavior: 'smooth'
+      });
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(autoScroll);
+  }, [isMobile]);
 
   const scroll = (direction) => {
     if (scrollRef.current) {

@@ -26,12 +26,18 @@ export default function ProductDetail({ product }) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [isDescExpanded, setIsDescExpanded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   /* ── Personalisation State ── */
   const [personalisationName, setPersonalisationName] = useState("");
   const [schoolName, setSchoolName] = useState("");
   const [selectedFont, setSelectedFont] = useState(FONT_OPTIONS[0].value);
   const isPersonalised = personalisationName.trim().length > 0;
+
+  /* ── Mount check for iOS ── */
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   /* ── Detect if this product needs a School input (school book labels & back-to-school label sets) ── */
   const SCHOOL_INPUT_SUBCATEGORIES = ["school-book-labels", "back-to-school-label-set"];
@@ -296,6 +302,22 @@ export default function ProductDetail({ product }) {
 
   /* ── Selected Font Class ── */
   const activeFontOption = FONT_OPTIONS.find((f) => f.value === selectedFont);
+
+  // Don't render until mounted (helps with iOS hydration issues)
+  if (!isMounted) {
+    return (
+      <div className={styles.detail}>
+        <div className={styles.gallery}>
+          <div className={styles.mainImageShell}>
+            <div className={styles.mainImageCore} style={{ minHeight: '400px' }} />
+          </div>
+        </div>
+        <div className={styles.info}>
+          <h1 className={styles.title}>{product.title}</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.detail}>

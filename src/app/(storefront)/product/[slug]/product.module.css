@@ -7,6 +7,10 @@
 .page {
   padding: 40px 0 100px;
   position: relative;
+  /* iOS: prevent layout shifts */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: auto;
 }
 
 .page::before {
@@ -59,6 +63,10 @@
   grid-template-columns: minmax(320px, 480px) 1fr;
   gap: 72px;
   align-items: start;
+  /* iOS: prevent rendering issues */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  isolation: isolate;
 }
 
 /* ═══════════════════════════════════════════
@@ -1176,8 +1184,11 @@
   }
 
   .gallery {
-    position: static;
+    position: static !important;
     max-width: 100%;
+    top: auto !important;
+    -webkit-transform: none !important;
+    transform: none !important;
   }
 
   .sliderContainer {
@@ -1290,5 +1301,177 @@
   .addBtn {
     padding: 16px;
     font-size: 10px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════
+   iOS DEVICE SPECIFIC FIXES
+   ═══════════════════════════════════════════ */
+
+/* All iOS Devices */
+@supports (-webkit-touch-callout: none) {
+  .page {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+  
+  .detail {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .gallery {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .mainImageCore {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .mainImg {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .thumbnailStrip {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .formInput,
+  .formSelect {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 16px;
+  }
+  
+  .formInput:focus,
+  .formSelect:focus {
+    font-size: 16px;
+  }
+  
+  /* Force static positioning on mobile iOS */
+  @media (max-width: 768px) {
+    .gallery {
+      position: static !important;
+      top: auto !important;
+    }
+  }
+}
+
+/* iPhone 14 Pro Max, 15 Pro Max, 16 Pro Max (430px) */
+@media only screen 
+  and (min-device-width: 430px) 
+  and (max-device-width: 430px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  .page {
+    padding: 30px 0 80px;
+    overflow-x: hidden;
+  }
+  
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .gallery {
+    position: static !important;
+    max-width: 100%;
+    top: auto !important;
+  }
+  
+  .mainImageShell {
+    max-height: 400px;
+  }
+  
+  .title {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  
+  .formInput,
+  .formSelect {
+    height: 48px;
+    font-size: 16px;
+  }
+  
+  .addBtn {
+    height: 52px;
+    font-size: 12px;
+  }
+}
+
+/* iPhone SE, 12 Mini, 13 Mini (375px - 390px) */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 390px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .page {
+    padding: 25px 0 70px;
+    overflow-x: hidden;
+  }
+  
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .gallery {
+    position: static !important;
+    top: auto !important;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .formInput,
+  .formSelect {
+    height: 46px;
+    font-size: 16px;
+  }
+}
+
+/* iPad (768px - 1024px) */
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+  
+  .detail {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  
+  .gallery {
+    position: -webkit-sticky;
+    position: sticky;
+    top: calc(var(--nav-height) + 20px);
+  }
+}
+
+/* iOS Landscape Mode */
+@media only screen 
+  and (orientation: landscape) 
+  and (max-device-height: 430px) {
+  
+  .gallery {
+    position: static !important;
+    top: auto !important;
+  }
+  
+  .page {
+    padding: 20px 0 60px;
   }
 }

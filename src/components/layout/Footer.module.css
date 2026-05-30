@@ -567,6 +567,16 @@
     font-size: 16px;
     letter-spacing: 1px;
   }
+  
+  /* CHANGE 1: Stop scrolling after footer on mobile */
+  .footer {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .bottomPattern {
+    margin-bottom: 0;
+  }
 }
 
 /* iPhone 16 Pro Max */
@@ -603,7 +613,8 @@
   }
 
   .footerCharRight {
-    width: 42vw;
+    /* CHANGE 7: Increase 3rd dog size to match others */
+    width: 45vw;
     transform: translateY(1.2vw);
   }
 }

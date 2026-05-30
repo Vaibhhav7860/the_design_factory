@@ -209,6 +209,7 @@
 /* View All */
 .viewAllWrap {
   text-align: center;
+  /* CHANGE 4: Reduce padding to move button up on mobile */
   margin-top: 20px;
 }
 
@@ -438,6 +439,13 @@
   }
   .navButton {
     display: none; /* Hide arrows on mobile, allow swipe */
+  }
+  /* CHANGE 4: Reduce padding for View All button on mobile */
+  .viewAllWrap {
+    margin-top: 10px;
+  }
+  .viewAllBtn {
+    padding: 14px 40px;
   }
 }
 

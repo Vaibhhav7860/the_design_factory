@@ -63,7 +63,8 @@
   }
   .image {
     width: 100%;
-    aspect-ratio: 2.5 / 1;
+    /* CHANGE 3: Increase banner size for mobile */
+    aspect-ratio: 2.2 / 1;
     object-fit: cover;
     object-position: center;
   }

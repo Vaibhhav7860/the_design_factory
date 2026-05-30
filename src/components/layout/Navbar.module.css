@@ -92,9 +92,6 @@
   margin-left: -40px;
 }
 
-.navItem {
-}
-
 .navLink {
   text-decoration: none;
   color: var(--color-text);
@@ -589,8 +586,10 @@
 
 @media (max-width: 480px) {
   .announcementBar {
-    font-size: 9px;
-    padding: 8px 0;
+    /* CHANGE 6: Make header blue strip smaller for mobile */
+    font-size: 8px;
+    padding: 6px 0;
+    letter-spacing: 1.5px;
   }
   .navIcons {
     gap: 18px;

@@ -24,38 +24,51 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductPage({ params }) {
-  const { slug } = await params;
-  const product = await getProductBySlug(slug);
-  if (!product) notFound();
+  try {
+    const { slug } = await params;
+    
+    if (!slug) {
+      notFound();
+    }
+    
+    const product = await getProductBySlug(slug);
+    
+    if (!product) {
+      notFound();
+    }
 
-  const related = await getRelatedProducts(product.slug, 10);
+    const related = await getRelatedProducts(product.slug, 10);
 
-  return (
-    <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
-      <div className="container">
-        <nav className={styles.breadcrumb}>
-          <Link href="/" className={styles.breadcrumbLink}>
-            Home
-          </Link>
-          <span>/</span>
-          <Link href={`/category/${product.categories?.[0] || "labels"}`}>
-            {product.categories?.[0]?.replace(/-/g, " ") || "Labels"}
-          </Link>
-          <span>/</span>
-          <span>{product.title}</span>
-        </nav>
+    return (
+      <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
+        <div className="container">
+          <nav className={styles.breadcrumb}>
+            <Link href="/" className={styles.breadcrumbLink}>
+              Home
+            </Link>
+            <span>/</span>
+            <Link href={`/category/${product.categories?.[0] || "labels"}`}>
+              {product.categories?.[0]?.replace(/-/g, " ") || "Labels"}
+            </Link>
+            <span>/</span>
+            <span>{product.title}</span>
+          </nav>
 
-        <ProductDetail product={product} />
+          <ProductDetail product={product} />
 
-        {related.length > 0 && (
-          <div className={styles.related}>
-            <div className={styles.relatedHeader}>
-              <h2>You May Also Like</h2>
+          {related.length > 0 && (
+            <div className={styles.related}>
+              <div className={styles.relatedHeader}>
+                <h2>You May Also Like</h2>
+              </div>
+              <RelatedProductsSlider products={related} />
             </div>
-            <RelatedProductsSlider products={related} />
-          </div>
-        )}
-      </div>
-    </section>
-  );
+          )}
+        </div>
+      </section>
+    );
+  } catch (error) {
+    console.error('Error loading product page:', error);
+    notFound();
+  }
 }
