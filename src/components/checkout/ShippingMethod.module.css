@@ -101,3 +101,72 @@
     font-size: 15px;
   }
 }
+
+@media (max-width: 768px) {
+  .section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+  
+  .heading {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .option {
+    padding: 14px;
+    gap: 12px;
+  }
+  
+  .optionName {
+    font-size: 13px;
+  }
+  
+  .optionDuration {
+    font-size: 11px;
+  }
+  
+  .optionPrice {
+    font-size: 13px;
+  }
+  
+  .placeholder {
+    padding: 16px;
+    font-size: 12px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .section {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .heading {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  
+  .option {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .radio {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .optionName {
+    font-size: 12px;
+  }
+  
+  .optionDuration {
+    font-size: 10px;
+  }
+  
+  .optionPrice {
+    font-size: 12px;
+  }
+}

@@ -45,6 +45,15 @@ function cartReducer(state, action) {
             : item
         ),
       };
+    case "UPDATE_ITEM":
+      return {
+        ...state,
+        items: state.items.map((item) =>
+          item.slug === action.payload.slug
+            ? { ...item, ...action.payload.updates }
+            : item
+        ),
+      };
     case "CLEAR_CART":
       return { ...state, items: [] };
     case "LOAD_CART":
@@ -91,6 +100,10 @@ export function CartProvider({ children }) {
     dispatch({ type: "UPDATE_QUANTITY", payload: { slug, quantity } });
   }, []);
 
+  const updateCartItem = useCallback((slug, updates) => {
+    dispatch({ type: "UPDATE_ITEM", payload: { slug, updates } });
+  }, []);
+
   const clearCart = useCallback(() => {
     dispatch({ type: "CLEAR_CART" });
   }, []);
@@ -126,6 +139,7 @@ export function CartProvider({ children }) {
         addToCart,
         removeFromCart,
         updateQuantity,
+        updateCartItem,
         clearCart,
       }}
     >

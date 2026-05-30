@@ -110,4 +110,64 @@
   .row3 {
     grid-template-columns: 1fr;
   }
+  
+  .section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+  }
+  
+  .heading {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  
+  .input,
+  .select {
+    height: 46px;
+    font-size: 14px;
+    padding: 0 14px;
+  }
+  
+  .inputGroup {
+    margin-bottom: 12px;
+  }
+}
+
+/* iOS Devices */
+@media only screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
+  .input,
+  .select {
+    font-size: 16px;
+    -webkit-appearance: none;
+    border-radius: 8px;
+  }
+  
+  .input:focus,
+  .select:focus {
+    font-size: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .section {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+  }
+  
+  .heading {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+  
+  .input,
+  .select {
+    height: 44px;
+    font-size: 13px;
+  }
+  
+  .row,
+  .row3 {
+    gap: 10px;
+  }
 }

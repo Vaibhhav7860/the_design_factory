@@ -77,6 +77,17 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${cormorant.variable} ${montserrat.variable} ${birthstone.variable} ${satisfy.variable}`}
     >
+      <head>
+        {/* iOS Specific Meta Tags */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="The Design Factory" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        
+        {/* iOS Safe Area */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body className={montserrat.className}>{children}</body>
     </html>
   );

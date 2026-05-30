@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import ScrollToTop from "../ScrollToTop";
 
 /**
  * Wraps storefront pages with a Navbar and an optional Footer.
@@ -15,6 +16,7 @@ export default function ConditionalLayout({ children }) {
 
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main>{children}</main>
       {!hideFooter && <Footer />}
