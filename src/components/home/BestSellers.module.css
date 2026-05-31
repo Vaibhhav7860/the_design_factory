@@ -426,7 +426,10 @@
     flex: 0 0 calc(50% - 2.5px);
   }
   .productImage {
-    padding: 12px;
+    padding: 0; /* Remove white border inside image */
+  }
+  .imageContainer {
+    border-radius: 0; /* Sharp edges for mobile */
   }
   .title {
     font-size: 22px;
@@ -451,6 +454,7 @@
   /* Thinner border for mobile */
   .imageContainer {
     border-width: 3px !important; /* Override inline style - thinner border */
+    border-radius: 0; /* Sharp edges */
   }
   
   /* Remove hover effects on mobile */
@@ -483,12 +487,16 @@
     flex: 0 0 calc(50% - 2.5px);
   }
   .productImage {
-    padding: 8px;
+    padding: 0; /* Remove white border inside image */
+  }
+  .imageContainer {
+    border-radius: 0; /* Sharp edges for mobile */
   }
   
   /* Thinner border for mobile */
   .imageContainer {
     border-width: 3px !important; /* Override inline style - thinner border */
+    border-radius: 0; /* Sharp edges */
   }
   
   /* Remove hover effects on mobile */
