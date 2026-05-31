@@ -102,6 +102,7 @@ export default async function OrdersPage({ searchParams }) {
                 { key: "fulfilmentStatus", header: "Fulfilment", render: (o) => <StatusPill tone={o.fulfilmentStatus === "fulfilled" ? "positive" : o.fulfilmentStatus === "cancelled" ? "danger" : "neutral"}>{o.fulfilmentStatus}</StatusPill> },
               ]}
               rows={orders.map((o) => ({ ...o, id: String(o._id) }))}
+              rowHref={(row) => `/admin/orders/${row.id}`}
             />
             <Pagination
               total={matchedTotal}

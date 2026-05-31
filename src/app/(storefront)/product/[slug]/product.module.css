@@ -1322,6 +1322,73 @@
 }
 
 
+/* ─── Personalisation validation states ─── */
+.required {
+  color: #c0392b;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.optional {
+  color: var(--text-tertiary, #9a9a9a);
+  font-weight: 400;
+  font-size: 0.78em;
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.formInputError {
+  border-color: rgba(192, 57, 43, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12) !important;
+  animation: tdfFieldShake 0.32s ease;
+}
+
+@keyframes tdfFieldShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+.fieldError {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #c0392b;
+  letter-spacing: 0.2px;
+}
+
+.fieldError::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #c0392b;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.addBtnDisabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: saturate(0.85);
+}
+
+.addBtnDisabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+
 /* ═══════════════════════════════════════════
    iOS DEVICE SPECIFIC FIXES
    ═══════════════════════════════════════════ */

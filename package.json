@@ -12,7 +12,8 @@
     "seed:demo": "node scripts/seed-demo-data.js",
     "smoke:r2": "node scripts/smoke-r2.js",
     "migrate:images": "node scripts/migrate-images-to-r2.js",
-    "migrate:tags": "node scripts/migrate-product-tags.js"
+    "migrate:tags": "node scripts/migrate-product-tags.js",
+    "migrate:personalisation": "node scripts/migrate-personalisation-rules.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
@@ -22,6 +23,7 @@
     "mongoose": "^8.8.0",
     "next": "16.2.6",
     "next-auth": "5.0.0-beta.25",
+    "razorpay": "^2.9.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.6.0",

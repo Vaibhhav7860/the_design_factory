@@ -1,0 +1,375 @@
+/* ═══════════════════════════════════════
+   Account auth pages — split editorial panel
+   ═══════════════════════════════════════ */
+
+.page {
+  min-height: calc(100dvh - var(--nav-height, 60px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  background: #FBF8F3;
+}
+
+@media (max-width: 880px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Left brand panel ── */
+.brandPanel {
+  position: relative;
+  background: linear-gradient(135deg, #FCD589 0%, #FBC9BC 60%, #d7e4e4 100%);
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+@media (max-width: 880px) {
+  .brandPanel {
+    padding: 40px 24px 28px;
+    min-height: 200px;
+  }
+}
+
+.brandTopline {
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: rgba(58, 40, 0, 0.55);
+  font-weight: 700;
+}
+
+.brandHero {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(34px, 5vw, 56px);
+  color: #3a2800;
+  line-height: 1.05;
+  letter-spacing: 0.4px;
+  margin: 24px 0 0;
+  max-width: 520px;
+}
+
+.brandHero em {
+  font-style: italic;
+  color: #b85a3e;
+}
+
+.brandSub {
+  margin: 18px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(58, 40, 0, 0.78);
+  max-width: 460px;
+}
+
+.brandFoot {
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(58, 40, 0, 0.55);
+  font-weight: 600;
+}
+
+/* ── Right form panel ── */
+.formPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 40px 36px;
+  box-shadow: 0 30px 60px -32px rgba(26, 16, 8, 0.18);
+  border: 1px solid rgba(26, 16, 8, 0.06);
+}
+
+@media (max-width: 880px) {
+  .card {
+    padding: 32px 24px;
+  }
+}
+
+.title {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #6b6b6b;
+  margin: 0 0 26px;
+  line-height: 1.55;
+}
+
+/* ── Google button ── */
+.googleBtn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border: 1px solid rgba(26, 16, 8, 0.18);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.googleBtn:hover:not(:disabled) {
+  background: #fbfaf6;
+  border-color: rgba(26, 16, 8, 0.32);
+  transform: translateY(-1px);
+}
+
+.googleBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.googleIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Divider ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(26, 16, 8, 0.08);
+}
+
+.dividerText {
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  font-weight: 700;
+}
+
+/* ── Form ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 480px) {
+  .row2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 14px;
+  background: #fbfaf6;
+  border: 1px solid rgba(26, 16, 8, 0.12);
+  border-radius: 10px;
+  color: #1a1a1a;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+  background: #ffffff;
+  border-color: #1a1a1a;
+  box-shadow: 0 0 0 3px rgba(26, 16, 8, 0.08);
+}
+
+.inputError {
+  border-color: rgba(192, 57, 43, 0.6);
+  background: rgba(192, 57, 43, 0.04);
+}
+
+.fieldError {
+  font-size: 11px;
+  color: #c0392b;
+  margin: 4px 0 0;
+  letter-spacing: 0.2px;
+}
+
+.formError {
+  background: rgba(192, 57, 43, 0.08);
+  border: 1px solid rgba(192, 57, 43, 0.24);
+  color: #a93226;
+  padding: 10px 14px;
+  font-size: 13px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+
+.formSuccess {
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.24);
+  color: #2e7d32;
+  padding: 12px 14px;
+  font-size: 13px;
+  border-radius: 10px;
+  line-height: 1.5;
+}
+
+.submit {
+  width: 100%;
+  height: 46px;
+  padding: 0 16px;
+  background: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  margin-top: 6px;
+}
+
+.submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -8px rgba(26, 16, 8, 0.4);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Bottom links ── */
+.metaRow {
+  text-align: center;
+  font-size: 13px;
+  color: #6b6b6b;
+  margin-top: 22px;
+}
+
+.metaRow a {
+  color: #b89968;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.forgotRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -6px;
+}
+
+.forgotRow a {
+  font-size: 12px;
+  color: #b89968;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 500;
+}
+
+/* ── Account home (signed-in) ── */
+.accountHome {
+  max-width: 720px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.accountHero {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 28px;
+  border: 1px solid rgba(26, 16, 8, 0.06);
+  box-shadow: 0 16px 40px -28px rgba(26, 16, 8, 0.18);
+}
+
+.accountHero h1 {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0 0 6px;
+}
+
+.accountHero p {
+  font-size: 14px;
+  color: #6b6b6b;
+  margin: 0;
+}
+
+.accountActions {
+  margin-top: 28px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid rgba(26, 16, 8, 0.16);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  font-family: inherit;
+}
+
+.btnGhost:hover {
+  background: #fbfaf6;
+  border-color: rgba(26, 16, 8, 0.32);
+}

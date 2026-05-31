@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import ContactForm from "@/components/checkout/ContactForm";
@@ -9,16 +10,14 @@ import BillingAddress from "@/components/checkout/BillingAddress";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import styles from "./page.module.css";
 
+const RAZORPAY_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
+
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, cartTotal, cartSubtotal, comboDiscount } = useCart();
-  
+  const { cart, cartSubtotal, comboDiscount } = useCart();
+
   // Form state
-  const [contactInfo, setContactInfo] = useState({
-    email: "",
-    phone: "",
-  });
-  
+  const [contactInfo, setContactInfo] = useState({ email: "", phone: "" });
   const [deliveryInfo, setDeliveryInfo] = useState({
     country: "India",
     firstName: "",
@@ -32,7 +31,6 @@ export default function CheckoutPage() {
     saveInfo: false,
     textOffers: false,
   });
-  
   const [shippingMethod, setShippingMethod] = useState(null);
   const [billingAddressSame, setBillingAddressSame] = useState(true);
   const [billingInfo, setBillingInfo] = useState({});
@@ -40,51 +38,58 @@ export default function CheckoutPage() {
   const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [shippingCost, setShippingCost] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  // Redirect if cart is empty
+  // Redirect if cart is empty — but NOT while a payment is being
+  // processed. Without this guard, the success-page redirect from the
+  // Razorpay handler races against this effect (the cart is briefly
+  // empty between clearCart and the push) and the user lands on /cart.
   useEffect(() => {
-    if (cart.length === 0) {
+    if (cart.length === 0 && !isProcessing) {
       router.push("/cart");
     }
-  }, [cart, router]);
+  }, [cart, router, isProcessing]);
 
-  // Load saved data from localStorage
+  // Restore + persist checkout draft
   useEffect(() => {
-    const savedData = localStorage.getItem("checkoutData");
-    if (savedData) {
-      const parsed = JSON.parse(savedData);
-      setContactInfo(parsed.contactInfo || contactInfo);
-      setDeliveryInfo(parsed.deliveryInfo || deliveryInfo);
+    try {
+      const saved = localStorage.getItem("checkoutData");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.contactInfo) setContactInfo(parsed.contactInfo);
+        if (parsed.deliveryInfo) setDeliveryInfo(parsed.deliveryInfo);
+      }
+    } catch {
+      // ignore corrupt draft
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-save to localStorage
   useEffect(() => {
-    const dataToSave = {
-      contactInfo,
-      deliveryInfo,
-    };
-    localStorage.setItem("checkoutData", JSON.stringify(dataToSave));
+    try {
+      localStorage.setItem(
+        "checkoutData",
+        JSON.stringify({ contactInfo, deliveryInfo })
+      );
+    } catch {
+      // quota exceeded — ignore
+    }
   }, [contactInfo, deliveryInfo]);
 
-  // Calculate shipping based on address
+  // Shipping is currently free across the catalog. We keep the effect
+  // so the field updates when the address is entered, but it always
+  // resolves to 0 — matching the server-side total.
   useEffect(() => {
-    if (deliveryInfo.pinCode && deliveryInfo.pinCode.length === 6) {
-      // Simulate shipping calculation
-      // In production, call your shipping API here
-      setShippingCost(100); // Flat rate for now
-    }
-  }, [deliveryInfo.pinCode]);
+    setShippingCost(0);
+  }, [deliveryInfo.pinCode, cartSubtotal, comboDiscount, appliedDiscount]);
 
   const handleApplyDiscount = () => {
-    // Implement discount code validation
-    // For now, just a placeholder
     if (discountCode.toUpperCase() === "WELCOME10") {
       setAppliedDiscount({
-        code: discountCode,
+        code: discountCode.toUpperCase(),
         type: "percentage",
         value: 10,
-        amount: Math.round(cartSubtotal * 0.1),
+        amount: Math.round((cartSubtotal - comboDiscount) * 0.1),
       });
     } else {
       alert("Invalid discount code");
@@ -98,97 +103,172 @@ export default function CheckoutPage() {
 
   const calculateTotal = () => {
     let total = cartSubtotal - comboDiscount + shippingCost;
-    if (appliedDiscount) {
-      total -= appliedDiscount.amount;
-    }
+    if (appliedDiscount) total -= appliedDiscount.amount;
     return Math.max(0, total);
   };
 
-  const handlePayment = async () => {
-    // Validate form
-    if (!contactInfo.email || !contactInfo.phone || !deliveryInfo.firstName || !deliveryInfo.phone) {
-      alert("Please fill in all required fields");
+  // Build the lean cart payload the server expects (slug + qty + personalisation).
+  const buildCartPayload = useCallback(
+    () =>
+      cart.map((item) => ({
+        slug: item.slug,
+        quantity: item.quantity,
+        personalisation: item.personalisation || null,
+      })),
+    [cart]
+  );
+
+  const validateForCheckout = () => {
+    if (!contactInfo.email) return "Please enter your email.";
+    if (!deliveryInfo.firstName) return "Please enter your first name.";
+    if (!deliveryInfo.address) return "Please enter your delivery address.";
+    if (!deliveryInfo.city) return "Please enter your city.";
+    if (!deliveryInfo.state) return "Please select your state.";
+    if (!/^\d{6}$/.test(deliveryInfo.pinCode || ""))
+      return "Please enter a valid 6-digit PIN code.";
+    if (!deliveryInfo.phone) return "Please enter a contact phone number.";
+    return null;
+  };
+
+  const openRazorpayCheckout = (orderResp) => {
+    const Razorpay = typeof window !== "undefined" && window.Razorpay;
+    if (!Razorpay) {
+      setErrorMessage(
+        "Payment gateway is still loading. Please try Pay Now again in a moment."
+      );
+      setIsProcessing(false);
       return;
     }
 
-    setIsProcessing(true);
-
-    // For now, just show an alert since backend isn't ready
-    setTimeout(() => {
-      alert("Payment integration will be completed in the next phase. For now, you can see the checkout UI!");
-      setIsProcessing(false);
-    }, 1000);
-
-    /* 
-    // This will be enabled once backend is ready
-    try {
-      const orderData = {
-        contact: contactInfo,
-        delivery: deliveryInfo,
-        billing: billingAddressSame ? deliveryInfo : billingInfo,
-        cart,
-        subtotal: cartSubtotal,
-        comboDiscount,
-        appliedDiscount,
-        shippingCost,
-        total: calculateTotal(),
-      };
-
-      const response = await fetch("/api/checkout/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
-
-      const { orderId, amount, currency } = await response.json();
-
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: amount,
-        currency: currency,
-        name: "The Design Factory",
-        description: "Order Payment",
-        order_id: orderId,
-        handler: async function (response) {
-          const verifyResponse = await fetch("/api/checkout/verify-payment", {
+    const options = {
+      key: orderResp.razorpayKeyId,
+      amount: orderResp.amountPaise,
+      currency: orderResp.currency,
+      name: "The Design Factory",
+      description: `Order ${orderResp.orderNumber}`,
+      order_id: orderResp.razorpayOrderId,
+      prefill: {
+        name: `${deliveryInfo.firstName} ${deliveryInfo.lastName || ""}`.trim(),
+        email: contactInfo.email,
+        contact: contactInfo.phone || deliveryInfo.phone,
+      },
+      notes: {
+        order_number: orderResp.orderNumber,
+      },
+      theme: { color: "#FCD589" },
+      // Force the UPI block to expose all three flows — `collect` is
+      // the "Enter UPI ID" path, `qr` is the scannable code, `intent`
+      // is the deep-link to UPI apps on mobile. Razorpay sometimes
+      // hides `collect` on desktop by default; this guarantees it.
+      config: {
+        display: {
+          blocks: {
+            upiBlock: {
+              name: "Pay using UPI",
+              instruments: [
+                {
+                  method: "upi",
+                  flows: ["collect", "intent", "qr"],
+                },
+              ],
+            },
+          },
+          sequence: ["block.upiBlock"],
+          preferences: {
+            show_default_blocks: true, // keeps Cards / Netbanking / Wallet etc.
+          },
+        },
+      },
+      handler: async function (response) {
+        try {
+          const verifyRes = await fetch("/api/checkout/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              orderData,
             }),
           });
-
-          const verifyData = await verifyResponse.json();
-
-          if (verifyData.success) {
-            localStorage.removeItem("checkoutData");
-            router.push(`/checkout/success?orderId=${verifyData.orderId}`);
-          } else {
-            alert("Payment verification failed. Please contact support.");
+          const verifyData = await verifyRes.json();
+          if (!verifyRes.ok || !verifyData.success) {
+            throw new Error(
+              verifyData.error || "Payment verification failed."
+            );
           }
+          try {
+            localStorage.removeItem("checkoutData");
+          } catch {}
+          // IMPORTANT: do NOT clearCart() here. The checkout page's
+          // cart-empty effect would race the redirect and push us to
+          // /cart instead of /checkout/success. The success page
+          // clears the cart on mount, after navigation completes.
+          router.push(
+            `/checkout/success?orderNumber=${encodeURIComponent(
+              verifyData.orderNumber
+            )}`
+          );
+        } catch (err) {
+          setErrorMessage(
+            err?.message ||
+              "Payment was received but we couldn't confirm it. Our team will reach out."
+          );
+          setIsProcessing(false);
+        }
+      },
+      modal: {
+        ondismiss: () => {
+          // The user closed Razorpay without completing payment.
+          // The server-side Order remains as `pending` until Razorpay
+          // sends a `payment.failed` webhook or we re-attempt — that's
+          // fine and shows up in the admin Orders tab as expected.
+          setIsProcessing(false);
         },
-        prefill: {
-          name: `${deliveryInfo.firstName} ${deliveryInfo.lastName}`,
-          email: contactInfo.email,
-          contact: deliveryInfo.phone,
-        },
-        theme: {
-          color: "#C4A574",
-        },
-      };
+      },
+    };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Payment error:", error);
-      alert("Payment failed. Please try again.");
-    } finally {
+    const rzp = new Razorpay(options);
+    rzp.on("payment.failed", function (response) {
+      setErrorMessage(
+        response?.error?.description ||
+          "Your payment couldn't be completed. Please try again."
+      );
+      setIsProcessing(false);
+    });
+    rzp.open();
+  };
+
+  const handlePayment = async () => {
+    setErrorMessage(null);
+    const validationError = validateForCheckout();
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
+
+    setIsProcessing(true);
+    try {
+      const res = await fetch("/api/checkout/razorpay-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart: buildCartPayload(),
+          contact: contactInfo,
+          delivery: deliveryInfo,
+          billingAddressSame,
+          billing: billingAddressSame ? null : billingInfo,
+          discountCode: appliedDiscount?.code,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data?.error || `Could not start checkout (${res.status}).`);
+      }
+      openRazorpayCheckout(data);
+    } catch (err) {
+      setErrorMessage(err?.message || "Could not start checkout.");
       setIsProcessing(false);
     }
-    */
   };
 
   if (cart.length === 0) {
@@ -197,6 +277,9 @@ export default function CheckoutPage() {
 
   return (
     <div className={styles.checkoutPage}>
+      {/* Razorpay Checkout JS */}
+      <Script src={RAZORPAY_SCRIPT} strategy="afterInteractive" />
+
       <div className={styles.container}>
         {/* Left Column - Checkout Form */}
         <div className={styles.leftColumn}>
@@ -218,7 +301,7 @@ export default function CheckoutPage() {
             shippingMethod={shippingMethod}
             setShippingMethod={setShippingMethod}
             shippingCost={shippingCost}
-            hasAddress={deliveryInfo.pinCode.length === 6}
+            hasAddress={deliveryInfo.pinCode?.length === 6}
           />
 
           <BillingAddress
@@ -227,6 +310,31 @@ export default function CheckoutPage() {
             billingInfo={billingInfo}
             setBillingInfo={setBillingInfo}
           />
+
+          {errorMessage ? (
+            <div
+              role="alert"
+              style={{
+                background: "rgba(192, 57, 43, 0.08)",
+                border: "1px solid rgba(192, 57, 43, 0.3)",
+                color: "#a93226",
+                padding: "10px 14px",
+                borderRadius: 8,
+                fontSize: 13,
+                margin: "12px 0",
+              }}
+            >
+              {errorMessage}
+            </div>
+          ) : null}
+
+          <button
+            className={styles.payButton}
+            onClick={handlePayment}
+            disabled={isProcessing}
+          >
+            {isProcessing ? "Processing…" : "Pay Now"}
+          </button>
 
           <div className={styles.footer}>
             <a href="/refund-policy">Refund policy</a>
