@@ -1,11 +1,12 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./category.module.css";
 
 export default function FilterSlider({ subcategories, currentSlug, activeSubcategory }) {
   const sliderRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Subcategory-specific images
   const subcategoryImages = {
@@ -31,6 +32,49 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
     return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
   };
 
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Auto-scroll for mobile - show 4 circles at a time
+  useEffect(() => {
+    if (!isMobile || !sliderRef.current || subcategories.length <= 4) return;
+
+    const container = sliderRef.current;
+    let currentIndex = 0;
+    
+    const autoScroll = setInterval(() => {
+      try {
+        // Calculate how many items to show (4 at a time)
+        const itemsToShow = 4;
+        const maxIndex = Math.max(0, subcategories.length - itemsToShow);
+        
+        currentIndex = (currentIndex + 1) % (maxIndex + 1);
+        
+        // Calculate scroll position to show 4 items
+        const itemWidth = container.scrollWidth / subcategories.length;
+        const scrollAmount = currentIndex * itemWidth;
+        
+        container.scrollTo({
+          left: scrollAmount,
+          behavior: 'smooth'
+        });
+      } catch (error) {
+        console.error('Auto-scroll error:', error);
+      }
+    }, 3500); // Change every 3.5 seconds
+
+    return () => clearInterval(autoScroll);
+  }, [isMobile, subcategories.length]);
+
   const scrollLeft = () => {
     if (sliderRef.current) {
       sliderRef.current.scrollBy({ left: -300, behavior: 'smooth' });
@@ -51,7 +95,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
   // Always use the slider layout as requested by the user
   return (
     <div className={styles.filterSection}>
-      <button className={styles.filterNavBtn} onClick={scrollLeft}>
+      <button className={styles.filterNavBtn} onClick={scrollLeft} aria-label="Previous">
         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
@@ -77,7 +121,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
           ))}
         </div>
       </div>
-      <button className={styles.filterNavBtn} onClick={scrollRight}>
+      <button className={styles.filterNavBtn} onClick={scrollRight} aria-label="Next">
         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>

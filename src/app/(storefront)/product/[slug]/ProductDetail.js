@@ -215,63 +215,39 @@ export default function ProductDetail({ product }) {
     [activeIndex, gallery.length, goTo]
   );
 
-  /* ── Auto-Scroll Logic ── */
+  /* ── Auto-Scroll Logic - DISABLED to prevent page jumping ── */
+  // Auto-scroll removed - user can manually navigate images
   const startAutoScroll = useCallback(() => {
-    if (gallery.length <= 1) return;
-    clearInterval(autoScrollRef.current);
-    autoScrollRef.current = setInterval(() => {
-      if (!isPausedRef.current) {
-        setActiveIndex((prev) => {
-          const next = (prev + 1) % gallery.length;
-          if (thumbnailsRef.current) {
-            const thumb = thumbnailsRef.current.children[next];
-            if (thumb)
-              thumb.scrollIntoView({
-                behavior: "smooth",
-                inline: "center",
-                block: "nearest",
-              });
-          }
-          return next;
-        });
-      }
-    }, AUTO_SCROLL_INTERVAL);
-  }, [gallery.length]);
+    // Auto-scroll disabled - no automatic sliding
+    return;
+  }, []);
 
   const pauseAutoScroll = useCallback(() => {
-    isPausedRef.current = true;
-    clearTimeout(idleTimerRef.current);
-    idleTimerRef.current = setTimeout(() => {
-      isPausedRef.current = false;
-    }, IDLE_RESUME_DELAY);
+    // No-op since auto-scroll is disabled
   }, []);
 
   const handleManualNav = useCallback(
     (navFn) => {
-      pauseAutoScroll();
-      navFn();
+      navFn(); // Just execute navigation without pause logic
     },
-    [pauseAutoScroll]
+    []
   );
 
   useEffect(() => {
-    startAutoScroll();
+    // Auto-scroll disabled - no interval started
     return () => {
       clearInterval(autoScrollRef.current);
       clearTimeout(idleTimerRef.current);
     };
-  }, [startAutoScroll]);
+  }, []);
 
-  /* ── Mouse hover pause ── */
+  /* ── Mouse hover - no longer needed but keeping for compatibility ── */
   const handleGalleryMouseEnter = () => {
-    isPausedRef.current = true;
+    // No-op
   };
 
   const handleGalleryMouseLeave = () => {
-    clearTimeout(idleTimerRef.current);
-    idleTimerRef.current = setTimeout(() => {
-      isPausedRef.current = false;
-    }, 1500);
+    // No-op
   };
 
   /* ── Add to Cart ── */

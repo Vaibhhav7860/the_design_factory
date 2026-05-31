@@ -435,7 +435,8 @@ ul, ol { list-style: none; }
 @media (max-width: 480px) {
   :root {
     --nav-height: 80px;
-    --section-padding: 20px 4%;
+    /* CHANGE 9: Decrease spacing between sections on mobile */
+    --section-padding: 15px 4%;
   }
 
   .container {
@@ -443,7 +444,8 @@ ul, ol { list-style: none; }
   }
 
   .section-header h2 {
-    font-size: 20px;
+    /* CHANGE 9: Increase section heading size on mobile */
+    font-size: 22px;
     letter-spacing: 2px;
   }
 
@@ -630,6 +632,12 @@ ul, ol { list-style: none; }
   [style*="position:fixed"] {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+  }
+
+  /* iOS-specific calc() fixes */
+  * {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
   }
 }
 

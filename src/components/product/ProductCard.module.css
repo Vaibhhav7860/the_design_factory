@@ -54,6 +54,7 @@
   position: relative;
   background: #fcfcfc;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .imageBg {
@@ -156,9 +157,16 @@
 /* ── Tags ── */
 .tags {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Keep tags in one line */
   gap: 6px;
   margin-bottom: 8px;
+  overflow-x: auto; /* Allow horizontal scroll if too many tags */
+  scrollbar-width: none; /* Hide scrollbar */
+  -ms-overflow-style: none;
+}
+
+.tags::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
 }
 
 .tag {
@@ -174,6 +182,7 @@
   border-radius: 4px;
   white-space: nowrap;
   line-height: 1;
+  flex-shrink: 0; /* Prevent tags from shrinking */
 }
 
 .title {
@@ -328,24 +337,48 @@
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
+  .imageWrap {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .imageBg {
+    aspect-ratio: 1;
+  }
+
   .title {
     font-size: 12px;
+    line-height: 1.4;
+    font-weight: 600;
   }
 
   .price {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .originalPrice {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .info {
-    padding: 8px 10px 0;
+    padding: 10px 12px 8px;
   }
 
   .image {
-    padding: 8px;
+    padding: 10px;
+  }
+
+  /* Smaller tags for tablet */
+  .tags {
+    gap: 5px;
+    margin-bottom: 7px;
+  }
+
+  .tag {
+    font-size: 8px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.4px;
   }
 
   .addBtn {
@@ -364,40 +397,82 @@
   .wishlistIcon {
     opacity: 1;
     transform: scale(1);
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
   }
 
   .wishlistIcon svg {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
   }
 }
 
 @media (max-width: 480px) {
+  /* Remove borders and make images bigger like reference */
+  .imageWrap {
+    border: none;
+    box-shadow: none; /* Remove shadow for cleaner look */
+    border-radius: 0; /* Sharp corners - no rounding */
+    overflow: hidden;
+  }
+
+  /* Make product pictures bigger like reference image */
+  .imageBg {
+    aspect-ratio: 1;
+    background: #ffffff;
+  }
+
+  .card {
+    margin-bottom: 0;
+  }
+
   .title {
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.3;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2D2D2D;
   }
 
   .price {
-    font-size: 13px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2D2D2D;
   }
 
   .originalPrice {
-    font-size: 10px;
+    font-size: 13px;
+    color: #2e7d32;
   }
 
   .discount {
-    font-size: 9px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #2e7d32;
   }
 
   .info {
-    padding: 6px 8px 0;
+    padding: 12px 14px 10px;
+    background: #ffffff;
   }
 
+  /* Remove white padding/border from images */
   .image {
-    padding: 6px;
+    padding: 0; /* Remove all padding to eliminate white border */
+  }
+
+  /* Smaller tags for mobile - prevent cutting */
+  .tags {
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .tag {
+    font-size: 7px; /* Smaller font for mobile */
+    padding: 4px 6px; /* Reduced padding */
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
   }
 
   .addBtn {
@@ -407,31 +482,41 @@
     transform: none;
     opacity: 1;
     width: 100%;
-    margin-top: 6px;
-    border-radius: 8px;
-    padding: 9px;
-    font-size: 8px;
+    margin-top: 10px;
+    border-radius: 6px; /* Slightly rounded button */
+    padding: 12px;
+    font-size: 9px;
     letter-spacing: 1.5px;
+    font-weight: 700;
   }
 
   .wishlistIcon {
     opacity: 1;
     transform: scale(1);
-    width: 28px;
-    height: 28px;
-    top: 8px;
-    right: 8px;
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
   .wishlistIcon svg {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
   }
 
   .badge {
-    top: 8px;
-    left: 8px;
-    padding: 4px 10px;
-    font-size: 8px;
+    top: 12px;
+    left: 12px;
+    padding: 6px 14px;
+    font-size: 9px;
+    border-radius: 6px; /* Slightly rounded badge */
+    font-weight: 700;
+  }
+
+  .pricing {
+    gap: 8px;
+    margin-bottom: 6px;
   }
 }
