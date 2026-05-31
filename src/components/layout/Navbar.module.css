@@ -557,7 +557,7 @@
 @media (max-width: 1024px) {
   .nav {
     grid-template-columns: auto 1fr auto; /* Hamburger, Logo, NavIcons */
-    padding: 15px 4%;
+    padding: 10px 4%; /* Reduced from 15px to 10px */
   }
   .navLinks {
     display: none;
@@ -567,7 +567,7 @@
   }
   .logo {
     justify-content: center;
-    height: 65px;
+    height: 55px; /* Reduced from 65px to 55px */
     margin-left: 0;
     position: relative;
   }
@@ -576,7 +576,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 155px;
+    height: 155px; /* Logo size unchanged */
     width: auto;
     min-width: auto;
     max-width: 270px;
@@ -587,10 +587,19 @@
 @media (max-width: 480px) {
   .announcementBar {
     /* CHANGE 1: Make header blue strip smaller for mobile - like reference image */
-    font-size: 7px;
-    padding: 8px 0;
-    letter-spacing: 1.2px;
+    font-size: 8px; /* Increased from 7px to 8px */
+    padding: 8px 0; /* Increased from 6px to 8px */
+    letter-spacing: 1.5px; /* Increased from 1.2px to 1.5px */
   }
+  
+  .nav {
+    padding: 8px 4%; /* Reduced from 10px to 8px */
+  }
+  
+  .logo {
+    height: 50px; /* Reduced from 55px to 50px */
+  }
+  
   .navIcons {
     gap: 18px;
   }
