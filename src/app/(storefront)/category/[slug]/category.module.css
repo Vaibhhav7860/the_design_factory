@@ -143,7 +143,7 @@
   gap: 20px;
   position: relative;
   z-index: 1;
-  overflow: visible;
+  overflow: visible; /* Allow circles to expand without clipping */
 }
 
 /* Normal mode (≤8 items) */
@@ -154,7 +154,7 @@
   border-radius: 0;
   position: relative;
   z-index: 1;
-  overflow: visible;
+  overflow: visible; /* Allow circles to expand without clipping */
 }
 
 .filterPillsNormal {
@@ -202,6 +202,7 @@
   overflow: hidden;
   position: relative;
   margin: 0 12px;
+  padding: 20px 0; /* Add vertical padding to prevent clipping */
 }
 
 .filterPills {
@@ -217,7 +218,7 @@
   width: fit-content;
   max-width: 100%;
   margin: 0 auto;
-  overflow-y: visible;
+  overflow-y: visible; /* Prevent vertical clipping */
 }
 
 .filterPills::-webkit-scrollbar {
@@ -237,7 +238,7 @@
   min-width: 150px;
   width: 150px;
   position: relative;
-  padding: 12px 0;
+  padding: 20px 0; /* Increased padding to prevent clipping on hover */
 }
 
 .filterPill:hover {
@@ -799,10 +800,12 @@
 @media (min-width: 481px) and (max-width: 768px) {
   .page {
     padding: 0 0 50px;
+    background: #ffffff; /* White background for entire page */
   }
 
   .headerArea {
-    padding: 85px 4% 25px;
+    padding: 85px 4% 20px;
+    margin-bottom: 0; /* No gap between header and circles */
   }
 
   .eyebrowTag {
@@ -887,23 +890,89 @@
     margin-bottom: 28px;
   }
 
+  /* MOBILE CIRCLES: Show 4 at a time on tablets too */
+  .filterSection {
+    padding: 20px 1% 25px; /* Circles section */
+    gap: 10px;
+    background: transparent; /* Transparent - no colored background */
+    margin: 0; /* No margin */
+  }
+
+  .filterContainer {
+    margin: 0;
+    flex: 1;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 15px 0; /* Add vertical padding */
+  }
+
+  .filterContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterPills {
+    gap: 3px; /* Reduced gap for tablet */
+    padding: 0;
+    width: auto;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
   .filterPillsNormal {
     gap: 20px;
   }
 
+  /* Show 4 circles at a time on tablet portrait - bigger size */
   .filterPill {
-    min-width: 115px;
-    width: 115px;
-    gap: 10px;
+    width: calc((100% - 9px) / 4); /* Use percentage for perfect fit */
+    min-width: calc((100% - 9px) / 4);
+    gap: 6px;
+    flex-shrink: 0;
+    padding: 10px 0; /* Add padding to prevent clipping */
+  }
+
+  /* Remove hover effect on tablet */
+  .filterPill:hover {
+    transform: none;
+  }
+
+  .filterPill:hover .filterIcon {
+    transform: none;
+    border-color: #c4b5a0; /* Grey border */
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.06),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
   }
 
   .filterIcon {
-    width: 105px;
-    height: 105px;
+    width: calc(100% - 12px);
+    height: calc((100vw - 2% - 9px) / 4 - 18px);
+    border-width: 1.5px; /* Thin grey border */
+    border-color: #c4b5a0; /* Grey border like reference image */
+    background: #ffffff; /* Pure white background */
+    padding: 0; /* Remove padding to eliminate white inner border */
+  }
+  
+  /* Active state - keep grey border */
+  .filterPillActive .filterIcon {
+    border-color: #c4b5a0; /* Grey border for active state */
+    border-width: 2px; /* Slightly thicker for active state */
+    box-shadow: 
+      0 8px 28px rgba(0, 0, 0, 0.15),
+      0 0 0 4px rgba(196, 181, 160, 0.15);
+    padding: 0; /* Remove padding */
   }
 
   .filterPill span {
-    font-size: 10px;
+    font-size: 8.5px;
+    font-weight: 700;
+  }
+
+  /* Hide arrows on tablet too */
+  .filterNavBtn {
+    display: none !important;
   }
 }
 
@@ -911,10 +980,14 @@
 @media (max-width: 480px) {
   .page {
     padding: 0 0 40px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    background: #ffffff; /* White background for entire page */
   }
 
   .headerArea {
-    padding: 85px 4% 30px;
+    padding: 85px 4% 20px; /* Tight padding - only around heading */
+    margin-bottom: 0; /* No gap between header and circles */
   }
 
   .headerArea::before {
@@ -986,7 +1059,7 @@
 
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px; /* Reduced gap between products */
     padding: 0;
   }
 
@@ -994,7 +1067,7 @@
     grid-template-columns: 1fr;
     gap: 16px;
     margin: 20px 0 0;
-    padding: 0 4%;
+    padding: 0 2%; /* Minimal side padding like reference */
   }
 
   .filterSidebar {
@@ -1011,8 +1084,10 @@
   }
 
   .filterSection {
-    padding: 15px 4% 10px;
+    padding: 20px 1% 20px; /* Circles section - no colored background */
     gap: 8px;
+    background: transparent; /* Transparent - inherits white from page */
+    margin: 0; /* No margin */
   }
 
   .filterContainer {
@@ -1027,11 +1102,12 @@
     display: none;
   }
 
+  /* MOBILE CIRCLES: Show 4 at a time, bigger size like reference image */
   .filterPills {
-    gap: 12px;
-    padding: 0 4px;
+    gap: 2px; /* Minimal gap between circles - closer together */
+    padding: 0;
     width: auto;
-    justify-content: flex-start;
+    justify-content: space-between;
     display: flex;
     flex-wrap: nowrap;
   }
@@ -1044,41 +1120,184 @@
     justify-content: center;
   }
 
+  /* Make circles fit perfectly - show 4 at a time */
   .filterPill {
-    width: 130px;
-    min-width: 130px;
+    width: calc((100% - 6px) / 4); /* Use percentage for perfect fit: 100% width minus gaps */
+    min-width: calc((100% - 6px) / 4);
     flex-shrink: 0;
-    gap: 8px;
-    padding: 0;
+    gap: 4px; /* Reduced gap between icon and text */
+    padding: 10px 0; /* Add padding to prevent clipping */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
 
+  /* Remove hover effect on mobile */
+  .filterPill:hover {
+    transform: none;
+  }
+
+  .filterPill:hover .filterIcon {
+    transform: none;
+    border-color: #c4b5a0; /* Grey border on hover */
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.06),
+      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Bigger circle size for mobile - matching reference image */
   .filterIcon {
-    width: 120px;
-    height: 120px;
-    border-width: 2px;
+    width: calc(100% - 8px); /* Fill the pill width minus small margin */
+    height: calc((100vw - 2% - 6px) / 4 - 12px); /* Maintain aspect ratio */
+    border-width: 1.5px; /* Thin grey border */
+    border-color: #c4b5a0; /* Grey border like reference image */
+    background: #ffffff; /* Pure white background - no colored background */
+    padding: 0; /* Remove padding to eliminate white inner border */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Active state - keep grey border */
+  .filterPillActive .filterIcon {
+    border-color: #c4b5a0; /* Grey border for active state */
+    border-width: 2px; /* Slightly thicker for active state */
+    box-shadow: 
+      0 8px 28px rgba(0, 0, 0, 0.15),
+      0 0 0 4px rgba(196, 181, 160, 0.15);
+    padding: 0; /* Remove padding */
   }
 
   .filterPill span {
-    font-size: 9px;
-    letter-spacing: 0.5px;
-    max-width: 120px;
-    line-height: 1.2;
+    font-size: 7.5px;
+    letter-spacing: 0.2px;
+    max-width: 100%;
+    line-height: 1.1;
     text-align: center;
+    font-weight: 700;
   }
 
+  /* Hide navigation arrows on mobile */
   .filterNavBtn {
-    display: flex !important;
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    flex-shrink: 0;
-  }
-
-  .filterNavBtn svg {
-    width: 14px !important;
-    height: 14px !important;
+    display: none !important;
   }
 }
 
+
+
+/* ═══════════════════════════════════════════
+   iOS SPECIFIC FIXES - iPhone 16 Pro Max
+   ═══════════════════════════════════════════ */
+
+/* All iOS Devices */
+@supports (-webkit-touch-callout: none) {
+  .page {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+  }
+  
+  .filterSection {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .filterContainer {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filterPill {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .filterIcon {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .grid {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* iPhone 16 Pro Max Specific (430px) */
+@media only screen 
+  and (min-device-width: 430px) 
+  and (max-device-width: 430px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  .page {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  .filterPill {
+    /* Fallback for iOS calc issues */
+    width: 23.5vw;
+    min-width: 23.5vw;
+  }
+  
+  .filterIcon {
+    width: 21.5vw;
+    height: 21.5vw;
+    border-width: 1.5px; /* Thin grey border */
+    border-color: #c4b5a0; /* Grey border */
+    background: #ffffff; /* Pure white background */
+    padding: 0; /* Remove padding to eliminate white inner border */
+  }
+  
+  /* Active state - keep grey border */
+  .filterPillActive .filterIcon {
+    border-color: #c4b5a0;
+    border-width: 2px; /* Slightly thicker for active state */
+    box-shadow: 
+      0 8px 28px rgba(0, 0, 0, 0.15),
+      0 0 0 4px rgba(196, 181, 160, 0.15);
+    padding: 0; /* Remove padding */
+  }
+  
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .contentWrapper {
+    padding: 0 2%;
+  }
+}
+
+/* iPhone 14/15/16 Standard (390px - 393px) */
+@media only screen 
+  and (min-device-width: 390px) 
+  and (max-device-width: 393px) 
+  and (-webkit-min-device-pixel-ratio: 3) {
+  
+  .filterPill {
+    width: 23vw;
+    min-width: 23vw;
+  }
+  
+  .filterIcon {
+    width: 21vw;
+    height: 21vw;
+    border-width: 1.5px; /* Thin grey border */
+    border-color: #c4b5a0; /* Grey border */
+    background: #ffffff; /* Pure white background */
+    padding: 0; /* Remove padding to eliminate white inner border */
+  }
+  
+  /* Active state - keep grey border */
+  .filterPillActive .filterIcon {
+    border-color: #c4b5a0;
+    border-width: 2px; /* Slightly thicker for active state */
+    box-shadow: 
+      0 8px 28px rgba(0, 0, 0, 0.15),
+      0 0 0 4px rgba(196, 181, 160, 0.15);
+    padding: 0; /* Remove padding */
+  }
+}

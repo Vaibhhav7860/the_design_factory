@@ -286,7 +286,7 @@
   .cardShell {
     flex: 0 0 calc(100% - 10px);
     min-width: 0;
-    padding: 6px;
+    padding: 4px; /* Thinner border for mobile - reduced from 6px to 4px */
   }
   .cardCore {
     padding: 20px 20px;
@@ -303,12 +303,24 @@
     font-size: 32px;
     margin-bottom: 12px;
   }
+  
+  /* Remove hover effects on mobile */
+  .cardShell:hover {
+    transform: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  }
+  
+  .slider:hover .cardShell:not(:hover) {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
 }
 
 /* iPhone 16 Pro Max */
 @media (max-width: 430px) {
   .section {
-    padding: 16px 0 0;
+    padding: 20px 0 0;
   }
   .mainHeading {
     font-size: 28px;
@@ -319,6 +331,21 @@
   }
   .cardCore {
     padding: 16px 16px;
+  }
+  .cardShell {
+    padding: 4px; /* Thinner border for mobile - reduced from default to 4px */
+  }
+  
+  /* Remove hover effects on mobile */
+  .cardShell:hover {
+    transform: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  }
+  
+  .slider:hover .cardShell:not(:hover) {
+    opacity: 1;
+    filter: none;
+    transform: none;
   }
 }
 

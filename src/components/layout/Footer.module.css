@@ -603,18 +603,19 @@
     margin-bottom: 10px;
   }
 
+  /* Keep 1st and 2nd dogs same size */
   .footerCharLarge {
-    width: 42vw;
+    width: 44vw;
     transform: translateY(1.2vw);
   }
 
   .footerCharCenter {
-    width: 42vw;
+    width: 44vw;
   }
 
+  /* Increase only 3rd dog size */
   .footerCharRight {
-    /* CHANGE 7: Increase 3rd dog size to match others */
-    width: 45vw;
+    width: 48vw; /* Increased from 44vw */
     transform: translateY(1.2vw);
   }
 }

@@ -6,10 +6,13 @@ import styles from "./product.module.css";
 export default function RelatedProductsSlider({ products }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) {
         setItemsPerPage(2);
       } else if (window.innerWidth <= 1024) {
         setItemsPerPage(3);
@@ -21,6 +24,8 @@ export default function RelatedProductsSlider({ products }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Auto-slide removed - let user control navigation manually
 
   const maxIndex = Math.max(0, products.length - itemsPerPage);
 

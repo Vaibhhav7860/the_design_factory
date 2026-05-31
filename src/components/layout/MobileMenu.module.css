@@ -128,7 +128,7 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-text);
-  font-weight: 600;
+  font-weight: 700; /* CHANGE 9: Make subcategory headings bolder on mobile */
   margin-bottom: 8px;
 }
 
@@ -137,7 +137,7 @@
   padding: 6px 0;
   font-size: 13px;
   color: var(--color-text-light);
-  font-weight: 400;
+  font-weight: 600; /* CHANGE 9: Make subcategories bold on mobile */
   transition: color 0.3s ease;
 }
 
