@@ -384,7 +384,7 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 50px 5% 40px;
+    padding: 85px 4% 20px; /* Standardized */
   }
   
   .heroLabel {
@@ -406,11 +406,11 @@
   .sectionTitle {
     font-size: 22px;
     letter-spacing: 3px;
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* Standardized */
   }
 
   .benefits {
-    padding: 30px 5%;
+    padding: 20px 4%; /* Standardized */
   }
 
   .benefitsGrid {
@@ -423,7 +423,7 @@
   }
 
   .process {
-    padding: 30px 5% 30px;
+    padding: 20px 4% 20px; /* Standardized */
   }
 
   .processSteps {

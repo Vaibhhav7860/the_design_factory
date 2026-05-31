@@ -7,6 +7,7 @@ import styles from "./category.module.css";
 export default function FilterSlider({ subcategories, currentSlug, activeSubcategory }) {
   const sliderRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   // Subcategory-specific images
   const subcategoryImages = {
@@ -29,11 +30,23 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
   ];
 
   const getSubcategoryImage = (sub, index) => {
-    return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
+    try {
+      return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
+    } catch (error) {
+      console.error('Error getting subcategory image:', error);
+      return fallbackImages[0];
+    }
   };
+
+  // Client-side only rendering for iOS compatibility
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Detect mobile
   useEffect(() => {
+    if (!isClient) return;
+    
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -42,39 +55,10 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
     window.addEventListener('resize', checkMobile);
     
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isClient]);
 
-  // Auto-scroll for mobile - show 4 circles at a time
-  useEffect(() => {
-    if (!isMobile || !sliderRef.current || subcategories.length <= 4) return;
-
-    const container = sliderRef.current;
-    let currentIndex = 0;
-    
-    const autoScroll = setInterval(() => {
-      try {
-        // Calculate how many items to show (4 at a time)
-        const itemsToShow = 4;
-        const maxIndex = Math.max(0, subcategories.length - itemsToShow);
-        
-        currentIndex = (currentIndex + 1) % (maxIndex + 1);
-        
-        // Calculate scroll position to show 4 items
-        const itemWidth = container.scrollWidth / subcategories.length;
-        const scrollAmount = currentIndex * itemWidth;
-        
-        container.scrollTo({
-          left: scrollAmount,
-          behavior: 'smooth'
-        });
-      } catch (error) {
-        console.error('Auto-scroll error:', error);
-      }
-    }, 3500); // Change every 3.5 seconds
-
-    return () => clearInterval(autoScroll);
-  }, [isMobile, subcategories.length]);
-
+  // Auto-scroll removed - manual navigation only
+  
   const scrollLeft = () => {
     if (sliderRef.current) {
       sliderRef.current.scrollBy({ left: -300, behavior: 'smooth' });
@@ -82,15 +66,29 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
   };
 
   const scrollRight = () => {
-    if (sliderRef.current) {
+    if (!sliderRef.current) return;
+    
+    try {
       const container = sliderRef.current;
       const maxScroll = container.scrollWidth - container.clientWidth;
       const currentScroll = container.scrollLeft;
       const scrollAmount = Math.min(300, maxScroll - currentScroll);
       
       container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } catch (error) {
+      console.error('Scroll error:', error);
     }
   };
+
+  // Don't render until client-side for iOS compatibility
+  if (!isClient) {
+    return null;
+  }
+
+  // Safety check
+  if (!subcategories || subcategories.length === 0) {
+    return null;
+  }
 
   // Always use the slider layout as requested by the user
   return (
@@ -102,23 +100,30 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
       </button>
       <div className={styles.filterContainer}>
         <div className={styles.filterPills} ref={sliderRef}>
-          {subcategories.map((sub, index) => (
-            <Link 
-              key={sub.slug} 
-              href={`/category/${currentSlug}?subcategory=${sub.slug}`}
-              className={`${styles.filterPill} ${activeSubcategory === sub.slug ? styles.filterPillActive : ''}`}
-            >
-              <div className={styles.filterIcon}>
-                <Image
-                  src={getSubcategoryImage(sub, index)}
-                  alt={sub.title}
-                  width={110}
-                  height={110}
-                />
-              </div>
-              <span>{sub.title}</span>
-            </Link>
-          ))}
+          {subcategories.map((sub, index) => {
+            try {
+              return (
+                <Link 
+                  key={sub.slug} 
+                  href={`/category/${currentSlug}?subcategory=${sub.slug}`}
+                  className={`${styles.filterPill} ${activeSubcategory === sub.slug ? styles.filterPillActive : ''}`}
+                >
+                  <div className={styles.filterIcon}>
+                    <Image
+                      src={getSubcategoryImage(sub, index)}
+                      alt={sub.title}
+                      width={110}
+                      height={110}
+                    />
+                  </div>
+                  <span>{sub.title}</span>
+                </Link>
+              );
+            } catch (error) {
+              console.error('Error rendering subcategory:', sub, error);
+              return null;
+            }
+          })}
         </div>
       </div>
       <button className={styles.filterNavBtn} onClick={scrollRight} aria-label="Next">

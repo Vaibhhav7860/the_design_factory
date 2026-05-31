@@ -9,56 +9,79 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
   const [sortBy, setSortBy] = useState("newest");
   const [priceOpen, setPriceOpen] = useState(true);
   const [sortOpen, setSortOpen] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  // Client-side only for iOS compatibility
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Sync state when maxPrice prop changes
   useEffect(() => {
-    setPriceRange([0, maxPrice]);
-  }, [maxPrice]);
+    if (isClient) {
+      setPriceRange([0, maxPrice]);
+    }
+  }, [maxPrice, isClient]);
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
-    let result = [...products];
+    if (!isClient) return products;
 
-    // Apply price filter
-    result = result.filter(
-      (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
-    );
+    try {
+      let result = [...products];
 
-    // Apply sorting
-    switch (sortBy) {
-      case "newest":
-        break;
-      case "oldest":
-        result.reverse();
-        break;
-      case "price-low":
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case "price-high":
-        result.sort((a, b) => b.price - a.price);
-        break;
-      default:
-        break;
+      // Apply price filter
+      result = result.filter(
+        (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
+      );
+
+      // Apply sorting
+      switch (sortBy) {
+        case "newest":
+          break;
+        case "oldest":
+          result.reverse();
+          break;
+        case "price-low":
+          result.sort((a, b) => a.price - b.price);
+          break;
+        case "price-high":
+          result.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
+
+      return result;
+    } catch (error) {
+      console.error("Filter error:", error);
+      return products;
     }
-
-    return result;
-  }, [products, priceRange, sortBy]);
+  }, [products, priceRange, sortBy, isClient]);
 
   const handlePriceChange = (e, index) => {
-    const newRange = [...priceRange];
-    newRange[index] = parseInt(e.target.value);
-    
-    if (index === 0) {
-      newRange[0] = Math.max(0, Math.min(newRange[0], newRange[1])); // Min starts from 0
-    } else {
-      newRange[1] = Math.min(maxPrice, Math.max(newRange[1], newRange[0]));
+    try {
+      const newRange = [...priceRange];
+      newRange[index] = parseInt(e.target.value);
+      
+      if (index === 0) {
+        newRange[0] = Math.max(0, Math.min(newRange[0], newRange[1])); // Min starts from 0
+      } else {
+        newRange[1] = Math.min(maxPrice, Math.max(newRange[1], newRange[0]));
+      }
+      
+      setPriceRange(newRange);
+    } catch (error) {
+      console.error("Price change error:", error);
     }
-    
-    setPriceRange(newRange);
   };
 
   const handleSortChange = (e) => {
-    setSortBy(e.target.value);
+    try {
+      setSortBy(e.target.value);
+    } catch (error) {
+      console.error("Sort change error:", error);
+    }
   };
 
   return (

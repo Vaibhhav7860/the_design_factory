@@ -171,7 +171,7 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 20px 4% 30px;
+    padding: 20px 4% 20px;
   }
 
   .wrapper {
@@ -209,7 +209,7 @@
 /* iPhone 16 Pro Max */
 @media (max-width: 430px) {
   .section {
-    padding: 16px 4% 24px;
+    padding: 20px 4% 20px;
   }
 
   .wrapper {

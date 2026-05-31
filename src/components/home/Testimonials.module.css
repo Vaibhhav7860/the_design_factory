@@ -320,7 +320,7 @@
 /* iPhone 16 Pro Max */
 @media (max-width: 430px) {
   .section {
-    padding: 16px 0 0;
+    padding: 20px 0 0;
   }
   .mainHeading {
     font-size: 28px;

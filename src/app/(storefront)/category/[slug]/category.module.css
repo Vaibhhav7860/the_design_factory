@@ -800,10 +800,12 @@
 @media (min-width: 481px) and (max-width: 768px) {
   .page {
     padding: 0 0 50px;
+    background: #ffffff; /* White background for entire page */
   }
 
   .headerArea {
-    padding: 85px 4% 25px;
+    padding: 85px 4% 20px;
+    margin-bottom: 0; /* No gap between header and circles */
   }
 
   .eyebrowTag {
@@ -890,8 +892,10 @@
 
   /* MOBILE CIRCLES: Show 4 at a time on tablets too */
   .filterSection {
-    padding: 25px 1% 25px; /* Minimal padding to maximize space */
+    padding: 20px 1% 25px; /* Circles section */
     gap: 10px;
+    background: transparent; /* Transparent - no colored background */
+    margin: 0; /* No margin */
   }
 
   .filterContainer {
@@ -978,10 +982,12 @@
     padding: 0 0 40px;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    background: #ffffff; /* White background for entire page */
   }
 
   .headerArea {
-    padding: 85px 4% 30px;
+    padding: 85px 4% 20px; /* Tight padding - only around heading */
+    margin-bottom: 0; /* No gap between header and circles */
   }
 
   .headerArea::before {
@@ -1078,8 +1084,10 @@
   }
 
   .filterSection {
-    padding: 15px 1% 10px; /* Minimal side padding to maximize space */
+    padding: 20px 1% 20px; /* Circles section - no colored background */
     gap: 8px;
+    background: transparent; /* Transparent - inherits white from page */
+    margin: 0; /* No margin */
   }
 
   .filterContainer {

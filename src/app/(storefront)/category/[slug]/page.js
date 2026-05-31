@@ -89,16 +89,18 @@ export default async function CategoryPage({ params, searchParams }) {
         <div className={styles.sectionHeader}>
           <h2>{currentSubcategory?.title || category?.title || slug}</h2>
         </div>
-        {!showSubcategories &&
-          category?.subcategories &&
-          category.subcategories.length > 0 && (
-            <FilterSlider
-              subcategories={category.subcategories}
-              currentSlug={slug}
-              activeSubcategory={subcategory}
-            />
-          )}
       </div>
+
+      {/* Move FilterSlider outside headerArea so it's on white background */}
+      {!showSubcategories &&
+        category?.subcategories &&
+        category.subcategories.length > 0 && (
+          <FilterSlider
+            subcategories={category.subcategories}
+            currentSlug={slug}
+            activeSubcategory={subcategory}
+          />
+        )}
 
       <div className="container">
         {showSubcategories ? (

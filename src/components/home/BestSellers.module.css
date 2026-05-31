@@ -442,7 +442,7 @@
   }
   /* CHANGE 4: Reduce padding for View All button on mobile */
   .viewAllWrap {
-    margin-top: 10px;
+    margin-top: 15px;
   }
   .viewAllBtn {
     padding: 14px 40px;
