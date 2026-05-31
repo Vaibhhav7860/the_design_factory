@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./category.module.css";
@@ -8,6 +8,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
   const sliderRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const intervalRef = useRef(null);
 
   // Subcategory-specific images
   const subcategoryImages = {
@@ -57,7 +58,67 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
     return () => window.removeEventListener('resize', checkMobile);
   }, [isClient]);
 
-  // Auto-scroll removed - manual navigation only
+  // Auto-scroll function for mobile
+  const autoScroll = useCallback(() => {
+    if (!sliderRef.current || !isMobile) return;
+    
+    try {
+      const container = sliderRef.current;
+      const maxScroll = container.scrollWidth - container.clientWidth;
+      const currentScroll = container.scrollLeft;
+      
+      // If we're at the end, loop back to start
+      if (currentScroll >= maxScroll - 10) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        // Scroll by one circle width (approximately 25% of viewport width)
+        const scrollAmount = window.innerWidth * 0.25;
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    } catch (error) {
+      console.error('Auto-scroll error:', error);
+    }
+  }, [isMobile]);
+
+  // Set up auto-scroll interval for mobile only
+  useEffect(() => {
+    if (!isClient || !isMobile) return;
+    
+    // Start auto-scrolling every 2 seconds
+    intervalRef.current = setInterval(autoScroll, 2000);
+    
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isClient, isMobile, autoScroll]);
+
+  // Pause auto-scroll on touch (mobile)
+  useEffect(() => {
+    if (!isClient || !isMobile || !sliderRef.current) return;
+    
+    const container = sliderRef.current;
+    
+    const handleTouchStart = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+    
+    const handleTouchEnd = () => {
+      // Resume auto-scroll after touch ends
+      intervalRef.current = setInterval(autoScroll, 2000);
+    };
+    
+    container.addEventListener('touchstart', handleTouchStart);
+    container.addEventListener('touchend', handleTouchEnd);
+    
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [isClient, isMobile, autoScroll]);
   
   const scrollLeft = () => {
     if (sliderRef.current) {

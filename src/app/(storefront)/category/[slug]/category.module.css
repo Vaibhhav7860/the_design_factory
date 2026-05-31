@@ -820,7 +820,7 @@
   }
 
   .headerArea {
-    padding: 85px 4% 20px;
+    padding: 70px 4% 10px; /* Reduced bottom padding from 20px to 10px */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -888,7 +888,7 @@
   .contentWrapper {
     grid-template-columns: 1fr;
     gap: 20px;
-    margin: 10px 0 0; /* Reduced top margin from 20px to 10px */
+    margin: 5px 0 0; /* Reduced top margin from 10px to 5px */
     padding: 0 4%;
   }
 
@@ -908,7 +908,7 @@
 
   /* MOBILE CIRCLES: Show 4 at a time on tablets too */
   .filterSection {
-    padding: 20px 1% 10px; /* Reduced bottom padding - circles section */
+    padding: 10px 1% 5px; /* Reduced bottom padding - circles section */
     gap: 10px;
     background: transparent; /* Transparent - no colored background */
     margin: 0; /* No margin */
@@ -1002,7 +1002,7 @@
   }
 
   .headerArea {
-    padding: 85px 4% 20px; /* Tight padding - only around heading */
+    padding: 70px 4% 10px; /* Reduced bottom padding from 20px to 10px */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -1082,7 +1082,7 @@
   .contentWrapper {
     grid-template-columns: 1fr;
     gap: 16px;
-    margin: 10px 0 0; /* Reduced top margin from 20px to 10px */
+    margin: 5px 0 0; /* Reduced top margin from 10px to 5px */
     padding: 0 2%; /* Minimal side padding like reference */
   }
 
@@ -1100,7 +1100,7 @@
   }
 
   .filterSection {
-    padding: 20px 1% 10px; /* Reduced bottom padding from 20px to 10px */
+    padding: 10px 1% 5px; /* Reduced bottom padding from 10px to 5px */
     gap: 8px;
     background: transparent; /* Transparent - inherits white from page */
     margin: 0; /* No margin */
