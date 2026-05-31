@@ -5,13 +5,13 @@ export default function ShippingMethod({ shippingMethod, setShippingMethod, ship
     {
       id: "standard",
       name: "Standard Shipping",
-      cost: 100,
+      cost: 0,
       duration: "5-7 business days",
     },
     {
       id: "express",
       name: "Express Shipping",
-      cost: 200,
+      cost: 0,
       duration: "2-3 business days",
     },
   ];
@@ -40,7 +40,9 @@ export default function ShippingMethod({ shippingMethod, setShippingMethod, ship
                 <div className={styles.optionName}>{option.name}</div>
                 <div className={styles.optionDuration}>{option.duration}</div>
               </div>
-              <div className={styles.optionPrice}>₹{option.cost}</div>
+              <div className={styles.optionPrice}>
+                {option.cost === 0 ? "Free" : `₹${option.cost}`}
+              </div>
             </label>
           ))}
         </div>

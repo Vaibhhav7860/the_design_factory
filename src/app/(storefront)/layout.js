@@ -1,10 +1,13 @@
 import { CartProvider } from "@/context/CartContext";
 import ConditionalLayout from "@/components/layout/ConditionalLayout";
+import AuthSessionProvider from "@/components/auth/AuthSessionProvider";
 
 export default function StorefrontLayout({ children }) {
   return (
-    <CartProvider>
-      <ConditionalLayout>{children}</ConditionalLayout>
-    </CartProvider>
+    <AuthSessionProvider>
+      <CartProvider>
+        <ConditionalLayout>{children}</ConditionalLayout>
+      </CartProvider>
+    </AuthSessionProvider>
   );
 }

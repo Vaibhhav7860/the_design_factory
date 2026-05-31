@@ -46,6 +46,9 @@ export const edgeAuthConfig = {
     },
     async authorized({ auth, request }) {
       const url = request.nextUrl;
+      // Admin area is gated. Everything else is public — customers
+      // can browse without an account; gates on /account/* are enforced
+      // inside the page (so redirect target preserves intent).
       if (url.pathname.startsWith("/admin") && !url.pathname.startsWith("/admin/login")) {
         if (!auth?.user) return false;
         const now = Math.floor(Date.now() / 1000);

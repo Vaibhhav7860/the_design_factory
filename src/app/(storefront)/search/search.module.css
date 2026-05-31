@@ -1,0 +1,155 @@
+.page {
+  padding: 32px 0 80px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--text-tertiary, #9a9a9a);
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+
+.title {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(28px, 4.4vw, 40px);
+  line-height: 1.18;
+  color: var(--text-primary, #1a1a1a);
+  margin: 0 0 8px;
+  letter-spacing: 0.2px;
+}
+
+.query {
+  font-style: italic;
+  color: var(--text-accent, #b89968);
+}
+
+.summary {
+  font-size: 13px;
+  color: var(--text-secondary, #6b6b6b);
+  margin: 0;
+}
+
+/* ── Shortcuts row ── */
+.shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 18px 0 28px;
+}
+
+.shortcutLabel {
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--text-tertiary, #9a9a9a);
+  font-weight: 700;
+}
+
+.shortcutList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.shortcutChip {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(252, 213, 137, 0.18);
+  border: 1px solid rgba(184, 153, 104, 0.3);
+  color: var(--text-primary, #1a1a1a);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.shortcutChip:hover {
+  background: rgba(252, 213, 137, 0.32);
+  transform: translateY(-1px);
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 28px;
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* ── Empty / suggestion state ── */
+.empty {
+  margin-top: 60px;
+  padding: 48px 24px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.06));
+  border-radius: 24px;
+}
+
+.empty h2 {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-primary, #1a1a1a);
+  margin: 0 0 12px;
+}
+
+.empty p {
+  font-size: 14px;
+  color: var(--text-secondary, #6b6b6b);
+  margin: 0 auto 24px;
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.empty em {
+  color: var(--text-accent, #b89968);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.suggestionRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.suggestionChip {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--bg-neu, #f4f1ea);
+  color: var(--text-primary, #1a1a1a);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.suggestionChip:hover {
+  background: rgba(252, 213, 137, 0.4);
+  transform: translateY(-1px);
+}

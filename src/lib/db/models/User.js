@@ -35,6 +35,10 @@ export const ROLES = ["admin", "staff", "customer"];
 const UserSchema = new mongoose.Schema(
   {
     name: { type: String, trim: true, maxlength: 120 },
+    firstName: { type: String, trim: true, maxlength: 60 },
+    lastName: { type: String, trim: true, maxlength: 60 },
+    phone: { type: String, trim: true, maxlength: 20 },
+    image: { type: String, maxlength: 600 }, // profile photo (Google avatar)
     email: {
       type: String,
       required: true,
@@ -43,7 +47,9 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    emailVerified: { type: Date },
     passwordHash: { type: String, select: false },
+    googleId: { type: String, index: true, sparse: true },
     role: { type: String, enum: ROLES, default: "customer", index: true },
     permissions: {
       type: [String],

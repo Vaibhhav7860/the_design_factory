@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import CartDrawer from "./CartDrawer";
 import MobileMenu from "./MobileMenu";
+import NavbarSearch from "./NavbarSearch";
+import AccountIcon from "./AccountIcon";
 import styles from "./Navbar.module.css";
 
 const navItems = [
@@ -350,13 +352,9 @@ export default function Navbar() {
           {/* Nav Icons */}
           <div className={styles.navIcons}>
             {/* Search */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+            <NavbarSearch />
             {/* Account */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-            </svg>
+            <AccountIcon />
             {/* Cart */}
             <button
               className={styles.cartBtn}

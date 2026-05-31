@@ -119,12 +119,46 @@ function generateOrderNumber(seq) {
 }
 
 // Generate a personalisation payload only for products whose subcategories
-// suggest it (labels, school book labels, back-to-school sets) — same rule
-// the storefront already uses.
+// suggest it. This list is the authoritative answer to "should this
+// product show a Personalisation form on the storefront?" — keep in
+// sync with the storefront catalog as new categories appear.
 const PERSONALISABLE_SUBCATS = new Set([
+  // Labels (every label needs a name)
   "name-labels", "round-labels", "rectangular-labels", "mixed-shape-labels",
-  "iron-on-labels", "school-book-labels", "back-to-school-label-set",
-  "bag-tags",
+  "transparent-labels", "iron-on-labels", "iron-on-labels-clothes",
+  "school-book-labels", "permanent-waterproof-stickers",
+  "3d-embossed-stickers", "back-to-school-label-set",
+
+  // School essentials with the child's name on them
+  "sipper-bottle", "lunch-box", "sketch-book", "rewritable-planners",
+  "pencil-case", "school-bag-combos", "ring-folders", "expandable-folders",
+
+  // Bags + tags
+  "bag-tags", "bag-tags-adults", "bag-tags-kids",
+  "duffle-bags", "jelly-bags", "art-bags", "backpacks", "tote-bags",
+  "swimming-bags", "school-bags", "denim-bags", "baby-diaper-bag",
+
+  // Gift stationery
+  "3d-gift-tags", "flat-gift-tags", "hanging-gift-tags",
+  "money-envelopes", "gift-stationery-sets",
+  "3d-gift-tags-adults", "flat-gift-tags-adults", "money-envelopes-adults",
+  "gift-stationery-combo-adults", "gift-stationery-combo-kids",
+
+  // Combos (the items inside need names)
+  "bag-combo-set", "school-bag-combo", "organiser-sets",
+
+  // Travel + organisers (most have a name embroidered)
+  "neck-pillow-set", "neck-pillow-combo", "travel-organisers",
+  "mix-match-sets", "vanity", "multipurpose-pouches",
+  "utility-pouches", "storage-basket",
+
+  // Kids accessories (towel, table mat, cap, apron — all personalised)
+  "wall-clock", "table-mat", "towel", "table-organiser",
+  "cap", "apron-set", "felt-hangings",
+
+  // Adults corner
+  "towels", "towels-adults", "wooden-organisers", "caps", "apron-sets",
+  "rakhi", "felt-hangings-buntings", "meal-planner",
 ]);
 const FONT_OPTIONS = [
   "AGaramond Italic", "Bickam Script One", "Candlescript Pro",
@@ -180,7 +214,9 @@ async function main() {
           additionalFee: 50000, // ₹500
         }
       : {
-          name: "optional",
+          // Truly non-personalisable products — section is suppressed
+          // entirely on the storefront.
+          name: "hidden",
           school: "hidden",
           fontSelector: "disabled",
           additionalFee: 0,

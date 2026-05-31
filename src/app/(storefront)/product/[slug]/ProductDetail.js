@@ -14,7 +14,7 @@ const FONT_OPTIONS = [
   { value: "trajan", label: "Trajan Pro", className: styles.fontTrajan },
 ];
 
-const PERSONALISATION_FEE = 500;
+const PERSONALISATION_FEE = 0;
 const AUTO_SCROLL_INTERVAL = 4000;
 const IDLE_RESUME_DELAY = 6000;
 const MAX_NAME_LENGTH = 150;
@@ -44,6 +44,27 @@ export default function ProductDetail({ product }) {
   const requiresSchool = (product.subcategories || []).some((sc) =>
     SCHOOL_INPUT_SUBCATEGORIES.includes(sc)
   );
+
+  /* ── Personalisation: every product on the storefront requires a
+     name to be entered before Add to Cart fires. The catalog's
+     "hidden / optional / required" rule is ignored on the storefront —
+     we always render the form and always require the name. */
+  const isPersonalisableProduct = true;
+  const personalisationRequired = true;
+
+  /* ── Validate the personalisation block.
+     A required-name product blocks Add to Cart until the customer
+     enters a non-empty name. Optional-name products allow either
+     state. */
+  const trimmedName = personalisationName.trim();
+  const personalisationIsValid = personalisationRequired
+    ? trimmedName.length > 0
+    : true;
+  const [nameTouched, setNameTouched] = useState(false);
+  const nameError =
+    personalisationRequired && nameTouched && !trimmedName
+      ? "Please enter the name to personalise."
+      : null;
 
   /* ── Gallery State ── */
   const gallery =
@@ -252,6 +273,21 @@ export default function ProductDetail({ product }) {
 
   /* ── Add to Cart ── */
   const handleAdd = () => {
+    if (personalisationRequired && !trimmedName) {
+      setNameTouched(true);
+      // Bring the name input into view + focus it
+      const el =
+        typeof document !== "undefined"
+          ? document.getElementById("personalisation-name")
+          : null;
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        // small delay so the smooth-scroll completes before focus jumps
+        setTimeout(() => el.focus(), 250);
+      }
+      return;
+    }
+
     const cartProduct = {
       ...product,
       price: displayPrice,
@@ -485,6 +521,7 @@ export default function ProductDetail({ product }) {
         <div className={styles.divider} />
 
         {/* ═══════ Personalisation Section ═══════ */}
+        {isPersonalisableProduct ? (
         <div className={styles.personalisationSection}>
           <div className={styles.personalisationHeadingRow}>
             <p className={styles.sectionLabel}>Personalisation</p>
@@ -499,26 +536,36 @@ export default function ProductDetail({ product }) {
             <div className={styles.personalisationCardInner}>
               {/* Name Input */}
               <div className={styles.formField}>
-                <label className={styles.formLabel}>
-                  Name <span className={styles.required}>*</span>
+                <label className={styles.formLabel} htmlFor="personalisation-name">
+                  Name {personalisationRequired ? <span className={styles.required}>*</span> : null}
                 </label>
                 <div className={styles.formInputWrap}>
                   <input
+                    id="personalisation-name"
                     type="text"
-                    className={styles.formInput}
+                    className={`${styles.formInput} ${nameError ? styles.formInputError : ""}`}
                     value={personalisationName}
                     onChange={(e) =>
                       setPersonalisationName(
                         e.target.value.slice(0, MAX_NAME_LENGTH)
                       )
                     }
+                    onBlur={() => setNameTouched(true)}
                     placeholder="Enter the name to personalise"
                     maxLength={MAX_NAME_LENGTH}
+                    aria-invalid={Boolean(nameError) || undefined}
+                    aria-describedby={nameError ? "personalisation-name-error" : undefined}
+                    required={personalisationRequired}
                   />
                   <span className={styles.charCounter}>
                     {personalisationName.length}/{MAX_NAME_LENGTH}
                   </span>
                 </div>
+                {nameError ? (
+                  <p id="personalisation-name-error" className={styles.fieldError}>
+                    {nameError}
+                  </p>
+                ) : null}
               </div>
 
               {/* School Input — only for School Book Labels & Back to School Label Sets */}
@@ -577,6 +624,7 @@ export default function ProductDetail({ product }) {
             </div>
           </div>
         </div>
+        ) : null}
 
         {/* ── Divider ── */}
         <div className={styles.divider} />
@@ -593,8 +641,22 @@ export default function ProductDetail({ product }) {
 
         <div className={styles.actionsContainer}>
           <button
-            className={styles.addBtn}
+            className={`${styles.addBtn} ${
+              personalisationRequired && !personalisationIsValid
+                ? styles.addBtnDisabled
+                : ""
+            }`}
             onClick={handleAdd}
+            aria-disabled={
+              personalisationRequired && !personalisationIsValid
+                ? "true"
+                : undefined
+            }
+            title={
+              personalisationRequired && !personalisationIsValid
+                ? "Enter the name to personalise to continue"
+                : undefined
+            }
           >
             {added
               ? "✓ Added to Cart!"
