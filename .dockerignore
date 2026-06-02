@@ -1,0 +1,42 @@
+# ─── Build outputs ────────────────────────────────────────────────
+.next
+node_modules
+out
+dist
+
+# ─── Local-only artefacts ────────────────────────────────────────
+.env*
+!.env.example
+
+# ─── Repo metadata ────────────────────────────────────────────────
+.git
+.gitignore
+.gitattributes
+
+# ─── Vercel + GCP helpers we don't need inside the container ─────
+.vercel
+.gcp
+.kiro
+.ralphy
+.agents
+
+# ─── Editor / OS noise ────────────────────────────────────────────
+.vscode
+.idea
+*.swp
+.DS_Store
+Thumbs.db
+
+# ─── Ad-hoc scripts and exports ──────────────────────────────────
+scripts/.*.mjs
+analyze_*.py
+analysis_*.txt
+extracted_*.txt
+process_products.py
+generate_products.py
+processed_products.json
+products_export_*.csv
+*.log
+
+# Local upload directory — uploads now go to R2
+public/uploads

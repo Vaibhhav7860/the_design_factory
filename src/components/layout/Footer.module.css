@@ -572,6 +572,15 @@
   .footer {
     margin-bottom: 0;
     padding-bottom: 0;
+    /* Fill to bottom edge on notched iPhones */
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background-color: #FAF9F6;
+  }
+
+  .characterArea {
+    /* Ensure character area background extends to bottom */
+    padding-bottom: 0;
+    margin-bottom: 0;
   }
   
   .bottomPattern {
