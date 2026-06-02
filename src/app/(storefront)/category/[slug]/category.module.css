@@ -850,7 +850,10 @@
   }
 
   .showcaseCard:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: 100%;
     max-width: 100%;
+    justify-self: stretch;
   }
 
   .showcaseCard {
@@ -1044,7 +1047,10 @@
   }
 
   .showcaseCard:last-child:nth-child(odd) {
+    grid-column: auto;
+    width: 100%;
     max-width: 100%;
+    justify-self: stretch;
   }
 
   .showcaseCard {
