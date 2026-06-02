@@ -431,6 +431,13 @@ ul, ol { list-style: none; }
   }
 }
 
+/* Mobile: Prevent overscroll past footer */
+@media (max-width: 768px) {
+  html, body {
+    overscroll-behavior-y: none;
+  }
+}
+
 /* Mobile */
 @media (max-width: 480px) {
   :root {
@@ -507,6 +514,7 @@ ul, ol { list-style: none; }
     min-height: 100vh;
     min-height: -webkit-fill-available;
     position: relative;
+    overscroll-behavior-y: none;
   }
   
   /* Fix for iOS Safari address bar */

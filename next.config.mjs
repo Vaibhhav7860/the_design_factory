@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Cloud Run deploys a single container. `standalone` produces a
+  // self-contained .next/standalone folder with only what's needed to
+  // run, shaving ~70% off the image size and cold-start time.
+  output: "standalone",
+
   images: {
     unoptimized: true,
     remotePatterns: [
