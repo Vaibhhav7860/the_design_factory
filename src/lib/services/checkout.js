@@ -411,6 +411,19 @@ export async function markOrderPaid({
   if (razorpayPaymentId) order.razorpayPaymentId = razorpayPaymentId;
   await order.save();
 
+  // ── Order-confirmation email (fire-and-forget) ──
+  // Runs for BOTH test and live orders so the flow can be verified
+  // end-to-end. Non-fatal: the payment is already persisted. Log
+  // errors but never throw so the verify-payment endpoint returns 200.
+  try {
+    const { sendOrderConfirmationEmail } = await import(
+      "../email/order-confirmation.js"
+    );
+    await sendOrderConfirmationEmail(order);
+  } catch (err) {
+    console.error("[checkout] order confirmation email failed", err);
+  }
+
   // ── Production-only side effects ──
   // Test-mode orders still get persisted so the admin can review the
   // checkout flow end-to-end, but they MUST NOT mutate inventory or
