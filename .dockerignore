@@ -37,6 +37,3 @@ generate_products.py
 processed_products.json
 products_export_*.csv
 *.log
-
-# Local upload directory — uploads now go to R2
-public/uploads
