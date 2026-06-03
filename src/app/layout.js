@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Montserrat, Birthstone_Bounce, Satisfy } from "next/font/google";
+import { Cormorant_Garamond, Montserrat, Birthstone_Bounce, Satisfy, Dosis } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -26,6 +26,13 @@ const satisfy = Satisfy({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-satisfy-var",
+  display: "swap",
+});
+
+const dosis = Dosis({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-dosis",
   display: "swap",
 });
 
@@ -75,7 +82,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${montserrat.variable} ${birthstone.variable} ${satisfy.variable}`}
+      className={`${cormorant.variable} ${montserrat.variable} ${birthstone.variable} ${satisfy.variable} ${dosis.variable}`}
     >
       <head>
         {/* iOS Specific Meta Tags */}

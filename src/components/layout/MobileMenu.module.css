@@ -43,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
+  padding: 20px 24px 10px; /* Reduced bottom padding */
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -52,7 +52,7 @@
   font-size: 18px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700; /* Bold */
 }
 
 .closeBtn {
@@ -67,12 +67,14 @@
   transition: stroke 0.3s ease;
 }
 
-.closeBtn:hover svg {
-  stroke: var(--color-peach);
+@media (hover: hover) {
+  .closeBtn:hover svg {
+    stroke: var(--color-peach);
+  }
 }
 
 .nav {
-  padding: 16px 0;
+  padding: 10px 0; /* Reduced top padding */
 }
 
 .navGroup {
@@ -87,7 +89,7 @@
 
 .navLink {
   display: block;
-  padding: 16px 24px;
+  padding: 12px 24px; /* Reduced vertical padding */
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -97,8 +99,10 @@
   flex: 1;
 }
 
-.navLink:hover {
-  color: var(--color-peach);
+@media (hover: hover) {
+  .navLink:hover {
+    color: var(--color-peach);
+  }
 }
 
 .expandBtn {
@@ -121,6 +125,10 @@
   margin-bottom: 16px;
 }
 
+.subGroupNoHeading {
+  margin-bottom: 0;
+}
+
 .subHeading {
   display: block;
   font-family: var(--font-primary);
@@ -141,6 +149,8 @@
   transition: color 0.3s ease;
 }
 
-.subLink:hover {
-  color: var(--color-peach);
+@media (hover: hover) {
+  .subLink:hover {
+    color: var(--color-peach);
+  }
 }

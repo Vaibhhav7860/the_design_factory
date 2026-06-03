@@ -179,8 +179,8 @@
 
 @media (max-width: 768px) {
   .section {
-    padding: 20px 4% 0;
-    margin-bottom: 20px;
+    padding: 20px 4% 20px;
+    margin-bottom: 0;
   }
   .heading {
     font-size: 36px;
@@ -188,7 +188,11 @@
   }
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px 15px;
+    gap: 15px 10px;
+  }
+  .card {
+    padding: 10px;
+    border-radius: 16px;
   }
   .badge {
     padding: 8px 16px;
@@ -201,15 +205,19 @@
 /* iPhone 16 Pro Max */
 @media (max-width: 430px) {
   .section {
-    padding: 16px 4% 0;
-    margin-bottom: 16px;
+    padding: 16px 4% 20px;
+    margin-bottom: 0;
   }
   .heading {
     font-size: 32px;
     margin-bottom: 12px;
   }
   .grid {
-    gap: 25px 12px;
+    gap: 12px 8px;
+  }
+  .card {
+    padding: 8px;
+    border-radius: 12px;
   }
   .badge {
     padding: 6px 14px;

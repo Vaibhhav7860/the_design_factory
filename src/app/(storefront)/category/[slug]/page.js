@@ -83,11 +83,24 @@ export default async function CategoryPage({ params, searchParams }) {
     ? category?.subcategories?.find((sub) => sub.slug === subcategory)
     : null;
 
+  const headingText = currentSubcategory?.title || category?.title || slug;
+
+  const renderHeading = (text) => {
+    if (typeof text === 'string' && text.toUpperCase() === '3D GIFT TAGS') {
+      return (
+        <>
+          <span className={styles.mobileDosis}>3</span>D GIFT TAGS
+        </>
+      );
+    }
+    return text;
+  };
+
   return (
     <section className={styles.page} style={{ marginTop: "var(--nav-height)" }}>
       <div className={styles.headerArea}>
         <div className={styles.sectionHeader}>
-          <h2>{currentSubcategory?.title || category?.title || slug}</h2>
+          <h2>{renderHeading(headingText)}</h2>
         </div>
       </div>
 

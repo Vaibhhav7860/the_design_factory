@@ -139,6 +139,21 @@
   opacity: 0.7;
 }
 
+.customBannerWrap {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto 10px auto;
+  padding: 0 4%;
+  text-align: center;
+}
+
+.customBanner {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  mix-blend-mode: multiply;
+}
+
 .mainImageShell:hover .galleryArrow {
   opacity: 1;
 }
@@ -1036,7 +1051,7 @@
    RELATED PRODUCTS
    ═══════════════════════════════════════════ */
 .related {
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .relatedHeader {
@@ -1193,6 +1208,14 @@
     gap: 28px;
   }
 
+  .related {
+    margin-top: 40px;
+  }
+
+  .customBannerWrap {
+    margin: 20px auto 10px auto;
+  }
+
   .gallery {
     position: static !important;
     max-width: 100%;
@@ -1250,6 +1273,21 @@
 
   .price {
     font-size: 1.35rem;
+  }
+
+  .bannerContainer {
+    width: 100%;
+    padding: 16px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .bannerText {
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: 0.9rem;
   }
 
   .personalisationCardInner {

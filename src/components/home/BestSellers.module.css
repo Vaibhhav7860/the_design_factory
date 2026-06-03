@@ -48,7 +48,7 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   scroll-snap-type: x mandatory;
-  padding: 0 0 20px;
+  padding: 0 0 10px;
 }
 
 .grid::-webkit-scrollbar {
@@ -209,8 +209,7 @@
 /* View All */
 .viewAllWrap {
   text-align: center;
-  /* CHANGE 4: Reduce padding to move button up on mobile */
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .viewAllBtn {
@@ -422,6 +421,9 @@
 }
 
 @media (max-width: 768px) {
+  .grid {
+    padding-bottom: 6px;
+  }
   .cardLink {
     flex: 0 0 calc(50% - 2.5px);
   }
@@ -443,9 +445,8 @@
   .navButton {
     display: none; /* Hide arrows on mobile, allow swipe */
   }
-  /* CHANGE 4: Reduce padding for View All button on mobile */
   .viewAllWrap {
-    margin-top: 15px;
+    margin-top: 8px;
   }
   .viewAllBtn {
     padding: 14px 40px;

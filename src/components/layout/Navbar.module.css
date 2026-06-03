@@ -586,10 +586,9 @@
 
 @media (max-width: 480px) {
   .announcementBar {
-    /* CHANGE 1: Make header blue strip smaller for mobile - like reference image */
-    font-size: 8px; /* Increased from 7px to 8px */
-    padding: 8px 0; /* Increased from 6px to 8px */
-    letter-spacing: 1.5px; /* Increased from 1.2px to 1.5px */
+    font-size: 10px;
+    padding: 10px 0;
+    letter-spacing: 2px;
   }
   
   .nav {

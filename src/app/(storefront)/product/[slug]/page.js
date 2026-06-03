@@ -7,6 +7,7 @@ import ProductDetail from "./ProductDetail";
 import RelatedProductsSlider from "./RelatedProductsSlider";
 import styles from "./product.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 // Re-fetch on every request so admin edits show immediately. We can
 // switch to ISR with revalidateTag later if traffic warrants it.
@@ -55,6 +56,17 @@ export default async function ProductPage({ params }) {
           </nav>
 
           <ProductDetail product={product} />
+
+          <div className={styles.customBannerWrap}>
+            <Image
+              src="/images/IMG_5231.PNG"
+              alt="Promo"
+              width={1200}
+              height={400}
+              className={styles.customBanner}
+              unoptimized
+            />
+          </div>
 
           {related.length > 0 && (
             <div className={styles.related}>
