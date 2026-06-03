@@ -11,7 +11,7 @@ import ScrollToTop from "../ScrollToTop";
  * The Footer is hidden on the /checkout route so the focused
  * checkout flow doesn't get visually broken by long footer content.
  */
-export default function ConditionalLayout({ children }) {
+export default function ConditionalLayout({ children, categories = [] }) {
   const pathname = usePathname();
   const hideFooter = pathname === "/checkout";
 
@@ -20,7 +20,7 @@ export default function ConditionalLayout({ children }) {
       <Suspense fallback={null}>
         <ScrollToTop />
       </Suspense>
-      <Navbar />
+      <Navbar dbCategories={categories} />
       <main>{children}</main>
       {!hideFooter && <Footer />}
     </>

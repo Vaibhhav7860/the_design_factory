@@ -17,6 +17,7 @@ import {
   HiOutlineCreditCard,
   HiOutlineSparkles,
 } from "react-icons/hi";
+import { RiWhatsappLine } from "react-icons/ri";
 import styles from "./orderDetail.module.css";
 
 export const dynamic = "force-dynamic";
@@ -270,13 +271,27 @@ export default async function AdminOrderDetailPage({ params }) {
               </a>
             ) : null}
             {order.customerPhone ? (
-              <a
-                href={`tel:${order.customerPhone}`}
-                className={styles.sideRow}
-              >
-                <HiOutlinePhone />
-                <span>{order.customerPhone}</span>
-              </a>
+              <div className={styles.phoneGroup}>
+                <a
+                  href={`tel:${order.customerPhone}`}
+                  className={styles.sideRow}
+                  style={{ flexGrow: 1 }}
+                >
+                  <HiOutlinePhone />
+                  <span>{order.customerPhone}</span>
+                </a>
+                <a
+                  href={`https://wa.me/${order.customerPhone.replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.waButtonOuter}
+                  aria-label="Message on WhatsApp"
+                >
+                  <div className={styles.waButtonInner}>
+                    <RiWhatsappLine />
+                  </div>
+                </a>
+              </div>
             ) : null}
           </Card>
 

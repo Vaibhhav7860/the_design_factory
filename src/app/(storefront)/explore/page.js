@@ -8,64 +8,27 @@ export const metadata = {
     "Browse the complete edit of personalised stationery, labels, bags, organisers and more.",
 };
 
-const categories = [
-  {
-    label: "Labels",
-    href: "/category/labels",
-    image: "/images/categories/labels.png",
-    tagline: "Mark every belonging with intention",
-  },
-  {
-    label: "School Essentials",
-    href: "/category/school-essentials",
-    image: "/images/categories/school.png",
-    tagline: "From book labels to lunch boxes",
-  },
-  {
-    label: "Gift Stationery",
-    href: "/category/gift-stationery",
-    image: "/images/categories/stationery.png",
-    tagline: "Hand-finished gifting paper edits",
-  },
-  {
-    label: "Adults Corner",
-    href: "/category/adults-corner",
-    image: "/images/categories/adults-corner.png",
-    tagline: "Considered pieces for the grown-ups",
-  },
-  {
-    label: "Bags",
-    href: "/category/bags",
-    image: "/images/categories/bags.png",
-    tagline: "Carry your story, beautifully",
-  },
-  {
-    label: "Organisers",
-    href: "/category/organisers",
-    image: "/images/categories/organisers.png",
-    tagline: "Order, made to feel personal",
-  },
-  {
-    label: "Kids Accessories",
-    href: "/category/kids-accessories",
-    image: "/images/categories/kids-accessories.png",
-    tagline: "Small details, made memorable",
-  },
-  {
-    label: "Combos",
-    href: "/category/combos",
-    image: "/images/categories/combos.png",
-    tagline: "Curated sets that travel together",
-  },
-  {
-    label: "Shop By Theme",
-    href: "/category/themes",
-    image: "/images/categories/themes.png",
-    tagline: "From unicorns to underwater life",
-  },
-];
+import { connectToDatabase } from "@/lib/db/mongoose";
+import { Category } from "@/lib/db/models";
 
-export default function ExplorePage() {
+export default async function ExplorePage() {
+  let dbCategories = [];
+  try {
+    await connectToDatabase();
+    // Fetch top level categories from DB, excluding bulk-orders
+    dbCategories = await Category.find({ slug: { $ne: 'bulk-orders' } }).sort({ title: 1 }).lean();
+  } catch (error) {
+    console.error("Failed to fetch explore categories", error);
+  }
+
+  // Map to the format needed by the grid
+  const categories = dbCategories.map(c => ({
+    label: c.title,
+    href: `/category/${c.slug}`,
+    image: c.image || "/images/categories/labels.png",
+    tagline: c.tagline || c.description || ""
+  }));
+
   return (
     <main className={styles.page}>
       {/* ── Hero Header ── */}

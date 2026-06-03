@@ -18,6 +18,7 @@ import {
   HiOutlineLogout,
   HiOutlineBell,
   HiOutlineSparkles,
+  HiOutlineViewGrid,
 } from "react-icons/hi";
 import GlobalSearch from "./GlobalSearch";
 import styles from "./AdminShell.module.css";
@@ -26,6 +27,7 @@ const NAV_ITEMS = [
   { href: "/admin", icon: HiOutlineHome, label: "Home", exact: true },
   { href: "/admin/orders", icon: HiOutlineInbox, label: "Orders", badge: "orders" },
   { href: "/admin/products", icon: HiOutlineTag, label: "Products" },
+  { href: "/admin/categories", icon: HiOutlineViewGrid, label: "Categories" },
   { href: "/admin/customers", icon: HiOutlineUser, label: "Customers" },
   { href: "/admin/marketing", icon: HiOutlineSpeakerphone, label: "Marketing" },
   { href: "/admin/discounts", icon: HiOutlineGift, label: "Discounts" },

@@ -9,7 +9,7 @@ import NavbarSearch from "./NavbarSearch";
 import AccountIcon from "./AccountIcon";
 import styles from "./Navbar.module.css";
 
-const navItems = [
+const staticNavItems = [
   {
     label: "Labels",
     href: "/category/labels",
@@ -17,18 +17,18 @@ const navItems = [
       {
         heading: "Everyday Labels",
         links: [
-          { label: "Rectangular Labels", href: "/category/labels?subcategory=rectangular-labels" },
-          { label: "Round Labels", href: "/category/labels?subcategory=round-labels" },
-          { label: "Mixed Shape Labels", href: "/category/labels?subcategory=mixed-shape-labels" },
-          { label: "Transparent Labels", href: "/category/labels?subcategory=transparent-labels" },
+          { label: "Rectangular Labels", href: "/category/labels?subcategory=rectangular-labels", slug: "rectangular-labels" },
+          { label: "Round Labels", href: "/category/labels?subcategory=round-labels", slug: "round-labels" },
+          { label: "Mixed Shape Labels", href: "/category/labels?subcategory=mixed-shape-labels", slug: "mixed-shape-labels" },
+          { label: "Transparent Labels", href: "/category/labels?subcategory=transparent-labels", slug: "transparent-labels" },
         ],
       },
       {
         heading: "Specialty Labels",
         links: [
-          { label: "3D Embossed Stickers", href: "/category/labels?subcategory=3d-embossed-stickers" },
-          { label: "School Book Labels", href: "/category/labels?subcategory=school-book-labels" },
-          { label: "Iron On Labels For Clothes", href: "/category/labels?subcategory=iron-on-labels" },
+          { label: "3D Embossed Stickers", href: "/category/labels?subcategory=3d-embossed-stickers", slug: "3d-embossed-stickers" },
+          { label: "School Book Labels", href: "/category/labels?subcategory=school-book-labels", slug: "school-book-labels" },
+          { label: "Iron On Labels For Clothes", href: "/category/labels?subcategory=iron-on-labels", slug: "iron-on-labels" },
         ],
       }
     ],
@@ -41,28 +41,28 @@ const navItems = [
       {
         heading: "Labels",
         links: [
-          { label: "Name Labels", href: "/category/school-essentials?subcategory=name-labels" },
-          { label: "Iron On Labels For Clothes", href: "/category/school-essentials?subcategory=iron-on-labels-clothes" },
-          { label: "Permenant Waterproof Stickers", href: "/category/school-essentials?subcategory=permanent-waterproof-stickers" },
-          { label: "School Book Labels", href: "/category/school-essentials?subcategory=school-book-labels" }
+          { label: "Name Labels", href: "/category/school-essentials?subcategory=name-labels", slug: "name-labels" },
+          { label: "Iron On Labels For Clothes", href: "/category/school-essentials?subcategory=iron-on-labels-clothes", slug: "iron-on-labels-clothes" },
+          { label: "Permenant Waterproof Stickers", href: "/category/school-essentials?subcategory=permanent-waterproof-stickers", slug: "permanent-waterproof-stickers" },
+          { label: "School Book Labels", href: "/category/school-essentials?subcategory=school-book-labels", slug: "school-book-labels" }
         ],
       },
       {
         heading: "School Supplies",
         links: [
-          { label: "Bag Tags", href: "/category/school-essentials?subcategory=bag-tags" },
-          { label: "Back to School Label Set", href: "/category/school-essentials?subcategory=back-to-school-label-set" },
-          { label: "Sipper Bottle", href: "/category/school-essentials?subcategory=sipper-bottle" },
-          { label: "Lunch Box", href: "/category/school-essentials?subcategory=lunch-box" },
+          { label: "Bag Tags", href: "/category/school-essentials?subcategory=bag-tags", slug: "bag-tags" },
+          { label: "Back to School Label Set", href: "/category/school-essentials?subcategory=back-to-school-label-set", slug: "back-to-school-label-set" },
+          { label: "Sipper Bottle", href: "/category/school-essentials?subcategory=sipper-bottle", slug: "sipper-bottle" },
+          { label: "Lunch Box", href: "/category/school-essentials?subcategory=lunch-box", slug: "lunch-box" },
         ],
       },
       {
         heading: "More Essentials",
         links: [
-          { label: "Sketch Book", href: "/category/school-essentials?subcategory=sketch-book" },
-          { label: "Rewritable Planners", href: "/category/school-essentials?subcategory=rewritable-planners" },
-          { label: "Pencil Case", href: "/category/school-essentials?subcategory=pencil-case" },
-          { label: "School Bag & Combos", href: "/category/school-essentials?subcategory=school-bag-combos" },
+          { label: "Sketch Book", href: "/category/school-essentials?subcategory=sketch-book", slug: "sketch-book" },
+          { label: "Rewritable Planners", href: "/category/school-essentials?subcategory=rewritable-planners", slug: "rewritable-planners" },
+          { label: "Pencil Case", href: "/category/school-essentials?subcategory=pencil-case", slug: "pencil-case" },
+          { label: "School Bag & Combos", href: "/category/school-essentials?subcategory=school-bag-combos", slug: "school-bag-combos" },
         ],
       }
     ],
@@ -75,17 +75,17 @@ const navItems = [
       {
         heading: "Gift Tags",
         links: [
-          { label: "3D Gift Tags", href: "/category/gift-stationery?subcategory=3d-gift-tags" },
-          { label: "Flat Gift Tags", href: "/category/gift-stationery?subcategory=flat-gift-tags" },
-          { label: "Hanging Gift Tags", href: "/category/gift-stationery?subcategory=hanging-gift-tags" },
+          { label: "3D Gift Tags", href: "/category/gift-stationery?subcategory=3d-gift-tags", slug: "3d-gift-tags" },
+          { label: "Flat Gift Tags", href: "/category/gift-stationery?subcategory=flat-gift-tags", slug: "flat-gift-tags" },
+          { label: "Hanging Gift Tags", href: "/category/gift-stationery?subcategory=hanging-gift-tags", slug: "hanging-gift-tags" },
         ],
       },
       {
         heading: "More Stationery",
         links: [
-          { label: "Gift Stickers", href: "/category/gift-stationery?subcategory=gift-stickers" },
-          { label: "Money Envelopes", href: "/category/gift-stationery?subcategory=money-envelopes" },
-          { label: "Gift Stationery Combo", href: "/category/gift-stationery?subcategory=gift-stationery-sets" },
+          { label: "Gift Stickers", href: "/category/gift-stationery?subcategory=gift-stickers", slug: "gift-stickers" },
+          { label: "Money Envelopes", href: "/category/gift-stationery?subcategory=money-envelopes", slug: "money-envelopes" },
+          { label: "Gift Stationery Combo", href: "/category/gift-stationery?subcategory=gift-stationery-sets", slug: "gift-stationery-sets" },
         ],
       },
     ],
@@ -98,17 +98,17 @@ const navItems = [
       {
         heading: "Tags & Envelopes",
         links: [
-          { label: "Flat Gift Tags", href: "/category/adults-corner?subcategory=flat-gift-tags-adults" },
-          { label: "3D Gift Tags", href: "/category/adults-corner?subcategory=3d-gift-tags-adults" },
-          { label: "Money Envelopes", href: "/category/adults-corner?subcategory=money-envelopes-adults" },
+          { label: "Flat Gift Tags", href: "/category/adults-corner?subcategory=flat-gift-tags-adults", slug: "flat-gift-tags-adults" },
+          { label: "3D Gift Tags", href: "/category/adults-corner?subcategory=3d-gift-tags-adults", slug: "3d-gift-tags-adults" },
+          { label: "Money Envelopes", href: "/category/adults-corner?subcategory=money-envelopes-adults", slug: "money-envelopes-adults" },
         ],
       },
       {
         heading: "Accessories & Combos",
         links: [
-          { label: "Bag Tags", href: "/category/adults-corner?subcategory=bag-tags-adults" },
-          { label: "Towels", href: "/category/adults-corner?subcategory=towels-adults" },
-          { label: "Gift Stationery Combo", href: "/category/adults-corner?subcategory=gift-stationery-combo-adults" },
+          { label: "Bag Tags", href: "/category/adults-corner?subcategory=bag-tags-adults", slug: "bag-tags-adults" },
+          { label: "Towels", href: "/category/adults-corner?subcategory=towels-adults", slug: "towels-adults" },
+          { label: "Gift Stationery Combo", href: "/category/adults-corner?subcategory=gift-stationery-combo-adults", slug: "gift-stationery-combo-adults" },
         ],
       },
     ],
@@ -119,22 +119,22 @@ const navItems = [
     href: "/category/bags",
     megaMenu: [
       {
-        heading: "",
+        heading: "Everyday Bags",
         links: [
-          { label: "Duffle Bags", href: "/category/bags?subcategory=duffle-bags" },
-          { label: "Jelly Bags", href: "/category/bags?subcategory=jelly-bags" },
-          { label: "Art Bags", href: "/category/bags?subcategory=art-bags" },
-          { label: "Backpacks", href: "/category/bags?subcategory=backpacks" },
-          { label: "Tote Bags", href: "/category/bags?subcategory=tote-bags" },
+          { label: "Duffle Bags", href: "/category/bags?subcategory=duffle-bags", slug: "duffle-bags" },
+          { label: "Jelly Bags", href: "/category/bags?subcategory=jelly-bags", slug: "jelly-bags" },
+          { label: "Art Bags", href: "/category/bags?subcategory=art-bags", slug: "art-bags" },
+          { label: "Backpacks", href: "/category/bags?subcategory=backpacks", slug: "backpacks" },
+          { label: "Tote Bags", href: "/category/bags?subcategory=tote-bags", slug: "tote-bags" },
         ],
       },
       {
-        heading: "",
+        heading: "Specialty Bags",
         links: [
-          { label: "Swimming Bags", href: "/category/bags?subcategory=swimming-bags" },
-          { label: "School Bags", href: "/category/bags?subcategory=school-bags" },
-          { label: "Denim Bags", href: "/category/bags?subcategory=denim-bags" },
-          { label: "Baby Diaper Bag", href: "/category/bags?subcategory=baby-diaper-bag" },
+          { label: "Swimming Bags", href: "/category/bags?subcategory=swimming-bags", slug: "swimming-bags" },
+          { label: "School Bags", href: "/category/bags?subcategory=school-bags", slug: "school-bags" },
+          { label: "Denim Bags", href: "/category/bags?subcategory=denim-bags", slug: "denim-bags" },
+          { label: "Baby Diaper Bag", href: "/category/bags?subcategory=baby-diaper-bag", slug: "baby-diaper-bag" },
         ],
       }
     ],
@@ -145,17 +145,17 @@ const navItems = [
     href: "/category/organisers",
     megaMenu: [
       {
-        heading: "",
+        heading: "Home Organisers",
         links: [
-          { label: "Utility Pouches", href: "/category/organisers?subcategory=utility-pouches" },
-          { label: "Storage Basket", href: "/category/organisers?subcategory=storage-basket" },
+          { label: "Utility Pouches", href: "/category/organisers?subcategory=utility-pouches", slug: "utility-pouches" },
+          { label: "Storage Basket", href: "/category/organisers?subcategory=storage-basket", slug: "storage-basket" },
         ],
       },
       {
-        heading: "",
+        heading: "Personal Organisers",
         links: [
-          { label: "Vanity", href: "/category/organisers?subcategory=vanity" },
-          { label: "Organiser Sets", href: "/category/organisers?subcategory=organiser-sets" },
+          { label: "Vanity", href: "/category/organisers?subcategory=vanity", slug: "vanity" },
+          { label: "Organiser Sets", href: "/category/organisers?subcategory=organiser-sets", slug: "organiser-sets" },
         ],
       }
     ],
@@ -166,20 +166,20 @@ const navItems = [
     href: "/category/kids-accessories",
     megaMenu: [
       {
-        heading: "",
+        heading: "Room Decor",
         links: [
-          { label: "Wall Clock", href: "/category/kids-accessories?subcategory=wall-clock" },
-          { label: "Table Mat", href: "/category/kids-accessories?subcategory=table-mat" },
-          { label: "Towel", href: "/category/kids-accessories?subcategory=towel" },
-          { label: "Table Organiser", href: "/category/kids-accessories?subcategory=table-organiser" },
+          { label: "Wall Clock", href: "/category/kids-accessories?subcategory=wall-clock", slug: "wall-clock" },
+          { label: "Table Mat", href: "/category/kids-accessories?subcategory=table-mat", slug: "table-mat" },
+          { label: "Towel", href: "/category/kids-accessories?subcategory=towel", slug: "towel" },
+          { label: "Table Organiser", href: "/category/kids-accessories?subcategory=table-organiser", slug: "table-organiser" },
         ],
       },
       {
-        heading: "",
+        heading: "Wearables",
         links: [
-          { label: "Cap", href: "/category/kids-accessories?subcategory=cap" },
-          { label: "Apron Set", href: "/category/kids-accessories?subcategory=apron-set" },
-          { label: "Neck Pillow Combo", href: "/category/kids-accessories?subcategory=neck-pillow-combo" },
+          { label: "Cap", href: "/category/kids-accessories?subcategory=cap", slug: "cap" },
+          { label: "Apron Set", href: "/category/kids-accessories?subcategory=apron-set", slug: "apron-set" },
+          { label: "Neck Pillow Combo", href: "/category/kids-accessories?subcategory=neck-pillow-combo", slug: "neck-pillow-combo" },
         ],
       }
     ],
@@ -190,20 +190,20 @@ const navItems = [
     href: "/category/combos",
     megaMenu: [
       {
-        heading: "",
+        heading: "Stationery Combos",
         links: [
-          { label: "Make Your Own Combo", href: "/make-combo" },
-          { label: "Back To School Label Set", href: "/category/combos?subcategory=back-to-school-label-set" },
-          { label: "Gift Stationery Combo - Kids", href: "/category/combos?subcategory=gift-stationery-combo-kids" },
-          { label: "Gift Stationery Combo - Adults", href: "/category/combos?subcategory=gift-stationery-combo-adults" },
+          { label: "Make Your Own Combo", href: "/make-combo", slug: "make-combo" },
+          { label: "Back To School Label Set", href: "/category/combos?subcategory=back-to-school-label-set", slug: "back-to-school-label-set" },
+          { label: "Gift Stationery Combo - Kids", href: "/category/combos?subcategory=gift-stationery-combo-kids", slug: "gift-stationery-combo-kids" },
+          { label: "Gift Stationery Combo - Adults", href: "/category/combos?subcategory=gift-stationery-combo-adults", slug: "gift-stationery-combo-adults" },
         ],
       },
       {
-        heading: "",
+        heading: "Bag Combos",
         links: [
-          { label: "Bag Combo Set", href: "/category/combos?subcategory=bag-combo-set" },
-          { label: "School Bag Combo", href: "/category/combos?subcategory=school-bag-combo" },
-          { label: "Organiser Sets", href: "/category/combos?subcategory=organiser-sets" },
+          { label: "Bag Combo Set", href: "/category/combos?subcategory=bag-combo-set", slug: "bag-combo-set" },
+          { label: "School Bag Combo", href: "/category/combos?subcategory=school-bag-combo", slug: "school-bag-combo" },
+          { label: "Organiser Sets", href: "/category/combos?subcategory=organiser-sets", slug: "organiser-sets" },
         ],
       }
     ],
@@ -214,24 +214,24 @@ const navItems = [
     href: "/category/themes",
     megaMenu: [
       {
-        heading: "",
+        heading: "Characters & Animals",
         links: [
-          { label: "Animals", href: "/category/themes?subcategory=animals" },
-          { label: "Cute Lil Boy", href: "/category/themes?subcategory=cute-lil-boy" },
-          { label: "Cute Lil Girl", href: "/category/themes?subcategory=cute-lil-girl" },
-          { label: "Dino", href: "/category/themes?subcategory=dino" },
-          { label: "Favourite Characters", href: "/category/themes?subcategory=favourite-characters" },
-          { label: "Princess", href: "/category/themes?subcategory=princess" },
+          { label: "Animals", href: "/category/themes?subcategory=animals", slug: "animals" },
+          { label: "Cute Lil Boy", href: "/category/themes?subcategory=cute-lil-boy", slug: "cute-lil-boy" },
+          { label: "Cute Lil Girl", href: "/category/themes?subcategory=cute-lil-girl", slug: "cute-lil-girl" },
+          { label: "Dino", href: "/category/themes?subcategory=dino", slug: "dino" },
+          { label: "Favourite Characters", href: "/category/themes?subcategory=favourite-characters", slug: "favourite-characters" },
+          { label: "Princess", href: "/category/themes?subcategory=princess", slug: "princess" },
         ],
       },
       {
-        heading: "",
+        heading: "Adventure",
         links: [
-          { label: "Space", href: "/category/themes?subcategory=space" },
-          { label: "Superheroes", href: "/category/themes?subcategory=superheroes" },
-          { label: "Transport", href: "/category/themes?subcategory=transport" },
-          { label: "Unicorn", href: "/category/themes?subcategory=unicorn" },
-          { label: "Underwater", href: "/category/themes?subcategory=underwater" },
+          { label: "Space", href: "/category/themes?subcategory=space", slug: "space" },
+          { label: "Superheroes", href: "/category/themes?subcategory=superheroes", slug: "superheroes" },
+          { label: "Transport", href: "/category/themes?subcategory=transport", slug: "transport" },
+          { label: "Unicorn", href: "/category/themes?subcategory=unicorn", slug: "unicorn" },
+          { label: "Underwater", href: "/category/themes?subcategory=underwater", slug: "underwater" },
         ],
       }
     ],
@@ -240,12 +240,32 @@ const navItems = [
   { label: "Bulk Orders", href: "/bulk-orders" }
 ];
 
-export default function Navbar() {
+import { useMemo } from "react";
+
+export default function Navbar({ dbCategories = [] }) {
   const { cartCount } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
+
+  const navItems = useMemo(() => {
+    if (!dbCategories || dbCategories.length === 0) return staticNavItems;
+    
+    return staticNavItems.map(staticItem => {
+      if (!staticItem.href.startsWith("/category/")) return staticItem;
+      const slug = staticItem.href.replace("/category/", "");
+      const dbCat = dbCategories.find(c => c.slug === slug);
+      
+      if (dbCat && dbCat.image) {
+        return {
+          ...staticItem,
+          megaImage: dbCat.image,
+        };
+      }
+      return staticItem;
+    });
+  }, [dbCategories]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);

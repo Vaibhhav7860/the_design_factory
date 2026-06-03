@@ -99,6 +99,7 @@ const ProductSchema = new mongoose.Schema(
     },
 
     version: { type: Number, default: 0 },
+    salesCount: { type: Number, default: 0, index: true },
   },
   { timestamps: true }
 );

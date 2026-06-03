@@ -3,16 +3,6 @@ import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import styles from "./PopularPicks.module.css";
 
-const picks = [
-  { label: "STATIONERY", href: "/category/gift-stationery", image: "/images/categories/stationery.png" },
-  { label: "SCHOOL ESSENTIALS", href: "/category/school-essentials", image: "/images/categories/school.png" },
-  { label: "BAGS COLLECTION", href: "/category/bags", image: "/images/categories/bags.png" },
-  { label: "COMBO SETS", href: "/category/combos", image: "/images/categories/labels.png" },
-  { label: "LABELS", href: "/category/labels", image: "/images/categories/labels_new.png" },
-  { label: "GIFT STATIONERY", href: "/category/gift-stationery", image: "/images/categories/gift_stationery.png" },
-  { label: "KIDS ACCESSORIES", href: "/category/kids-accessories", image: "/images/categories/kids_accessories.png" },
-  { label: "ORGANISERS", href: "/category/organisers", image: "/images/categories/organisers.png" },
-];
 
 const pastelColors = [
   "#E6F4F1", "#FDF1F5", "#FCF7E3",
@@ -20,7 +10,30 @@ const pastelColors = [
   "#FDF1F1", "#FCF7E3",
 ];
 
-export default function PopularPicks() {
+import { connectToDatabase } from "@/lib/db/mongoose";
+import { Category } from "@/lib/db/models";
+
+export default async function PopularPicks() {
+  await connectToDatabase();
+  const dbCategories = await Category.find({}).lean();
+
+  const picks = [
+    { label: "STATIONERY", slug: "gift-stationery", href: "/category/gift-stationery", fallbackImage: "/images/categories/stationery.png" },
+    { label: "SCHOOL ESSENTIALS", slug: "school-essentials", href: "/category/school-essentials", fallbackImage: "/images/categories/school.png" },
+    { label: "BAGS COLLECTION", slug: "bags", href: "/category/bags", fallbackImage: "/images/categories/bags.png" },
+    { label: "COMBO SETS", slug: "combos", href: "/category/combos", fallbackImage: "/images/categories/labels.png" },
+    { label: "LABELS", slug: "labels", href: "/category/labels", fallbackImage: "/images/categories/labels_new.png" },
+    { label: "GIFT STATIONERY", slug: "gift-stationery", href: "/category/gift-stationery", fallbackImage: "/images/categories/gift_stationery.png" },
+    { label: "KIDS ACCESSORIES", slug: "kids-accessories", href: "/category/kids-accessories", fallbackImage: "/images/categories/kids_accessories.png" },
+    { label: "ORGANISERS", slug: "organisers", href: "/category/organisers", fallbackImage: "/images/categories/organisers.png" },
+  ].map(pick => {
+    const dbCat = dbCategories.find(c => c.slug === pick.slug);
+    return {
+      ...pick,
+      image: dbCat && dbCat.image ? dbCat.image : pick.fallbackImage
+    };
+  });
+
   return (
     <section className={styles.section}>
       <div className={styles.grid}>

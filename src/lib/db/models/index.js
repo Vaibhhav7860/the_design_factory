@@ -8,3 +8,4 @@ export { Asset } from "./Asset.js";
 export { AuditLog } from "./AuditLog.js";
 export { BulkEnquiry, NewsletterSubscriber } from "./BulkEnquiry.js";
 export { Settings } from "./Settings.js";
+export { Category } from "./Category.js";

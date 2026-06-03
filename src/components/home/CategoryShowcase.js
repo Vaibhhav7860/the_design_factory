@@ -1,18 +1,21 @@
 import Link from "next/link";
-import { getFeaturedCategories } from "@/data/categories";
+import { connectToDatabase } from "@/lib/db/mongoose";
+import { Category } from "@/lib/db/models";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import SectionTitle from "@/components/ui/SectionTitle";
 import styles from "./CategoryShowcase.module.css";
 
-export default function CategoryShowcase() {
-  const cats = getFeaturedCategories();
+export default async function CategoryShowcase() {
+  await connectToDatabase();
+  const cats = await Category.find({ featured: true }).lean();
+
   return (
     <section className="section">
       <div className="container">
         <SectionTitle decorative="Explore" title="Our Collections" subtitle="Discover our curated range of personalized products" />
         <div className={styles.grid}>
           {cats.map((cat, i) => (
-            <ScrollReveal key={cat.id} delay={i * 0.1}>
+            <ScrollReveal key={cat._id.toString()} delay={i * 0.1}>
               <Link href={`/category/${cat.slug}`} className={styles.card}>
                 <div className={styles.cardBg} style={{ background: i % 3 === 0 ? `linear-gradient(135deg, var(--gold-light), var(--bg-neu))` : i % 3 === 1 ? `linear-gradient(135deg, var(--salmon-light), var(--bg-neu))` : `linear-gradient(135deg, var(--cyan-light), var(--bg-neu))` }} />
                 <div className={styles.cardContent}>

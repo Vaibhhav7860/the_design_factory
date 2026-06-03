@@ -1,15 +1,14 @@
 import PageHeader from "@/components/admin/PageHeader";
 import { Card, EmptyState } from "@/components/admin/Card";
 import { Button } from "@/components/admin/Button";
-import DataTable, { StatusPill } from "@/components/admin/DataTable";
 import ListToolbar from "@/components/admin/ListToolbar";
 import Pagination from "@/components/admin/Pagination";
 import ExportButton from "@/components/admin/ExportButton";
 import { HiOutlineInbox, HiOutlinePlus } from "react-icons/hi";
 import { connectToDatabase } from "@/lib/db/mongoose";
 import { Order } from "@/lib/db/models";
-import { formatINR, formatDateTime } from "@/lib/format";
 import { parsePagination, textFilter } from "@/lib/pagination";
+import OrderListClient from "./OrderListClient";
 
 export const metadata = { title: "Orders · Admin" };
 
@@ -59,6 +58,7 @@ export default async function OrdersPage({ searchParams }) {
 
   return (
     <div>
+      {/* Force recompile */}
       <PageHeader
         eyebrow="Order management"
         title="Orders"
@@ -92,18 +92,7 @@ export default async function OrdersPage({ searchParams }) {
 
         {orders.length ? (
           <>
-            <DataTable
-              columns={[
-                { key: "orderNumber", header: "Order", render: (o) => <span style={{ fontFamily: "ui-monospace, Menlo, monospace", fontSize: 12 }}>{o.orderNumber}</span> },
-                { key: "createdAt", header: "Date", render: (o) => formatDateTime(o.createdAt) },
-                { key: "customerName", header: "Customer", render: (o) => o.customerName || "Guest" },
-                { key: "total", header: "Total", align: "right", render: (o) => formatINR(o.total ?? 0) },
-                { key: "paymentStatus", header: "Payment", render: (o) => <StatusPill tone={o.paymentStatus === "paid" ? "positive" : "warning"}>{o.paymentStatus}</StatusPill> },
-                { key: "fulfilmentStatus", header: "Fulfilment", render: (o) => <StatusPill tone={o.fulfilmentStatus === "fulfilled" ? "positive" : o.fulfilmentStatus === "cancelled" ? "danger" : "neutral"}>{o.fulfilmentStatus}</StatusPill> },
-              ]}
-              rows={orders.map((o) => ({ ...o, id: String(o._id) }))}
-              rowHref={(row) => `/admin/orders/${row.id}`}
-            />
+            <OrderListClient orders={JSON.parse(JSON.stringify(orders.map(o => ({ ...o, id: String(o._id) }))))} />
             <Pagination
               total={matchedTotal}
               page={page}

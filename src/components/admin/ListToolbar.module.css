@@ -80,3 +80,77 @@
   color: var(--admin-ink);
   font-weight: 600;
 }
+
+.toolbarContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.sortContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.sortLabel {
+  font-size: 13px;
+  color: var(--admin-ink-soft);
+}
+
+.sortSelect {
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border);
+  border-radius: 6px;
+  padding: 6px 32px 6px 12px;
+  font-size: 13px;
+  color: var(--admin-ink);
+  cursor: pointer;
+  appearance: auto;
+  outline: none;
+}
+
+.sortSelect:focus {
+  border-color: var(--admin-accent-deep);
+  box-shadow: 0 0 0 3px rgba(184, 153, 104, 0.16);
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--admin-surface-elevated);
+  border-bottom: 1px solid var(--admin-border);
+}
+
+.activeFilterPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(184, 153, 104, 0.1);
+  border: 1px solid rgba(184, 153, 104, 0.2);
+  color: var(--admin-accent-deep);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.removeFilterBtn {
+  background: none;
+  border: none;
+  padding: 2px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--admin-accent-deep);
+  opacity: 0.6;
+  border-radius: 50%;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.removeFilterBtn:hover {
+  opacity: 1;
+  background: rgba(184, 153, 104, 0.15);
+}
