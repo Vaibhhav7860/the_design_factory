@@ -912,7 +912,7 @@
 
   /* MOBILE CIRCLES: Show 4 at a time on tablets too */
   .filterSection {
-    padding: 0px 1% 5px; /* Reduced top padding to 0px */
+    padding: 20px 1% 5px; /* Added top padding */
     gap: 10px;
     background: transparent; /* Transparent - no colored background */
     margin: 0; /* No margin */
@@ -1037,10 +1037,10 @@
   }
 
   .sectionHeader h2 {
-    font-size: 32px;
-    letter-spacing: 2.5px;
+    font-size: 24px;
+    letter-spacing: 2px;
     text-align: center;
-    margin-left: 2.5px; /* Offset for letter-spacing */
+    margin-left: 2px; /* Offset for letter-spacing */
     margin-top: 0; /* Reset browser margin */
   }
 
@@ -1119,7 +1119,7 @@
   }
 
   .filterSection {
-    padding: 0px 1% 5px; /* Reduced top padding to 0px */
+    padding: 20px 1% 5px; /* Added top padding */
     gap: 8px;
     background: transparent; /* Transparent - inherits white from page */
     margin: 0; /* No margin */

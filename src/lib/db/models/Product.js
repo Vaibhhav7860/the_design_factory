@@ -73,6 +73,7 @@ const ProductSchema = new mongoose.Schema(
     // `discountPercent` is computed at save time from the two.
     price: { type: Number, min: 0, max: 9999999, required: true },
     originalPrice: { type: Number, min: 0, max: 9999999 },
+    preGlobalDiscountPrice: { type: Number, min: 0, max: 9999999 },
     discountPercent: { type: Number, min: 0, max: 100, default: 0 },
 
     images: { type: [String], default: [] }, // CDN keys OR external URLs

@@ -90,7 +90,7 @@ export default async function CategoryPage({ params, searchParams }) {
     if (typeof text === 'string' && text.toUpperCase() === '3D GIFT TAGS') {
       return (
         <>
-          <span className={styles.mobileDosis}>3</span>D GIFT TAGS
+          <span style={{ fontFamily: '"Times New Roman", serif', fontWeight: 400 }}>3</span>D GIFT TAGS
         </>
       );
     }

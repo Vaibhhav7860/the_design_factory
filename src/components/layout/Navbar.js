@@ -214,7 +214,7 @@ const staticNavItems = [
     href: "/category/themes",
     megaMenu: [
       {
-        heading: "Characters & Animals",
+        heading: "",
         links: [
           { label: "Animals", href: "/category/themes?subcategory=animals", slug: "animals" },
           { label: "Cute Lil Boy", href: "/category/themes?subcategory=cute-lil-boy", slug: "cute-lil-boy" },
@@ -225,7 +225,7 @@ const staticNavItems = [
         ],
       },
       {
-        heading: "Adventure",
+        heading: "",
         links: [
           { label: "Space", href: "/category/themes?subcategory=space", slug: "space" },
           { label: "Superheroes", href: "/category/themes?subcategory=superheroes", slug: "superheroes" },

@@ -586,9 +586,9 @@
 
 @media (max-width: 480px) {
   .announcementBar {
-    font-size: 10px;
-    padding: 10px 0;
-    letter-spacing: 2px;
+    font-size: 9px;
+    padding: 6px 0;
+    letter-spacing: 1.5px;
   }
   
   .nav {

@@ -1,0 +1,152 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 16, 8, 0.42);
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  animation: fade 0.18s ease;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dialog {
+  width: 100%;
+  max-width: 420px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border-strong);
+  border-radius: var(--admin-radius);
+  box-shadow: var(--admin-shadow-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 40px);
+  overflow: hidden;
+}
+
+.header {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--admin-border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--admin-font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--admin-ink);
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--admin-ink-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: var(--admin-ink-soft);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--admin-radius-sm);
+  flex-shrink: 0;
+}
+
+.close:hover {
+  background: var(--admin-surface-elevated);
+  color: var(--admin-ink);
+}
+
+.body {
+  padding: 20px 22px;
+  overflow-y: auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sectionLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--admin-ink);
+}
+
+.inputGroup {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--admin-border-strong);
+  background: var(--admin-surface);
+  border-radius: var(--admin-radius);
+  overflow: hidden;
+  transition: border-color 0.18s ease;
+}
+
+.inputGroup:focus-within {
+  border-color: var(--admin-ink);
+  box-shadow: 0 0 0 3px rgba(26, 16, 8, 0.08);
+}
+
+.numberInput {
+  width: 100%;
+  height: 36px;
+  font: inherit;
+  font-size: 14px;
+  border: none;
+  background: transparent;
+  color: var(--admin-ink);
+  padding: 0 10px;
+  outline: none;
+}
+
+.inputSuffix {
+  padding: 0 12px;
+  font-size: 14px;
+  color: var(--admin-ink-muted);
+  background: var(--admin-surface-elevated);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--admin-border-strong);
+}
+
+.footer {
+  border-top: 1px solid var(--admin-border);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--admin-surface);
+}
+
+.error {
+  color: var(--admin-danger);
+  font-size: 12px;
+  margin-right: auto;
+  font-weight: 500;
+}
+
+.success {
+  color: #10b981;
+  font-size: 12px;
+  margin-right: auto;
+  font-weight: 500;
+}
