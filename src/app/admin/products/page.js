@@ -5,6 +5,7 @@ import DataTable, { StatusPill } from "@/components/admin/DataTable";
 import ListToolbar from "@/components/admin/ListToolbar";
 import Pagination from "@/components/admin/Pagination";
 import ExportButton from "@/components/admin/ExportButton";
+import GlobalDiscountButton from "@/components/admin/GlobalDiscountButton";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import { HiOutlineTag, HiOutlinePlus } from "react-icons/hi";
 import { connectToDatabase } from "@/lib/db/mongoose";
@@ -104,6 +105,7 @@ export default async function ProductsPage({ searchParams }) {
               currentPerPage={perPage}
               currentQuery={q}
             />
+            <GlobalDiscountButton />
             <Button variant="primary" iconLeft={<HiOutlinePlus />} href="/admin/products/new">
               Add product
             </Button>
