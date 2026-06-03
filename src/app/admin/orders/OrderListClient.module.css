@@ -1,0 +1,94 @@
+.checkbox {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  appearance: auto;
+  -webkit-appearance: auto;
+}
+
+.actionBar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: var(--admin-surface);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.2);
+  border-radius: 999px;
+  padding: 8px 12px 8px 24px;
+  border: 1px solid var(--admin-border);
+  animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.actionBarInner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.selectionCount {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--admin-ink);
+}
+
+.actionButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButtons button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+
+.actionButtons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primaryBtn {
+  background: var(--admin-ink) !important;
+  color: white !important;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.secondaryBtn {
+  color: var(--admin-ink);
+}
+
+.secondaryBtn:hover:not(:disabled) {
+  background: rgba(0,0,0,0.05);
+}
+
+.dangerBtn {
+  color: var(--admin-danger);
+}
+
+.dangerBtn:hover:not(:disabled) {
+  background: rgba(192, 57, 43, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 20px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}

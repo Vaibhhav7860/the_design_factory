@@ -19,6 +19,8 @@ export default function ListToolbar({
   total,
   matchedTotal,
   label = "items",
+  activeSubcategory = null,
+  currentSort = null,
   children,
 }) {
   const router = useRouter();
@@ -68,48 +70,110 @@ export default function ListToolbar({
     setValue("");
   };
 
+  const onClearSubcategory = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("subcategory");
+    params.delete("page");
+    const qs = params.toString();
+    startTransition(() => {
+      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    });
+  };
+
+  const onSortChange = (e) => {
+    const sortVal = e.target.value;
+    const params = new URLSearchParams(searchParams.toString());
+    if (sortVal && sortVal !== "relevant") {
+      params.set("sort", sortVal);
+    } else {
+      params.delete("sort");
+    }
+    params.delete("page");
+    const qs = params.toString();
+    startTransition(() => {
+      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    });
+  };
+
   const showMatchInfo = typeof matchedTotal === "number" && initial;
 
   return (
-    <div className={styles.toolbar}>
-      <div className={styles.search}>
-        <HiOutlineSearch className={styles.searchIcon} aria-hidden="true" />
-        <input
-          type="search"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={placeholder}
-          aria-label={placeholder}
-          autoComplete="off"
-        />
-        {value ? (
-          <button
-            type="button"
-            className={styles.clear}
-            onClick={onClear}
-            aria-label="Clear search"
-          >
-            <HiOutlineX />
-          </button>
-        ) : null}
+    <div className={styles.toolbarContainer}>
+      <div className={styles.toolbar}>
+        <div className={styles.search}>
+          <HiOutlineSearch className={styles.searchIcon} aria-hidden="true" />
+          <input
+            type="search"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder={placeholder}
+            aria-label={placeholder}
+            autoComplete="off"
+          />
+          {value ? (
+            <button
+              type="button"
+              className={styles.clear}
+              onClick={onClear}
+              aria-label="Clear search"
+            >
+              <HiOutlineX />
+            </button>
+          ) : null}
+        </div>
+
+        {currentSort !== null && (
+          <div className={styles.sortContainer}>
+            <label htmlFor="sort-select" className={styles.sortLabel}>Sort by:</label>
+            <select
+              id="sort-select"
+              className={styles.sortSelect}
+              value={currentSort || "relevant"}
+              onChange={onSortChange}
+              disabled={isPending}
+            >
+              <option value="relevant">Most relevant</option>
+              <option value="best_selling">Best Selling</option>
+              <option value="title_asc">Title A - Z</option>
+              <option value="title_desc">Title Z - A</option>
+              <option value="price_desc">Highest Price</option>
+              <option value="price_asc">Lowest Price</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </div>
+        )}
+
+        {children}
       </div>
 
-      {children}
-
-      {showMatchInfo ? (
-        <div className={styles.matchInfo}>
-          {isPending ? "Searching…" : (
-            <>
-              <strong>{numberFormat.format(matchedTotal)}</strong>{" "}
-              {label} match{" "}
-              <strong>&ldquo;{initial}&rdquo;</strong>
-              {typeof total === "number" && total !== matchedTotal ? (
-                <> of {numberFormat.format(total)}</>
-              ) : null}
-            </>
+      {(activeSubcategory || showMatchInfo) && (
+        <div className={styles.filterRow}>
+          {activeSubcategory && (
+            <div className={styles.activeFilterPill}>
+              <span>Subcategory: {activeSubcategory}</span>
+              <button onClick={onClearSubcategory} aria-label="Remove filter" className={styles.removeFilterBtn}>
+                <HiOutlineX />
+              </button>
+            </div>
           )}
+
+          {showMatchInfo ? (
+            <div className={styles.matchInfo}>
+              {isPending ? "Searching…" : (
+                <>
+                  <strong>{numberFormat.format(matchedTotal)}</strong>{" "}
+                  {label} match{" "}
+                  <strong>&ldquo;{initial}&rdquo;</strong>
+                  {typeof total === "number" && total !== matchedTotal ? (
+                    <> of {numberFormat.format(total)}</>
+                  ) : null}
+                </>
+              )}
+            </div>
+          ) : null}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }

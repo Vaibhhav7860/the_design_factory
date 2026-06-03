@@ -112,19 +112,19 @@
   }
 }
 
-/* Asymmetric Bento — vary card sizes for editorial rhythm */
-/* Row 1: 5 / 4 / 3 */
-.card:nth-child(1) { grid-column: span 5; }
-.card:nth-child(2) { grid-column: span 4; }
-.card:nth-child(3) { grid-column: span 3; }
-/* Row 2: 4 / 5 / 3 */
-.card:nth-child(4) { grid-column: span 4; }
-.card:nth-child(5) { grid-column: span 5; }
-.card:nth-child(6) { grid-column: span 3; }
-/* Row 3: 3 / 4 / 5 */
-.card:nth-child(7) { grid-column: span 3; }
-.card:nth-child(8) { grid-column: span 4; }
-.card:nth-child(9) { grid-column: span 5; }
+/* Asymmetric Bento — vary card sizes for editorial rhythm (repeats every 9 cards) */
+/* Row 1 pattern: 5 / 4 / 3 */
+.card:nth-child(9n + 1) { grid-column: span 5; }
+.card:nth-child(9n + 2) { grid-column: span 4; }
+.card:nth-child(9n + 3) { grid-column: span 3; }
+/* Row 2 pattern: 4 / 5 / 3 */
+.card:nth-child(9n + 4) { grid-column: span 4; }
+.card:nth-child(9n + 5) { grid-column: span 5; }
+.card:nth-child(9n + 6) { grid-column: span 3; }
+/* Row 3 pattern: 3 / 4 / 5 */
+.card:nth-child(9n + 7) { grid-column: span 3; }
+.card:nth-child(9n + 8) { grid-column: span 4; }
+.card:nth-child(9n + 0) { grid-column: span 5; }
 
 /* ── Outer shell (Double-Bezel) ── */
 .cardShell {
@@ -326,15 +326,7 @@
     gap: 24px 20px;
   }
 
-  .card:nth-child(1),
-  .card:nth-child(2),
-  .card:nth-child(3),
-  .card:nth-child(4),
-  .card:nth-child(5),
-  .card:nth-child(6),
-  .card:nth-child(7),
-  .card:nth-child(8),
-  .card:nth-child(9) {
+  .card:nth-child(n) {
     grid-column: span 4;
   }
 }
@@ -352,15 +344,7 @@
     gap: 20px 16px;
   }
 
-  .card:nth-child(1),
-  .card:nth-child(2),
-  .card:nth-child(3),
-  .card:nth-child(4),
-  .card:nth-child(5),
-  .card:nth-child(6),
-  .card:nth-child(7),
-  .card:nth-child(8),
-  .card:nth-child(9) {
+  .card:nth-child(n) {
     grid-column: span 6;
   }
 }
@@ -392,15 +376,7 @@
     gap: 24px;
   }
 
-  .card:nth-child(1),
-  .card:nth-child(2),
-  .card:nth-child(3),
-  .card:nth-child(4),
-  .card:nth-child(5),
-  .card:nth-child(6),
-  .card:nth-child(7),
-  .card:nth-child(8),
-  .card:nth-child(9) {
+  .card:nth-child(n) {
     grid-column: span 1;
   }
 

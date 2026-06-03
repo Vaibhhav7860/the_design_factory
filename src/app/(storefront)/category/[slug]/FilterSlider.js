@@ -10,17 +10,6 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
   const [isClient, setIsClient] = useState(false);
   const intervalRef = useRef(null);
 
-  // Subcategory-specific images
-  const subcategoryImages = {
-    'rectangular-labels': '/images/categories/rectangular-labels.png',
-    'round-labels': '/images/categories/round-labels.png',
-    'mixed-shape-labels': '/images/categories/mixed-shape-labels.png',
-    'transparent-labels': '/images/categories/transparent-labels.png',
-    '3d-embossed-stickers': '/images/categories/3d-embossed-stickers.png',
-    'school-book-labels': '/images/categories/school-book-labels.png',
-    'iron-on-labels': '/images/categories/iron-on-labels.png',
-  };
-
   const fallbackImages = [
     '/images/categories/labels.png',
     '/images/categories/school.png',
@@ -32,7 +21,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
 
   const getSubcategoryImage = (sub, index) => {
     try {
-      return subcategoryImages[sub.slug] || fallbackImages[index % fallbackImages.length];
+      return sub.circleImage || sub.image || fallbackImages[index % fallbackImages.length];
     } catch (error) {
       console.error('Error getting subcategory image:', error);
       return fallbackImages[0];
@@ -177,7 +166,6 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
                       height={110}
                     />
                   </div>
-                  <span>{sub.title}</span>
                 </Link>
               );
             } catch (error) {

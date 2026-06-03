@@ -17,6 +17,8 @@ export const metadata = { title: "Products · Admin" };
 export default async function ProductsPage({ searchParams }) {
   const sp = (await searchParams) || {};
   const { q, page, perPage, skip, limit } = parsePagination(sp);
+  const subcategory = sp.subcategory || null;
+  const sortParam = sp.sort || "relevant";
 
   let products = [];
   let total = 0;
@@ -26,15 +28,58 @@ export default async function ProductsPage({ searchParams }) {
     await connectToDatabase();
 
     const filter = textFilter(q, ["title", "slug"]) ?? {};
+    if (subcategory) {
+      filter.subcategories = subcategory;
+    }
+
+    let sortObj = { updatedAt: -1 };
+    switch (sortParam) {
+      case "best_selling":
+        sortObj = { salesCount: -1 };
+        break;
+      case "title_asc":
+        sortObj = { title: 1 };
+        break;
+      case "title_desc":
+        sortObj = { title: -1 };
+        break;
+      case "price_desc":
+        sortObj = { price: -1 };
+        break;
+      case "price_asc":
+        sortObj = { price: 1 };
+        break;
+      case "newest":
+        sortObj = { createdAt: -1 };
+        break;
+      case "oldest":
+        sortObj = { createdAt: 1 };
+        break;
+      case "relevant":
+      default:
+        // Text search automatically sorts by score if q is present, else fallback
+        if (q) {
+           sortObj = { score: { $meta: "textScore" } };
+        } else {
+           sortObj = { updatedAt: -1 };
+        }
+        break;
+    }
+
+    let query = Product.find(filter);
+    if (q && sortParam === "relevant") {
+       query = query.select({ score: { $meta: "textScore" } }).sort(sortObj);
+    } else {
+       query = query.sort(sortObj);
+    }
 
     [products, matchedTotal, total] = await Promise.all([
-      Product.find(filter)
-        .sort({ updatedAt: -1 })
+      query
         .skip(skip)
         .limit(limit)
         .lean(),
       Product.countDocuments(filter),
-      q ? Product.estimatedDocumentCount() : Promise.resolve(null),
+      (q || subcategory) ? Product.estimatedDocumentCount() : Promise.resolve(null),
     ]);
     if (total === null) total = matchedTotal;
   } catch {
@@ -72,6 +117,8 @@ export default async function ProductsPage({ searchParams }) {
           total={total}
           matchedTotal={matchedTotal}
           label="products"
+          activeSubcategory={subcategory}
+          currentSort={sortParam}
         />
 
         {products.length ? (

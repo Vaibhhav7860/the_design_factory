@@ -1,4 +1,5 @@
-import { categories, getCategoryBySlug } from "@/data/categories";
+import { connectToDatabase } from "@/lib/db/mongoose";
+import { Category } from "@/lib/db/models";
 import {
   getProductsByCategory,
   getProductsBySubcategory,
@@ -13,13 +14,10 @@ import styles from "./category.module.css";
 // MongoDB-backed; re-fetch every request so admin edits show immediately.
 export const dynamic = "force-dynamic";
 
-export function generateStaticParams() {
-  return categories.map((c) => ({ slug: c.slug }));
-}
-
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const cat = getCategoryBySlug(slug);
+  await connectToDatabase();
+  const cat = await Category.findOne({ slug }).lean();
   return {
     title: cat
       ? `${cat.title} | The Design Factory`
@@ -33,7 +31,9 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params, searchParams }) {
   const { slug } = await params;
   const subcategory = (await searchParams)?.subcategory;
-  const category = getCategoryBySlug(slug);
+  
+  await connectToDatabase();
+  const category = await Category.findOne({ slug }).lean();
 
   // Pick subcategory grid view OR product grid view
   const showSubcategories =
@@ -76,6 +76,7 @@ export default async function CategoryPage({ params, searchParams }) {
     "/images/categories/kids_accessories.png",
   ];
   const getSubcategoryImage = (sub, index) =>
+    sub.image ||
     subcategoryImages[sub.slug] ||
     fallbackImages[index % fallbackImages.length];
 

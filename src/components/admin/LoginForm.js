@@ -47,6 +47,7 @@ export default function LoginForm() {
       <div className={styles.field}>
         <label htmlFor="email">Email</label>
         <input
+          suppressHydrationWarning
           id="email"
           type="email"
           autoComplete="email"
@@ -65,6 +66,7 @@ export default function LoginForm() {
           </a>
         </div>
         <input
+          suppressHydrationWarning
           id="password"
           type="password"
           autoComplete="current-password"
@@ -79,6 +81,7 @@ export default function LoginForm() {
         <div className={styles.field}>
           <label htmlFor="totp">Authenticator code</label>
           <input
+            suppressHydrationWarning
             id="totp"
             type="text"
             inputMode="numeric"
@@ -96,7 +99,7 @@ export default function LoginForm() {
 
       {error ? <div className={styles.error} role="alert">{error}</div> : null}
 
-      <button type="submit" className={styles.submit} disabled={isPending}>
+      <button suppressHydrationWarning type="submit" className={styles.submit} disabled={isPending}>
         {isPending ? "Signing in…" : "Sign in"}
       </button>
     </form>
