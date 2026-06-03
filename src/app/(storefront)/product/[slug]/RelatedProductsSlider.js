@@ -10,6 +10,8 @@ export default function RelatedProductsSlider({ products }) {
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
   const touchStartRef = useRef(false);
+  const containerRef = useRef(null);
+  const isProgrammaticScrollRef = useRef(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,7 +47,7 @@ export default function RelatedProductsSlider({ products }) {
           const next = prev + 1;
           return next > maxIndex ? 0 : next;
         });
-      }, 2000); // Auto-slide every 2 seconds
+      }, 3000); // Auto-slide every 3 seconds
     }
   }, [maxIndex, isPaused]);
 
@@ -73,6 +75,37 @@ export default function RelatedProductsSlider({ products }) {
       setCurrentIndex(maxIndex);
     }
   }, [itemsPerPage, maxIndex, currentIndex]);
+
+  // Sync scroll position for mobile
+  useEffect(() => {
+    if (isMobile && containerRef.current) {
+      const container = containerRef.current;
+      const item = container.querySelector(`[data-slider-item="true"]`);
+      if (item) {
+        isProgrammaticScrollRef.current = true;
+        const gap = 14; 
+        container.scrollTo({
+          left: currentIndex * (item.offsetWidth + gap),
+          behavior: 'smooth'
+        });
+        setTimeout(() => {
+          isProgrammaticScrollRef.current = false;
+        }, 600); // Wait for smooth scroll to finish
+      }
+    }
+  }, [currentIndex, isMobile]);
+
+  const handleScroll = (e) => {
+    if (!isMobile || isProgrammaticScrollRef.current) return;
+    const item = e.target.querySelector(`[data-slider-item="true"]`);
+    if (item) {
+      const itemWidth = item.offsetWidth + 14;
+      const newIndex = Math.round(e.target.scrollLeft / itemWidth);
+      if (newIndex !== currentIndex && newIndex <= maxIndex) {
+        setCurrentIndex(newIndex);
+      }
+    }
+  };
 
   const goToPrev = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -135,6 +168,7 @@ export default function RelatedProductsSlider({ products }) {
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
     >
       {canGoPrev && (
         <button 
@@ -148,15 +182,19 @@ export default function RelatedProductsSlider({ products }) {
         </button>
       )}
 
-      <div className={styles.sliderContainer}>
+      <div 
+        className={styles.sliderContainer}
+        ref={containerRef}
+        onScroll={handleScroll}
+      >
         <div 
           className={styles.sliderTrack} 
           style={{ 
-            transform: `translateX(calc(-1 * ${currentIndex} * (100% + var(--slider-gap, 24px)) / ${itemsPerPage}))`
+            transform: isMobile ? 'none' : `translateX(calc(-1 * ${currentIndex} * (100% + var(--slider-gap, 24px)) / ${itemsPerPage}))`
           }}
         >
           {products.map((p) => (
-            <div key={p.slug} className={styles.sliderItem}>
+            <div key={p.slug} className={styles.sliderItem} data-slider-item="true">
               <ProductCard product={p} />
             </div>
           ))}

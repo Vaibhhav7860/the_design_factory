@@ -1,7 +1,7 @@
 .checkoutPage {
   min-height: 100vh;
   background: linear-gradient(135deg, #FAF9F6 0%, #FFF9F5 50%, #F8F4F0 100%);
-  padding: 60px 0 80px;
+  padding: calc(var(--nav-height, 120px) + 20px) 0 80px;
 }
 
 .container {
@@ -48,13 +48,13 @@
 
 .rightColumn {
   position: sticky;
-  top: 80px;
+  top: calc(var(--nav-height, 120px) + 20px);
   background: var(--color-white);
   padding: 32px;
   border-radius: 16px;
   border: 2px solid rgba(252, 213, 137, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  max-height: calc(100vh - 100px);
+  max-height: calc(100vh - var(--nav-height, 120px) - 40px);
   overflow: visible;
   align-self: start;
 }
@@ -99,7 +99,7 @@
 /* Responsive */
 @media (min-width: 2560px) {
   .checkoutPage {
-    padding: 80px 0 100px;
+    padding: calc(var(--nav-height, 160px) + 30px) 0 100px;
   }
 
   .container {
@@ -159,7 +159,7 @@
 
 @media (max-width: 768px) {
   .checkoutPage {
-    padding: 30px 0 50px;
+    padding: calc(var(--nav-height, 80px) + 15px) 0 50px;
   }
   
   .container {
@@ -221,7 +221,7 @@
 /* iPhone SE, 12 Mini, 13 Mini */
 @media only screen and (min-device-width: 375px) and (max-device-width: 428px) and (-webkit-min-device-pixel-ratio: 2) {
   .checkoutPage {
-    padding: 20px 0 40px;
+    padding: calc(var(--nav-height, 75px) + 10px) 0 40px;
   }
   
   .container {
@@ -247,7 +247,7 @@
 /* iPhone 14 Pro Max, 15 Pro Max, 16 Pro Max */
 @media only screen and (min-device-width: 430px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
   .checkoutPage {
-    padding: 25px 0 45px;
+    padding: calc(var(--nav-height, 80px) + 12px) 0 45px;
   }
   
   .container {
@@ -266,7 +266,7 @@
 /* Small Mobile (Android & iOS) */
 @media (max-width: 480px) {
   .checkoutPage {
-    padding: 20px 0 40px;
+    padding: calc(var(--nav-height, 75px) + 10px) 0 40px;
   }
   
   .container {
@@ -310,7 +310,7 @@
 /* Very Small Mobile */
 @media (max-width: 360px) {
   .checkoutPage {
-    padding: 15px 0 35px;
+    padding: calc(var(--nav-height, 60px) + 10px) 0 35px;
   }
   
   .container {

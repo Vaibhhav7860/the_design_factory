@@ -820,7 +820,7 @@
   }
 
   .headerArea {
-    padding: 70px 4% 10px; /* Reduced bottom padding from 20px to 10px */
+    padding: 70px 4% 40px; /* Top 70px, bottom 40px */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -831,12 +831,13 @@
   }
 
   .sectionHeader {
-    margin-bottom: 35px;
+    margin-bottom: 0px; /* No margin below heading, using container padding */
   }
 
   .sectionHeader h2 {
     font-size: 36px;
     letter-spacing: 3px;
+    margin-top: 0; /* Reset browser margin */
   }
 
   .sectionHeader p {
@@ -911,7 +912,7 @@
 
   /* MOBILE CIRCLES: Show 4 at a time on tablets too */
   .filterSection {
-    padding: 10px 1% 5px; /* Reduced bottom padding - circles section */
+    padding: 0px 1% 5px; /* Reduced top padding to 0px */
     gap: 10px;
     background: transparent; /* Transparent - no colored background */
     margin: 0; /* No margin */
@@ -923,7 +924,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 15px 0; /* Add vertical padding */
+    padding: 4px 0 8px; /* Reduced top padding to 4px, keeping bottom padding */
   }
 
   .filterContainer::-webkit-scrollbar {
@@ -949,7 +950,7 @@
     min-width: calc((100% - 9px) / 4);
     gap: 6px;
     flex-shrink: 0;
-    padding: 10px 0; /* Add padding to prevent clipping */
+    padding: 0 0 5px; /* Reduced top padding to 0px, keeping bottom padding */
   }
 
   /* Remove hover effect on tablet */
@@ -1005,7 +1006,7 @@
   }
 
   .headerArea {
-    padding: 70px 4% 10px; /* Reduced bottom padding from 20px to 10px */
+    padding: 70px 4% 40px; /* Top 70px, bottom 40px */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -1027,12 +1028,24 @@
   }
 
   .sectionHeader {
-    margin-bottom: 25px;
+    margin-bottom: 0px; /* No margin below heading, using container padding */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .sectionHeader h2 {
     font-size: 32px;
     letter-spacing: 2.5px;
+    text-align: center;
+    margin-left: 2.5px; /* Offset for letter-spacing */
+    margin-top: 0; /* Reset browser margin */
+  }
+
+  .mobileDosis {
+    font-family: var(--font-dosis), sans-serif;
   }
 
   .sectionHeader p {
@@ -1106,7 +1119,7 @@
   }
 
   .filterSection {
-    padding: 10px 1% 5px; /* Reduced bottom padding from 10px to 5px */
+    padding: 0px 1% 5px; /* Reduced top padding to 0px */
     gap: 8px;
     background: transparent; /* Transparent - inherits white from page */
     margin: 0; /* No margin */
@@ -1118,6 +1131,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    padding: 4px 0 8px; /* Reduced top padding to 4px, keeping bottom padding */
   }
 
   .filterContainer::-webkit-scrollbar {
@@ -1148,7 +1162,7 @@
     min-width: calc((100% - 6px) / 4);
     flex-shrink: 0;
     gap: 4px; /* Reduced gap between icon and text */
-    padding: 10px 0; /* Add padding to prevent clipping */
+    padding: 0 0 5px; /* Reduced top padding to 0px, keeping bottom padding */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }

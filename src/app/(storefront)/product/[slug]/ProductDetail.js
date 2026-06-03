@@ -79,6 +79,17 @@ export default function ProductDetail({ product }) {
   const autoScrollRef = useRef(null);
   const idleTimerRef = useRef(null);
   const isPausedRef = useRef(false);
+  const activeIndexRef = useRef(0);
+  const galleryLengthRef = useRef(gallery.length);
+
+  /* Keep refs in sync with state */
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    galleryLengthRef.current = gallery.length;
+  }, [gallery.length]);
 
   /* ── Pricing ── */
   const basePrice = product.price;
@@ -210,20 +221,28 @@ export default function ProductDetail({ product }) {
   const BRAND_COLORS = ['#FCD589', '#FBC9BC', '#d7e4e4'];
 
   /* ── Gallery Navigation ── */
+  const scrollThumbIntoView = useCallback((index) => {
+    if (thumbnailsRef.current) {
+      const thumb = thumbnailsRef.current.children[index];
+      if (thumb) {
+        const container = thumbnailsRef.current;
+        const thumbLeft = thumb.offsetLeft;
+        const thumbWidth = thumb.offsetWidth;
+        const containerWidth = container.offsetWidth;
+        container.scrollTo({
+          left: thumbLeft - containerWidth / 2 + thumbWidth / 2,
+          behavior: "smooth",
+        });
+      }
+    }
+  }, []);
+
   const goTo = useCallback(
     (index) => {
       setActiveIndex(index);
-      if (thumbnailsRef.current) {
-        const thumb = thumbnailsRef.current.children[index];
-        if (thumb)
-          thumb.scrollIntoView({
-            behavior: "smooth",
-            inline: "center",
-            block: "nearest",
-          });
-      }
+      scrollThumbIntoView(index);
     },
-    []
+    [scrollThumbIntoView]
   );
 
   const goPrev = useCallback(
@@ -236,39 +255,67 @@ export default function ProductDetail({ product }) {
     [activeIndex, gallery.length, goTo]
   );
 
-  /* ── Auto-Scroll Logic - DISABLED to prevent page jumping ── */
-  // Auto-scroll removed - user can manually navigate images
+  /* ── Auto-Scroll Logic (uses refs to avoid stale closures) ── */
   const startAutoScroll = useCallback(() => {
-    // Auto-scroll disabled - no automatic sliding
-    return;
+    if (galleryLengthRef.current <= 1 || isPausedRef.current) return;
+    clearInterval(autoScrollRef.current);
+    autoScrollRef.current = setInterval(() => {
+      const len = galleryLengthRef.current;
+      if (len <= 1) return;
+      const nextIdx = (activeIndexRef.current + 1) % len;
+      setActiveIndex(nextIdx);
+      // Scroll thumbnail strip horizontally (without moving the page)
+      if (thumbnailsRef.current) {
+        const thumb = thumbnailsRef.current.children[nextIdx];
+        if (thumb) {
+          const container = thumbnailsRef.current;
+          const thumbLeft = thumb.offsetLeft;
+          const thumbWidth = thumb.offsetWidth;
+          const containerWidth = container.offsetWidth;
+          container.scrollTo({
+            left: thumbLeft - containerWidth / 2 + thumbWidth / 2,
+            behavior: "smooth",
+          });
+        }
+      }
+    }, 3000);
   }, []);
 
   const pauseAutoScroll = useCallback(() => {
-    // No-op since auto-scroll is disabled
+    clearInterval(autoScrollRef.current);
+    clearTimeout(idleTimerRef.current);
   }, []);
 
   const handleManualNav = useCallback(
     (navFn) => {
-      navFn(); // Just execute navigation without pause logic
+      navFn();
+      pauseAutoScroll();
+      idleTimerRef.current = setTimeout(() => {
+        if (!isPausedRef.current) {
+          startAutoScroll();
+        }
+      }, IDLE_RESUME_DELAY);
     },
-    []
+    [pauseAutoScroll, startAutoScroll]
   );
 
   useEffect(() => {
-    // Auto-scroll disabled - no interval started
+    startAutoScroll();
     return () => {
       clearInterval(autoScrollRef.current);
       clearTimeout(idleTimerRef.current);
     };
-  }, []);
+  }, [startAutoScroll]);
 
-  /* ── Mouse hover - no longer needed but keeping for compatibility ── */
+  /* ── Mouse hover ── */
   const handleGalleryMouseEnter = () => {
-    // No-op
+    isPausedRef.current = true;
+    pauseAutoScroll();
   };
 
   const handleGalleryMouseLeave = () => {
-    // No-op
+    isPausedRef.current = false;
+    startAutoScroll();
   };
 
   /* ── Add to Cart ── */

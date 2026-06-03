@@ -59,8 +59,8 @@ export default function MobileMenu({ open, onClose, navItems = [] }) {
               {item.megaMenu && expandedItem === index && (
                 <div className={styles.subMenu}>
                   {item.megaMenu.map((col, ci) => (
-                    <div key={ci} className={styles.subGroup}>
-                      <span className={styles.subHeading}>{col.heading}</span>
+                    <div key={ci} className={`${styles.subGroup} ${!col.heading ? styles.subGroupNoHeading : ''}`}>
+                      {col.heading && <span className={styles.subHeading}>{col.heading}</span>}
                       {col.links.map((link, li) => (
                         <Link
                           key={li}
