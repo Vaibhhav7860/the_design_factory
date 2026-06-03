@@ -37,9 +37,6 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-  /* iOS: prevent rubber-band scrolling issues */
-  height: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -56,7 +53,6 @@ body {
   min-height: -webkit-fill-available;
   /* iOS: prevent scroll issues */
   position: relative;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* macOS Safari: smoother modern viewport unit when supported */
@@ -106,12 +102,7 @@ img {
 }
 ul, ol { list-style: none; }
 
-/* iOS Safari: Fix for fixed positioning and scrolling */
-@supports (-webkit-touch-callout: none) {
-  * {
-    -webkit-overflow-scrolling: touch;
-  }
-}
+
 
 /* iOS: Prevent zoom on double tap */
 * {
@@ -431,12 +422,7 @@ ul, ol { list-style: none; }
   }
 }
 
-/* Mobile: Prevent overscroll past footer */
-@media (max-width: 768px) {
-  html, body {
-    overscroll-behavior-y: none;
-  }
-}
+
 
 /* Mobile */
 @media (max-width: 480px) {
@@ -506,15 +492,9 @@ ul, ol { list-style: none; }
 
 /* All iOS Devices */
 @supports (-webkit-touch-callout: none) {
-  html {
-    height: -webkit-fill-available;
-  }
-  
   body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    position: relative;
-    overscroll-behavior-y: none;
   }
   
   /* Fix for iOS Safari address bar */
@@ -615,14 +595,9 @@ ul, ol { list-style: none; }
     --section-padding: 22px 4%;
   }
   
-  html, body {
+  body {
     overflow-x: hidden;
     width: 100%;
-    position: relative;
-  }
-  
-  body {
-    -webkit-overflow-scrolling: touch;
   }
   
   .container {
@@ -642,8 +617,9 @@ ul, ol { list-style: none; }
     transform: translateZ(0);
   }
 
-  /* iOS-specific calc() fixes */
-  * {
+  /* iOS: GPU-accelerate scrollable containers only (not html/body) */
+  .container,
+  .section {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
   }

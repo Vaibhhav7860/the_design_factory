@@ -1213,11 +1213,6 @@
 
 /* All iOS Devices */
 @supports (-webkit-touch-callout: none) {
-  .page {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
-  }
-  
   .filterSection {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
@@ -1254,7 +1249,6 @@
   and (-webkit-min-device-pixel-ratio: 3) {
   
   .page {
-    overflow-x: hidden;
     width: 100%;
   }
   
