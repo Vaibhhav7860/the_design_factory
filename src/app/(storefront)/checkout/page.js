@@ -328,13 +328,7 @@ export default function CheckoutPage() {
             </div>
           ) : null}
 
-          <button
-            className={styles.payButton}
-            onClick={handlePayment}
-            disabled={isProcessing}
-          >
-            {isProcessing ? "Processing…" : "Pay Now"}
-          </button>
+
 
           <div className={styles.footer}>
             <a href="/refund-policy">Refund policy</a>
