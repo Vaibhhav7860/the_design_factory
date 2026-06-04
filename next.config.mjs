@@ -33,6 +33,11 @@ const nextConfig = {
         hostname: "www.thedesignfactoryshop.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "media.thedesignfactoryshop.com",
+        pathname: "/**",
+      },
     ],
   },
   // Disable Turbopack to avoid font loading issues
