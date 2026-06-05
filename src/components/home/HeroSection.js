@@ -9,7 +9,7 @@ const PrevIcon = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="non
 const NextIcon = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>;
 
 const slides = [
-  { type: 'video', src: '/videos/hero_video.mp4', duration: 15000 }
+  { type: 'video', src: 'https://media.thedesignfactoryshop.com/videos/hero_video.mp4', duration: 15000 }
 ];
 
 export default function HeroSection() {
