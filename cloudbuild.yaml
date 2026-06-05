@@ -3,3 +3,6 @@ steps:
   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/tdf-docker/tdf-web:latest', '--build-arg', 'NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_SvajhCMpUgsAkZ', '.']
 images:
 - 'asia-south1-docker.pkg.dev/$PROJECT_ID/tdf-docker/tdf-web:latest'
+options:
+  logging: CLOUD_LOGGING_ONLY
+
