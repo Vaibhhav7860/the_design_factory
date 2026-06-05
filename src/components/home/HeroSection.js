@@ -94,6 +94,8 @@ export default function HeroSection() {
                 muted
                 loop
                 playsInline
+                autoPlay
+                preload="auto"
                 className={styles.slideMedia}
               />
             )}

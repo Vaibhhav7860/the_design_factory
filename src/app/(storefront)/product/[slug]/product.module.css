@@ -7,9 +7,6 @@
 .page {
   padding: 40px 0 100px;
   position: relative;
-  /* iOS: prevent layout shifts */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   will-change: auto;
 }
 
@@ -67,9 +64,6 @@
   grid-template-columns: minmax(320px, 480px) 1fr;
   gap: 72px;
   align-items: start;
-  /* iOS: prevent rendering issues */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
   isolation: isolate;
 }
 
@@ -122,8 +116,8 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
@@ -189,20 +183,23 @@
 }
 
 .galleryDot {
-  width: 6px;
-  height: 6px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: rgba(45, 45, 45, 0.18);
-  border: none;
+  background-color: rgba(45, 45, 45, 0.18);
+  background-clip: content-box;
+  border: 19px solid transparent;
+  box-sizing: border-box;
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
   padding: 0;
+  margin: -19px -10px; /* Offset the visual shift caused by border expansion */
 }
 
 .galleryDotActive {
-  background: var(--color-text);
-  width: 22px;
-  border-radius: 4px;
+  background-color: var(--color-text);
+  border-width: 19px 11px;
+  border-radius: 22px;
 }
 
 /* ── Thumbnail Strip ── */
@@ -1439,29 +1436,19 @@
   }
   
   .detail {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    /* translateZ removed */
   }
   
   .gallery {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    /* translateZ removed */
   }
   
   .mainImageCore {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    /* translateZ removed */
   }
   
   .mainImg {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    /* translateZ removed */
   }
   
   .thumbnailStrip {

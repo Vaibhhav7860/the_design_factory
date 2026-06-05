@@ -209,8 +209,7 @@
   
   .leftColumn,
   .rightColumn {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    /* translateZ removed to prevent Safari crashes */
   }
   
   .logo h1 {

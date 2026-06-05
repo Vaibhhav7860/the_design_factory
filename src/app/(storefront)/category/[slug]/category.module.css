@@ -1232,32 +1232,8 @@
 
 /* All iOS Devices */
 @supports (-webkit-touch-callout: none) {
-  .filterSection {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-  
   .filterContainer {
     -webkit-overflow-scrolling: touch;
-  }
-  
-  .filterPill {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-  
-  .filterIcon {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-  
-  .grid {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
 }
 
@@ -1269,31 +1245,6 @@
   
   .page {
     width: 100%;
-  }
-  
-  .filterPill {
-    /* Fallback for iOS calc issues */
-    width: 23.5vw;
-    min-width: 23.5vw;
-  }
-  
-  .filterIcon {
-    width: 21.5vw;
-    height: 21.5vw;
-    border-width: 1.5px; /* Thin grey border */
-    border-color: #c4b5a0; /* Grey border */
-    background: #ffffff; /* Pure white background */
-    padding: 0; /* Remove padding to eliminate white inner border */
-  }
-  
-  /* Active state - keep grey border */
-  .filterPillActive .filterIcon {
-    border-color: #c4b5a0;
-    border-width: 2px; /* Slightly thicker for active state */
-    box-shadow: 
-      0 8px 28px rgba(0, 0, 0, 0.15),
-      0 0 0 4px rgba(196, 181, 160, 0.15);
-    padding: 0; /* Remove padding */
   }
   
   .grid {
@@ -1312,27 +1263,4 @@
   and (max-device-width: 393px) 
   and (-webkit-min-device-pixel-ratio: 3) {
   
-  .filterPill {
-    width: 23vw;
-    min-width: 23vw;
-  }
-  
-  .filterIcon {
-    width: 21vw;
-    height: 21vw;
-    border-width: 1.5px; /* Thin grey border */
-    border-color: #c4b5a0; /* Grey border */
-    background: #ffffff; /* Pure white background */
-    padding: 0; /* Remove padding to eliminate white inner border */
-  }
-  
-  /* Active state - keep grey border */
-  .filterPillActive .filterIcon {
-    border-color: #c4b5a0;
-    border-width: 2px; /* Slightly thicker for active state */
-    box-shadow: 
-      0 8px 28px rgba(0, 0, 0, 0.15),
-      0 0 0 4px rgba(196, 181, 160, 0.15);
-    padding: 0; /* Remove padding */
-  }
 }
