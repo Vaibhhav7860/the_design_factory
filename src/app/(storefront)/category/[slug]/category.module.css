@@ -379,12 +379,10 @@
   from {
     opacity: 0;
     transform: translateY(32px);
-    filter: blur(4px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -448,14 +446,21 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.95); /* Opaque fallback for iOS */
   padding: 18px 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+  transform: translateZ(0); /* iOS hardware acceleration fix */
+}
+
+@supports (backdrop-filter: blur(2px)) {
+  .showcaseOverlay {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
 }
 
 .showcaseCard:hover .showcaseOverlay {

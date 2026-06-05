@@ -125,7 +125,7 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
         <div className={filterStyles.filterDrawerHeader}>
           <h2 className={filterStyles.filterDrawerHeading}>FILTERS</h2>
           <button 
-            className={filterStyles.filterDrawerCloseBtn}
+            className={`${filterStyles.filterDrawerCloseBtn} min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation`}
             onClick={() => setFilterDrawerOpen(false)}
             aria-label="Close filters"
           >
@@ -346,7 +346,7 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
           </p>
           {/* Mobile Filter Button - Aligned with product count */}
           <button 
-            className={filterStyles.mobileFilterBtn}
+            className={`${filterStyles.mobileFilterBtn} min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation`}
             onClick={() => setFilterDrawerOpen(true)}
             aria-label="Open filters"
           >
@@ -358,10 +358,16 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
             </svg>
           </button>
         </div>
-        <div className={styles.grid}>
+        <div 
+          className={`${styles.grid} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6`}
+        >
           {filteredAndSortedProducts.length > 0 ? (
             filteredAndSortedProducts.map((p) => (
-              <ProductCard key={p.slug} product={p} />
+              <div 
+                key={p.slug}
+              >
+                <ProductCard product={p} />
+              </div>
             ))
           ) : (
             <div className={styles.noProducts}>

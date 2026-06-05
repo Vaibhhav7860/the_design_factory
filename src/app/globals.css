@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* ═══════════════════════════════════════════
    THE DESIGN FACTORY — Global Design System
    Matching Original Mockup Exactly
