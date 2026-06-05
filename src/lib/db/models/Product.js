@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const VariantSchema = new mongoose.Schema(
   {
-    sku: { type: String, required: true, trim: true, maxlength: 60 },
+    sku: { type: String, required: true, trim: true, maxlength: 150 },
     options: { type: Map, of: String, default: {} },
     price: { type: Number, min: 0, max: 9999999, required: true }, // paise
-    inventory: { type: Number, min: 0, max: 999999, default: 0 },
+    inventory: { type: Number, max: 999999, default: 0 },
     weightGrams: { type: Number, min: 0, max: 500000, default: 0 },
     lowStockThreshold: { type: Number, min: 0, default: 5 },
     inLowStockState: { type: Boolean, default: false },

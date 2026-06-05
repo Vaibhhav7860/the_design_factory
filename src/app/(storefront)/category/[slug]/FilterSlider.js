@@ -159,6 +159,7 @@ export default function FilterSlider({ subcategories, currentSlug, activeSubcate
                   className={`${styles.filterPill} ${activeSubcategory === sub.slug ? styles.filterPillActive : ''}`}
                 >
                   <div className={styles.filterIcon}>
+                    {console.log('Rendering Circle Image for', sub.title, 'URL:', getSubcategoryImage(sub, index))}
                     <Image
                       src={getSubcategoryImage(sub, index)}
                       alt={sub.title}

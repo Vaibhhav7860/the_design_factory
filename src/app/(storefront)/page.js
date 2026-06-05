@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import PasswordPopup from "@/components/PasswordPopup";
 import HeroSection from "@/components/home/HeroSection";
 import BestSellers from "@/components/home/BestSellers";
 import Banner from "@/components/home/Banner";
@@ -14,7 +16,15 @@ import BulkOrders from "@/components/home/BulkOrders";
 // MongoDB, and DB credentials aren't available at build time on Vercel.
 export const dynamic = "force-dynamic";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const storePassword = process.env.STOREFRONT_PASSWORD;
+  const cookieStore = await cookies();
+  const unlocked = cookieStore.get("storefront_unlocked")?.value === "true";
+
+  if (storePassword && !unlocked) {
+    return <PasswordPopup />;
+  }
+
   return (
     <>
       <HeroSection />

@@ -33,7 +33,10 @@ export default async function CategoryPage({ params, searchParams }) {
   const subcategory = (await searchParams)?.subcategory;
   
   await connectToDatabase();
-  const category = await Category.findOne({ slug }).lean();
+  let category = await Category.findOne({ slug }).lean();
+  if (category) {
+    category = JSON.parse(JSON.stringify(category));
+  }
 
   // Pick subcategory grid view OR product grid view
   const showSubcategories =
@@ -119,40 +122,48 @@ export default async function CategoryPage({ params, searchParams }) {
       <div className="container">
         {showSubcategories ? (
           <>
-            <div className={styles.subcategoryShowcase}>
+            <div 
+              className={`${styles.subcategoryShowcase} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8`}
+            >
               {category.subcategories.map((sub, index) => (
-                <Link
+                <div
                   key={sub.slug}
-                  href={`/category/${slug}?subcategory=${sub.slug}`}
-                  className={styles.showcaseCard}
+                  className="flex"
                 >
-                  <div className={styles.showcaseImageWrapper}>
-                    <Image
-                      src={getSubcategoryImage(sub, index)}
-                      alt={sub.title}
-                      width={600}
-                      height={400}
-                      className={styles.showcaseImage}
-                    />
-                    <div className={styles.showcaseOverlay}>
-                      <div className={styles.showcaseContent}>
-                        <h3 className={styles.showcaseTitle}>
-                          {sub.title.toUpperCase()}
-                        </h3>
-                        <button
-                          className={styles.showcaseButton}
-                          style={{
-                            "--btn-bg": ["#FCD589", "#FBC9BC", "#d7e4e4"][
-                              index % 3
-                            ],
-                          }}
-                        >
-                          SHOP NOW
-                        </button>
+                  <Link
+                    href={`/category/${slug}?subcategory=${sub.slug}`}
+                    className={`${styles.showcaseCard} flex-1 min-h-[44px] min-w-[44px] touch-manipulation`}
+                    style={{ animation: 'none', opacity: 1 }} // Override css-module animation
+                  >
+                    <div className={styles.showcaseImageWrapper}>
+                      <Image
+                        src={getSubcategoryImage(sub, index)}
+                        alt={sub.title}
+                        width={600}
+                        height={400}
+                        className={styles.showcaseImage}
+                      />
+                      <div className={`${styles.showcaseOverlay} min-h-[60px]`}>
+                        <div className={styles.showcaseContent}>
+                          <h3 className={styles.showcaseTitle}>
+                            {sub.title.toUpperCase()}
+                          </h3>
+                          <button
+                            className={`${styles.showcaseButton} min-h-[44px] min-w-[44px] px-6 py-3 flex items-center justify-center`}
+                            style={{
+                              "--btn-bg": ["#FCD589", "#FBC9BC", "#d7e4e4"][
+                                index % 3
+                              ],
+                            }}
+                            aria-label={`Shop ${sub.title}`}
+                          >
+                            SHOP NOW
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               ))}
             </div>
             {slug === "combos" && <ComboBanner />}
