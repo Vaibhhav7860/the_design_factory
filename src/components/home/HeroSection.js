@@ -88,15 +88,26 @@ export default function HeroSection() {
                 priority={index === 0}
               />
             ) : (
-              <video
-                ref={index === currentIndex ? videoRef : null}
-                src={slide.src}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="auto"
+              <div
+                ref={(el) => {
+                  if (el && index === currentIndex) {
+                    videoRef.current = el.querySelector('video');
+                  }
+                }}
                 className={styles.slideMedia}
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    <video
+                      src="${slide.src}"
+                      autoplay
+                      loop
+                      muted
+                      playsinline
+                      preload="auto"
+                      style="width: 100%; height: 100%; object-fit: cover;"
+                    ></video>
+                  `
+                }}
               />
             )}
           </div>
