@@ -104,12 +104,14 @@ export default function HeroSection({ slides: slidesProp, mediaType: mediaTypePr
               <video
                 ref={(el) => { videoRefs.current[index] = el; }}
                 src={slide.url}
+                autoPlay
                 muted
                 playsInline
                 preload={index === 0 ? "auto" : "metadata"}
                 loop={slides.length === 1}
                 onEnded={handleVideoEnded}
                 className={styles.slideMedia}
+                style={{ display: "block" }}
               />
             )}
           </div>
