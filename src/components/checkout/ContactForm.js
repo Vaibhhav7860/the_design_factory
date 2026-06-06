@@ -31,8 +31,19 @@ export default function ContactForm({ contactInfo, setContactInfo }) {
       <label className={styles.checkbox}>
         <input
           type="checkbox"
+          name="whatsappUpdates"
+          checked={!!contactInfo.whatsappUpdates}
+          onChange={handleChange}
+        />
+        <span className={styles.checkmark}></span>
+        <span>Get order updates on WhatsApp and/or SMS</span>
+      </label>
+
+      <label className={styles.checkbox}>
+        <input
+          type="checkbox"
           name="emailOffers"
-          checked={contactInfo.emailOffers}
+          checked={!!contactInfo.emailOffers}
           onChange={handleChange}
         />
         <span className={styles.checkmark}></span>

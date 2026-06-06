@@ -239,8 +239,13 @@ export default async function AdminOrderDetailPage({ params }) {
                 </div>
               ) : null}
               <div className={styles.totalRow}>
-                <dt>Shipping</dt>
-                <dd>{formatINR(shipping)}</dd>
+                <dt>
+                  Shipping
+                  {order.shippingMethod
+                    ? ` · ${order.shippingMethod === "express" ? "Express" : "Standard"}`
+                    : ""}
+                </dt>
+                <dd>{shipping > 0 ? formatINR(shipping) : "Free"}</dd>
               </div>
               <div className={styles.totalRow}>
                 <dt>Tax (incl.)</dt>
@@ -292,6 +297,17 @@ export default async function AdminOrderDetailPage({ params }) {
                   </div>
                 </a>
               </div>
+            ) : null}
+
+            {order.consents ? (
+              <dl className={styles.consents}>
+                <dt>WhatsApp / SMS updates</dt>
+                <dd>{order.consents.whatsappSmsUpdates ? "Opted in" : "No"}</dd>
+                <dt>Email offers</dt>
+                <dd>{order.consents.emailOffers ? "Opted in" : "No"}</dd>
+                <dt>Text offers</dt>
+                <dd>{order.consents.textOffers ? "Opted in" : "No"}</dd>
+              </dl>
             ) : null}
           </Card>
 

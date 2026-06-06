@@ -18,7 +18,12 @@ export default function CheckoutPage() {
   const { cart, cartHydrated, cartSubtotal, comboDiscount } = useCart();
 
   // Form state
-  const [contactInfo, setContactInfo] = useState({ email: "", phone: "" });
+  const [contactInfo, setContactInfo] = useState({
+    email: "",
+    phone: "",
+    whatsappUpdates: true,
+    emailOffers: false,
+  });
   const [deliveryInfo, setDeliveryInfo] = useState({
     country: "India",
     firstName: "",
@@ -57,8 +62,10 @@ export default function CheckoutPage() {
       const saved = localStorage.getItem("checkoutData");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.contactInfo) setContactInfo(parsed.contactInfo);
-        if (parsed.deliveryInfo) setDeliveryInfo(parsed.deliveryInfo);
+        if (parsed.contactInfo)
+          setContactInfo((prev) => ({ ...prev, ...parsed.contactInfo }));
+        if (parsed.deliveryInfo)
+          setDeliveryInfo((prev) => ({ ...prev, ...parsed.deliveryInfo }));
       }
     } catch {
       // ignore corrupt draft

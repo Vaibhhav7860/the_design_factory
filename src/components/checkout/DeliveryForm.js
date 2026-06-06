@@ -133,9 +133,10 @@ export default function DeliveryForm({ deliveryInfo, setDeliveryInfo }) {
         <input
           type="checkbox"
           name="saveInfo"
-          checked={deliveryInfo.saveInfo}
+          checked={!!deliveryInfo.saveInfo}
           onChange={handleChange}
         />
+        <span className={styles.checkmark}></span>
         <span>Save this information for next time</span>
       </label>
 
@@ -143,9 +144,10 @@ export default function DeliveryForm({ deliveryInfo, setDeliveryInfo }) {
         <input
           type="checkbox"
           name="textOffers"
-          checked={deliveryInfo.textOffers}
+          checked={!!deliveryInfo.textOffers}
           onChange={handleChange}
         />
+        <span className={styles.checkmark}></span>
         <span>Text me with news and offers</span>
       </label>
     </section>
