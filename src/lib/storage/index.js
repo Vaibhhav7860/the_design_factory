@@ -39,7 +39,14 @@ const ALLOWED_MIME = new Set([
   "image/gif",
 ]);
 
+const ALLOWED_VIDEO_MIME = new Set([
+  "video/mp4",
+  "video/webm",
+  "video/quicktime",
+]);
+
 const MAX_BYTES = 25 * 1024 * 1024; // 25 MB
+const MAX_VIDEO_BYTES = 200 * 1024 * 1024; // 200 MB
 
 const PUBLIC_UPLOADS = path.join(process.cwd(), "public", "uploads");
 
@@ -90,13 +97,16 @@ function publicUrlForKey(key) {
 
 function extFromMime(mime) {
   switch (mime) {
-    case "image/jpeg": return ".jpg";
-    case "image/png":  return ".png";
-    case "image/webp": return ".webp";
-    case "image/avif": return ".avif";
-    case "image/svg+xml": return ".svg";
-    case "image/gif":  return ".gif";
-    default:           return ".bin";
+    case "image/jpeg":      return ".jpg";
+    case "image/png":       return ".png";
+    case "image/webp":      return ".webp";
+    case "image/avif":      return ".avif";
+    case "image/svg+xml":   return ".svg";
+    case "image/gif":       return ".gif";
+    case "video/mp4":       return ".mp4";
+    case "video/webm":      return ".webm";
+    case "video/quicktime": return ".mov";
+    default:                return ".bin";
   }
 }
 
@@ -276,7 +286,41 @@ export function storageBackend() {
 export const STORAGE_LIMITS = {
   maxBytes: MAX_BYTES,
   allowedMime: Array.from(ALLOWED_MIME),
+  video: {
+    maxBytes: MAX_VIDEO_BYTES,
+    allowedMime: Array.from(ALLOWED_VIDEO_MIME),
+  },
 };
+
+/**
+ * Save one image or video file. Used by the carousel/media upload flow.
+ * Accepts the same image types as saveUpload plus MP4, WebM, and MOV.
+ * Videos are limited to 200 MB; images to 25 MB.
+ */
+export async function saveMediaUpload({
+  buffer,
+  mime,
+  originalName,
+  folder = "carousel",
+}) {
+  if (!buffer || !mime) throw new Error("Missing file payload");
+
+  const isVideo = ALLOWED_VIDEO_MIME.has(mime);
+  const isImage = ALLOWED_MIME.has(mime);
+  if (!isVideo && !isImage) throw new Error(`Unsupported file type: ${mime}`);
+
+  const limit = isVideo ? MAX_VIDEO_BYTES : MAX_BYTES;
+  if (buffer.length > limit) {
+    throw new Error(`File exceeds the ${isVideo ? "200 MB" : "25 MB"} limit`);
+  }
+
+  const key = makeKey({ buffer, mime, originalName, folder });
+
+  if (r2EnvIsConfigured()) {
+    return saveToR2({ buffer, mime, key });
+  }
+  return saveToLocal({ buffer, mime, key });
+}
 
 
 /**
