@@ -8,6 +8,8 @@ export const dynamic = "force-dynamic";
 const ContactSchema = z.object({
   email: z.string().email().max(120),
   phone: z.string().trim().min(7).max(20).optional().or(z.literal("")),
+  whatsappUpdates: z.boolean().optional(),
+  emailOffers: z.boolean().optional(),
 });
 
 const AddressSchema = z.object({
@@ -20,6 +22,8 @@ const AddressSchema = z.object({
   state: z.string().trim().min(1).max(80),
   pinCode: z.string().regex(/^\d{6}$/, "PIN code must be 6 digits"),
   phone: z.string().trim().min(7).max(20),
+  saveInfo: z.boolean().optional(),
+  textOffers: z.boolean().optional(),
 });
 
 const CartItemSchema = z.object({

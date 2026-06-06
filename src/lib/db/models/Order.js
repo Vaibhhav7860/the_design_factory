@@ -62,6 +62,12 @@ const OrderSchema = new mongoose.Schema(
       enum: ["standard", "express"],
       default: "standard",
     },
+    // Marketing / notification consents captured at checkout.
+    consents: {
+      whatsappSmsUpdates: { type: Boolean, default: false },
+      emailOffers: { type: Boolean, default: false },
+      textOffers: { type: Boolean, default: false },
+    },
     tax: Number, // paise
     discount: Number, // paise
     total: Number, // paise

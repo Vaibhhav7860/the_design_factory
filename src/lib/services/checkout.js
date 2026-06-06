@@ -328,6 +328,11 @@ export async function createPendingOrder(input) {
     subtotal: quote.subtotalPaise,
     shipping: quote.shippingPaise,
     shippingMethod: quote.shippingMethod,
+    consents: {
+      whatsappSmsUpdates: !!contact?.whatsappUpdates,
+      emailOffers: !!contact?.emailOffers,
+      textOffers: !!delivery?.textOffers,
+    },
     tax: quote.taxPaise,
     discount: quote.comboDiscountPaise + quote.discountCodePaise,
     total: quote.totalPaise,

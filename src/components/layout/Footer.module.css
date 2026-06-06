@@ -76,13 +76,14 @@
   display: flex;
   align-items: center;
   border: 1px solid #444;
-  padding: 5px 15px;
+  padding: 3px 12px;
+  max-width: 320px;
 }
 
 .newsletterInput input {
   background: transparent;
   border: none;
-  padding: 10px 0;
+  padding: 7px 0;
   width: 100%;
   outline: none;
   font-size: 13px;
@@ -269,17 +270,18 @@
   }
   
   .newsletterInput {
-    padding: 8px 18px;
+    padding: 4px 14px;
+    max-width: 360px;
   }
-  
+
   .newsletterInput input {
-    padding: 12px 0;
-    font-size: 15px;
+    padding: 8px 0;
+    font-size: 14px;
   }
-  
+
   .newsletterInput svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
   }
   
   .copyrightText {
@@ -365,17 +367,18 @@
   }
   
   .newsletterInput {
-    padding: 6px 16px;
+    padding: 4px 13px;
+    max-width: 340px;
   }
-  
+
   .newsletterInput input {
-    padding: 11px 0;
-    font-size: 14px;
+    padding: 8px 0;
+    font-size: 13px;
   }
-  
+
   .newsletterInput svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
   
   .copyrightText {

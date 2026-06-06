@@ -145,14 +145,14 @@ const staticNavItems = [
     href: "/category/organisers",
     megaMenu: [
       {
-        heading: "Home Organisers",
+        heading: "",
         links: [
           { label: "Utility Pouches", href: "/category/organisers?subcategory=utility-pouches", slug: "utility-pouches" },
           { label: "Storage Basket", href: "/category/organisers?subcategory=storage-basket", slug: "storage-basket" },
         ],
       },
       {
-        heading: "Personal Organisers",
+        heading: "",
         links: [
           { label: "Vanity", href: "/category/organisers?subcategory=vanity", slug: "vanity" },
           { label: "Organiser Sets", href: "/category/organisers?subcategory=organiser-sets", slug: "organiser-sets" },
@@ -326,7 +326,7 @@ export default function Navbar({ dbCategories = [] }) {
                   <div className={styles.megaMenu}>
                     {item.megaMenu.map((col, ci) => (
                       <div key={ci} className={styles.megaCol}>
-                        <h4>{col.heading}</h4>
+                        {col.heading ? <h4>{col.heading}</h4> : null}
                         <ul>
                           {col.links.map((link, li) => (
                             <li key={li}>

@@ -366,6 +366,26 @@
   word-break: break-all;
 }
 
+.consents {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--admin-border);
+  font-size: 12.5px;
+}
+
+.consents dt {
+  color: var(--admin-ink-muted);
+}
+
+.consents dd {
+  margin: 0;
+  color: var(--admin-ink);
+  font-weight: 600;
+}
+
 .mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12px;

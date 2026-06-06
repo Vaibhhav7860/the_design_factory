@@ -355,37 +355,47 @@
   }
 
   .header {
-    margin-bottom: 40px;
+    margin-bottom: 18px;
   }
 
   .title {
     /* CHANGE 5: Fix heading cutting on mobile */
-    font-size: clamp(1.8rem, 7vw, 2.4rem);
-    margin: 0 0 16px;
-    line-height: 1.2;
+    font-size: clamp(1.6rem, 6.4vw, 2.1rem);
+    margin: 0 0 8px;
+    line-height: 1.15;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 14px;
   }
 
   .card:nth-child(n) {
     grid-column: span 1;
   }
 
+  /* Short banner cards so 3 fit one mobile screen */
   .cardCore {
-    aspect-ratio: 5 / 3;
+    aspect-ratio: 5 / 2;
+  }
+
+  .caption {
+    padding: 6px 4px 0;
+  }
+
+  .cardTitle {
+    font-size: 1.05rem;
+    margin: 0 0 2px;
   }
 
   .footerMark {
-    margin-top: 60px;
+    margin-top: 40px;
   }
 }
 
@@ -396,20 +406,32 @@
   }
 
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 12px;
   }
 
   .title {
-    font-size: clamp(1.6rem, 6.5vw, 2.2rem);
-    margin: 0 0 12px;
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    margin: 0 0 6px;
   }
 
   .subtitle {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .headerRule {
-    margin: 24px auto 0;
+    margin: 12px auto 0;
+  }
+
+  .grid {
+    gap: 9px;
+  }
+
+  .cardCore {
+    aspect-ratio: 5 / 2;
+  }
+
+  .caption {
+    padding: 5px 2px 0;
   }
 }
 
