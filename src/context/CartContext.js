@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useReducer, useEffect, useCallback } from "react";
+import { createContext, useContext, useReducer, useEffect, useCallback, useState } from "react";
 
 const CartContext = createContext(null);
 
@@ -65,6 +65,11 @@ function cartReducer(state, action) {
 
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
+  // Becomes true once we've read the cart from localStorage. Consumers
+  // (e.g. the checkout page) must wait for this before deciding the cart
+  // is "empty" — otherwise a page refresh sees the initial empty state
+  // and wrongly bounces the user to /cart.
+  const [hydrated, setHydrated] = useState(false);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -76,17 +81,22 @@ export function CartProvider({ children }) {
       }
     } catch (e) {
       console.error("Failed to load cart:", e);
+    } finally {
+      setHydrated(true);
     }
   }, []);
 
-  // Save cart to localStorage on change
+  // Save cart to localStorage on change — but only after the initial
+  // load has run, so we never overwrite a stored cart with the empty
+  // bootstrap state.
   useEffect(() => {
+    if (!hydrated) return;
     try {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state.items));
     } catch (e) {
       console.error("Failed to save cart:", e);
     }
-  }, [state.items]);
+  }, [state.items, hydrated]);
 
   const addToCart = useCallback((product) => {
     dispatch({ type: "ADD_ITEM", payload: product });
@@ -131,6 +141,7 @@ export function CartProvider({ children }) {
     <CartContext.Provider
       value={{
         cart: state.items,
+        cartHydrated: hydrated,
         cartCount,
         cartSubtotal,
         comboDiscount,

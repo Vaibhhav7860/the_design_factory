@@ -1,71 +1,113 @@
 .checkoutPage {
   min-height: 100vh;
-  background: linear-gradient(135deg, #FAF9F6 0%, #FFF9F5 50%, #F8F4F0 100%);
-  padding: calc(var(--nav-height, 120px) + 20px) 0 80px;
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(252, 213, 137, 0.12) 0%, transparent 45%),
+    radial-gradient(120% 80% at 0% 100%, rgba(251, 201, 188, 0.12) 0%, transparent 45%),
+    linear-gradient(135deg, #FAF9F6 0%, #FFF9F5 50%, #F8F4F0 100%);
+  padding: calc(var(--nav-height, 120px) + 24px) 0 80px;
+  overflow-x: hidden;
 }
 
 .container {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 4%;
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 80px;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 48px;
   align-items: start;
 }
 
+/* ── Left column (forms) ── */
 .leftColumn {
+  min-width: 0;
   background: var(--color-white);
-  padding: 60px;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 56px 56px 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 60px rgba(45, 45, 45, 0.07);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+  margin-bottom: 10px;
 }
 
 .logo h1 {
   font-family: var(--font-primary);
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 600;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 50px;
-  text-align: center;
-  position: relative;
-  padding-bottom: 20px;
+  line-height: 1.1;
 }
 
-.logo h1::after {
+.logo::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  width: 70px;
   height: 3px;
   background: linear-gradient(90deg, var(--color-gold), var(--color-peach));
   border-radius: 2px;
 }
 
+/* ── Right column (summary) ── */
 .rightColumn {
+  min-width: 0;
   position: sticky;
-  top: calc(var(--nav-height, 120px) + 20px);
+  top: calc(var(--nav-height, 120px) + 24px);
   background: var(--color-white);
   padding: 32px;
-  border-radius: 16px;
-  border: 2px solid rgba(252, 213, 137, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  max-height: calc(100vh - var(--nav-height, 120px) - 40px);
-  overflow: visible;
+  border-radius: 24px;
+  border: 1px solid rgba(252, 213, 137, 0.4);
+  box-shadow:
+    0 24px 60px rgba(45, 45, 45, 0.1),
+    0 0 0 6px rgba(252, 213, 137, 0.05);
   align-self: start;
 }
 
+/* ── Error banner ── */
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(192, 57, 43, 0.07);
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  color: #a93226;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-family: var(--font-secondary);
+  font-size: 13px;
+  margin: 16px 0 0;
+}
+
+/* ── Footer ── */
 .footer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 30px;
-  margin-top: 50px;
-  padding-top: 40px;
-  border-top: 2px solid #F0F0F0;
+  margin-top: 48px;
+  padding-top: 36px;
+  border-top: 1px solid #EFEFEF;
 }
 
 .footer a {
@@ -73,7 +115,7 @@
   font-size: 13px;
   color: var(--color-text-light);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   position: relative;
 }
 
@@ -96,238 +138,169 @@
   width: 100%;
 }
 
-/* Responsive */
+/* ═══════════ Responsive ═══════════ */
 @media (min-width: 2560px) {
   .checkoutPage {
     padding: calc(var(--nav-height, 160px) + 30px) 0 100px;
   }
-
   .container {
-    max-width: 1800px;
-    gap: 100px;
+    max-width: 1700px;
+    gap: 64px;
   }
-  
   .leftColumn {
-    padding: 80px;
-    border-radius: 20px;
+    padding: 72px;
   }
-  
   .rightColumn {
-    padding: 50px;
-    border-radius: 20px;
+    padding: 44px;
   }
-  
   .logo h1 {
-    font-size: 32px;
-    margin-bottom: 60px;
-    letter-spacing: 6px;
+    font-size: 40px;
   }
 }
 
 @media (min-width: 1920px) and (max-width: 2559px) {
   .container {
-    max-width: 1600px;
-    gap: 90px;
+    max-width: 1520px;
+    gap: 56px;
   }
-  
   .leftColumn {
-    padding: 70px;
+    padding: 64px;
   }
-  
   .rightColumn {
-    padding: 45px;
+    padding: 40px;
   }
 }
 
+/* Tablet & below — single column. Summary drops to the BOTTOM. */
 @media (max-width: 1024px) {
   .container {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 28px;
+    max-width: 640px;
   }
-  
+
   .rightColumn {
     position: static;
-    order: -1;
-    max-height: none;
+    order: 2;
     top: 0;
   }
-  
+
   .leftColumn {
-    padding: 40px 30px;
+    order: 1;
+    padding: 44px 36px 40px;
   }
 }
 
 @media (max-width: 768px) {
   .checkoutPage {
-    padding: calc(var(--nav-height, 80px) + 15px) 0 50px;
+    padding: calc(var(--nav-height, 80px) + 16px) 0 56px;
   }
-  
+
   .container {
-    padding: 0 3%;
-    gap: 30px;
+    padding: 0 16px;
+    gap: 22px;
   }
-  
+
   .leftColumn {
-    padding: 30px 20px;
-    border-radius: 12px;
+    padding: 32px 22px 28px;
+    border-radius: 20px;
   }
-  
+
   .rightColumn {
-    padding: 25px;
-    border-radius: 12px;
+    padding: 26px 22px;
+    border-radius: 20px;
   }
-  
+
+  .logo {
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+  }
+
   .logo h1 {
-    font-size: 22px;
+    font-size: 26px;
     letter-spacing: 3px;
-    margin-bottom: 35px;
   }
-  
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
   .footer {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    margin-top: 40px;
-    padding-top: 30px;
+    gap: 22px;
+    margin-top: 36px;
+    padding-top: 28px;
   }
-  
+
   .footer a::after {
     display: none;
   }
-  
+
   .footer a {
     font-size: 12px;
   }
 }
 
-/* iOS Devices - All Models */
-@media only screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
-  .checkoutPage {
-    -webkit-overflow-scrolling: touch;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  .leftColumn,
-  .rightColumn {
-    /* translateZ removed to prevent Safari crashes */
-  }
-  
-  .logo h1 {
-    -webkit-font-smoothing: antialiased;
-  }
-}
-
-/* iPhone SE, 12 Mini, 13 Mini */
-@media only screen and (min-device-width: 375px) and (max-device-width: 428px) and (-webkit-min-device-pixel-ratio: 2) {
-  .checkoutPage {
-    padding: calc(var(--nav-height, 75px) + 10px) 0 40px;
-  }
-  
-  .container {
-    padding: 0 4%;
-    gap: 25px;
-  }
-  
-  .leftColumn {
-    padding: 25px 16px;
-  }
-  
-  .rightColumn {
-    padding: 20px;
-  }
-  
-  .logo h1 {
-    font-size: 20px;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-  }
-}
-
-/* iPhone 14 Pro Max, 15 Pro Max, 16 Pro Max */
-@media only screen and (min-device-width: 430px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 3) {
-  .checkoutPage {
-    padding: calc(var(--nav-height, 80px) + 12px) 0 45px;
-  }
-  
-  .container {
-    padding: 0 4%;
-  }
-  
-  .leftColumn {
-    padding: 28px 18px;
-  }
-  
-  .rightColumn {
-    padding: 22px;
-  }
-}
-
-/* Small Mobile (Android & iOS) */
 @media (max-width: 480px) {
   .checkoutPage {
-    padding: calc(var(--nav-height, 75px) + 10px) 0 40px;
+    padding: calc(var(--nav-height, 75px) + 12px) 0 44px;
   }
-  
+
   .container {
-    padding: 0 4%;
-    gap: 20px;
+    padding: 0 12px;
+    gap: 18px;
   }
-  
+
   .leftColumn {
-    padding: 20px 14px;
-    border-radius: 10px;
+    padding: 26px 16px 24px;
+    border-radius: 18px;
   }
-  
+
   .rightColumn {
-    padding: 18px;
-    border-radius: 10px;
+    padding: 22px 16px;
+    border-radius: 18px;
   }
-  
+
+  .logo {
+    margin-bottom: 30px;
+  }
+
   .logo h1 {
-    font-size: 18px;
+    font-size: 22px;
     letter-spacing: 2px;
-    margin-bottom: 25px;
-    padding-bottom: 15px;
   }
-  
-  .logo h1::after {
-    width: 50px;
-    height: 2px;
-  }
-  
+
   .footer {
+    gap: 14px 24px;
     margin-top: 30px;
-    padding-top: 25px;
-    gap: 15px;
+    padding-top: 24px;
   }
-  
+
   .footer a {
     font-size: 11px;
   }
 }
 
-/* Very Small Mobile */
 @media (max-width: 360px) {
-  .checkoutPage {
-    padding: calc(var(--nav-height, 60px) + 10px) 0 35px;
-  }
-  
-  .container {
-    padding: 0 3%;
-    gap: 18px;
-  }
-  
   .leftColumn {
-    padding: 18px 12px;
+    padding: 22px 13px 20px;
   }
-  
   .rightColumn {
-    padding: 16px;
+    padding: 20px 13px;
   }
-  
   .logo h1 {
-    font-size: 16px;
+    font-size: 19px;
     letter-spacing: 1.5px;
-    margin-bottom: 20px;
+  }
+}
+
+/* iOS smoothing */
+@media only screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
+  .checkoutPage {
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .logo h1 {
+    -webkit-font-smoothing: antialiased;
   }
 }

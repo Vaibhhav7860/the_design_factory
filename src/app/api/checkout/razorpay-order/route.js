@@ -44,6 +44,7 @@ const BodySchema = z.object({
   billingAddressSame: z.boolean().optional(),
   billing: AddressSchema.partial().optional().nullable(),
   discountCode: z.string().trim().max(40).optional().or(z.literal("")),
+  shippingMethod: z.enum(["standard", "express"]).optional(),
 });
 
 /**
@@ -75,6 +76,7 @@ export async function POST(request) {
       billing:
         body.billingAddressSame === false ? body.billing : body.delivery,
       discountCode: body.discountCode || undefined,
+      shippingMethod: body.shippingMethod,
     });
     return NextResponse.json(result);
   } catch (err) {

@@ -1,27 +1,38 @@
 .section {
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid #E0E0E0;
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid #F0EEE9;
 }
 
 .heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
   font-family: var(--font-secondary);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 20px;
+  margin: 0 0 22px;
+}
+
+.heading::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-peach));
 }
 
 .placeholder {
   padding: 20px;
-  background: #F8F8F8;
-  border: 1px solid #E0E0E0;
-  border-radius: 4px;
+  background: #FAF9F6;
+  border: 1.5px dashed #E0DCD2;
+  border-radius: 12px;
   font-family: var(--font-secondary);
   font-size: 13px;
-  color: #666;
+  color: #8A8A8A;
   text-align: center;
 }
 
@@ -34,35 +45,50 @@
 .option {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
   padding: 16px;
-  background: #F8F8F8;
-  border: 2px solid #E0E0E0;
-  border-radius: 4px;
+  background: #FAF9F6;
+  border: 1.5px solid #E8E5DE;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .option:hover {
-  border-color: var(--color-peach);
+  border-color: var(--color-gold);
   background: var(--color-white);
 }
 
 .option:has(input:checked) {
-  border-color: var(--color-peach);
+  border-color: var(--color-gold);
   background: var(--color-white);
-  box-shadow: 0 2px 8px rgba(251, 201, 188, 0.25);
+  box-shadow: 0 6px 18px rgba(252, 213, 137, 0.25);
 }
 
 .radio {
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
   cursor: pointer;
-  accent-color: var(--color-peach);
+  accent-color: var(--color-gold-dark);
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(252, 213, 137, 0.25), rgba(251, 201, 188, 0.25));
+  color: var(--color-gold-dark);
+  font-size: 20px;
 }
 
 .optionContent {
   flex: 1;
+  min-width: 0;
 }
 
 .optionName {
@@ -70,33 +96,36 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .optionDuration {
   font-family: var(--font-secondary);
   font-size: 12px;
-  color: #666;
+  color: #8A8A8A;
 }
 
 .optionPrice {
   font-family: var(--font-secondary);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.freePrice {
+  color: #1e8e4f;
 }
 
 /* Responsive */
 @media (min-width: 2560px) {
   .heading {
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 17px;
   }
-  
   .optionName {
     font-size: 15px;
   }
-  
   .optionPrice {
     font-size: 15px;
   }
@@ -107,66 +136,37 @@
     margin-bottom: 30px;
     padding-bottom: 30px;
   }
-  
   .heading {
     font-size: 14px;
-    margin-bottom: 16px;
-  }
-  
-  .option {
-    padding: 14px;
-    gap: 12px;
-  }
-  
-  .optionName {
-    font-size: 13px;
-  }
-  
-  .optionDuration {
-    font-size: 11px;
-  }
-  
-  .optionPrice {
-    font-size: 13px;
-  }
-  
-  .placeholder {
-    padding: 16px;
-    font-size: 12px;
+    letter-spacing: 1.2px;
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
   .section {
-    margin-bottom: 25px;
-    padding-bottom: 25px;
+    margin-bottom: 26px;
+    padding-bottom: 26px;
   }
-  
   .heading {
     font-size: 13px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
-  
   .option {
-    padding: 12px;
-    gap: 10px;
+    padding: 13px;
+    gap: 11px;
   }
-  
-  .radio {
-    width: 18px;
-    height: 18px;
+  .iconWrap {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
   }
-  
   .optionName {
-    font-size: 12px;
+    font-size: 13px;
   }
-  
   .optionDuration {
-    font-size: 10px;
+    font-size: 11px;
   }
-  
   .optionPrice {
-    font-size: 12px;
+    font-size: 13px;
   }
 }

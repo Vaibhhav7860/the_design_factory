@@ -1,15 +1,26 @@
 .section {
-  margin-bottom: 40px;
+  margin-bottom: 8px;
 }
 
 .heading {
+  display: flex;
+  align-items: center;
+  gap: 11px;
   font-family: var(--font-secondary);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-text);
-  margin-bottom: 20px;
+  margin: 0 0 22px;
+}
+
+.heading::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-peach));
 }
 
 .radio {
@@ -17,29 +28,31 @@
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #F8F8F8;
-  border: 2px solid #E0E0E0;
-  border-radius: 4px;
+  background: #FAF9F6;
+  border: 1.5px solid #E8E5DE;
+  border-radius: 14px;
   cursor: pointer;
   margin-bottom: 12px;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .radio:hover {
-  border-color: var(--color-peach);
+  border-color: var(--color-gold);
   background: var(--color-white);
 }
 
 .radio:has(input:checked) {
-  border-color: var(--color-peach);
+  border-color: var(--color-gold);
   background: var(--color-white);
+  box-shadow: 0 6px 18px rgba(252, 213, 137, 0.2);
 }
 
 .radio input[type="radio"] {
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
   cursor: pointer;
-  accent-color: var(--color-peach);
+  accent-color: var(--color-gold-dark);
 }
 
 .radio span {
@@ -49,117 +62,89 @@
 }
 
 .form {
-  margin-top: 20px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
 }
 
 .input {
   width: 100%;
-  height: 48px;
+  height: 52px;
   padding: 0 16px;
   font-family: var(--font-secondary);
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text);
-  background: #FFFFFF;
-  border: 1px solid #D0D0D0;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  background: #FAF9F6;
+  border: 1.5px solid #E8E5DE;
+  border-radius: 12px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--color-peach);
-  box-shadow: 0 0 0 3px rgba(251, 201, 188, 0.15);
+  border-color: var(--color-gold);
+  background: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(252, 213, 137, 0.15);
+}
+
+.input::placeholder {
+  color: #A5A5A5;
 }
 
 /* Responsive */
 @media (min-width: 2560px) {
   .heading {
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 17px;
   }
-  
   .radio span {
     font-size: 15px;
   }
-  
   .input {
-    height: 52px;
-    font-size: 15px;
+    height: 56px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .section {
-    margin-bottom: 30px;
-  }
-  
   .heading {
     font-size: 14px;
-    margin-bottom: 16px;
+    letter-spacing: 1.2px;
   }
-  
   .radio {
     padding: 14px;
     gap: 10px;
   }
-  
   .radio span {
     font-size: 13px;
   }
-  
   .radio input[type="radio"] {
     width: 18px;
     height: 18px;
   }
-  
   .input {
-    height: 46px;
-    font-size: 14px;
-    padding: 0 14px;
-  }
-  
-  .form {
-    gap: 12px;
+    height: 50px;
   }
 }
 
-/* iOS Devices */
 @media only screen and (min-device-width: 375px) and (max-device-width: 932px) and (-webkit-min-device-pixel-ratio: 2) {
   .input {
     font-size: 16px;
-    -webkit-appearance: none;
-    border-radius: 8px;
-  }
-  
-  .input:focus {
-    font-size: 16px;
   }
 }
 
-/* Small Mobile */
 @media (max-width: 480px) {
-  .section {
-    margin-bottom: 25px;
-  }
-  
   .heading {
     font-size: 13px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
   }
-  
   .radio {
-    padding: 12px;
+    padding: 13px;
   }
-  
   .radio span {
-    font-size: 12px;
+    font-size: 12.5px;
   }
-  
   .input {
-    height: 44px;
-    font-size: 13px;
+    height: 48px;
   }
 }

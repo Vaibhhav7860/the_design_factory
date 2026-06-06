@@ -57,6 +57,11 @@ const OrderSchema = new mongoose.Schema(
 
     subtotal: Number, // paise
     shipping: Number, // paise
+    shippingMethod: {
+      type: String,
+      enum: ["standard", "express"],
+      default: "standard",
+    },
     tax: Number, // paise
     discount: Number, // paise
     total: Number, // paise

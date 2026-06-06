@@ -14,7 +14,7 @@ const RAZORPAY_SCRIPT = "https://checkout.razorpay.com/v1/checkout.js";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, cartSubtotal, comboDiscount } = useCart();
+  const { cart, cartHydrated, cartSubtotal, comboDiscount } = useCart();
 
   // Form state
   const [contactInfo, setContactInfo] = useState({ email: "", phone: "" });
@@ -31,24 +31,24 @@ export default function CheckoutPage() {
     saveInfo: false,
     textOffers: false,
   });
-  const [shippingMethod, setShippingMethod] = useState(null);
+  const [shippingMethod, setShippingMethod] = useState("standard");
   const [billingAddressSame, setBillingAddressSame] = useState(true);
   const [billingInfo, setBillingInfo] = useState({});
-  const [discountCode, setDiscountCode] = useState("");
-  const [appliedDiscount, setAppliedDiscount] = useState(null);
   const [shippingCost, setShippingCost] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // Redirect if cart is empty — but NOT while a payment is being
-  // processed. Without this guard, the success-page redirect from the
-  // Razorpay handler races against this effect (the cart is briefly
-  // empty between clearCart and the push) and the user lands on /cart.
+  // Redirect if cart is empty — but only AFTER the cart has hydrated
+  // from localStorage (otherwise a page refresh sees the empty bootstrap
+  // state and wrongly bounces to /cart), and NOT while a payment is being
+  // processed (the success-page redirect from the Razorpay handler races
+  // against this effect, since the cart is briefly empty between clearCart
+  // and the push).
   useEffect(() => {
-    if (cart.length === 0 && !isProcessing) {
+    if (cartHydrated && cart.length === 0 && !isProcessing) {
       router.push("/cart");
     }
-  }, [cart, router, isProcessing]);
+  }, [cart, cartHydrated, router, isProcessing]);
 
   // Restore + persist checkout draft
   useEffect(() => {
@@ -76,34 +76,16 @@ export default function CheckoutPage() {
     }
   }, [contactInfo, deliveryInfo]);
 
-  // Shipping is currently free across the catalog. We keep the effect
-  // so the field updates when the address is entered, but it always
-  // resolves to 0 — matching the server-side total.
+  // Shipping cost mirrors the server-side rule: Standard is free,
+  // Express adds a flat ₹150 — but only once a valid 6-digit PIN has
+  // been entered (the same gate that reveals the shipping options).
+  const hasValidAddress = /^\d{6}$/.test(deliveryInfo.pinCode || "");
   useEffect(() => {
-    setShippingCost(0);
-  }, [deliveryInfo.pinCode, cartSubtotal, comboDiscount, appliedDiscount]);
-
-  const handleApplyDiscount = () => {
-    if (discountCode.toUpperCase() === "WELCOME10") {
-      setAppliedDiscount({
-        code: discountCode.toUpperCase(),
-        type: "percentage",
-        value: 10,
-        amount: Math.round((cartSubtotal - comboDiscount) * 0.1),
-      });
-    } else {
-      alert("Invalid discount code");
-    }
-  };
-
-  const handleRemoveDiscount = () => {
-    setAppliedDiscount(null);
-    setDiscountCode("");
-  };
+    setShippingCost(hasValidAddress && shippingMethod === "express" ? 150 : 0);
+  }, [hasValidAddress, shippingMethod]);
 
   const calculateTotal = () => {
-    let total = cartSubtotal - comboDiscount + shippingCost;
-    if (appliedDiscount) total -= appliedDiscount.amount;
+    const total = cartSubtotal - comboDiscount + shippingCost;
     return Math.max(0, total);
   };
 
@@ -257,7 +239,7 @@ export default function CheckoutPage() {
           delivery: deliveryInfo,
           billingAddressSame,
           billing: billingAddressSame ? null : billingInfo,
-          discountCode: appliedDiscount?.code,
+          shippingMethod,
         }),
       });
       const data = await res.json();
@@ -271,7 +253,11 @@ export default function CheckoutPage() {
     }
   };
 
-  if (cart.length === 0) {
+  // Wait for the cart to hydrate before rendering. While unhydrated, or
+  // when the cart is genuinely empty (the effect above handles the
+  // redirect), render nothing so the user never sees a flash of the cart
+  // page on refresh.
+  if (!cartHydrated || cart.length === 0) {
     return null;
   }
 
@@ -284,6 +270,7 @@ export default function CheckoutPage() {
         {/* Left Column - Checkout Form */}
         <div className={styles.leftColumn}>
           <div className={styles.logo}>
+            <span className={styles.eyebrow}>Secure Checkout</span>
             <h1>The Design Factory</h1>
           </div>
 
@@ -300,8 +287,7 @@ export default function CheckoutPage() {
           <ShippingMethod
             shippingMethod={shippingMethod}
             setShippingMethod={setShippingMethod}
-            shippingCost={shippingCost}
-            hasAddress={deliveryInfo.pinCode?.length === 6}
+            hasAddress={hasValidAddress}
           />
 
           <BillingAddress
@@ -312,18 +298,7 @@ export default function CheckoutPage() {
           />
 
           {errorMessage ? (
-            <div
-              role="alert"
-              style={{
-                background: "rgba(192, 57, 43, 0.08)",
-                border: "1px solid rgba(192, 57, 43, 0.3)",
-                color: "#a93226",
-                padding: "10px 14px",
-                borderRadius: 8,
-                fontSize: 13,
-                margin: "12px 0",
-              }}
-            >
+            <div role="alert" className={styles.errorBanner}>
               {errorMessage}
             </div>
           ) : null}
@@ -344,12 +319,9 @@ export default function CheckoutPage() {
             subtotal={cartSubtotal}
             comboDiscount={comboDiscount}
             shippingCost={shippingCost}
-            appliedDiscount={appliedDiscount}
+            shippingMethod={shippingMethod}
+            hasAddress={hasValidAddress}
             total={calculateTotal()}
-            discountCode={discountCode}
-            setDiscountCode={setDiscountCode}
-            onApplyDiscount={handleApplyDiscount}
-            onRemoveDiscount={handleRemoveDiscount}
             onPayNow={handlePayment}
             isProcessing={isProcessing}
           />

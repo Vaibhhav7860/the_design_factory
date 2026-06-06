@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { HiOutlineLockClosed, HiOutlineShieldCheck } from "react-icons/hi";
 import { formatPrice } from "@/lib/utils";
 import styles from "./OrderSummary.module.css";
 
@@ -7,17 +8,34 @@ export default function OrderSummary({
   subtotal,
   comboDiscount,
   shippingCost,
-  appliedDiscount,
+  shippingMethod,
+  hasAddress,
   total,
-  discountCode,
-  setDiscountCode,
-  onApplyDiscount,
-  onRemoveDiscount,
   onPayNow,
   isProcessing,
 }) {
+  const itemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+  // Shipping copy mirrors the live total: no address yet → prompt,
+  // Standard → Free, Express → the ₹150 surcharge.
+  let shippingLabel;
+  if (!hasAddress) {
+    shippingLabel = <span className={styles.shippingPending}>Calculated at next step</span>;
+  } else if (shippingCost > 0) {
+    shippingLabel = formatPrice(shippingCost);
+  } else {
+    shippingLabel = <span className={styles.freeTag}>Free</span>;
+  }
+
   return (
     <div className={styles.summary}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Order Summary</h2>
+        <span className={styles.itemBadge}>
+          {itemCount} {itemCount === 1 ? "item" : "items"}
+        </span>
+      </div>
+
       {/* Product List */}
       <div className={styles.productsContainer}>
         <div className={styles.products}>
@@ -42,9 +60,9 @@ export default function OrderSummary({
                 <div className={styles.productInfo}>
                   <h4 className={styles.productTitle}>{item.title}</h4>
                   <p className={styles.productMeta}>
-                    Set of {item.quantity} / 
-                    {item.personalizationName 
-                      ? ` Personalized: ${item.personalizationName}` 
+                    Set of {item.quantity} /
+                    {item.personalizationName
+                      ? ` Personalized: ${item.personalizationName}`
                       : " Non-Personalized"}
                   </p>
                 </div>
@@ -57,37 +75,13 @@ export default function OrderSummary({
         </div>
       </div>
 
-      {/* Discount Code */}
-      <div className={styles.discountSection}>
-        <div className={styles.discountInput}>
-          <input
-            type="text"
-            value={discountCode}
-            onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
-            placeholder="Discount code or gift card"
-            className={styles.input}
-            disabled={appliedDiscount}
-          />
-          {appliedDiscount ? (
-            <button onClick={onRemoveDiscount} className={styles.removeBtn}>
-              Remove
-            </button>
-          ) : (
-            <button onClick={onApplyDiscount} className={styles.applyBtn}>
-              Apply
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Price Summary - Simple Format */}
+      {/* Price Summary */}
       <div className={styles.priceSummary}>
         <div className={styles.priceRow}>
-          <span>Subtotal · {cart.length} items</span>
+          <span>Subtotal</span>
           <span>{formatPrice(subtotal)}</span>
         </div>
 
-        {/* Combo Discount - Only show if there's a discount */}
         {comboDiscount > 0 && (
           <div className={`${styles.priceRow} ${styles.discountRow}`}>
             <span>Combo Discount</span>
@@ -96,10 +90,8 @@ export default function OrderSummary({
         )}
 
         <div className={styles.priceRow}>
-          <span>Shipping</span>
-          <span>
-            {shippingCost === 0 ? "Enter shipping address" : formatPrice(shippingCost)}
-          </span>
+          <span>Shipping{shippingMethod === "express" ? " · Express" : ""}</span>
+          <span>{shippingLabel}</span>
         </div>
       </div>
 
@@ -112,7 +104,7 @@ export default function OrderSummary({
             <span className={styles.amount}>{formatPrice(total)}</span>
           </div>
         </div>
-        <p className={styles.taxNote}>Including ₹{Math.round(total * 0.18)} in taxes</p>
+        <p className={styles.taxNote}>Including ₹{Math.round(total * 0.05)} in taxes</p>
       </div>
 
       {/* Pay Now Button */}
@@ -121,8 +113,14 @@ export default function OrderSummary({
         onClick={onPayNow}
         disabled={isProcessing}
       >
-        {isProcessing ? "Processing..." : "PAY NOW"}
+        <HiOutlineLockClosed className={styles.payIcon} />
+        {isProcessing ? "Processing..." : "Pay Now"}
       </button>
+
+      <div className={styles.secureNote}>
+        <HiOutlineShieldCheck />
+        <span>Secure checkout · UPI, Cards &amp; Netbanking via Razorpay</span>
+      </div>
     </div>
   );
 }
