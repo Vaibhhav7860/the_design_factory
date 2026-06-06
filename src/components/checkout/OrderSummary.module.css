@@ -263,8 +263,8 @@
   border: none;
   border-radius: 14px;
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
-  box-shadow: 0 10px 24px rgba(252, 213, 137, 0.45);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: none;
   position: relative;
   overflow: hidden;
 }
@@ -286,7 +286,6 @@
 
 .payNowButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(252, 213, 137, 0.55);
 }
 
 .payNowButton:active:not(:disabled) {

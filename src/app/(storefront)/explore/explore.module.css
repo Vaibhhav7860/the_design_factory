@@ -10,7 +10,7 @@
   overflow: hidden;
   min-height: 100vh;
   /* macOS / iOS Safari: dynamic viewport prevents clipping */
-  min-height: -webkit-fill-available;
+  min-height: 100dvh;
 }
 
 @supports (min-height: 100dvh) {

@@ -47,12 +47,37 @@
   box-shadow: 0 6px 18px rgba(252, 213, 137, 0.2);
 }
 
+/* Custom radio — the global `appearance: none` reset strips the native
+   control, so we draw our own circle + filled dot. */
 .radio input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  margin: 0;
+  border: 2px solid #CFC9BD;
+  border-radius: 50%;
+  background: #FFFFFF;
+  position: relative;
   cursor: pointer;
-  accent-color: var(--color-gold-dark);
+  transition: border-color 0.2s ease;
+}
+
+.radio input[type="radio"]:checked {
+  border-color: var(--color-gold-dark);
+}
+
+.radio input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-gold-dark);
 }
 
 .radio span {
@@ -75,7 +100,7 @@
   font-family: var(--font-secondary);
   font-size: 15px;
   color: var(--color-text);
-  background: #FAF9F6;
+  background: #FFFFFF;
   border: 1.5px solid #E8E5DE;
   border-radius: 12px;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;

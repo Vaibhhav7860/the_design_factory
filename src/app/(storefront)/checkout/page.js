@@ -7,6 +7,7 @@ import ContactForm from "@/components/checkout/ContactForm";
 import DeliveryForm from "@/components/checkout/DeliveryForm";
 import ShippingMethod from "@/components/checkout/ShippingMethod";
 import BillingAddress from "@/components/checkout/BillingAddress";
+import PaymentSection from "@/components/checkout/PaymentSection";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import styles from "./page.module.css";
 
@@ -296,6 +297,8 @@ export default function CheckoutPage() {
             billingInfo={billingInfo}
             setBillingInfo={setBillingInfo}
           />
+
+          <PaymentSection />
 
           {errorMessage ? (
             <div role="alert" className={styles.errorBanner}>
