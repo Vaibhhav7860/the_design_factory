@@ -29,6 +29,19 @@ async function getCarouselConfig() {
   return null;
 }
 
+async function getInstagramCards() {
+  try {
+    await connectToDatabase();
+    const block = await ContentBlock.findOne({ key: "instagram-community" }).lean();
+    if (block?.data?.cards?.length) {
+      return block.data.cards
+        .filter((c) => c?.url)
+        .map((c) => ({ src: c.url, href: c.href || "#" }));
+    }
+  } catch {}
+  return null;
+}
+
 export default async function HomePage() {
   const storePassword = process.env.STOREFRONT_PASSWORD;
   const cookieStore = await cookies();
@@ -38,7 +51,10 @@ export default async function HomePage() {
     return <PasswordPopup />;
   }
 
-  const carousel = await getCarouselConfig();
+  const [carousel, instagramCards] = await Promise.all([
+    getCarouselConfig(),
+    getInstagramCards(),
+  ]);
 
   return (
     <>
@@ -52,7 +68,7 @@ export default async function HomePage() {
       <VideoReels />
       <Testimonials />
       <BulkOrders />
-      <CommunityGallery />
+      <CommunityGallery items={instagramCards} />
     </>
   );
 }
