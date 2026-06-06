@@ -50,7 +50,8 @@ export const POST = adminRoute(async (request) => {
     return NextResponse.json({ error: err.message }, { status: 400 });
   }
 
-  return NextResponse.json({ url: saved.url, key: saved.key });
+  const isLocal = saved.backend === "local";
+  return NextResponse.json({ url: saved.url, key: saved.key, isLocal });
 });
 
 export const PUT = adminRoute(async (request) => {
