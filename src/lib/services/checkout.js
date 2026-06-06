@@ -20,10 +20,11 @@ import { Customer } from "../db/models/Customer.js";
 // (`PERSONALISATION_FEE_PAISE`) together if you ever decide to charge.
 const PERSONALISATION_FEE_PAISE = 0;
 
-// Shipping is currently free across the catalog. We still calculate
-// it lazily in case we re-enable it; for now both branches return 0.
-const SHIPPING_FREE_THRESHOLD_PAISE = 0;
-const FLAT_SHIPPING_PAISE = 0;
+// Shipping pricing. Standard shipping is free across the catalog;
+// Express shipping is a flat ₹150 surcharge added to the order total.
+// The browser only *picks* the method — the rupee amount lives here so
+// it can never be tampered with client-side.
+const EXPRESS_SHIPPING_PAISE = 15000; // ₹150
 const TAX_RATE = 0.05; // 5% GST proxy used for display
 
 const COMBO_DISCOUNT_TIERS = [
@@ -176,15 +177,14 @@ export async function quoteFromCart(rawCart, options = {}) {
     }
   }
 
-  // Shipping: only valid once the customer entered an address.
+  // Shipping: Standard is free, Express is a flat surcharge. We only
+  // bill shipping once the customer has entered a valid address (the
+  // same gate the storefront uses to reveal the shipping options).
+  const shippingMethod = options.shippingMethod === "express" ? "express" : "standard";
   let shippingPaise = 0;
   const pin = String(options.postalCode || "").replace(/\D/g, "");
-  if (pin.length === 6) {
-    const afterDiscounts = subtotalPaise - comboDiscountPaise - discountCodePaise;
-    shippingPaise =
-      afterDiscounts >= SHIPPING_FREE_THRESHOLD_PAISE
-        ? 0
-        : FLAT_SHIPPING_PAISE;
+  if (pin.length === 6 && shippingMethod === "express") {
+    shippingPaise = EXPRESS_SHIPPING_PAISE;
   }
 
   // Tax is informational (already-inclusive). We expose it but don't
@@ -205,6 +205,7 @@ export async function quoteFromCart(rawCart, options = {}) {
     discountCodePaise,
     appliedDiscountCode,
     shippingPaise,
+    shippingMethod,
     taxPaise,
     totalPaise,
     currency: "INR",
@@ -249,11 +250,13 @@ export async function createPendingOrder(input) {
     delivery,
     billing,
     discountCode,
+    shippingMethod,
   } = input;
 
   const quote = await quoteFromCart(cart, {
     discountCode,
     postalCode: delivery?.pinCode,
+    shippingMethod,
   });
 
   // Build address subdocs in the shape the Order schema expects.
@@ -324,6 +327,7 @@ export async function createPendingOrder(input) {
 
     subtotal: quote.subtotalPaise,
     shipping: quote.shippingPaise,
+    shippingMethod: quote.shippingMethod,
     tax: quote.taxPaise,
     discount: quote.comboDiscountPaise + quote.discountCodePaise,
     total: quote.totalPaise,

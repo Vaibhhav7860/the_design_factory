@@ -1,18 +1,21 @@
+import { HiOutlineTruck, HiOutlineLightningBolt } from "react-icons/hi";
 import styles from "./ShippingMethod.module.css";
 
-export default function ShippingMethod({ shippingMethod, setShippingMethod, shippingCost, hasAddress }) {
+export default function ShippingMethod({ shippingMethod, setShippingMethod, hasAddress }) {
   const shippingOptions = [
     {
       id: "standard",
       name: "Standard Shipping",
       cost: 0,
-      duration: "5-7 business days",
+      duration: "5–7 business days",
+      icon: HiOutlineTruck,
     },
     {
       id: "express",
       name: "Express Shipping",
-      cost: 0,
-      duration: "2-3 business days",
+      cost: 150,
+      duration: "2–3 business days",
+      icon: HiOutlineLightningBolt,
     },
   ];
 
@@ -26,25 +29,35 @@ export default function ShippingMethod({ shippingMethod, setShippingMethod, ship
         </div>
       ) : (
         <div className={styles.options}>
-          {shippingOptions.map((option) => (
-            <label key={option.id} className={styles.option}>
-              <input
-                type="radio"
-                name="shippingMethod"
-                value={option.id}
-                checked={shippingMethod === option.id}
-                onChange={() => setShippingMethod(option.id)}
-                className={styles.radio}
-              />
-              <div className={styles.optionContent}>
-                <div className={styles.optionName}>{option.name}</div>
-                <div className={styles.optionDuration}>{option.duration}</div>
-              </div>
-              <div className={styles.optionPrice}>
-                {option.cost === 0 ? "Free" : `₹${option.cost}`}
-              </div>
-            </label>
-          ))}
+          {shippingOptions.map((option) => {
+            const Icon = option.icon;
+            return (
+              <label key={option.id} className={styles.option}>
+                <input
+                  type="radio"
+                  name="shippingMethod"
+                  value={option.id}
+                  checked={shippingMethod === option.id}
+                  onChange={() => setShippingMethod(option.id)}
+                  className={styles.radio}
+                />
+                <span className={styles.iconWrap} aria-hidden="true">
+                  <Icon />
+                </span>
+                <div className={styles.optionContent}>
+                  <div className={styles.optionName}>{option.name}</div>
+                  <div className={styles.optionDuration}>{option.duration}</div>
+                </div>
+                <div
+                  className={`${styles.optionPrice} ${
+                    option.cost === 0 ? styles.freePrice : ""
+                  }`}
+                >
+                  {option.cost === 0 ? "Free" : `₹${option.cost}`}
+                </div>
+              </label>
+            );
+          })}
         </div>
       )}
     </section>
