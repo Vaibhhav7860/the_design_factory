@@ -91,9 +91,12 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-title" content="The Design Factory" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        
-        {/* iOS Safe Area */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        {/*
+          Viewport is defined once via the exported `viewport` object above
+          (width=device-width, viewport-fit=cover, user-scalable up to 5×).
+          A second hardcoded <meta name="viewport"> here previously overrode
+          those settings — removed to avoid conflicting declarations.
+        */}
       </head>
       <body className={montserrat.className}>{children}</body>
     </html>

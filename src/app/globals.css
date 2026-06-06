@@ -76,11 +76,13 @@ body {
 img, video, iframe {
   max-width: 100%;
   height: auto;
-  /* iOS: prevent image flickering */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  /*
+   * NOTE: Do NOT force `translateZ(0)` / `backface-visibility: hidden` here.
+   * Promoting EVERY image to its own GPU compositing layer multiplies the
+   * GPU/tiling memory on image-dense pages and is a primary cause of iOS
+   * WebKit running out of memory and reloading the tab ("Can't open this
+   * page"). Apply GPU hints only to specific, actively-animating elements.
+   */
 }
 
 a { color: inherit; text-decoration: none; }
@@ -613,19 +615,13 @@ ul, ol { list-style: none; }
     letter-spacing: 2px;
   }
   
-  /* Fix for any fixed/sticky elements */
-  [style*="position: fixed"],
-  [style*="position:fixed"] {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-  }
-
-  /* iOS: GPU-accelerate scrollable containers only (not html/body) */
-  .container,
-  .section {
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-  }
+  /*
+   * Removed blanket `translateZ(0)` GPU promotion of `.container` / `.section`
+   * here. On the 16 Pro Max (DPR 3) this turned the full-height page wrapper
+   * into one enormous GPU backing store (scroll-height × 3 in each axis),
+   * a major contributor to the web-content-process OOM crash. Let WebKit
+   * decide compositing for these large scroll containers.
+   */
 }
 
 /* iPad Mini, iPad Air, iPad Pro (768px - 1024px) */

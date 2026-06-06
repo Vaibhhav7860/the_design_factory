@@ -446,22 +446,20 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.95); /* Opaque fallback for iOS */
+  background: rgba(255, 255, 255, 0.97); /* Opaque — no backdrop-filter (iOS memory) */
   padding: 18px 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.7s cubic-bezier(0.32, 0.72, 0, 1);
-  transform: translateZ(0); /* iOS hardware acceleration fix */
 }
 
-@supports (backdrop-filter: blur(2px)) {
-  .showcaseOverlay {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-  }
-}
+/*
+ * Intentionally NO `backdrop-filter: blur()` and NO `transform: translateZ(0)`
+ * on .showcaseOverlay. A blur/promoted layer on every showcase card (7–14 per
+ * page) multiplied GPU memory and helped crash iOS WebKit. The opaque white
+ * background above is visually almost identical.
+ */
 
 .showcaseCard:hover .showcaseOverlay {
   background: rgba(255, 255, 255, 0.97);
@@ -573,6 +571,38 @@
 
 .productsSection {
   width: 100%;
+}
+
+/* ── Load More (product grid pagination) ── */
+.loadMoreWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.loadMoreBtn {
+  font-family: var(--font-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: var(--color-peach);
+  border-radius: 50px;
+  padding: 14px 38px;
+  min-height: 44px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.loadMoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.loadMoreBtn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ═══════════════════════════════════════════

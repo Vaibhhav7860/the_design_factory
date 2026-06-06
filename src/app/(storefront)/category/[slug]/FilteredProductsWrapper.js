@@ -4,6 +4,11 @@ import ProductCard from "@/components/product/ProductCard";
 import styles from "./category.module.css";
 import filterStyles from "./filterbar.module.css";
 
+// Render products in batches. Mounting every product (some categories have
+// 300–450) at once decodes hundreds of images simultaneously and crashes the
+// iOS WebKit web-content process. A "Load more" cap keeps peak memory bounded.
+const PAGE_SIZE = 24;
+
 export default function FilteredProductsWrapper({ products, minPrice, maxPrice }) {
   const [priceRange, setPriceRange] = useState([0, maxPrice]); // Always start from 0
   const [sortBy, setSortBy] = useState("newest");
@@ -11,6 +16,7 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
   const [sortOpen, setSortOpen] = useState(true);
   const [isClient, setIsClient] = useState(false);
   const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   // Client-side only for iOS compatibility
   useEffect(() => {
@@ -23,6 +29,11 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
       setPriceRange([0, maxPrice]);
     }
   }, [maxPrice, isClient]);
+
+  // Reset the visible window whenever the filtered set changes (filter/sort)
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [priceRange, sortBy, products]);
 
   // Lock body scroll when filter drawer is open (mobile only)
   useEffect(() => {
@@ -358,12 +369,10 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
             </svg>
           </button>
         </div>
-        <div 
-          className={`${styles.grid} grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6`}
-        >
+        <div className={styles.grid}>
           {filteredAndSortedProducts.length > 0 ? (
-            filteredAndSortedProducts.map((p) => (
-              <div 
+            filteredAndSortedProducts.slice(0, visibleCount).map((p) => (
+              <div
                 key={p.slug}
               >
                 <ProductCard product={p} />
@@ -375,6 +384,18 @@ export default function FilteredProductsWrapper({ products, minPrice, maxPrice }
             </div>
           )}
         </div>
+
+        {filteredAndSortedProducts.length > visibleCount && (
+          <div className={styles.loadMoreWrapper}>
+            <button
+              type="button"
+              className={styles.loadMoreBtn}
+              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+            >
+              LOAD MORE ({filteredAndSortedProducts.length - visibleCount} more)
+            </button>
+          </div>
+        )}
       </main>
       </div>
     </>
