@@ -100,23 +100,50 @@ export default function ProductDetail({ product }) {
     : null;
   const discount = calculateDiscount(displayOriginal, displayPrice);
 
-  /* ── Formatting Description ── */
-  const decodeHTML = (html) => {
+  /* ── Formatting Description ──
+     Descriptions arrive as raw HTML (<p>, <ul>, <li>, <span> …).
+     Convert to clean plain text the spec parser can read:
+       1. block-close tags  → newline    (paragraph / list-item breaks)
+       2. <li> open tags     → "• "       (bullet markers the parser splits on)
+       3. strip every other tag
+       4. decode HTML entities
+       5. collapse runaway whitespace */
+  const decodeEntities = (s) =>
+    s
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&amp;/gi, "&")
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#0*39;/g, "'")
+      .replace(/&apos;/gi, "'");
+
+  const htmlToText = (html) => {
     if (!html) return "";
-    return html
-      .replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/&nbsp;/g, " ")
+    // Decode FIRST so entity-encoded markup (&lt;p&gt;) becomes real tags,
+    // then the tag pipeline strips both real and previously-encoded HTML.
+    let text = decodeEntities(html)
+      // <br> and closing block tags become line breaks
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<\/(p|div|li|ul|ol|h[1-6])>/gi, "\n")
+      // list items get a bullet so the spec parser can split them
+      .replace(/<li[^>]*>/gi, "• ")
+      // drop every remaining tag
+      .replace(/<[^>]+>/g, "");
+    return text
+      // squash 3+ blank lines, trim trailing spaces per line
+      .replace(/[ \t]+\n/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
       .trim();
   };
 
   const rawDesc = product.description || "Beautifully crafted to elevate your daily routine.";
-  const decodedDesc = decodeHTML(rawDesc);
+  const decodedDesc = htmlToText(rawDesc);
 
-  // Intelligent Parser: Extract key-value specs vs narrative story
+  // Intelligent Parser: Extract key-value specs vs narrative story.
+  // Descriptions across the catalog are inconsistent — separators vary
+  // (":", "-", "–", "—"), some specs have no separator at all ("Pack of
+  // 48 Labels"). This parser normalises all of those into spec cards.
   const extractSpecsAndStory = (text) => {
     const normalizedText = text
       .replace(/✨/g, '')
@@ -128,14 +155,22 @@ export default function ProductDetail({ product }) {
     const narrativeLines = [];
     const specsList = [];
 
-    const specRegex = /^([a-zA-Z\s&]{2,25})\s*:\s*(.+)$/i;
-    const bulletSpecRegex = /^[-•*]\s*(Size|Paper|Material|Dimensions)\s*:\s*(.+)$/i;
+    // Known spec keywords — a "key <sep> value" line becomes a card when its
+    // key is one of these, no matter which separator is used.
+    const SPEC_KEYS = /^(materials?|fabric|filling|fill|sizes?|dimensions?|paper|quantity|qty|weights?|colou?rs?|finish|pack|sets?|contains?|contents?|includes?|care|wash|print(?:ing)?|type|shape|sheets?|gsm|thickness|ink|theme|age|capacity|made\s+of|made\s+from|width|height|length)\b/i;
+    // key  <sep>  value   (sep = colon / hyphen / en-dash / em-dash)
+    const kvRegex = /^([a-zA-Z][a-zA-Z\s&/]{1,24}?)\s*[:\-–—]\s*(.+)$/;
+    // "Pack of 48 Labels" / "Set of 5 …" — separator-less spec phrases
+    const packRegex = /^((?:pack|set)\s+of)\s+(.+)$/i;
+    // list header e.g. "Features:" with nothing after it
     const listKeyRegex = /^([a-zA-Z\s&]{2,25})\s*:$/i;
 
     let currentListKey = null;
     let currentListValues = [];
     let hasSeenSpec = false;
-    let orphanKey = "Features";
+    const orphanKey = "Features";
+
+    const isNote = (s) => /please\s+note/i.test(s);
 
     const commitList = () => {
       if (currentListKey && currentListValues.length > 0) {
@@ -165,32 +200,54 @@ export default function ProductDetail({ product }) {
       currentListValues = [];
     };
 
+    const pushSpec = (key, value) => {
+      commitList();
+      specsList.push({ key: key.trim(), value: value.trim(), isList: false });
+      hasSeenSpec = true;
+    };
+
     lines.forEach((rawLine) => {
       const line = rawLine.trim();
       if (!line) return;
 
-      const bulletSpecMatch = line.match(bulletSpecRegex);
-      const match = line.match(specRegex);
-      const listMatch = line.match(listKeyRegex);
-      const isNote = (m) => m[1].toLowerCase().includes("please note");
+      // Notes are advisory prose — keep them in the story, never a card.
+      if (isNote(line)) {
+        narrativeLines.push(line);
+        return;
+      }
 
-      if (bulletSpecMatch && !isNote(bulletSpecMatch)) {
-        commitList();
-        specsList.push({ key: bulletSpecMatch[1].trim(), value: bulletSpecMatch[2].trim(), isList: false });
-        hasSeenSpec = true;
-      } else if (match && !isNote(match)) {
-        commitList();
-        specsList.push({ key: match[1].trim(), value: match[2].trim(), isList: false });
-        hasSeenSpec = true;
-      } else if (listMatch && !isNote(listMatch)) {
+      const listMatch = line.match(listKeyRegex);
+      const packMatch = line.match(packRegex);
+      const kvMatch = line.match(kvRegex);
+      // A spec keyword sitting alone on a line ("Material") is a header for
+      // the sub-specs that follow it ("Bag tag : MDF", etc.).
+      const bareHeader =
+        SPEC_KEYS.test(line) &&
+        !/[:\-–—]/.test(line) &&
+        line.split(/\s+/).length <= 2;
+
+      if (listMatch) {
         commitList();
         currentListKey = listMatch[1].trim();
         hasSeenSpec = true;
+      } else if (bareHeader) {
+        commitList();
+        currentListKey = line.trim();
+        hasSeenSpec = true;
+      } else if (packMatch) {
+        const label = /^pack/i.test(packMatch[1]) ? "Pack" : "Set";
+        pushSpec(label, packMatch[2]);
+      } else if (
+        kvMatch &&
+        // Treat as a spec when the key is a known spec word, OR (once we're
+        // already inside the spec block) any short 1–3 word key.
+        (SPEC_KEYS.test(line) ||
+          (hasSeenSpec && kvMatch[1].trim().split(/\s+/).length <= 3))
+      ) {
+        pushSpec(kvMatch[1], kvMatch[2]);
       } else {
         if (hasSeenSpec) {
-          if (!currentListKey) {
-            currentListKey = orphanKey;
-          }
+          if (!currentListKey) currentListKey = orphanKey;
           currentListValues.push(line);
         } else {
           narrativeLines.push(line);
