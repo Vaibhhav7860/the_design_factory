@@ -90,8 +90,9 @@ export default function ProductCard({ product, disableLinks = false }) {
                     alt={`${product.title} — image ${i + 1}`}
                     width={400}
                     height={400}
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     className={styles.image}
-                    priority={i === 0}
+                    loading="lazy"
                   />
                 </div>
               ))}
@@ -110,8 +111,9 @@ export default function ProductCard({ product, disableLinks = false }) {
                     alt={`${product.title} — image ${i + 1}`}
                     width={400}
                     height={400}
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     className={styles.image}
-                    priority={i === 0}
+                    loading="lazy"
                   />
                 </div>
               ))}

@@ -6,7 +6,17 @@ const nextConfig = {
   output: "standalone",
 
   images: {
-    unoptimized: true,
+    // Image Optimization is ON. iOS Safari/WebKit decodes every image at its
+    // full intrinsic size × device-pixel-ratio (DPR 3 on recent iPhones);
+    // serving full-resolution originals (the old `unoptimized: true`) made
+    // image-dense pages (e.g. the category subcategory showcase) exceed
+    // iOS's web-content-process memory budget and crash ("Can't open this
+    // page"). Optimization serves device-sized WebP so each <Image> decodes
+    // close to its rendered size. `sharp` is a dependency and is bundled into
+    // the standalone output automatically when optimization is enabled.
+    qualities: [75], // required allowlist as of Next 16; matches default quality
+    formats: ["image/webp"],
+    minimumCacheTTL: 2678400, // 31 days — tiles/products rarely change
     remotePatterns: [
       // Legacy Shopify CDN URLs — kept until every product is migrated.
       {

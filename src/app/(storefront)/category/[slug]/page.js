@@ -48,7 +48,13 @@ export default async function CategoryPage({ params, searchParams }) {
   // `subcategories`. So a product belonging to both labels +
   // school-essentials shows up under both /category/labels and
   // /category/school-essentials.
-  const displayProducts = subcategory
+  //
+  // Only fetch products when the product grid will actually render. On a
+  // subcategory-showcase landing (showSubcategories) the products are never
+  // shown, so fetching the whole category (hundreds of docs) was pure waste.
+  const displayProducts = showSubcategories
+    ? []
+    : subcategory
     ? await getProductsBySubcategory(slug, subcategory)
     : await getProductsByCategory(slug);
 
@@ -122,9 +128,7 @@ export default async function CategoryPage({ params, searchParams }) {
       <div className="container">
         {showSubcategories ? (
           <>
-            <div 
-              className={`${styles.subcategoryShowcase} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8`}
-            >
+            <div className={styles.subcategoryShowcase}>
               {category.subcategories.map((sub, index) => (
                 <div
                   key={sub.slug}
@@ -141,6 +145,7 @@ export default async function CategoryPage({ params, searchParams }) {
                         alt={sub.title}
                         width={600}
                         height={400}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className={styles.showcaseImage}
                       />
                       <div className={`${styles.showcaseOverlay} min-h-[60px]`}>
