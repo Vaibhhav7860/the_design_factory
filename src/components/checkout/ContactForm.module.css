@@ -68,7 +68,7 @@
   font-family: var(--font-secondary);
   font-size: 15px;
   color: var(--color-text);
-  background: #FAF9F6;
+  background: #FFFFFF;
   border: 1.5px solid #E8E5DE;
   border-radius: 12px;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
