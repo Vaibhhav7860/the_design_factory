@@ -1085,8 +1085,8 @@
 
   .subcategoryShowcase {
     grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 30px 0 0;
+    gap: 10px;
+    padding: 14px 0 0;
   }
 
   .showcaseCard:last-child:nth-child(odd) {
@@ -1096,8 +1096,9 @@
     justify-self: stretch;
   }
 
+  /* Short cards so 3 subcategories fit one mobile screen */
   .showcaseCard {
-    height: 280px;
+    height: 165px;
     padding: 4px;
     border-radius: 14px;
   }

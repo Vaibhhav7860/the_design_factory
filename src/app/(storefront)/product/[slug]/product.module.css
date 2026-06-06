@@ -1204,6 +1204,13 @@
     margin-top: 40px;
   }
 
+  /* Keep "You May Also Like" on one line on mobile */
+  .relatedHeader h2 {
+    font-size: 20px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
   .customBannerWrap {
     margin: 20px auto 10px auto;
   }
@@ -1324,6 +1331,12 @@
 }
 
 @media (max-width: 480px) {
+  .relatedHeader h2 {
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+  }
+
   .breadcrumb {
     margin-bottom: 10px; /* Reduced from 16px to 10px */
     padding: 0 4%;

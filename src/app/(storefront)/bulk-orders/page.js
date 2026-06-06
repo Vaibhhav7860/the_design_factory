@@ -150,8 +150,8 @@ export default function BulkOrdersPage() {
             <h2 className={styles.sectionTitle}>Request a Quote</h2>
             <p>Fill in the form and our bulk orders team will get back to you within 24 hours with a custom quote.</p>
             <div className={styles.contactDetails}>
-              <p>📧 bulk@thedesignfactory.in</p>
-              <p>📞 +91 98765 43210</p>
+              <p>📧 radhikavibgyor@gmail.com</p>
+              <p>📞 +91 99811 33225</p>
               <p>⏰ Mon – Sat, 10 AM – 7 PM</p>
             </div>
           </div>
