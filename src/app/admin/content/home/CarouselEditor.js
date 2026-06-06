@@ -7,6 +7,11 @@ import { Button } from "@/components/admin/Button";
 const ACCEPTED_VIDEO = "video/mp4,video/webm,video/quicktime";
 const ACCEPTED_IMAGE = "image/jpeg,image/jpg,image/png,image/webp";
 
+// A slide backed by local disk (no R2 configured) has a relative /uploads/ URL.
+// These vanish after a Docker build/redeploy and won't appear in production.
+const isLocalSlide = (s) =>
+  s.isLocal === true || (typeof s.url === "string" && s.url.startsWith("/uploads/"));
+
 export default function CarouselEditor() {
   const [mediaType, setMediaType] = useState("video");
   const [slides, setSlides] = useState([]);
@@ -67,7 +72,7 @@ export default function CarouselEditor() {
         });
         const data = await r.json();
         if (!r.ok) throw new Error(data.error || "Upload failed");
-        uploaded.push({ url: data.url, key: data.key, name: file.name });
+        uploaded.push({ url: data.url, key: data.key, name: file.name, isLocal: data.isLocal });
         setUploadProgress({ done: i + 1, total: fileArr.length });
       } catch (err) {
         setError(`Failed to upload "${file.name}": ${err.message}`);
@@ -291,6 +296,30 @@ export default function CarouselEditor() {
           }}
         />
       </CardSection>
+
+      {/* ── Local-storage warning ── */}
+      {slides.some(isLocalSlide) && (
+        <div
+          style={{
+            margin: "0 24px 4px",
+            padding: "10px 14px",
+            background: "#fff8e1",
+            border: "1px solid #f9a825",
+            borderRadius: 8,
+            fontSize: 13,
+            color: "#795548",
+            lineHeight: 1.5,
+          }}
+        >
+          <strong>⚠ Local storage detected.</strong> One or more slides are
+          saved to local disk instead of Cloudflare CDN. They will{" "}
+          <strong>not appear</strong> on the deployed site.{" "}
+          Add <code>R2_ACCOUNT_ID</code>, <code>R2_ACCESS_KEY_ID</code>,{" "}
+          <code>R2_SECRET_ACCESS_KEY</code>, <code>R2_BUCKET</code>, and{" "}
+          <code>MEDIA_CDN_URL</code> to your <code>.env.local</code>, remove
+          these slides, then re-upload them.
+        </div>
+      )}
 
       {/* ── Feedback ── */}
       {error && (

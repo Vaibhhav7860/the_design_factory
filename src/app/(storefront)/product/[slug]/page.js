@@ -59,7 +59,7 @@ export default async function ProductPage({ params }) {
 
           <div className={styles.customBannerWrap}>
             <Image
-              src="/images/IMG_5231.PNG"
+              src="/images/IMG_5231.png"
               alt="Promo"
               width={1200}
               height={400}
