@@ -239,9 +239,11 @@ export default function ProductDetail({ product }) {
         pushSpec(label, packMatch[2]);
       } else if (
         kvMatch &&
-        // Treat as a spec when the key is a known spec word, OR (once we're
-        // already inside the spec block) any short 1–3 word key.
+        // Treat as a spec when the key is a known spec word — either leading
+        // ("Size: …") or trailing ("Duffle size: …") — OR (once we're already
+        // inside the spec block) any short 1–3 word key.
         (SPEC_KEYS.test(line) ||
+          SPEC_KEYS.test(kvMatch[1].trim().split(/\s+/).pop()) ||
           (hasSeenSpec && kvMatch[1].trim().split(/\s+/).length <= 3))
       ) {
         pushSpec(kvMatch[1], kvMatch[2]);
