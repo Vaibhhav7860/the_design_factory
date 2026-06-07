@@ -588,8 +588,10 @@
   .logoImg {
     position: absolute;
     top: 50%;
-    left: 46%; /* slightly left so the logo clears the search icon on phones */
-    transform: translate(-50%, -50%);
+    left: 50%;
+    /* Shift left by a fixed px amount (a % shift is useless here because the
+       logo's box collapses to ~0 width — the image is absolutely positioned). */
+    transform: translate(calc(-50% - 16px), -50%);
     height: 155px; /* Logo size unchanged */
     width: auto;
     min-width: auto;
@@ -614,7 +616,9 @@
   }
   .logoImg {
     max-width: 175px; /* trim width so the butterfly never reaches the search icon */
-    left: 37%; /* shift logo further left to guarantee no overlap with search (phones) */
+    left: 50%;
+    /* Larger fixed left shift on small phones to fully clear the search icon. */
+    transform: translate(calc(-50% - 26px), -50%);
   }
 
   /* (d) Pack the 3 icons tight against the right edge with uniform,
