@@ -1204,6 +1204,11 @@
     margin-top: 40px;
   }
 
+  /* (a) Tighten the gap between the heading and the product cards on mobile */
+  .relatedHeader {
+    margin-bottom: 6px;
+  }
+
   /* Keep "You May Also Like" on one line on mobile */
   .relatedHeader h2 {
     font-size: 20px;
