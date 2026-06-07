@@ -139,6 +139,9 @@
 
 .subGroupNoHeading {
   margin-bottom: 0;
+  /* No heading of its own — cancel the previous group's bottom margin so
+     its first link sits flush under the previous group (no blank line). */
+  margin-top: -16px;
 }
 
 .subHeading {
