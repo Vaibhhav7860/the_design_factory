@@ -157,6 +157,94 @@ export async function createNewCategory(formData) {
   }
 }
 
+export async function updateCategoryImage(formData) {
+  try {
+    await connectToDatabase();
+
+    const categoryId = formData.get("categoryId");
+    if (!categoryId) throw new Error("Category ID is required");
+
+    if (!formData.has("image") || formData.get("image").size === 0) {
+      throw new Error("Please choose an image to upload");
+    }
+
+    const category = await Category.findById(categoryId);
+    if (!category) throw new Error("Category not found");
+
+    const saved = await saveFormDataImages(formData, "image", {
+      folder: `categories/${category.slug}`,
+    });
+    if (!saved || saved.length === 0) throw new Error("Image upload failed");
+
+    category.image = saved[0].url;
+    await category.save();
+
+    revalidatePath("/admin/categories");
+    revalidatePath("/");
+    revalidatePath(`/category/${category.slug}`);
+
+    return { success: true, image: saved[0].url };
+  } catch (error) {
+    console.error("Failed to update category image:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function updateSubcategoryImages(formData) {
+  try {
+    await connectToDatabase();
+
+    const categoryId = formData.get("categoryId");
+    const subcategorySlug = formData.get("subcategorySlug");
+    if (!categoryId || !subcategorySlug) {
+      throw new Error("Missing required fields");
+    }
+
+    const category = await Category.findById(categoryId);
+    if (!category) throw new Error("Category not found");
+
+    const sub = category.subcategories.find((s) => s.slug === subcategorySlug);
+    if (!sub) throw new Error("Sub-category not found");
+
+    let changed = false;
+
+    // Cover image — the rectangular showcase card on the category page.
+    if (formData.has("image") && formData.get("image").size > 0) {
+      const saved = await saveFormDataImages(formData, "image", {
+        folder: `categories/${category.slug}/${subcategorySlug}`,
+      });
+      if (saved?.length) {
+        sub.image = saved[0].url;
+        changed = true;
+      }
+    }
+
+    // Circle image — the round icon in the filter slider.
+    if (formData.has("circleImage") && formData.get("circleImage").size > 0) {
+      const saved = await saveFormDataImages(formData, "circleImage", {
+        folder: `categories/${category.slug}/${subcategorySlug}/circle`,
+      });
+      if (saved?.length) {
+        sub.circleImage = saved[0].url;
+        changed = true;
+      }
+    }
+
+    if (!changed) throw new Error("Please choose at least one image to update");
+
+    await category.save();
+
+    revalidatePath("/admin/categories");
+    revalidatePath("/");
+    revalidatePath(`/category/${category.slug}`);
+
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update subcategory images:", error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function deleteCategory(categoryId) {
   try {
     await connectToDatabase();

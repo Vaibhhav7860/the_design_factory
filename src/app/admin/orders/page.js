@@ -76,7 +76,7 @@ export default async function OrdersPage({ searchParams }) {
               currentQuery={q}
               extraQuery={status !== "all" ? { status } : {}}
             />
-            <Button variant="primary" iconLeft={<HiOutlinePlus />}>Create order</Button>
+            <Button variant="primary" iconLeft={<HiOutlinePlus />} href="/admin/orders/new">Create order</Button>
           </>
         }
       />

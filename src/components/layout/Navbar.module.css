@@ -561,8 +561,11 @@
 
 /* Tablet and below - Switch to mobile menu */
 @media (max-width: 1024px) {
+  /* Equal 1fr side columns => the middle (logo) column is dead-centre of
+     the bar, so the logo stays centred regardless of how wide the icon
+     cluster is. Icons sit hard-right inside their own column. */
   .nav {
-    grid-template-columns: auto 1fr auto; /* Hamburger, Logo, NavIcons */
+    grid-template-columns: 1fr auto 1fr; /* Hamburger | Logo | NavIcons */
     padding: 10px 4%; /* Reduced from 15px to 10px */
   }
   .navLinks {
@@ -570,6 +573,11 @@
   }
   .hamburger {
     display: flex;
+    justify-self: start; /* pin to the far left of its 1fr column */
+    margin-left: -8px; /* offset its own padding so the icon sits flush-left */
+  }
+  .navIcons {
+    justify-content: flex-end;
   }
   .logo {
     justify-content: center;
@@ -592,21 +600,32 @@
 
 @media (max-width: 480px) {
   .announcementBar {
-    font-size: 9px;
+    font-size: 8px; /* (e) slightly smaller marquee text on mobile only */
     padding: 6px 0;
     letter-spacing: 1.5px;
   }
-  
+
   .nav {
-    padding: 8px 4%; /* Reduced from 10px to 8px */
+    padding: 8px 3%; /* tighter side padding pulls icons toward the edge */
   }
-  
+
   .logo {
     height: 50px; /* Reduced from 55px to 50px */
   }
-  
+  .logoImg {
+    max-width: 200px; /* keep centred logo clear of the right-edge icons */
+  }
+
+  /* (d) Pack the 3 icons tight against the right edge with uniform,
+     smaller spacing. Shrink the 44px tap boxes a touch so they don't
+     spread out or push off-screen, while staying comfortably tappable. */
   .navIcons {
-    gap: 18px;
+    gap: 8px;
+  }
+  .navIcons .accountLink,
+  .navIcons .cartBtn {
+    min-width: 38px;
+    min-height: 40px;
   }
 }
 
