@@ -129,7 +129,7 @@ const staticNavItems = [
         ],
       },
       {
-        heading: "Specialty Bags",
+        heading: "",
         links: [
           { label: "Swimming Bags", href: "/category/bags?subcategory=swimming-bags", slug: "swimming-bags" },
           { label: "School Bags", href: "/category/bags?subcategory=school-bags", slug: "school-bags" },
@@ -166,7 +166,7 @@ const staticNavItems = [
     href: "/category/kids-accessories",
     megaMenu: [
       {
-        heading: "Room Decor",
+        heading: "",
         links: [
           { label: "Wall Clock", href: "/category/kids-accessories?subcategory=wall-clock", slug: "wall-clock" },
           { label: "Table Mat", href: "/category/kids-accessories?subcategory=table-mat", slug: "table-mat" },
@@ -175,7 +175,7 @@ const staticNavItems = [
         ],
       },
       {
-        heading: "Wearables",
+        heading: "",
         links: [
           { label: "Cap", href: "/category/kids-accessories?subcategory=cap", slug: "cap" },
           { label: "Apron Set", href: "/category/kids-accessories?subcategory=apron-set", slug: "apron-set" },

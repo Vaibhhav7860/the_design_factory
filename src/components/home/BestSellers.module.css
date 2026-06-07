@@ -421,6 +421,11 @@
 }
 
 @media (max-width: 768px) {
+  /* (a) Slightly more breathing room between the hero carousel and the
+     "Season's Picks" heading — mobile only. */
+  .section {
+    padding-top: 34px;
+  }
   .grid {
     padding-bottom: 6px;
   }

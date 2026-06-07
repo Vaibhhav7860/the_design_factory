@@ -22,7 +22,7 @@ export default function ComboBanner() {
         </div>
         <div className={styles.imageCol}>
           <Image
-            src="/images/make_your_combo.png"
+            src="/images/make_your_combo.jpeg"
             alt="Make Your Own Combo"
             width={600}
             height={500}

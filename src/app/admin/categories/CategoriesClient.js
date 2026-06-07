@@ -2,13 +2,17 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { HiOutlineArrowRight, HiPlus, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineArrowRight, HiPlus, HiOutlineTrash, HiOutlinePhotograph } from "react-icons/hi";
 import styles from "./categories.module.css";
 import AddSubcategoryModal from "./AddSubcategoryModal";
+import EditCategoryImageModal from "./EditCategoryImageModal";
+import EditSubcategoryImageModal from "./EditSubcategoryImageModal";
 import { deleteSubcategory, deleteCategory } from "./actions";
 
 export default function CategoriesClient({ categories, subcategoryCounts }) {
   const [activeModalCategory, setActiveModalCategory] = useState(null);
+  const [editImageCategory, setEditImageCategory] = useState(null);
+  const [editSubcategory, setEditSubcategory] = useState(null);
   const [isPending, startTransition] = useTransition();
 
   const handleDeleteSubcategory = (categoryId, subcategorySlug) => {
@@ -56,7 +60,14 @@ export default function CategoriesClient({ categories, subcategoryCounts }) {
                 <div className={styles.totalBadge}>
                   {totalCategoryProducts} {totalCategoryProducts === 1 ? 'Product' : 'Products'}
                 </div>
-                <button 
+                <button
+                  className={styles.addSubcategoryBtn}
+                  onClick={() => setEditImageCategory(category)}
+                  disabled={isPending}
+                >
+                  <HiOutlinePhotograph /> Edit Image
+                </button>
+                <button
                   className={styles.addSubcategoryBtn}
                   onClick={() => setActiveModalCategory(category)}
                   disabled={isPending}
@@ -87,8 +98,16 @@ export default function CategoriesClient({ categories, subcategoryCounts }) {
                       <HiOutlineArrowRight className={styles.subcategoryIcon} />
                     </div>
                   </Link>
-                  <button 
-                    className={styles.deleteSubcategoryBtn} 
+                  <button
+                    className={styles.editSubcategoryBtn}
+                    onClick={() => setEditSubcategory({ category, subcategory: sub })}
+                    title="Edit images"
+                    disabled={isPending}
+                  >
+                    <HiOutlinePhotograph />
+                  </button>
+                  <button
+                    className={styles.deleteSubcategoryBtn}
                     onClick={() => handleDeleteSubcategory(category._id, sub.slug)}
                     title="Delete subcategory"
                     disabled={isPending}
@@ -103,9 +122,24 @@ export default function CategoriesClient({ categories, subcategoryCounts }) {
       })}
 
       {activeModalCategory && (
-        <AddSubcategoryModal 
-          category={activeModalCategory} 
-          onClose={() => setActiveModalCategory(null)} 
+        <AddSubcategoryModal
+          category={activeModalCategory}
+          onClose={() => setActiveModalCategory(null)}
+        />
+      )}
+
+      {editImageCategory && (
+        <EditCategoryImageModal
+          category={editImageCategory}
+          onClose={() => setEditImageCategory(null)}
+        />
+      )}
+
+      {editSubcategory && (
+        <EditSubcategoryImageModal
+          category={editSubcategory.category}
+          subcategory={editSubcategory.subcategory}
+          onClose={() => setEditSubcategory(null)}
         />
       )}
     </div>
