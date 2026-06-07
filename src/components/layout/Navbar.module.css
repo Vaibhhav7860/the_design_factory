@@ -614,7 +614,7 @@
   }
   .logoImg {
     max-width: 200px; /* keep centred logo clear of the right-edge icons */
-    left: 47%; /* nudge the logo very slightly left of centre (mobile only) */
+    left: 40%; /* nudge the logo very slightly left of centre (mobile only) */
   }
 
   /* (d) Pack the 3 icons tight against the right edge with uniform,
