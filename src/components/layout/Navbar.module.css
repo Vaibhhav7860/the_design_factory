@@ -620,12 +620,17 @@
      smaller spacing. Shrink the 44px tap boxes a touch so they don't
      spread out or push off-screen, while staying comfortably tappable. */
   .navIcons {
-    gap: 8px;
+    gap: 4px; /* (a) tighter spacing between the 3 right icons */
   }
   .navIcons .accountLink,
   .navIcons .cartBtn {
-    min-width: 38px;
+    min-width: 36px;
     min-height: 40px;
+  }
+  /* (b) Pull the cart count badge in close to the bag icon. */
+  .cartBadge {
+    top: -2px;
+    right: -2px;
   }
 }
 
