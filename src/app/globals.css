@@ -41,6 +41,10 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  /* iOS: stop the rubber-band bounce from exposing blank space past the
+     footer at the bottom of every page. */
+  overscroll-behavior-y: none;
+  background-color: #FAFAFA;
 }
 
 body {
@@ -59,6 +63,8 @@ body {
   min-height: 100dvh;
   /* iOS: prevent scroll issues */
   position: relative;
+  /* iOS: no bounce past the footer (kills the phantom whitespace). */
+  overscroll-behavior-y: none;
 }
 
 /* macOS Safari: smoother modern viewport unit when supported */

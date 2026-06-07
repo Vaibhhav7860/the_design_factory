@@ -9,7 +9,7 @@
 
 /* ── Hero / Header Area ── */
 .headerArea {
-  background: linear-gradient(135deg, #f8f4f0 0%, #fdf0e8 50%, #f0e6f4 100%);
+  background: transparent; /* (c) removed coloured gradient strip behind heading */
   padding: 80px 6% 40px;
   text-align: center;
   position: relative;
@@ -17,15 +17,7 @@
 }
 
 .headerArea::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(252, 213, 137, 0.15) 0%, transparent 70%);
-  pointer-events: none;
+  display: none; /* (c) removed coloured radial glow behind heading */
 }
 
 /* ── Breadcrumb ── */
