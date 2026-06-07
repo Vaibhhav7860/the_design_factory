@@ -25,6 +25,27 @@
   --transition-smooth: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
   --section-padding: 40px 4%;
   --nav-height: 120px;
+
+  /* Decorative display face — used ONLY for category/subcategory headings
+     and the product name on the product page (see those CSS modules). */
+  --font-bilderberg: 'Bilderberg', var(--font-primary);
+}
+
+/* Bilderberg display font (files live in /public/Font — case-sensitive path). */
+@font-face {
+  font-family: 'Bilderberg';
+  src: url('/Font/Bilderberg OTF.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bilderberg';
+  src: url('/Font/Bilderberg Italic OTF.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
 }
 
 /* ── Reset & Base ── */
@@ -78,6 +99,22 @@ body {
 @supports (-webkit-touch-callout: none) {
   body {
     min-height: 100dvh;
+  }
+}
+
+/* Mobile sticky-footer: on short pages the body stretches to 100dvh, which
+   left a white gap below the footer (worst on iOS Chrome, where the gap grew
+   as the toolbar collapsed). Make the body a flex column and let <main> absorb
+   the slack so the footer is always pinned to the content's bottom edge.
+   Navbar is position:fixed so it stays out of this flow. Mobile only. */
+@media (max-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body > main {
+    flex: 1 0 auto;
   }
 }
 

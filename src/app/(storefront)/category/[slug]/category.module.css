@@ -127,7 +127,7 @@
 /* Slider mode (>8 items) */
 .filterSection {
   margin: 0;
-  padding: 50px 6% 20px;
+  padding: 6px 6% 20px;
   background: transparent;
   border-radius: 0;
   display: flex;
@@ -141,7 +141,7 @@
 /* Normal mode (≤8 items) */
 .filterSectionNormal {
   margin: 0;
-  padding: 50px 6% 20px;
+  padding: 6px 6% 20px;
   background: transparent;
   border-radius: 0;
   position: relative;
@@ -601,7 +601,7 @@
 /* Large Desktop (21.5" and above) */
 @media (min-width: 1920px) {
   .headerArea {
-    padding: 60px 6% 50px;
+    padding: 30px 6% 24px;
   }
 
   .sectionHeader h2 {
@@ -646,7 +646,7 @@
 /* Extra Large Desktop */
 @media (min-width: 1600px) and (max-width: 1919px) {
   .headerArea {
-    padding: 55px 6% 45px;
+    padding: 28px 6% 22px;
   }
 
   .sectionHeader h2 {
@@ -681,7 +681,7 @@
 /* Standard Desktop */
 @media (min-width: 1200px) and (max-width: 1599px) {
   .headerArea {
-    padding: 50px 6% 40px;
+    padding: 26px 6% 20px;
   }
 
   .sectionHeader h2 {
@@ -720,7 +720,7 @@
 /* Laptop / Small Desktop */
 @media (min-width: 1025px) and (max-width: 1199px) {
   .headerArea {
-    padding: 45px 5% 35px;
+    padding: 24px 5% 18px;
   }
 
   .sectionHeader h2 {
@@ -770,7 +770,7 @@
 /* Tablet Landscape */
 @media (min-width: 769px) and (max-width: 1024px) {
   .headerArea {
-    padding: 40px 4% 30px;
+    padding: 22px 4% 16px;
   }
 
   .sectionHeader h2 {
@@ -844,7 +844,7 @@
   }
 
   .headerArea {
-    padding: 70px 4% 40px; /* Top 70px, bottom 40px */
+    padding: 34px 4% 20px; /* Reduced top/bottom to tighten empty spacing */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -950,7 +950,7 @@
 
   /* MOBILE CIRCLES: Show 4 at a time on tablets too */
   .filterSection {
-    padding: 20px 1% 5px; /* Added top padding */
+    padding: 8px 1% 5px; /* Tightened top padding to bring circles up */
     gap: 10px;
     background: transparent; /* Transparent - no colored background */
     margin: 0; /* No margin */
@@ -999,9 +999,7 @@
   .filterPill:hover .filterIcon {
     transform: none;
     border-color: #c4b5a0; /* Grey border */
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.06),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    box-shadow: none; /* Remove coloured shadow behind circles (mobile) */
   }
 
   .filterIcon {
@@ -1011,6 +1009,7 @@
     border-color: #c4b5a0; /* Grey border like reference image */
     background: #ffffff; /* Pure white background */
     padding: 0; /* Remove padding to eliminate white inner border */
+    box-shadow: none; /* Remove coloured shadow behind circles (mobile) */
   }
   
   /* Active state - keep grey border */
@@ -1042,7 +1041,7 @@
   }
 
   .headerArea {
-    padding: 70px 4% 40px; /* Top 70px, bottom 40px */
+    padding: 34px 4% 20px; /* Reduced top/bottom to tighten empty spacing */
     margin-bottom: 0; /* No gap between header and circles */
   }
 
@@ -1175,7 +1174,7 @@
   }
 
   .filterSection {
-    padding: 20px 1% 5px; /* Added top padding */
+    padding: 8px 1% 5px; /* Tightened top padding to bring circles up */
     gap: 8px;
     background: transparent; /* Transparent - inherits white from page */
     margin: 0; /* No margin */
@@ -1231,9 +1230,7 @@
   .filterPill:hover .filterIcon {
     transform: none;
     border-color: #c4b5a0; /* Grey border on hover */
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.06),
-      inset 0 1px 2px rgba(255, 255, 255, 0.5);
+    box-shadow: none; /* Remove coloured shadow behind circles (mobile) */
   }
 
   /* Bigger circle size for mobile - matching reference image */
@@ -1244,6 +1241,7 @@
     border-color: #c4b5a0; /* Grey border like reference image */
     background: #ffffff; /* Pure white background - no colored background */
     padding: 0; /* Remove padding to eliminate white inner border */
+    box-shadow: none; /* Remove coloured shadow behind circles (mobile) */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;

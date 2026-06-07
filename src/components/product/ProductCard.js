@@ -151,7 +151,7 @@ export default function ProductCard({ product, disableLinks = false }) {
         )}
         <div className={styles.pricing}>
           <span className={styles.price}>{formatPrice(product.price)}</span>
-          {product.originalPrice && (
+          {discount > 0 && product.originalPrice && (
             <span className={styles.originalPrice}>{formatPrice(product.originalPrice)}</span>
           )}
           {discount > 0 && <span className={styles.discount}>{discount}% off</span>}
