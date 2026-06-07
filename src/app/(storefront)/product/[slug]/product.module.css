@@ -295,7 +295,7 @@
 }
 
 .title {
-  font-family: var(--font-primary);
+  font-family: var(--font-bilderberg);
   font-weight: 600;
   font-size: clamp(1.4rem, 2vw, 1.8rem);
   letter-spacing: 1.5px;
@@ -313,7 +313,7 @@
 }
 
 .price {
-  font-size: 1.65rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-text);
   letter-spacing: 0.5px;
@@ -355,8 +355,7 @@
 }
 
 .descTextWrapper {
-  display: flex;
-  align-items: flex-start;
+  display: block;
   font-size: 14px;
   line-height: 1.85;
   color: var(--color-text);
@@ -365,20 +364,15 @@
   white-space: pre-wrap;
 }
 
+/* First letter matches the rest of the description — no editorial drop-cap.
+   Inline so it flows continuously with the paragraph (no column gap). */
 .dropCap {
-  flex-shrink: 0;
-  font-family: var(--font-primary);
-  font-size: 54px;
-  line-height: 48px;
-  padding-top: 4px;
-  padding-right: 8px;
-  color: var(--color-text);
-  font-weight: 400;
+  font: inherit;
+  color: inherit;
 }
 
 .descText {
-  display: block;
-  flex: 1;
+  display: inline;
 }
 
 .readMoreBtn {
@@ -1276,7 +1270,7 @@
   }
 
   .price {
-    font-size: 1.35rem;
+    font-size: 1.15rem;
   }
 
   .bannerContainer {

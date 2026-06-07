@@ -521,7 +521,7 @@ export default function ProductDetail({ product }) {
 
         <div className={styles.pricing}>
           <span className={styles.price}>{formatPrice(displayPrice)}</span>
-          {displayOriginal && (
+          {discount > 0 && displayOriginal && (
             <span className={styles.original}>
               {formatPrice(displayOriginal)}
             </span>

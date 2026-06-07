@@ -602,7 +602,7 @@
 
 @media (max-width: 480px) {
   .announcementBar {
-    font-size: 8px; /* (e) slightly smaller marquee text on mobile only */
+    font-size: 11px; /* (e) marquee text size on mobile only */
     padding: 6px 0;
     letter-spacing: 1.5px;
   }
